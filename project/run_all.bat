@@ -1,5 +1,5 @@
 @echo off
-REM run_all.bat – single command for Windows
+REM run_all.bat - single command for Windows
 REM Usage: cd MKS_Hackathon && project\run_all.bat
 
 echo Installing dependencies...

@@ -1,5 +1,5 @@
 """
-features.py – WS3: Feature engineering for the demand forecasting model.
+features.py - WS3: Feature engineering for the demand forecasting model.
 Generates calendar, lag, rolling, intermittency, macro-lag, and event features.
 """
 
@@ -55,12 +55,12 @@ def _add_calendar_features(df: pd.DataFrame) -> pd.DataFrame:
     is_ram_month = pd.Series([RAMADAN_MONTHS.get(y) == m for y, m in df_yr_mo], index=df.index)
     df['flag_ramadan'] = (df['Region'].isin(['Middle East & Africa', 'India']) & is_ram_month).astype(int)
 
-    # Summer shutdown (Europe, July–August)
+    # Summer shutdown (Europe, July-August)
     df['flag_summer_shutdown'] = (
         (df['Region'] == 'Europe') & (df['month'].isin([7, 8]))
     ).astype(int)
 
-    # Year-end (December) – ordering cycle effects
+    # Year-end (December) - ordering cycle effects
     df['flag_year_end'] = (df['month'] == 12).astype(int)
 
     # Q1 start effect
@@ -214,8 +214,8 @@ def _add_lag_rolling_features(df: pd.DataFrame) -> pd.DataFrame:
 
 def _classify_intermittency(df: pd.DataFrame) -> pd.DataFrame:
     """
-    WS3: ADI/CV² intermittency classification per SKU-Region-Customer.
-    ADI > 1.32 → intermittent; CV² > 0.49 → lumpy.
+    WS3: ADI/CV^2 intermittency classification per SKU-Region-Customer.
+    ADI > 1.32 -> intermittent; CV^2 > 0.49 -> lumpy.
     Classes: smooth, erratic, intermittent, lumpy.
     Fully vectorized across all series.
     """
@@ -304,7 +304,7 @@ def compute_macro_lag_analysis(clean_train: pd.DataFrame,
                                 clean_macro: pd.DataFrame) -> pd.DataFrame:
     """
     WS3 Advanced: Cross-correlation of each macro indicator against each
-    product family's units at lags 0–6 months.
+    product family's units at lags 0-6 months.
     Returns a DataFrame: (Family, MacroIndicator, Lag, Correlation).
     """
     df = clean_train.copy()

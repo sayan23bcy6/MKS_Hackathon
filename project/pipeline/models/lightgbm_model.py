@@ -1,5 +1,5 @@
 """
-models/lightgbm_model.py – WS4 main model: LightGBM with full feature set.
+models/lightgbm_model.py - WS4 main model: LightGBM with full feature set.
 Includes P10/P50/P90 quantile forecasts.
 """
 

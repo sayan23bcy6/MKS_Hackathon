@@ -1,4 +1,4 @@
-# Methodology – Celeris Automobili Demand Forecasting
+# Methodology - Celeris Automobili Demand Forecasting
 
 ## Problem Understanding
 
@@ -8,7 +8,7 @@ The dataset is intentionally messy: 15 known data quality issues in `train.csv` 
 
 ---
 
-## WS1 – Data Cleaning
+## WS1 - Data Cleaning
 
 ### Why rule-based cleaning?
 
@@ -18,21 +18,21 @@ Every fix must be **explainable in a presentation**. We use explicit rule dicts 
 
 | Issue | What we detected | How we fixed it | Why |
 |---|---|---|---|
-| T1 | 6 date formats in one column | Regex + month-name map → YYYY-MM | Date is used as the join key; inconsistent formats break every merge |
-| T2 | Year/Month ≠ Date (276 rows) | Recomputed from Date | Business rule R1: Date is authoritative |
+| T1 | 6 date formats in one column | Regex + month-name map -> YYYY-MM | Date is used as the join key; inconsistent formats break every merge |
+| T2 | Year/Month != Date (276 rows) | Recomputed from Date | Business rule R1: Date is authoritative |
 | T3 | 2062-xx (30 rows) | Corrected to 2026-xx when Year col=2026 | Obvious digit transposition; Year col confirms intent |
 | T4 | 3,682 duplicate Record_IDs | Kept latest Load_Timestamp | Business rule R2 |
 | T5 | 952 blank regions, 35+ label variants | Explicit dictionary map; blanks recovered from SKU+Customer+Date match | Unknown values fail loudly (no silent pass-through) |
-| T8 | 2,992 rows with non-canonical SKU_ID | Strip→upper→replace_→insert dash→zero-pad→validate | SKU_ID is a foreign key; must join to sku_master |
-| T11 | Dash "-" = not-reported, not 0 | Set to NULL (R3: missing ≠ zero) | Forecasting zeros as demand would bias the model downward |
+| T8 | 2,992 rows with non-canonical SKU_ID | Strip->upper->replace_->insert dash->zero-pad->validate | SKU_ID is a foreign key; must join to sku_master |
+| T11 | Dash "-" = not-reported, not 0 | Set to NULL (R3: missing != zero) | Forecasting zeros as demand would bias the model downward |
 | T11 | Negative Units_Sold (497 rows) | abs() applied; sign-entry error | Cannot have negative shipments |
 | T12 | Zero prices on real orders (299 rows) | Filled with SKU-year median price | R4: price is defined per SKU per year |
-| T12 | ×100 price band (386 rows) | Replaced with reference price | Likely cents-to-dollars unit-of-measure error |
-| T12 | ×85 price band (231 rows) | Replaced with reference price | Plausible INR→USD denomination error; India region concentration confirmed |
+| T12 | x100 price band (386 rows) | Replaced with reference price | Likely cents-to-dollars unit-of-measure error |
+| T12 | x85 price band (231 rows) | Replaced with reference price | Plausible INR->USD denomination error; India region concentration confirmed |
 
 ### What we did NOT auto-fix (Section 3 items)
 
-- **5–20× price band (390 rows)**: No single explanation fits. Flagged in anomaly register, excluded from price analysis, kept for demand analysis.
+- **5-20x price band (390 rows)**: No single explanation fits. Flagged in anomaly register, excluded from price analysis, kept for demand analysis.
 - **Large units >5,000 (32 rows)**: Cross-checked with stockout Requested_Units. Retained as-is pending manual review.
 - **S1 BU conflict**: The one PMP SKU mapped to Power & Drive Systems is flagged; the transaction data would resolve this but it requires a business decision.
 
@@ -45,7 +45,7 @@ Every fix must be **explainable in a presentation**. We use explicit rule dicts 
 
 ---
 
-## WS2 – Anomaly Detection
+## WS2 - Anomaly Detection
 
 We distinguish three categories:
 1. **Data errors** (T-rules): fixed with a documented rule
@@ -58,7 +58,7 @@ For zero-demand runs (3+ consecutive months), we cross-check against the stockou
 
 ---
 
-## WS3 – Feature Engineering
+## WS3 - Feature Engineering
 
 ### Calendar features
 - Month/quarter encoded cyclically (sin/cos) to capture seasonality without boundary effects
@@ -69,22 +69,22 @@ For zero-demand runs (3+ consecutive months), we cross-check against the stockou
 - Rolling mean and std: 3m, 6m, 12m windows (smoothed signal + volatility)
 - YoY lag (12m) for year-over-year comparison
 
-### Intermittency classification (ADI/CV²)
+### Intermittency classification (ADI/CV^2)
 Per SKU-Region-Customer series:
-- **Smooth** (ADI≤1.32, CV²≤0.49): standard time series methods
-- **Erratic** (ADI≤1.32, CV²>0.49): high variability but frequent
-- **Intermittent** (ADI>1.32, CV²≤0.49): infrequent but stable when it occurs → Croston/SBA
-- **Lumpy** (ADI>1.32, CV²>0.49): infrequent and variable → TSB
+- **Smooth** (ADI<=1.32, CV^2<=0.49): standard time series methods
+- **Erratic** (ADI<=1.32, CV^2>0.49): high variability but frequent
+- **Intermittent** (ADI>1.32, CV^2<=0.49): infrequent but stable when it occurs -> Croston/SBA
+- **Lumpy** (ADI>1.32, CV^2>0.49): infrequent and variable -> TSB
 
 ### Macro indicators
-8 macro indicators merged with lags 0–3 months. The best lag per product family was identified by cross-correlation analysis (see `macro_lag_analysis.csv`). The EV Adoption Index was specifically compared against EV/Universal vs ICE SKU sales trends.
+8 macro indicators merged with lags 0-3 months. The best lag per product family was identified by cross-correlation analysis (see `macro_lag_analysis.csv`). The EV Adoption Index was specifically compared against EV/Universal vs ICE SKU sales trends.
 
 ### Event features
 Binary flags for all event types that affect demand: price changes, disruptions, supply constraints, system events, holiday shutdowns, early buying windows, and customer-specific events (EV-062 Orion retooling).
 
 ---
 
-## WS4 – Forecasting
+## WS4 - Forecasting
 
 ### Model hierarchy
 1. **Baseline 1**: Naive seasonal (last-year same-month average per SKU-Region-Customer)
@@ -107,16 +107,16 @@ Rolling-origin backtest: train on data up to 2025-03, evaluate on 2025-04 to 202
 - New launches (PMP-020, PTC-029, THM-012) inherit historical pattern from `Replaces_SKU`
 
 ### Event adjustments in forecast window
-- **EV-062**: Orion Driveline NA retooling (2027-07 to 2027-08) → zero forecast
-- **EV-059**: 2027 price rise anticipated demand pull-forward in 2026-11/12 → modelled via event feature
+- **EV-062**: Orion Driveline NA retooling (2027-07 to 2027-08) -> zero forecast
+- **EV-059**: 2027 price rise anticipated demand pull-forward in 2026-11/12 -> modelled via event feature
 - Planned Lunar New Year, Ramadan, and European summer shutdown months flagged for all 19 forecast months
 
 ### Hierarchy reconciliation
-Forecasts verified to sum consistently at SKU → Family → Region → Total level within 5% tolerance.
+Forecasts verified to sum consistently at SKU -> Family -> Region -> Total level within 5% tolerance.
 
 ---
 
-## WS5 – Dashboard
+## WS5 - Dashboard
 
 ### Design principles
 - All views share the same filters: Family, SKU, Region, Channel, Customer
@@ -126,13 +126,13 @@ Forecasts verified to sum consistently at SKU → Family → Region → Total le
 ### Required views
 1. **Executive overview**: Units and revenue trend 2019-01 to 2028-05; mix charts by family/region/channel
 2. **Data health**: DQ issues by type with before/after counts from `data_quality_report.json`
-3. **Demand explorer**: Drill-down from family → SKU → region → customer; seasonality; zero months; lifecycle
+3. **Demand explorer**: Drill-down from family -> SKU -> region -> customer; seasonality; zero months; lifecycle
 4. **Anomaly monitor**: Flagged points from `anomaly_register.csv` on the time series
 5. **Forecast & accuracy**: Forecast with P10/P50/P90 bands vs history; WAPE and bias from `backtest_metrics.csv`
 
 ### Optional views built (Advanced tier: 2)
 1. **Macro lead/lag heatmap** (View 1): Cross-correlation matrix from `macro_lag_analysis.csv`
-   - *Why*: Directly answers "which macro indicator drives which family and at what lag" – high business value for procurement planning
+   - *Why*: Directly answers "which macro indicator drives which family and at what lag" - high business value for procurement planning
    - *Dependency*: `macro_lag_analysis.csv` from WS3
 2. **Stockouts and lost sales** (View 5): Requested vs Shipped vs Lost units from `inventory_stockouts.csv` and `unconstrained_demand.parquet`
    - *Why*: Shows planners exactly where supply failure destroyed revenue; directly supports the control-tower use case
@@ -143,7 +143,7 @@ Forecasts verified to sum consistently at SKU → Family → Region → Total le
 ## Limitations and Honest Assessment
 
 - Latin America 2023-03 to 2023-05 (ERP migration): model may underforecast; flagged but not corrected
-- 390 rows with 5–20× price ratio: unresolved; excluded from revenue analysis
+- 390 rows with 5-20x price ratio: unresolved; excluded from revenue analysis
 - Intermittent SKU-region series: LightGBM may underperform vs Croston/SBA; both outputs available
 - Forecast uncertainty grows with horizon (months 13-19 have higher WAPE than months 1-6)
 - COVID-era training data creates a structural break; model weights post-2021 data more heavily via recent lags

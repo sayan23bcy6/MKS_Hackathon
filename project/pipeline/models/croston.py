@@ -1,5 +1,5 @@
 """
-models/croston.py – Intermittent demand methods: Croston, SBA (Syntetos-Boylan),
+models/croston.py - Intermittent demand methods: Croston, SBA (Syntetos-Boylan),
 and TSB (Teunter-Syntetos-Boylan).
 """
 
@@ -42,7 +42,7 @@ def croston_method(series: pd.Series, alpha: float = 0.1) -> float:
 
 def sba_method(series: pd.Series, alpha: float = 0.1) -> float:
     """
-    Syntetos-Boylan Approximation (SBA): Croston × (1 - alpha/2).
+    Syntetos-Boylan Approximation (SBA): Croston x (1 - alpha/2).
     Reduces bias in Croston's method.
     """
     return croston_method(series, alpha) * (1 - alpha / 2)

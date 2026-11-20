@@ -1,5 +1,5 @@
 """
-forecast.py – WS4/Expert: Generate final forecast for 2026-11 to 2028-05.
+forecast.py - WS4/Expert: Generate final forecast for 2026-11 to 2028-05.
 Applies lifecycle rules (R5), handles new launches, EOL, and event adjustments.
 Outputs: forecast_submission.csv, forecast_intervals.csv.
 """
@@ -50,7 +50,7 @@ def _apply_event_adjustments(forecast: pd.DataFrame,
                                events: pd.DataFrame) -> pd.DataFrame:
     """
     Apply demand adjustments for events in the forecast window:
-    - EV-062: Orion Driveline NA retooling (2027-07 to 2027-08) → 0
+    - EV-062: Orion Driveline NA retooling (2027-07 to 2027-08) -> 0
     - EV-059: 2027 price rise (possible early buying in 2026-11, 2026-12)
     - EV-065: 2028 price rise
     """
@@ -94,7 +94,7 @@ def generate_forecast(test_df: pd.DataFrame,
 
         result[f'Units_Sold_Forecast_{quantile_name}'] = np.clip(preds, 0, None)
 
-    # Ensure p10 ≤ p50 ≤ p90
+    # Ensure p10 <= p50 <= p90
     result['Units_Sold_Forecast_p10'] = result[['Units_Sold_Forecast_p10', 'Units_Sold_Forecast_p50']].min(axis=1)
     result['Units_Sold_Forecast_p90'] = result[['Units_Sold_Forecast_p90', 'Units_Sold_Forecast_p50']].max(axis=1)
 
@@ -164,7 +164,7 @@ def write_model_card(models: dict, features: list,
     model_name = "LightGBM Quantile Regression" if lgb_available else "Fallback: Naive Seasonal + Moving Average"
 
     card_lines = [
-        "# Model Card – Celeris Automobili Demand Forecasting",
+        "# Model Card - Celeris Automobili Demand Forecasting",
         "",
         f"## Model: {model_name}",
         "",
@@ -191,14 +191,14 @@ def write_model_card(models: dict, features: list,
         "- Rolling mean and std: 3m, 6m, 12m",
         "- YoY lag (12m)",
         "",
-        "### Macro (lags 0–3 months)",
+        "### Macro (lags 0-3 months)",
         "- ISM Manufacturing PMI, Auto Production YoY%, Vehicle Inventory Days",
         "- Raw Material Cost Index, New Vehicle Orders Index",
         "- Industrial Utilisation Rate, Fuel Price Index, EV Adoption Index",
         "",
         "### Encodings",
         "- SKU_ID, Region, Customer_Name, Product_Family, Sales_Channel (label-encoded)",
-        "- Intermittency class (ADI/CV² classification)",
+        "- Intermittency class (ADI/CV^2 classification)",
         "",
         "## Training Strategy",
         "- Time-based train/validation split at 2025-03",
@@ -206,7 +206,7 @@ def write_model_card(models: dict, features: list,
         "- Early stopping on validation WAPE",
         "",
         "## Assumptions",
-        "1. Forecast is UNCONSTRAINED demand (R7) – supply limits do not apply",
+        "1. Forecast is UNCONSTRAINED demand (R7) - supply limits do not apply",
         "2. Stockout months use Requested_Units from inventory_stockouts as true demand",
         "3. Missing rows are not zeros (R3); excluded from model training",
         "4. R5 lifecycle rule applied: zero forecast before launch, after EOL",
@@ -216,11 +216,11 @@ def write_model_card(models: dict, features: list,
         "",
         "## Limitations",
         "- ERP migration in Latin America (2023-03 to 2023-05) may have incomplete data; model may underforecast that region",
-        "- The 5–20× price ratio band (390 rows) remains unresolved; kept for demand, excluded from revenue",
-        "- 2022-06 macro duplicate resolved by neighbour interpolation – minor uncertainty in that month's macro features",
+        "- The 5-20x price ratio band (390 rows) remains unresolved; kept for demand, excluded from revenue",
+        "- 2022-06 macro duplicate resolved by neighbour interpolation - minor uncertainty in that month's macro features",
         "- Extreme COVID period (2020-04: -45.4% Auto Production) is modelled via event flags, but deep uncertainty remains",
         "- Intermittent SKU-region series (ADI>1.32) use Croston/SBA/TSB; LightGBM may not generalise well to these",
-        "- Forecast intervals (P10/P90) are quantile regression outputs – not prediction intervals in the strict frequentist sense",
+        "- Forecast intervals (P10/P90) are quantile regression outputs - not prediction intervals in the strict frequentist sense",
         "",
     ]
 

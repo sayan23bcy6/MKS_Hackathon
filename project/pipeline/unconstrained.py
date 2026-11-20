@@ -1,5 +1,5 @@
 """
-unconstrained.py – Build the unconstrained demand series from inventory_stockouts.
+unconstrained.py - Build the unconstrained demand series from inventory_stockouts.
 For stockout months, Requested_Units is the true demand (R7).
 """
 
@@ -59,7 +59,7 @@ def build_unconstrained_demand(clean_train: pd.DataFrame,
                 result.at[idx, 'Units_Sold_Unconstrained'] = req
                 result.at[idx, 'is_stockout_corrected'] = True
             elif isinstance(so_row, pd.DataFrame):
-                # Multiple rows – take max Requested_Units
+                # Multiple rows - take max Requested_Units
                 req = so_row['Requested_Units_num'].max()
                 result.at[idx, 'Units_Sold_Unconstrained'] = req
                 result.at[idx, 'is_stockout_corrected'] = True

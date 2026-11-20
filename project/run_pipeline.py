@@ -1,7 +1,7 @@
 """
-run_pipeline.py – Main pipeline runner.
+run_pipeline.py - Main pipeline runner.
 ONE COMMAND: python project/run_pipeline.py
-Runs: clean → features → unconstrained → backtest → forecast → reports → dashboard data prep
+Runs: clean -> features -> unconstrained -> backtest -> forecast -> reports -> dashboard data prep
 """
 
 import sys
@@ -44,11 +44,11 @@ except Exception:
 def main():
     t0 = time.time()
     print("=" * 60)
-    print("CELERIS AUTOMOBILI – DEMAND FORECASTING PIPELINE")
+    print("Celeris Automobili - Demand Forecasting Pipeline")
     print("=" * 60)
 
-    # ── PHASE 1: LOAD RAW ─────────────────────────────────────────────────────
-    print("\n[1/8] Loading raw files...")
+    # Step 1: Load raw data files
+    print("\n[1/8] Loading raw data files...")
     raw_train = load_train()
     raw_test = load_test()
     raw_macro = load_macro()
@@ -58,8 +58,8 @@ def main():
     print(f"  train: {raw_train.shape}, test: {raw_test.shape}, macro: {raw_macro.shape}")
     print(f"  sku_master: {raw_sku.shape}, events: {raw_events.shape}, stockouts: {raw_stockouts.shape}")
 
-    # ── PHASE 2: CLEAN MASTER FILES ───────────────────────────────────────────
-    print("\n[2/8] Cleaning SKU master, macro indicators, events calendar...")
+    # Step 2: Clean master files
+    print("\n[2/8] Cleaning SKU master, macro indicators, and events...")
     clean_sku, dq_sku = clean_sku_master(raw_sku)
     clean_mac, dq_mac = clean_macro(raw_macro)
     clean_ev, dq_ev = clean_events(raw_events)
@@ -68,8 +68,8 @@ def main():
     clean_ev.to_csv(OUT_EVENTS_CLEAN, index=False)
     print(f"  Macro cleaned: {len(clean_mac)} rows, Events cleaned: {len(clean_ev)} rows")
 
-    # ── PHASE 3: CLEAN TRAIN ──────────────────────────────────────────────────
-    print("\n[3/8] Cleaning train.csv (T1–T15 + R5)...")
+    # Step 3: Clean training sales data
+    print("\n[3/8] Cleaning sales history (train.csv)...")
     df_clean, dq_train = clean_train(raw_train, clean_sku, raw_stockouts)
 
     # Save cleaned train
@@ -81,18 +81,18 @@ def main():
     print(f"  Audit log: {n_audit} entries saved to {OUT_AUDIT_LOG}")
     audit_df = pd.read_csv(OUT_AUDIT_LOG)
 
-    # ── PHASE 4: UNCONSTRAINED DEMAND ─────────────────────────────────────────
-    print("\n[4/8] Building unconstrained demand from stockouts...")
+    # Step 4: Build unconstrained demand from stockouts
+    print("\n[4/8] Reconstructing unconstrained demand...")
     df_unconstrained, match_rate = build_unconstrained_demand(df_clean, raw_stockouts)
     dq_train['stockout_match_rate_pct'] = match_rate
 
-    # ── PHASE 5: ANOMALIES ────────────────────────────────────────────────────
-    print("\n[5/8] Building anomaly register...")
+    # Step 5: Identify anomalies and real market events
+    print("\n[5/8] Assembling anomaly register...")
     anomaly_df = build_anomaly_register(df_clean, clean_ev, raw_stockouts, audit_df)
     print(f"  Anomaly register: {len(anomaly_df)} entries")
 
-    # ── PHASE 6: FEATURES ─────────────────────────────────────────────────────
-    print("\n[6/8] Building features (WS3)...")
+    # Step 6: Engineer features and macro lag analysis
+    print("\n[6/8] Engineering features and macro lag analysis...")
     features_df = build_features(df_unconstrained, clean_mac, clean_ev, clean_sku, df_unconstrained)
     print(f"  Features: {features_df.shape}")
 
@@ -101,7 +101,7 @@ def main():
     lag_analysis.to_csv(str(OUT_FEATURES).replace('features.parquet', 'macro_lag_analysis.csv'), index=False)
     print(f"  Macro lag analysis: {len(lag_analysis)} rows")
 
-    # ── PHASE 7: FORECAST ─────────────────────────────────────────────────────
+    # Step 7: Train models and generate forecasts
     print("\n[7/8] Training models and generating forecast...")
 
     # Prepare test features
@@ -163,8 +163,8 @@ def main():
 
     write_model_card(models, features=[], backtest_metrics=backtest_results)
 
-    # ── PHASE 8: REPORTS ──────────────────────────────────────────────────────
-    print("\n[8/8] Generating data-quality report...")
+    # Step 8: Build data quality reports
+    print("\n[8/8] Generating data quality report...")
     dq_report = generate_dq_report(
         dq_train, dq_mac, dq_sku, dq_ev,
         audit_df, anomaly_df
@@ -172,19 +172,19 @@ def main():
 
     elapsed = time.time() - t0
     print(f"\n{'='*60}")
-    print(f"PIPELINE COMPLETE in {elapsed:.1f}s")
+    print(f"Pipeline completed in {elapsed:.1f}s")
     print(f"  Audit entries: {n_audit}")
     print(f"  Clean train rows: {len(df_clean)}")
     print(f"  Forecast rows: {len(submission)}")
     print(f"{'='*60}")
-    print("\nOutputs:")
+    print("\nOutputs generated:")
     for path in [OUT_TRAIN_CLEAN, OUT_MACRO_CLEAN, OUT_EVENTS_CLEAN,
                  OUT_AUDIT_LOG, str(OUT_FEATURES).replace('features.parquet', 'macro_lag_analysis.csv'),
                  OUT_BACKTEST, OUT_FORECAST_SUB, OUT_FORECAST_INT]:
         import pathlib
         p = pathlib.Path(str(path))
         if p.exists():
-            print(f"  ✓ {p.name} ({p.stat().st_size/1024:.1f} KB)")
+            print(f"  - {p.name} ({p.stat().st_size / 1024:.1f} KB)")
     return 0
 
 

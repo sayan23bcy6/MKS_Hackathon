@@ -1,4 +1,4 @@
-# Model Card – Celeris Automobili Demand Forecasting
+# Model Card - Celeris Automobili Demand Forecasting
 
 ## Model: LightGBM Quantile Regression
 
@@ -25,14 +25,14 @@
 - Rolling mean and std: 3m, 6m, 12m
 - YoY lag (12m)
 
-### Macro (lags 0–3 months)
+### Macro (lags 0-3 months)
 - ISM Manufacturing PMI, Auto Production YoY%, Vehicle Inventory Days
 - Raw Material Cost Index, New Vehicle Orders Index
 - Industrial Utilisation Rate, Fuel Price Index, EV Adoption Index
 
 ### Encodings
 - SKU_ID, Region, Customer_Name, Product_Family, Sales_Channel (label-encoded)
-- Intermittency class (ADI/CV² classification)
+- Intermittency class (ADI/CV^2 classification)
 
 ## Training Strategy
 - Time-based train/validation split at 2025-03
@@ -40,7 +40,7 @@
 - Early stopping on validation WAPE
 
 ## Assumptions
-1. Forecast is UNCONSTRAINED demand (R7) – supply limits do not apply
+1. Forecast is UNCONSTRAINED demand (R7) - supply limits do not apply
 2. Stockout months use Requested_Units from inventory_stockouts as true demand
 3. Missing rows are not zeros (R3); excluded from model training
 4. R5 lifecycle rule applied: zero forecast before launch, after EOL
@@ -50,11 +50,11 @@
 
 ## Limitations
 - ERP migration in Latin America (2023-03 to 2023-05) may have incomplete data; model may underforecast that region
-- The 5–20× price ratio band (390 rows) remains unresolved; kept for demand, excluded from revenue
-- 2022-06 macro duplicate resolved by neighbour interpolation – minor uncertainty in that month's macro features
+- The 5-20x price ratio band (390 rows) remains unresolved; kept for demand, excluded from revenue
+- 2022-06 macro duplicate resolved by neighbour interpolation - minor uncertainty in that month's macro features
 - Extreme COVID period (2020-04: -45.4% Auto Production) is modelled via event flags, but deep uncertainty remains
 - Intermittent SKU-region series (ADI>1.32) use Croston/SBA/TSB; LightGBM may not generalise well to these
-- Forecast intervals (P10/P90) are quantile regression outputs – not prediction intervals in the strict frequentist sense
+- Forecast intervals (P10/P90) are quantile regression outputs - not prediction intervals in the strict frequentist sense
 
 ## Backtest Performance (19-month horizon, all SKU-Region-Customer)
 | Model | WAPE | Bias |

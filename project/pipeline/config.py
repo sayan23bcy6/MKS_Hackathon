@@ -1,12 +1,12 @@
 """
-config.py – Central configuration: paths, canonical label maps, thresholds, rule IDs.
+config.py - Central configuration: paths, canonical label maps, thresholds, rule IDs.
 All cleaning rules reference constants defined here.
 """
 
 import os
 from pathlib import Path
 
-# ─── Paths ────────────────────────────────────────────────────────────────────
+# --- Paths ---
 ROOT = Path(__file__).resolve().parents[1]
 RAW_DIR = ROOT.parent / "student_data"
 OUTPUT_DIR = ROOT / "outputs"
@@ -34,7 +34,7 @@ OUT_FORECAST_SUB   = OUTPUT_DIR / "forecast_submission.csv"
 OUT_FORECAST_INT   = OUTPUT_DIR / "forecast_intervals.csv"
 OUT_MODEL_CARD     = OUTPUT_DIR / "model_card.md"
 
-# ─── T5: Region canonical map ──────────────────────────────────────────────────
+# --- T5: Region canonical map ---
 # Strip + casefold applied first, then this dict (keys are casefolded+stripped)
 REGION_MAP = {
     # India variants (all casefolded+stripped; hyphens already replaced with spaces in normaliser)
@@ -74,7 +74,7 @@ CANONICAL_REGIONS = {
     "Middle East & Africa",
 }
 
-# ─── T6: Sales_Channel canonical map ─────────────────────────────────────────
+# --- T6: Sales_Channel canonical map ---
 CHANNEL_MAP = {
     "direct oem": "Direct OEM",
     "direct-oem": "Direct OEM",
@@ -95,7 +95,7 @@ CANONICAL_CHANNELS = {
     "Export",
 }
 
-# ─── T7: SKU prefix → Product_Family ─────────────────────────────────────────
+# --- T7: SKU prefix -> Product_Family ---
 PREFIX_TO_FAMILY = {
     "HYD": "Hydraulic Systems",
     "PTC": "Powertrain Components",
@@ -106,7 +106,7 @@ PREFIX_TO_FAMILY = {
     "THM": "Thermal Management",
 }
 
-# ─── T10: Customer_Name canonical map ─────────────────────────────────────────
+# --- T10: Customer_Name canonical map ---
 CANONICAL_CUSTOMERS = [
     "Vantara Auto",
     "Helios Auto Parts",
@@ -125,40 +125,40 @@ CANONICAL_CUSTOMERS = [
 # Case-folded map built dynamically
 CUSTOMER_MAP = {c.casefold(): c for c in CANONICAL_CUSTOMERS}
 
-# ─── Lifecycle status values ───────────────────────────────────────────────────
+# --- Lifecycle status values ---
 ACTIVE_STATUSES = {"Active", "EOL Announced"}
 PLANNED_LAUNCH_STATUS = "Planned Launch"
 DISCONTINUED_STATUSES = {"Discontinued", "EOL Announced"}
 
-# ─── Thresholds ───────────────────────────────────────────────────────────────
+# --- Thresholds ---
 TRAIN_DATE_MIN = "2019-01"
 TRAIN_DATE_MAX = "2026-10"
 FORECAST_DATE_MIN = "2026-11"
 FORECAST_DATE_MAX = "2028-05"
 
-PRICE_SCALE_100X_LOW  = 95.0   # ×100 band
+PRICE_SCALE_100X_LOW  = 95.0   # x100 band
 PRICE_SCALE_100X_HIGH = 120.0
-PRICE_SCALE_85X_LOW   = 80.0   # ×85 band (possible INR)
+PRICE_SCALE_85X_LOW   = 80.0   # x85 band (possible INR)
 PRICE_SCALE_85X_HIGH  = 95.0
-PRICE_SCALE_MED_LOW   = 5.0    # 5-20× band – flag only
+PRICE_SCALE_MED_LOW   = 5.0    # 5-20x band - flag only
 PRICE_SCALE_MED_HIGH  = 20.0
 
 UNITS_LARGE_THRESHOLD = 5000   # T11: flag for review
 
 PMI_MIN = 30.0
 PMI_MAX = 70.0
-PMI_DECIMAL_SHIFT_THRESHOLD = 10.0  # below this, check ×10
+PMI_DECIMAL_SHIFT_THRESHOLD = 10.0  # below this, check x10
 
-# ─── Macro correction windows ─────────────────────────────────────────────────
+# --- Macro correction windows ---
 # M2: 2019 rows are fractions, multiply by 100
 MACRO_PCT_FRACTION_YEAR_MAX = 2019
 
-# ─── Audit log columns ────────────────────────────────────────────────────────
+# --- Audit log columns ---
 AUDIT_COLS = [
     "file", "row_key", "field", "raw_value", "new_value", "rule_id", "reason"
 ]
 
-# ─── Month name map (for T1) ──────────────────────────────────────────────────
+# --- Month name map (for T1) ---
 MONTH_NAME_MAP = {
     "jan": "01", "feb": "02", "mar": "03", "apr": "04",
     "may": "05", "jun": "06", "jul": "07", "aug": "08",

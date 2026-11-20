@@ -1,5 +1,5 @@
 """
-anomalies.py – Anomaly register: flags outliers, structural breaks, real events vs errors.
+anomalies.py - Anomaly register: flags outliers, structural breaks, real events vs errors.
 """
 
 import pandas as pd
@@ -52,7 +52,7 @@ def build_anomaly_register(clean_train: pd.DataFrame,
     """
     WS2: Build comprehensive anomaly register.
     - Large unit values (T11)
-    - Price ratio 5–20× (T12 unresolved band)
+    - Price ratio 5-20x (T12 unresolved band)
     - Early buying before EV-030 price rise
     - COVID and disruption events
     - Stockout months
@@ -74,7 +74,7 @@ def build_anomaly_register(clean_train: pd.DataFrame,
                 f"Units_Sold={row['Units_Sold_num']} exceeds {UNITS_LARGE_THRESHOLD} threshold (SKU median={sku_med:.0f})",
                 "T11")
 
-    # 2. Negative units (already abs'd – flag the original event)
+    # 2. Negative units (already abs'd - flag the original event)
     neg_audit = audit_log[
         (audit_log['rule_id'] == 'T11') &
         (audit_log['reason'].str.contains('Negative', na=False))
@@ -86,7 +86,7 @@ def build_anomaly_register(clean_train: pd.DataFrame,
                 "Negative Units_Sold: sign-entry error; absolute value used",
                 "T11")
 
-    # 3. Price 5–20× band (unresolved)
+    # 3. Price 5-20x band (unresolved)
     price_audit = audit_log[
         (audit_log['rule_id'] == 'T12') &
         (audit_log['reason'].str.contains('5-20', na=False))
@@ -95,7 +95,7 @@ def build_anomaly_register(clean_train: pd.DataFrame,
         reg.add('', '', '', '',
                 "price_ratio_5_20x", "Unit_Price_USD", row['raw_value'], '',
                 "excluded_from_price_analysis",
-                "Price 5–20× SKU median – unresolved, kept for demand analysis",
+                "Price 5-20x SKU median - unresolved, kept for demand analysis",
                 "T12_unresolved")
 
     # 4. Early buying before EV-030 (2023 price rise announced Nov 2022)
@@ -116,7 +116,7 @@ def build_anomaly_register(clean_train: pd.DataFrame,
                     "early_buying", "Units_Sold",
                     round(float(actual), 1), round(float(baseline), 1),
                     "modelled_as_event_feature",
-                    f"Nov-Dec 2022 demand {actual:.0f} vs historical {baseline:.0f} – possible early buying before 2023 price rise (EV-030)",
+                    f"Nov-Dec 2022 demand {actual:.0f} vs historical {baseline:.0f} - possible early buying before 2023 price rise (EV-030)",
                     "EV-030")
 
     # 5. COVID disruption (EV-009 to EV-013: 2020-02 to 2020-06)
@@ -140,7 +140,7 @@ def build_anomaly_register(clean_train: pd.DataFrame,
                 f"Stockout in inventory_stockouts: Fill_Rate={row['fill_rate']}%, Lost_Units={row['lost']}, Reason={row['Reason']}",
                 "inventory_stockouts")
 
-    # 7. Zero runs (potential hidden stockouts) – check for SKUs with sudden zero runs
+    # 7. Zero runs (potential hidden stockouts) - check for SKUs with sudden zero runs
     so_sku_reg = set(zip(stockouts['SKU_ID'], stockouts['Region']))
     # Fast grouping: find series that had active sales then long zero runs
     active_series = df.groupby(['SKU_ID', 'Region']).agg(
@@ -175,7 +175,7 @@ def build_anomaly_register(clean_train: pd.DataFrame,
             reg.add(row['Date'], row['SKU_ID'], 'Middle East & Africa', '',
                     "mea_before_market_entry", "Units_Sold", row['Units_Sold_num'], 0,
                     "flagged_for_review",
-                    "MEA sales before 2022-01 market entry (EV-024) – should not exist",
+                    "MEA sales before 2022-01 market entry (EV-024) - should not exist",
                     "EV-024")
 
     # Save global register

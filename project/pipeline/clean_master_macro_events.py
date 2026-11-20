@@ -1,5 +1,5 @@
 """
-clean_master_macro_events.py – Cleans sku_master, macro_indicators, events_calendar.
+clean_master_macro_events.py - Cleans sku_master, macro_indicators, events_calendar.
 Rules: S1-S2, M1-M5, E1-E4.
 """
 
@@ -16,12 +16,12 @@ from pipeline.audit import audit
 DQ_MME = {}
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+# ------------------------------------------------------------
 # SKU MASTER CLEANING (S1, S2)
-# ══════════════════════════════════════════════════════════════════════════════
+# ------------------------------------------------------------
 
 def clean_sku_master(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
-    """S1–S2: Validate sku_master. No silent changes."""
+    """S1-S2: Validate sku_master. No silent changes."""
     dq = {}
     df = raw.copy()
 
@@ -40,7 +40,7 @@ def clean_sku_master(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         for _, row in conflict_skus.iterrows():
             audit.log("sku_master.csv", row['SKU_ID'], "Business_Unit",
                       row['Business_Unit'], "CONFLICT_FLAGGED", "S1",
-                      f"SKU {row['SKU_ID']} has Product_Family=Precision Machined Parts but Business_Unit={row['Business_Unit']} (expected Advanced Manufacturing) – flagged as unresolved per R8")
+                      f"SKU {row['SKU_ID']} has Product_Family=Precision Machined Parts but Business_Unit={row['Business_Unit']} (expected Advanced Manufacturing) - flagged as unresolved per R8")
 
     # S2: Lifecycle fields check
     has_eol = df[df['EOL_Date'].notna() & (df['EOL_Date'].str.strip() != '')]
@@ -72,12 +72,12 @@ def clean_sku_master(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     return df, dq
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# MACRO INDICATORS CLEANING (M1–M5)
-# ══════════════════════════════════════════════════════════════════════════════
+# ------------------------------------------------------------
+# MACRO INDICATORS CLEANING (M1-M5)
+# ------------------------------------------------------------
 
 def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
-    """M1–M5: Clean macro_indicators."""
+    """M1-M5: Clean macro_indicators."""
     dq = {}
     df = raw.copy()
 
@@ -133,7 +133,7 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
             df = df.drop(index=drop_idx)
             dq['M1_resolution'] = reason
 
-    # M2: Auto_Production_YoY_Pct fraction → percent for 2019
+    # M2: Auto_Production_YoY_Pct fraction -> percent for 2019
     year_col = df['Year'].astype(int) if 'Year' in df.columns else df['Date'].str[:4].astype(int)
     frac_mask = (year_col <= MACRO_PCT_FRACTION_YEAR_MAX) & (df['Auto_Production_YoY_Pct'].abs() < 1.0)
     dq['M2_fraction_rows'] = int(frac_mask.sum())
@@ -145,7 +145,7 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
                   "2019 values stored as fractions; multiplied by 100 to match Pct header")
         df.at[idx, 'Auto_Production_YoY_Pct'] = new_val
 
-    # M3: PMI decimal shift (4.79 → 47.9)
+    # M3: PMI decimal shift (4.79 -> 47.9)
     pmi_bad = (df['ISM_Manufacturing_PMI'] < PMI_DECIMAL_SHIFT_THRESHOLD) & df['ISM_Manufacturing_PMI'].notna()
     dq['M3_pmi_implausible'] = int(pmi_bad.sum())
     for idx in df.index[pmi_bad]:
@@ -161,10 +161,10 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
             interp = (prev_pmi + next_pmi) / 2
             if PMI_MIN <= candidate <= PMI_MAX and abs(candidate - interp) < abs(old_val - interp):
                 new_val = candidate
-                reason = f"Decimal shift: {old_val}→{new_val} fits neighbour average {interp:.1f}"
+                reason = f"Decimal shift: {old_val}->{new_val} fits neighbour average {interp:.1f}"
             else:
                 new_val = np.nan
-                reason = f"PMI {old_val} implausible but ×10 not confirmed by neighbours; set to NA for interpolation"
+                reason = f"PMI {old_val} implausible but x10 not confirmed by neighbours; set to NA for interpolation"
         else:
             new_val = candidate if PMI_MIN <= candidate <= PMI_MAX else np.nan
             reason = f"PMI decimal shift correction applied"
@@ -172,7 +172,7 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
                   old_val, new_val, "M3", reason)
         df.at[idx, 'ISM_Manufacturing_PMI'] = new_val
 
-    # M4: Blank cells – linear interpolation
+    # M4: Blank cells - linear interpolation
     blank_cells = {}
     for col in num_cols:
         blanks = df[df[col].isna()]['Date'].tolist()
@@ -207,9 +207,9 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     return df, dq
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# EVENTS CALENDAR CLEANING (E1–E4)
-# ══════════════════════════════════════════════════════════════════════════════
+# ------------------------------------------------------------
+# EVENTS CALENDAR CLEANING (E1-E4)
+# ------------------------------------------------------------
 
 def _normalise_event_date(d: str) -> tuple[str, str]:
     """
@@ -231,7 +231,7 @@ def _normalise_event_date(d: str) -> tuple[str, str]:
 
 
 def clean_events(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
-    """E1–E4: Clean events_calendar."""
+    """E1-E4: Clean events_calendar."""
     dq = {}
     df = raw.copy()
 
@@ -264,7 +264,7 @@ def clean_events(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     for _, row in open_ended.iterrows():
         audit.log("events_calendar.csv", row['Event_ID'], "End_Date",
                   "(blank)", "OPEN_ENDED", "E2",
-                  f"Event {row['Event_ID']} has no End_Date – treated as open-ended per description")
+                  f"Event {row['Event_ID']} has no End_Date - treated as open-ended per description")
 
     # E3: Split "Customer | Region" in Scope_Value
     df['Scope_Customer'] = None

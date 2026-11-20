@@ -1,5 +1,5 @@
 """
-tests/test_cleaning_rules.py – pytest unit tests for all cleaning rules.
+tests/test_cleaning_rules.py - pytest unit tests for all cleaning rules.
 One test per rule as required by the spec.
 """
 
@@ -37,7 +37,7 @@ from pipeline.clean_master_macro_events import (
 from pipeline.config import CANONICAL_REGIONS, CANONICAL_CHANNELS, CANONICAL_CUSTOMERS
 
 
-# ─── Fixtures ─────────────────────────────────────────────────────────────────
+# --- Fixtures ---
 
 def _make_train_row(**kwargs) -> pd.DataFrame:
     """Make a minimal train DataFrame with one row."""
@@ -87,7 +87,7 @@ def empty_stockouts():
     ])
 
 
-# ─── T1: Date parsing ─────────────────────────────────────────────────────────
+# --- T1: Date parsing ---
 
 class TestT1DateParsing:
     def test_yyyy_mm_unchanged(self):
@@ -136,7 +136,7 @@ class TestT1DateParsing:
             apply_t1_date_parsing(df)
 
 
-# ─── T2: Year/Month consistency ───────────────────────────────────────────────
+# --- T2: Year/Month consistency ---
 
 class TestT2YearMonth:
     def test_correct_year_month_unchanged(self):
@@ -156,7 +156,7 @@ class TestT2YearMonth:
         assert out['Month'].iloc[0] == '3'
 
 
-# ─── T3: Typo year ────────────────────────────────────────────────────────────
+# --- T3: Typo year ---
 
 class TestT3TypoYear:
     def test_2062_corrected_to_2026(self):
@@ -170,7 +170,7 @@ class TestT3TypoYear:
         assert out['Date'].iloc[0] == '2024-06'
 
 
-# ─── T4: Dedup Record_ID ──────────────────────────────────────────────────────
+# --- T4: Dedup Record_ID ---
 
 class TestT4Dedup:
     def test_keeps_latest_timestamp(self):
@@ -195,7 +195,7 @@ class TestT4Dedup:
         assert len(out) == 2
 
 
-# ─── T5: Region ───────────────────────────────────────────────────────────────
+# --- T5: Region ---
 
 class TestT5Region:
     @pytest.mark.parametrize("raw,expected", [
@@ -224,7 +224,7 @@ class TestT5Region:
             assert _normalise_region(r) == r
 
 
-# ─── T6: Sales_Channel ────────────────────────────────────────────────────────
+# --- T6: Sales_Channel ---
 
 class TestT6Channel:
     @pytest.mark.parametrize("raw,expected", [
@@ -247,7 +247,7 @@ class TestT6Channel:
         assert result == expected, f"Expected {expected!r} for {raw!r}, got {result!r}"
 
 
-# ─── T8: SKU_ID ───────────────────────────────────────────────────────────────
+# --- T8: SKU_ID ---
 
 class TestT8SKU:
     CANONICAL = {
@@ -276,7 +276,7 @@ class TestT8SKU:
         assert result is None
 
 
-# ─── T10: Customer_Name ───────────────────────────────────────────────────────
+# --- T10: Customer_Name ---
 
 class TestT10Customer:
     @pytest.mark.parametrize("raw,expected", [
@@ -297,7 +297,7 @@ class TestT10Customer:
             assert _normalise_customer(c) == c
 
 
-# ─── T11: Units_Sold ──────────────────────────────────────────────────────────
+# --- T11: Units_Sold ---
 
 class TestT11Units:
     def test_dash_becomes_null(self, empty_stockouts):
@@ -326,7 +326,7 @@ class TestT11Units:
         assert float(out['Units_Sold'].iloc[0]) == 0.0
 
 
-# ─── T12: Unit_Price ──────────────────────────────────────────────────────────
+# --- T12: Unit_Price ---
 
 class TestT12Price:
     def test_zero_price_with_units_flagged_in_audit(self):
@@ -344,7 +344,7 @@ class TestT12Price:
         assert float(out['Unit_Price_USD'].iloc[0]) == 500.0
 
 
-# ─── T13: Revenue ─────────────────────────────────────────────────────────────
+# --- T13: Revenue ---
 
 class TestT13Revenue:
     def test_revenue_recomputed(self):
@@ -366,7 +366,7 @@ class TestT13Revenue:
         assert abs(float(out['Revenue_USD'].iloc[0]) - 50000.0) < 1.0
 
 
-# ─── R5: Lifecycle ────────────────────────────────────────────────────────────
+# --- R5: Lifecycle ---
 
 class TestR5Lifecycle:
     def test_no_violations_on_active_sku(self, minimal_sku_master, empty_stockouts):
@@ -394,7 +394,7 @@ class TestR5Lifecycle:
         apply_r5_lifecycle(df, sku_master)
 
 
-# ─── Macro cleaning ───────────────────────────────────────────────────────────
+# --- Macro cleaning ---
 
 class TestMacroCleaning:
     @pytest.fixture
@@ -436,7 +436,7 @@ class TestMacroCleaning:
     def test_m2_fraction_corrected(self, raw_macro):
         out, dq = clean_macro(raw_macro)
         pct_2019 = out[out['Date'] == '2019-01']['Auto_Production_YoY_Pct'].values[0]
-        # -0.015 × 100 = -1.5
+        # -0.015 x 100 = -1.5
         assert abs(pct_2019 - (-1.5)) < 0.01, f"Expected -1.5, got {pct_2019}"
 
     def test_m2_post2019_unchanged(self, raw_macro):
@@ -445,7 +445,7 @@ class TestMacroCleaning:
         assert abs(pct_2022 - 1.0) < 0.01
 
 
-# ─── Events cleaning ──────────────────────────────────────────────────────────
+# --- Events cleaning ---
 
 class TestEventsCleaning:
     @pytest.fixture
@@ -480,7 +480,7 @@ class TestEventsCleaning:
         assert ev038['Scope_Region'].iloc[0] == 'Europe'
 
 
-# ─── Schema / validation checks ───────────────────────────────────────────────
+# --- Schema / validation checks ---
 
 class TestSchemaValidation:
     def test_forecast_submission_columns(self):

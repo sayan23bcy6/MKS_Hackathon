@@ -1,5 +1,5 @@
 """
-models/baselines.py – WS4 baselines: Naive seasonal (last-year same month) and
+models/baselines.py - WS4 baselines: Naive seasonal (last-year same month) and
 Moving Average (12-month trailing mean).
 """
 
@@ -10,13 +10,13 @@ import numpy as np
 def naive_seasonal_forecast(train: pd.DataFrame,
                              test_keys: pd.DataFrame) -> pd.DataFrame:
     """
-    Baseline 1: Naive seasonal – use same SKU-Region-Customer-Month from prior year.
+    Baseline 1: Naive seasonal - use same SKU-Region-Customer-Month from prior year.
     """
     df = train.copy()
     df['Units_Sold_num'] = pd.to_numeric(df['Units_Sold'], errors='coerce').fillna(0)
     df['month'] = df['Date'].str[5:7].astype(int)
 
-    # Build lookup: (SKU, Region, Customer, Month) → mean(Units_Sold)
+    # Build lookup: (SKU, Region, Customer, Month) -> mean(Units_Sold)
     lookup = df.groupby(
         ['SKU_ID', 'Region', 'Customer_Name', 'month']
     )['Units_Sold_num'].mean().reset_index()

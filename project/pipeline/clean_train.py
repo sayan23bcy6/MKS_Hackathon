@@ -1,5 +1,5 @@
 """
-clean_train.py – Applies cleaning rules T1–T15 to train.csv.
+clean_train.py - Applies cleaning rules T1-T15 to train.csv.
 Every change is logged to audit.py:audit.
 Outputs: a cleaned DataFrame, a dict of before/after counts per issue.
 """
@@ -23,7 +23,7 @@ from pipeline.audit import audit
 DQ = {}  # data-quality counts, populated as we clean
 
 
-# ─────────────────────────── T1: Date parsing ─────────────────────────────────
+# --- T1: Date parsing ---
 
 def _parse_date_to_yyyymm(raw: str) -> str | None:
     """Parse any known date format to YYYY-MM string. Returns None if unparseable."""
@@ -37,7 +37,7 @@ def _parse_date_to_yyyymm(raw: str) -> str | None:
     # YYYY/MM
     if re.match(r'^\d{4}/\d{2}$', s):
         return s[:4] + '-' + s[5:7]
-    # MM/YYYY – first field must be ≤12
+    # MM/YYYY - first field must be <=12
     if re.match(r'^\d{2}/\d{4}$', s):
         mm, yyyy = s.split('/')
         if int(mm) > 12:
@@ -81,13 +81,13 @@ def apply_t1_date_parsing(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# ─────────────────────── T3: Typo year (2062 → 2026) ─────────────────────────
+# --- T3: Typo year (2062 -> 2026) ---
 
 def apply_t3_typo_year(df: pd.DataFrame) -> pd.DataFrame:
     """T3: Correct 2062-xx typos to 2026-xx when Year col agrees."""
     df = df.copy()
     mask = df['Date'].str[:4] > '2026'
-    # Only correct when Year col says 2026 (digit transposition 2062↔2026)
+    # Only correct when Year col says 2026 (digit transposition 2062<->2026)
     typo_mask = mask & (df['Year'].str.strip() == '2026')
     DQ['T3_found'] = int(mask.sum())
     DQ['T3_corrected'] = int(typo_mask.sum())
@@ -96,7 +96,7 @@ def apply_t3_typo_year(df: pd.DataFrame) -> pd.DataFrame:
         corrected = '2026' + raw_date[4:]
         audit.log("train.csv", df.at[idx, 'Record_ID'], "Date",
                   raw_date, corrected, "T3",
-                  "Year digit typo 2062→2026 corrected (Year col=2026, date out of 2019-2026 range)")
+                  "Year digit typo 2062->2026 corrected (Year col=2026, date out of 2019-2026 range)")
         df.at[idx, 'Date'] = corrected
     # Remaining dates still > 2026-10 that couldn't be corrected: fail loudly
     still_bad = df['Date'].str[:7] > TRAIN_DATE_MAX
@@ -105,7 +105,7 @@ def apply_t3_typo_year(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# ─────────────────────── T2: Year/Month disagree with Date ───────────────────
+# --- T2: Year/Month disagree with Date ---
 
 def apply_t2_year_month(df: pd.DataFrame) -> pd.DataFrame:
     """T2: Recompute Year and Month from cleaned Date (R1: Date is authoritative)."""
@@ -134,7 +134,7 @@ def apply_t2_year_month(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# ─────────────────────────── T4: Duplicate Record_IDs ─────────────────────────
+# --- T4: Duplicate Record_IDs ---
 
 def apply_t4_dedup_record_id(df: pd.DataFrame) -> pd.DataFrame:
     """T4: Keep the row with the latest Load_Timestamp per Record_ID (R2)."""
@@ -154,7 +154,7 @@ def apply_t4_dedup_record_id(df: pd.DataFrame) -> pd.DataFrame:
             rid = df.at[idx, 'Record_ID']
             audit.log("train.csv", rid, "Record_ID",
                       f"row with ts={df.at[idx,'Load_Timestamp']}",
-                      "DROPPED", "T4", "Duplicate Record_ID – kept row with latest Load_Timestamp (R2)")
+                      "DROPPED", "T4", "Duplicate Record_ID - kept row with latest Load_Timestamp (R2)")
 
     df = df.sort_values('_load_ts', ascending=False).drop_duplicates('Record_ID', keep='first')
     df = df.drop(columns=['_load_ts'])
@@ -169,12 +169,12 @@ def apply_t4_dedup_record_id(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# ─────────────────────────── T5: Region normalisation ─────────────────────────
+# --- T5: Region normalisation ---
 
 def _normalise_region(raw) -> str | None:
     """Return canonical region or None if unresolvable."""
     if pd.isna(raw) or str(raw).strip() == '':
-        return None  # blank – handle separately
+        return None  # blank - handle separately
     s = str(raw).strip()
     # Already canonical
     if s in CANONICAL_REGIONS:
@@ -185,7 +185,7 @@ def _normalise_region(raw) -> str | None:
     # Build several search variants
     variants = [
         normalised,
-        normalised.replace(' and ', ' & '),  # "middle east and africa" → "middle east & africa"
+        normalised.replace(' and ', ' & '),  # "middle east and africa" -> "middle east & africa"
         normalised.replace(' and ', '&'),
     ]
     for key, val in REGION_MAP.items():
@@ -193,11 +193,11 @@ def _normalise_region(raw) -> str | None:
         key_n = re.sub(r'\s+', ' ', key.casefold().replace('-', ' ')).strip()
         if any(v == key_n for v in variants):
             return val
-    return None  # unknown – will fail pipeline
+    return None  # unknown - will fail pipeline
 
 
 def apply_t5_region(df: pd.DataFrame) -> pd.DataFrame:
-    """T5: Normalise Region to canonical set. Blank → attempt recovery, else 'UNRESOLVED'."""
+    """T5: Normalise Region to canonical set. Blank -> attempt recovery, else 'UNRESOLVED'."""
     df = df.copy()
     raw_region = df['Region'].copy()
 
@@ -229,7 +229,7 @@ def apply_t5_region(df: pd.DataFrame) -> pd.DataFrame:
         # Cannot recover: mark as UNRESOLVED
         audit.log("train.csv", df.at[idx, 'Record_ID'], "Region",
                   "(blank)", "UNRESOLVED", "T5",
-                  "Blank region unresolvable – excluded from region models, kept in totals")
+                  "Blank region unresolvable - excluded from region models, kept in totals")
         df.at[idx, 'Region'] = "UNRESOLVED"
 
     DQ['T5_blank_resolved'] = resolved_from_match
@@ -265,7 +265,7 @@ def apply_t5_region(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# ─────────────────────── T6: Sales_Channel normalisation ─────────────────────
+# --- T6: Sales_Channel normalisation ---
 
 def _normalise_channel(raw) -> str | None:
     if pd.isna(raw):
@@ -309,7 +309,7 @@ def apply_t6_channel(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# ─────────────────── T7: Product_Family & Business_Unit ──────────────────────
+# --- T7: Product_Family & Business_Unit ---
 
 def apply_t7_product_family(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
     """T7: Fill blank Product_Family from SKU prefix; validate against sku_master."""
@@ -354,7 +354,7 @@ def apply_t7_product_family(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.Da
     return df
 
 
-# ────────────────────────── T8: SKU_ID normalisation ─────────────────────────
+# --- T8: SKU_ID normalisation ---
 
 def _normalise_sku(raw: str, canonical_set: set) -> str | None:
     """Normalise a raw SKU_ID to canonical form [PREFIX]-[NNN]."""
@@ -404,7 +404,7 @@ def apply_t8_sku_id(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# ─────────────────────── T9: SKU_Description fill ────────────────────────────
+# --- T9: SKU_Description fill ---
 
 def apply_t9_sku_description(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
     """T9: Fill blank SKU_Description from sku_master."""
@@ -424,7 +424,7 @@ def apply_t9_sku_description(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.D
     return df
 
 
-# ──────────────────────── T10: Customer_Name normalisation ───────────────────
+# --- T10: Customer_Name normalisation ---
 
 import difflib
 
@@ -491,14 +491,14 @@ def apply_t10_customer(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# ───────────────────────── T11: Units_Sold cleaning ──────────────────────────
+# --- T11: Units_Sold cleaning ---
 
 def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFrame:
     """T11: Clean Units_Sold: blanks, dashes, commas, negatives, large values."""
     df = df.copy()
     us = df['Units_Sold'].copy()
 
-    # Build stockout lookup: (date, sku, region) → shipped_units
+    # Build stockout lookup: (date, sku, region) -> shipped_units
     so_lookup = dict(
         zip(
             zip(stockouts['Date'], stockouts['SKU_ID'], stockouts['Region']),
@@ -594,7 +594,7 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
     return df
 
 
-# ──────────────────────── T12: Unit_Price_USD cleaning ───────────────────────
+# --- T12: Unit_Price_USD cleaning ---
 
 def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
     """T12: Fill zero prices with SKU-year reference price; flag scale errors."""
@@ -672,7 +672,7 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
         r_val = price / ref_val
         audit.log("train.csv", rid, "Unit_Price_USD",
                   price, ref_val, "T12",
-                  f"Price ×{r_val:.0f} vs SKU-year median – likely cents/unit-of-measure error (100× band); replaced with reference price")
+                  f"Price x{r_val:.0f} vs SKU-year median - likely cents/unit-of-measure error (100x band); replaced with reference price")
         df.at[idx, 'Unit_Price_USD'] = ref_val
         scale_100x += 1
 
@@ -684,7 +684,7 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
         r_val = price / ref_val
         audit.log("train.csv", rid, "Unit_Price_USD",
                   price, ref_val, "T12",
-                  f"Price ×{r_val:.0f} vs SKU-year median – possible INR denomination (85× band); replaced with reference price")
+                  f"Price x{r_val:.0f} vs SKU-year median - possible INR denomination (85x band); replaced with reference price")
         df.at[idx, 'Unit_Price_USD'] = ref_val
         scale_85x += 1
 
@@ -696,7 +696,7 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
         r_val = price / ref_val
         audit.log("train.csv", rid, "Unit_Price_USD",
                   price, price, "T12",
-                  f"Price ×{r_val:.1f} vs SKU-year median – 5-20× band, flagged for review; kept as-is for demand analysis")
+                  f"Price x{r_val:.1f} vs SKU-year median - 5-20x band, flagged for review; kept as-is for demand analysis")
         scale_med += 1
 
     df = df.drop(columns=['_year', '_ref_price'])
@@ -708,10 +708,10 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# ──────────────────────── T13: Revenue reconciliation ────────────────────────
+# --- T13: Revenue reconciliation ---
 
 def apply_t13_revenue(df: pd.DataFrame) -> pd.DataFrame:
-    """T13: Recompute Revenue_USD = Units_Sold × Unit_Price_USD."""
+    """T13: Recompute Revenue_USD = Units_Sold x Unit_Price_USD."""
     df = df.copy()
 
     def _to_float(x):
@@ -736,14 +736,14 @@ def apply_t13_revenue(df: pd.DataFrame) -> pd.DataFrame:
         new_rev = expected_rev[idx]
         audit.log("train.csv", rid, "Revenue_USD",
                   raw_rev, round(new_rev, 2), "T13",
-                  "Revenue_USD recomputed as Units_Sold × Unit_Price_USD (within $1 tolerance failed)")
+                  "Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)")
 
     df.loc[has_both, 'Revenue_USD'] = expected_rev
     DQ['T13_recomputed'] = int(discrepancy.sum())
     return df
 
 
-# ─────────────────── T15: Zero-demand vs missing rows (flag) ─────────────────
+# --- T15: Zero-demand vs missing rows (flag) ---
 
 def apply_t15_zero_demand_flag(df: pd.DataFrame) -> pd.DataFrame:
     """T15: Flag zero-demand rows vs missing rows (R3). No edit needed."""
@@ -754,7 +754,7 @@ def apply_t15_zero_demand_flag(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# ─────────────────────── R5: Lifecycle validation ────────────────────────────
+# --- R5: Lifecycle validation ---
 
 def apply_r5_lifecycle(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
     """R5: Flag (not remove) sales after EOL_Date or before Launch_Date."""
@@ -793,7 +793,7 @@ def apply_r5_lifecycle(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFra
     return df
 
 
-# ─────────────────────── T4b: Date-SKU-Region dedup ──────────────────────────
+# --- T4b: Date-SKU-Region dedup ---
 
 def apply_t4b_dsr_dedup(df: pd.DataFrame) -> pd.DataFrame:
     """T4b: After all cleaning, ensure one row per Date-SKU-Region (R9)."""
@@ -814,19 +814,19 @@ def apply_t4b_dsr_dedup(df: pd.DataFrame) -> pd.DataFrame:
             rid = dup_df.at[idx, 'Record_ID']
             audit.log("train.csv", rid, "Date-SKU-Region",
                       "duplicate", "DROPPED", "T4b",
-                      "Duplicate Date-SKU-Region after cleaning (R9) – kept row with higher Units_Sold")
+                      "Duplicate Date-SKU-Region after cleaning (R9) - kept row with higher Units_Sold")
     else:
         DQ['T4b_dsr_dups'] = 0
     DQ['T4b_after'] = len(df)
     return df
 
 
-# ──────────────────────── Master clean function ───────────────────────────────
+# --- Master clean function ---
 
 def clean_train(raw: pd.DataFrame, sku_master: pd.DataFrame,
                 stockouts: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     """
-    Run all cleaning rules T1–T15 + R5 on raw train data.
+    Run all cleaning rules T1-T15 + R5 on raw train data.
     Returns (clean_df, dq_counts_dict).
     """
     global DQ

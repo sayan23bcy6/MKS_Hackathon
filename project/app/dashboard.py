@@ -1,5 +1,5 @@
 """
-app/dashboard.py – Celeris Automobili Demand Forecasting Control Tower
+app/dashboard.py - Celeris Automobili Demand Forecasting Control Tower
 Streamlit dashboard with 5 required views + 2 optional (Advanced tier).
 Reads ONLY from project/outputs/.
 All views share the same filters: family, SKU, region, channel, customer.
@@ -18,20 +18,19 @@ from plotly.subplots import make_subplots
 import json
 import pathlib
 
-# ─── Page config ──────────────────────────────────────────────────────────────
+# --- Page config ---
 st.set_page_config(
-    page_title="Celeris Automobili – Demand Control Tower",
-    page_icon="🏭",
+    page_title="Celeris Automobili - Demand Control Tower",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# ─── Paths ────────────────────────────────────────────────────────────────────
+# --- Paths ---
 PROJECT_DIR = pathlib.Path(__file__).parent.parent
 OUTPUTS_DIR = PROJECT_DIR / "outputs"
 
 
-# ─── Data loaders ─────────────────────────────────────────────────────────────
+# --- Data loaders ---
 @st.cache_data
 def load_clean_train():
     path = OUTPUTS_DIR / "clean_train.parquet"
@@ -101,10 +100,10 @@ def load_stockouts():
     return stockouts, unconstrained
 
 
-# ─── Shared filters ───────────────────────────────────────────────────────────
+# --- Shared filters ---
 def _sidebar_filters(df_train: pd.DataFrame, df_forecast: pd.DataFrame) -> dict:
     """Return a dict of selected filter values."""
-    st.sidebar.header("🔍 Filters")
+    st.sidebar.header("Filters")
     st.sidebar.caption("All views use these filters")
 
     # Combine both datasets for filter options
@@ -162,9 +161,9 @@ def _apply_filters(df: pd.DataFrame, filters: dict) -> pd.DataFrame:
     return result
 
 
-# ─── View 1: Executive Overview ───────────────────────────────────────────────
+# --- View 1: Executive Overview ---
 def view_executive_overview(df_train, df_forecast, df_intervals, filters):
-    st.header("📊 1. Executive Overview")
+    st.header("1. Executive Overview")
     st.caption("Historical performance and 19-month forward forecast on a single timeline")
 
     df_t = _apply_filters(df_train, filters)
@@ -224,13 +223,13 @@ def view_executive_overview(df_train, df_forecast, df_intervals, filters):
                 y=list(int_monthly['p90']) + list(reversed(int_monthly['p10'])),
                 fill='toself', fillcolor='rgba(255,152,0,0.15)',
                 line=dict(color='rgba(255,152,0,0)'),
-                name='P10–P90 Band'
+                name='P10-P90 Band'
             ))
 
     fig.add_vline(x='2026-10', line_dash='dot', line_color='gray')
     fig.add_annotation(
         x='2026-10', y=1, yref='paper',
-        text='Forecast start →', showarrow=False,
+        text='Forecast start ->', showarrow=False,
         xanchor='left', font=dict(color='gray', size=11)
     )
     fig.update_layout(
@@ -281,9 +280,9 @@ def view_executive_overview(df_train, df_forecast, df_intervals, filters):
             st.plotly_chart(fig_ch, use_container_width=True)
 
 
-# ─── View 2: Data Health ──────────────────────────────────────────────────────
+# --- View 2: Data Health ---
 def view_data_health(dq_report, filters):
-    st.header("🔬 2. Data Health")
+    st.header("2. Data Health and Audit")
     st.caption("Data quality issues detected, before vs. after cleaning")
 
     if not dq_report:
@@ -342,7 +341,7 @@ def view_data_health(dq_report, filters):
     st.subheader("Unresolved Items")
     unresolved = dq_report.get('unresolved_items', {})
     for key, val in unresolved.items():
-        with st.expander(f"⚠️ {key}"):
+        with st.expander(f"Item: {key}"):
             st.write(f"**Count:** {val.get('count', 'N/A')}")
             st.write(f"**Decision:** {val.get('decision', 'N/A')}")
             st.write(f"**Reason:** {val.get('reason', 'N/A')}")
@@ -357,13 +356,13 @@ def _summarise_dq_issue(val: dict) -> str:
         n = val.get(field)
         if isinstance(n, int):
             parts.append(f"{field}={n:,}")
-    return '; '.join(parts) if parts else '—'
+    return '; '.join(parts) if parts else '-'
 
 
-# ─── View 3: Demand Explorer ──────────────────────────────────────────────────
+# --- View 3: Demand Explorer ---
 def view_demand_explorer(df_train, filters):
-    st.header("🔍 3. Demand Explorer")
-    st.caption("Drill-down: family → SKU → region → customer")
+    st.header("3. Demand Explorer")
+    st.caption("Drill-down: family -> SKU -> region -> customer")
 
     df = _apply_filters(df_train, filters)
     if df.empty:
@@ -414,9 +413,9 @@ def view_demand_explorer(df_train, filters):
     st.plotly_chart(fig_lc, use_container_width=True)
 
 
-# ─── View 4: Anomaly Monitor ──────────────────────────────────────────────────
+# --- View 4: Anomaly Monitor ---
 def view_anomaly_monitor(df_train, anomaly_df, filters):
-    st.header("⚠️ 4. Anomaly Monitor")
+    st.header("4. Anomaly Monitor")
     st.caption("Flagged points on the time series with type, reason, and action")
 
     df = _apply_filters(df_train, filters)
@@ -475,9 +474,9 @@ def view_anomaly_monitor(df_train, anomaly_df, filters):
     st.dataframe(an_filtered[display_cols].head(200), use_container_width=True, hide_index=True)
 
 
-# ─── View 5: Forecast & Accuracy ─────────────────────────────────────────────
+# --- View 5: Forecast & Accuracy ---
 def view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, filters):
-    st.header("📈 5. Forecast & Accuracy")
+    st.header("5. Forecast and Model Accuracy")
     st.caption("Forecast vs history with P10/P50/P90; backtest WAPE and bias")
 
     df_t = _apply_filters(df_train, filters)
@@ -520,13 +519,13 @@ def view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, fil
                 x=list(int_m['Date']) + list(reversed(int_m['Date'])),
                 y=list(int_m['p90']) + list(reversed(int_m['p10'])),
                 fill='toself', fillcolor='rgba(255,152,0,0.2)',
-                line=dict(color='rgba(0,0,0,0)'), name='P10–P90 Band'
+                line=dict(color='rgba(0,0,0,0)'), name='P10-P90 Band'
             ))
 
     fig.add_vline(x='2026-10', line_dash='dot', line_color='gray')
     fig.add_annotation(
         x='2026-10', y=1, yref='paper',
-        text='← History | Forecast →', showarrow=False,
+        text='<- History | Forecast ->', showarrow=False,
         xanchor='left', font=dict(color='gray', size=11)
     )
     fig.update_layout(title='Forecast vs History', xaxis_title='Month',
@@ -569,10 +568,10 @@ def view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, fil
         st.plotly_chart(fig_hor, use_container_width=True)
 
 
-# ─── Optional View 1: Macro Lead/Lag Heatmap ─────────────────────────────────
+# --- Optional View 1: Macro Lead/Lag Heatmap ---
 def view_macro_lag_heatmap(macro_lag_df, filters):
-    st.header("📉 Macro Lead/Lag Heatmap (Optional View 1)")
-    st.caption("Cross-correlation of macro indicators vs product families at lags 0–6 months")
+    st.header("Macro Lead/Lag Analysis")
+    st.caption("Cross-correlation of macro indicators vs product families at lags 0-6 months")
 
     if macro_lag_df.empty:
         st.info("Macro lag analysis not available. Run the pipeline.")
@@ -618,9 +617,9 @@ def view_macro_lag_heatmap(macro_lag_df, filters):
     st.plotly_chart(fig2, use_container_width=True)
 
 
-# ─── Optional View 5: Stockouts & Lost Sales ─────────────────────────────────
+# --- Optional View 5: Stockouts & Lost Sales ---
 def view_stockouts(stockouts_df, unconstrained_df, filters):
-    st.header("📦 Stockouts & Lost Sales (Optional View 5)")
+    st.header("Stockouts and Lost Demand Analysis")
     st.caption("Requested vs Shipped vs Lost units from inventory_stockouts.csv")
 
     if stockouts_df.empty:
@@ -673,9 +672,9 @@ def view_stockouts(stockouts_df, unconstrained_df, filters):
     st.dataframe(reg_df.round(1), use_container_width=True, hide_index=True)
 
 
-# ─── Main App ─────────────────────────────────────────────────────────────────
+# --- Main App ---
 def main():
-    st.title("🏭 Celeris Automobili – Demand Forecasting Control Tower")
+    st.title("Celeris Automobili - Demand Forecasting Control Tower")
     st.caption("Hackathon Project | History: 2019-01 to 2026-10 | Forecast: 2026-11 to 2028-05")
 
     # Load data
@@ -689,7 +688,7 @@ def main():
 
     # Pipeline status
     if df_train.empty:
-        st.error("⚠️ Pipeline output not found. Run `python project/run_pipeline.py` first.")
+        st.error("Pipeline outputs not found. Run python project/run_pipeline.py to generate artifacts.")
         st.stop()
 
     # Shared filters
@@ -697,13 +696,13 @@ def main():
 
     # Navigation tabs
     tabs = st.tabs([
-        "1️⃣ Executive Overview",
-        "2️⃣ Data Health",
-        "3️⃣ Demand Explorer",
-        "4️⃣ Anomaly Monitor",
-        "5️⃣ Forecast & Accuracy",
-        "📉 Macro Lead/Lag (Opt.1)",
-        "📦 Stockouts (Opt.5)"
+        "Executive Overview",
+        "Data Health",
+        "Demand Explorer",
+        "Anomaly Monitor",
+        "Forecast and Accuracy",
+        "Macro Lead/Lag",
+        "Stockouts and Lost Demand"
     ])
 
     with tabs[0]:

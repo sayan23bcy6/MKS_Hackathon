@@ -1,5 +1,5 @@
 """
-reports.py – WS1 Advanced: Generate data-quality report (JSON + Markdown).
+reports.py - WS1 Advanced: Generate data-quality report (JSON + Markdown).
 """
 
 import json
@@ -42,7 +42,7 @@ def generate_dq_report(dq_train: dict,
                 "rule": "T3",
             },
             "T4_duplicate_record_ids": {
-                "description": "Duplicate Record_IDs (loaded twice) – kept latest timestamp",
+                "description": "Duplicate Record_IDs (loaded twice) - kept latest timestamp",
                 "rows_before": dq_train.get('T4_before', 0),
                 "rows_dropped": dq_train.get('T4_dup_record_ids', 0),
                 "rows_after": dq_train.get('T4_after', 0),
@@ -63,19 +63,19 @@ def generate_dq_report(dq_train: dict,
                 "rule": "T6",
             },
             "T7_product_family": {
-                "description": "Product_Family blank – derived from SKU prefix",
+                "description": "Product_Family blank - derived from SKU prefix",
                 "blank_count": dq_train.get('T7_blank_product_family', 0),
                 "filled": dq_train.get('T7_product_family_filled', 0),
                 "rule": "T7",
             },
             "T8_sku_id": {
-                "description": "SKU_ID format errors – normalised to PREFIX-NNN",
+                "description": "SKU_ID format errors - normalised to PREFIX-NNN",
                 "bad_before": dq_train.get('T8_bad_sku_before', 0),
                 "normalised": dq_train.get('T8_normalised', 0),
                 "rule": "T8",
             },
             "T9_sku_description": {
-                "description": "SKU_Description blank – filled from sku_master",
+                "description": "SKU_Description blank - filled from sku_master",
                 "blank_count": dq_train.get('T9_blank_desc', 0),
                 "filled": dq_train.get('T9_filled', 0),
                 "rule": "T9",
@@ -136,8 +136,8 @@ def generate_dq_report(dq_train: dict,
             },
             "price_85x_band_rupee_hypothesis": {
                 "count": dq_train.get('T12_scale_85x', 0),
-                "decision": "Treated as currency denomination error (INR→USD) and replaced with SKU-year reference price. India region subset showed higher concentration of this band.",
-                "reason": "Approximately 85× ratio consistent with INR/USD exchange rate in relevant period (~80-85 INR/USD). Hypothesis is plausible and documented.",
+                "decision": "Treated as currency denomination error (INR->USD) and replaced with SKU-year reference price. India region subset showed higher concentration of this band.",
+                "reason": "Approximately 85x ratio consistent with INR/USD exchange rate in relevant period (~80-85 INR/USD). Hypothesis is plausible and documented.",
             },
             "large_units_gt5000": {
                 "count": dq_train.get('T11_large_values', 0),
@@ -151,7 +151,7 @@ def generate_dq_report(dq_train: dict,
             },
             "macro_2023_05_pmi": {
                 "count": dq_macro.get('M3_pmi_implausible', 0),
-                "decision": "Corrected 4.79 → 47.9 (×10 decimal shift) based on neighbour confirmation",
+                "decision": "Corrected 4.79 -> 47.9 (x10 decimal shift) based on neighbour confirmation",
                 "reason": "2023-04 PMI=47.2 and 2023-06 PMI=46.1; 47.9 fits the trend; 4.79 does not",
             },
             "sku_bu_conflict": {
@@ -175,7 +175,7 @@ def generate_dq_report(dq_train: dict,
 
 def _write_dq_markdown(report: dict):
     lines = [
-        "# Data Quality Report – Celeris Automobili Demand Forecasting",
+        "# Data Quality Report - Celeris Automobili Demand Forecasting",
         "",
         f"**Total audit log entries:** {report['summary']['total_audit_entries']}  ",
         f"**Total anomalies flagged:** {report['summary']['total_anomalies']}",
@@ -191,27 +191,27 @@ def _write_dq_markdown(report: dict):
     ti = report['train_issues']
     lines += [
         f"| T1 | {ti['T1_date_formats']['description']} | {ti['T1_date_formats']['raw_rows']} rows | {ti['T1_date_formats']['formats_fixed']} fixed | T1 |",
-        f"| T2 | {ti['T2_year_month_mismatch']['description']} | — | {ti['T2_year_month_mismatch']['count']} rows | T2 |",
+        f"| T2 | {ti['T2_year_month_mismatch']['description']} | - | {ti['T2_year_month_mismatch']['count']} rows | T2 |",
         f"| T3 | {ti['T3_typo_year']['description']} | {ti['T3_typo_year']['found']} found | {ti['T3_typo_year']['corrected']} corrected | T3 |",
         f"| T4 | {ti['T4_duplicate_record_ids']['description']} | {ti['T4_duplicate_record_ids']['rows_before']} | {ti['T4_duplicate_record_ids']['rows_after']} (+{ti['T4_duplicate_record_ids']['rows_dropped']} dropped) | T4 |",
         f"| T5 | {ti['T5_region']['description']} | {ti['T5_region']['blank_count']} blank | {ti['T5_region']['blank_unresolved']} unresolved | T5 |",
-        f"| T6 | {ti['T6_sales_channel']['description']} | — | {ti['T6_sales_channel']['normalised']} normalised | T6 |",
+        f"| T6 | {ti['T6_sales_channel']['description']} | - | {ti['T6_sales_channel']['normalised']} normalised | T6 |",
         f"| T7 | {ti['T7_product_family']['description']} | {ti['T7_product_family']['blank_count']} blank | {ti['T7_product_family']['filled']} filled | T7 |",
         f"| T8 | {ti['T8_sku_id']['description']} | {ti['T8_sku_id']['bad_before']} bad | {ti['T8_sku_id']['normalised']} fixed | T8 |",
         f"| T9 | {ti['T9_sku_description']['description']} | {ti['T9_sku_description']['blank_count']} blank | {ti['T9_sku_description']['filled']} filled | T9 |",
-        f"| T10 | {ti['T10_customer_name']['description']} | — | {ti['T10_customer_name']['normalised']} normalised | T10 |",
-        f"| T11 | Units_Sold: blanks | {ti['T11_units_sold']['blank']} | — | T11 |",
-        f"| T11 | Units_Sold: dashes (NULL) | {ti['T11_units_sold']['dash']} | — | T11 |",
-        f"| T11 | Units_Sold: comma-formatted | {ti['T11_units_sold']['comma_formatted']} | — | T11 |",
+        f"| T10 | {ti['T10_customer_name']['description']} | - | {ti['T10_customer_name']['normalised']} normalised | T10 |",
+        f"| T11 | Units_Sold: blanks | {ti['T11_units_sold']['blank']} | - | T11 |",
+        f"| T11 | Units_Sold: dashes (NULL) | {ti['T11_units_sold']['dash']} | - | T11 |",
+        f"| T11 | Units_Sold: comma-formatted | {ti['T11_units_sold']['comma_formatted']} | - | T11 |",
         f"| T11 | Units_Sold: negatives | {ti['T11_units_sold']['negative']} | abs() applied | T11 |",
         f"| T11 | Units_Sold: large (>5000) | {ti['T11_units_sold']['large_values_gt5000']} | flagged | T11 |",
-        f"| T12 | Unit_Price_USD zero (with units>0) | — | {ti['T12_unit_price']['filled_zero_price_rows']} filled | T12 |",
-        f"| T12 | Price ×100 band | {ti['T12_unit_price']['scale_100x_band']} | reference price applied | T12 |",
-        f"| T12 | Price ×85 band (INR hypothesis) | {ti['T12_unit_price']['scale_85x_band']} | reference price applied | T12 |",
-        f"| T12 | Price 5–20× band (unresolved) | {ti['T12_unit_price']['scale_5_20x_band_unresolved']} | flagged, kept for demand | T12 |",
+        f"| T12 | Unit_Price_USD zero (with units>0) | - | {ti['T12_unit_price']['filled_zero_price_rows']} filled | T12 |",
+        f"| T12 | Price x100 band | {ti['T12_unit_price']['scale_100x_band']} | reference price applied | T12 |",
+        f"| T12 | Price x85 band (INR hypothesis) | {ti['T12_unit_price']['scale_85x_band']} | reference price applied | T12 |",
+        f"| T12 | Price 5-20x band (unresolved) | {ti['T12_unit_price']['scale_5_20x_band_unresolved']} | flagged, kept for demand | T12 |",
         f"| T13 | Revenue_USD recomputed | {ti['T13_revenue']['discrepancy_before']} discrepant | {ti['T13_revenue']['recomputed']} recomputed | T13 |",
-        f"| R5 | Sales after EOL or before Launch | — | {ti['R5_lifecycle']['eol_violations']} EOL, {ti['R5_lifecycle']['launch_violations']} launch violations | R5 |",
-        f"| R9/T4b | Duplicate Date-SKU-Region after cleaning | — | {ti['T4b_date_sku_region']['dsr_dups']} | T4b |",
+        f"| R5 | Sales after EOL or before Launch | - | {ti['R5_lifecycle']['eol_violations']} EOL, {ti['R5_lifecycle']['launch_violations']} launch violations | R5 |",
+        f"| R9/T4b | Duplicate Date-SKU-Region after cleaning | - | {ti['T4b_date_sku_region']['dsr_dups']} | T4b |",
     ]
 
     lines += [
@@ -219,10 +219,10 @@ def _write_dq_markdown(report: dict):
         "## Macro Indicators Issues",
         "",
         f"- **M1** Duplicate 2022-06: {report['macro_issues'].get('M1_dup_months', 0)} months affected. Resolution: {report['macro_issues'].get('M1_resolution', 'N/A')}",
-        f"- **M2** Auto_Production_YoY_Pct fraction→percent for 2019: {report['macro_issues'].get('M2_fraction_rows', 0)} rows fixed",
+        f"- **M2** Auto_Production_YoY_Pct fraction->percent for 2019: {report['macro_issues'].get('M2_fraction_rows', 0)} rows fixed",
         f"- **M3** PMI decimal shift (2023-05): {report['macro_issues'].get('M3_pmi_implausible', 0)} rows corrected",
         f"- **M4** Blank cells interpolated: {report['macro_issues'].get('M4_blank_cells', {})}",
-        f"- **M5** Real extreme values noted: Min Auto_Prod_YoY={report['macro_issues'].get('M5_min_auto_prod', 'N/A'):.1f}%, Max={report['macro_issues'].get('M5_max_auto_prod', 'N/A'):.1f}% (COVID period – not errors)",
+        f"- **M5** Real extreme values noted: Min Auto_Prod_YoY={report['macro_issues'].get('M5_min_auto_prod', 'N/A'):.1f}%, Max={report['macro_issues'].get('M5_max_auto_prod', 'N/A'):.1f}% (COVID period - not errors)",
         "",
         "## SKU Master Issues",
         "",

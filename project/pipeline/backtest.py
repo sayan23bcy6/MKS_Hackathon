@@ -1,5 +1,5 @@
 """
-backtest.py – WS4: Rolling-origin backtest with 19-month horizon.
+backtest.py - WS4: Rolling-origin backtest with 19-month horizon.
 Computes WAPE and bias by model, family, region, and horizon month.
 """
 
@@ -18,7 +18,7 @@ def rolling_origin_backtest(features_df: pd.DataFrame,
     Rolling-origin backtest: train on data up to `train_cutoff`,
     forecast the next `horizon` months, evaluate WAPE and bias.
 
-    model_fn: callable(train_df, test_df) → pd.Series of predictions indexed as test_df.index
+    model_fn: callable(train_df, test_df) -> pd.Series of predictions indexed as test_df.index
     """
     df = features_df.copy()
     df['Units_Sold_Unconstrained'] = pd.to_numeric(df.get('Units_Sold_Unconstrained', df.get('Units_Sold', 0)), errors='coerce').fillna(0)

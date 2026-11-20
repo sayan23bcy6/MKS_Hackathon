@@ -1,5 +1,5 @@
 """
-audit.py – Thread-safe audit log accumulator.
+audit.py - Thread-safe audit log accumulator.
 Every cleaning rule appends records here; the log is written at the end.
 """
 
