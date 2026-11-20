@@ -1,0 +1,199 @@
+{
+  "summary": {
+    "total_audit_entries": 37595,
+    "total_anomalies": 1815
+  },
+  "train_issues": {
+    "T1_date_formats": {
+      "description": "Mixed date formats in Date column",
+      "raw_rows": 248248,
+      "formats_fixed": 9967,
+      "rule": "T1"
+    },
+    "T2_year_month_mismatch": {
+      "description": "Year/Month disagree with Date (R1: Date authoritative)",
+      "count": 246,
+      "rule": "T2"
+    },
+    "T3_typo_year": {
+      "description": "Impossible future dates (2062-xx typo for 2026-xx)",
+      "found": 30,
+      "corrected": 30,
+      "rule": "T3"
+    },
+    "T4_duplicate_record_ids": {
+      "description": "Duplicate Record_IDs (loaded twice) \u2013 kept latest timestamp",
+      "rows_before": 248248,
+      "rows_dropped": 3682,
+      "rows_after": 244566,
+      "date_sku_region_dups_after": 0,
+      "rule": "T4"
+    },
+    "T5_region": {
+      "description": "Region labels inconsistent or blank",
+      "blank_count": 942,
+      "blank_resolved": 245,
+      "blank_unresolved": 697,
+      "normalised": 5912,
+      "rule": "T5"
+    },
+    "T6_sales_channel": {
+      "description": "Sales_Channel label variants normalised",
+      "normalised": 3524,
+      "rule": "T6"
+    },
+    "T7_product_family": {
+      "description": "Product_Family blank \u2013 derived from SKU prefix",
+      "blank_count": 1228,
+      "filled": 1228,
+      "rule": "T7"
+    },
+    "T8_sku_id": {
+      "description": "SKU_ID format errors \u2013 normalised to PREFIX-NNN",
+      "bad_before": 3683,
+      "normalised": 3683,
+      "rule": "T8"
+    },
+    "T9_sku_description": {
+      "description": "SKU_Description blank \u2013 filled from sku_master",
+      "blank_count": 982,
+      "filled": 982,
+      "rule": "T9"
+    },
+    "T10_customer_name": {
+      "description": "Customer_Name variants normalised",
+      "normalised": 2455,
+      "rule": "T10"
+    },
+    "T11_units_sold": {
+      "description": "Units_Sold: blank, dash, comma, negative, large values",
+      "blank": 3327,
+      "dash": 217,
+      "comma_formatted": 44,
+      "negative": 491,
+      "null_from_stockout": 84,
+      "large_values_gt5000": 32,
+      "zero_demand_rows": 35403,
+      "null_demand_rows": 3460,
+      "rule": "T11"
+    },
+    "T12_unit_price": {
+      "description": "Unit_Price_USD zeros and scale errors",
+      "filled_zero_price_rows": 295,
+      "scale_100x_band": 583,
+      "scale_85x_band": 31,
+      "scale_5_20x_band_unresolved": 385,
+      "rule": "T12"
+    },
+    "T13_revenue": {
+      "description": "Revenue_USD recomputed after price/unit cleaning",
+      "blank_count": 380,
+      "discrepancy_before": 1956,
+      "recomputed": 1956,
+      "rule": "T13"
+    },
+    "R5_lifecycle": {
+      "description": "Sales after EOL_Date or before Launch_Date (should be 0)",
+      "eol_violations": 0,
+      "launch_violations": 15,
+      "rule": "R5"
+    },
+    "T4b_date_sku_region": {
+      "description": "Duplicate Date-SKU-Region after full cleaning (R9)",
+      "dsr_dups": 494,
+      "rows_after": 244319,
+      "rule": "T4b/R9"
+    }
+  },
+  "macro_issues": {
+    "M1_dup_months": 1,
+    "M1_resolution": "Row B (52.7) is closer to neighbour interpolation (52.85)",
+    "M2_fraction_rows": 12,
+    "M3_pmi_implausible": 1,
+    "M4_blank_cells": {
+      "Vehicle_Inventory_Days": [
+        "2019-07"
+      ],
+      "New_Vehicle_Orders_Index": [
+        "2023-08"
+      ],
+      "Industrial_Util_Rate_Pct": [
+        "2021-02"
+      ],
+      "Fuel_Price_Index": [
+        "2020-09"
+      ],
+      "EV_Adoption_Index": [
+        "2024-11"
+      ]
+    },
+    "M5_min_auto_prod": -45.4,
+    "M5_max_auto_prod": 36.9
+  },
+  "sku_master_issues": {
+    "S1_pmp_bu_counts": {
+      "Advanced Manufacturing": 86,
+      "Power & Drive Systems": 1
+    },
+    "S1_conflict_count": 1,
+    "S1_conflict_skus": [
+      "PMP-004"
+    ],
+    "S2_eol_count": 9,
+    "S2_planned_launch_count": 3
+  },
+  "events_issues": {
+    "E1_dates_normalised": 48,
+    "E2_open_ended_events": 1,
+    "E3_split_scope": 3,
+    "E4_impact_annotations": {
+      "Holiday": 39,
+      "Price Change": 11,
+      "Disruption": 5,
+      "Customer Event": 3,
+      "Corporate": 2,
+      "System": 2,
+      "Marketing": 2,
+      "Announcement": 1,
+      "Market Entry": 1,
+      "Supply Constraint": 1,
+      "Logistics": 1
+    },
+    "E_R7_dup_event_ids": 0
+  },
+  "unresolved_items": {
+    "price_5_20x_band": {
+      "count": 385,
+      "decision": "Flagged in anomaly register; kept for demand analysis; excluded from price-based analysis",
+      "reason": "No clear single-factor explanation; not auto-corrected per Rule 7"
+    },
+    "price_85x_band_rupee_hypothesis": {
+      "count": 31,
+      "decision": "Treated as currency denomination error (INR\u2192USD) and replaced with SKU-year reference price. India region subset showed higher concentration of this band.",
+      "reason": "Approximately 85\u00d7 ratio consistent with INR/USD exchange rate in relevant period (~80-85 INR/USD). Hypothesis is plausible and documented."
+    },
+    "large_units_gt5000": {
+      "count": 32,
+      "decision": "Flagged in anomaly register; retained as-is pending cross-check with inventory_stockouts Requested_Units",
+      "reason": "Cannot determine if data error or real bulk order without stockout corroboration"
+    },
+    "macro_2022_06_duplicate": {
+      "count": 1,
+      "decision": "Row B (52.7) is closer to neighbour interpolation (52.85)",
+      "reason": "Chosen row is closer to the linear interpolation of 2022-05 and 2022-07 neighbours"
+    },
+    "macro_2023_05_pmi": {
+      "count": 1,
+      "decision": "Corrected 4.79 \u2192 47.9 (\u00d710 decimal shift) based on neighbour confirmation",
+      "reason": "2023-04 PMI=47.2 and 2023-06 PMI=46.1; 47.9 fits the trend; 4.79 does not"
+    },
+    "sku_bu_conflict": {
+      "count": 1,
+      "skus": [
+        "PMP-004"
+      ],
+      "decision": "Flagged for manual review; not auto-corrected; transaction data should be used to determine correct BU",
+      "reason": "Cannot determine correct BU from master data alone without transaction evidence"
+    }
+  }
+}
