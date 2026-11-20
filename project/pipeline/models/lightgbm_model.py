@@ -1,18 +1,18 @@
 """
-models/lightgbm_model.py - WS4 main model: LightGBM with full feature set.
-Includes P10/P50/P90 quantile forecasts.
+lightgbm_model.py - Quantile gradient boosting demand forecast model.
+Trains P10, P50, and P90 models with early stopping validation and full-history refit.
 """
 
-import pandas as pd
-import numpy as np
 import warnings
+import numpy as np
+import pandas as pd
+
 warnings.filterwarnings('ignore')
 
 try:
     import lightgbm as lgb
-    HAS_LGB = True
-except ImportError:
-    HAS_LGB = False
+except ImportError as exc:
+    raise RuntimeError("lightgbm is required for the pipeline model step. Please install lightgbm.") from exc
 
 FEATURE_COLS = [
     'month', 'quarter', 'year', 'month_sin', 'month_cos',
@@ -24,6 +24,7 @@ FEATURE_COLS = [
     'months_since_launch', 'months_to_eol',
     'is_replacement_sku', 'has_replacement',
     'intermittency_code',
+    'order_cycle_code', 'is_lost_account',
     'SKU_ID_enc', 'Region_enc', 'Customer_Name_enc',
     'Product_Family_enc', 'Sales_Channel_enc',
     'lag_1m', 'lag_2m', 'lag_3m', 'lag_6m', 'lag_12m',
@@ -46,21 +47,23 @@ MACRO_FEATURE_COLS = [
 TARGET_COL = 'Units_Sold_Unconstrained'
 
 
-def _get_features(df: pd.DataFrame) -> list:
+def get_feature_names(df: pd.DataFrame) -> list:
+    """Return available feature columns in dataframe order."""
     available = FEATURE_COLS + MACRO_FEATURE_COLS
     return [c for c in available if c in df.columns]
 
 
-def train_lgbm(train_df: pd.DataFrame,
-               val_df: pd.DataFrame,
-               quantile: float = 0.5) -> 'lgb.Booster | None':
-    """Train a LightGBM quantile regression model."""
-    if not HAS_LGB:
-        return None
+def train_single_quantile(train_df: pd.DataFrame,
+                          val_df: pd.DataFrame,
+                          full_df: pd.DataFrame = None,
+                          quantile: float = 0.5) -> lgb.Booster:
+    """
+    Train a LightGBM quantile regression model.
+    Uses validation set to determine early stopping best_iteration,
+    then optionally refits on the full dataset (F1).
+    """
+    features = get_feature_names(train_df)
 
-    features = _get_features(train_df)
-
-    # Filter: only rows with non-null, non-zero target (real demand rows)
     train_valid = train_df[train_df[TARGET_COL].notna()].copy()
     val_valid = val_df[val_df[TARGET_COL].notna()].copy()
 
@@ -87,34 +90,69 @@ def train_lgbm(train_df: pd.DataFrame,
         'random_state': 42,
     }
 
-    model = lgb.train(
+    val_model = lgb.train(
         params,
         dtrain,
         num_boost_round=300,
         valid_sets=[dval],
         callbacks=[lgb.early_stopping(30, verbose=False), lgb.log_evaluation(period=-1)],
     )
-    return model
+
+    best_iter = val_model.best_iteration
+    if best_iter is None or best_iter <= 0:
+        best_iter = 150
+
+    # Refit on full historical dataset if provided (Fix F1)
+    if full_df is not None and len(full_df) > 0:
+        full_valid = full_df[full_df[TARGET_COL].notna()].copy()
+        X_full = full_valid[features].fillna(-1)
+        y_full = full_valid[TARGET_COL].clip(lower=0)
+        dfull = lgb.Dataset(X_full, label=y_full)
+
+        final_model = lgb.train(
+            params,
+            dfull,
+            num_boost_round=best_iter,
+            callbacks=[lgb.log_evaluation(period=-1)],
+        )
+        return final_model
+
+    return val_model
 
 
-def predict_lgbm(model, test_df: pd.DataFrame) -> np.ndarray:
-    """Generate predictions from a trained LightGBM model."""
+def train_all_quantiles(train_df: pd.DataFrame,
+                         val_df: pd.DataFrame,
+                         full_df: pd.DataFrame = None) -> dict:
+    """Train P10, P50, and P90 quantile models."""
+    models = {}
+    for q, name in [(0.1, 'p10'), (0.5, 'p50'), (0.9, 'p90')]:
+        print(f"  Training LightGBM {name} (quantile={q})...")
+        m = train_single_quantile(train_df, val_df, full_df=full_df, quantile=q)
+        models[name] = m
+    return models
+
+
+def predict_lgbm(model: lgb.Booster, test_df: pd.DataFrame) -> np.ndarray:
+    """Generate predictions from a trained LightGBM booster."""
     if model is None:
-        return np.zeros(len(test_df))
-    features = _get_features(test_df)
+        raise ValueError("Model is None; cannot generate predictions.")
+    features = get_feature_names(test_df)
     X = test_df[features].fillna(-1)
     return model.predict(X)
 
 
-def train_all_quantiles(train_df: pd.DataFrame,
-                         val_df: pd.DataFrame) -> dict:
-    """Train P10, P50, P90 models."""
-    models = {}
-    for q, name in [(0.1, 'p10'), (0.5, 'p50'), (0.9, 'p90')]:
-        print(f"  Training LightGBM {name} (quantile={q})...")
-        m = train_lgbm(train_df, val_df, quantile=q)
-        models[name] = m
-    return models
+def enforce_quantile_ordering(p10: np.ndarray, p50: np.ndarray, p90: np.ndarray):
+    """Enforce non-crossing constraint: P10 <= P50 <= P90."""
+    p10_ordered = np.minimum(p10, p50)
+    p90_ordered = np.maximum(p90, p50)
+    p50_ordered = np.clip(p50, p10_ordered, p90_ordered)
+    return p10_ordered, p50_ordered, p90_ordered
+
+
+def compute_empirical_coverage(y_true: np.ndarray, p10: np.ndarray, p90: np.ndarray) -> float:
+    """Compute proportion of ground truth values that fall within the P10-P90 interval."""
+    mask = (y_true >= p10) & (y_true <= p90)
+    return float(np.mean(mask)) if len(mask) > 0 else np.nan
 
 
 def compute_wape(y_true: pd.Series, y_pred: pd.Series) -> float:
@@ -126,8 +164,7 @@ def compute_wape(y_true: pd.Series, y_pred: pd.Series) -> float:
 
 
 def compute_bias(y_true: pd.Series, y_pred: pd.Series) -> float:
-    """Mean bias: positive = over-forecast."""
+    """Mean forecast bias (positive indicates over-forecasting)."""
     if len(y_true) == 0:
         return np.nan
     return float((y_pred - y_true).mean())
-

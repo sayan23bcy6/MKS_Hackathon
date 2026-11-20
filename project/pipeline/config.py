@@ -33,6 +33,11 @@ OUT_BACKTEST       = OUTPUT_DIR / "backtest_metrics.csv"
 OUT_FORECAST_SUB   = OUTPUT_DIR / "forecast_submission.csv"
 OUT_FORECAST_INT   = OUTPUT_DIR / "forecast_intervals.csv"
 OUT_MODEL_CARD     = OUTPUT_DIR / "model_card.md"
+OUT_HIERARCHY_RECON = OUTPUT_DIR / "hierarchy_reconciliation.csv"
+OUT_EV_SHIFT        = OUTPUT_DIR / "ev_shift_analysis.csv"
+OUT_MACRO_LAG       = OUTPUT_DIR / "macro_lag_analysis.csv"
+OUT_SCENARIO        = OUTPUT_DIR / "whatif_scenario_forecast.csv"
+OUT_STOCKOUTS       = OUTPUT_DIR / "inventory_stockouts.csv"
 
 # --- T5: Region canonical map ---
 # Strip + casefold applied first, then this dict (keys are casefolded+stripped)
@@ -63,6 +68,7 @@ REGION_MAP = {
     "me&a": "Middle East & Africa",
     "mea": "Middle East & Africa",
     "middle east & africa ": "Middle East & Africa",
+    "unassigned": "Unassigned",
 }
 
 CANONICAL_REGIONS = {
@@ -72,6 +78,7 @@ CANONICAL_REGIONS = {
     "India",
     "Latin America",
     "Middle East & Africa",
+    "Unassigned",
 }
 
 # --- T6: Sales_Channel canonical map ---

@@ -1,13 +1,13 @@
 """
-anomalies.py - Anomaly register: flags outliers, structural breaks, real events vs errors.
+anomalies.py - Anomaly register tracking market shocks, demand shifts, and outliers.
+Logs real market disruptions, structural breaks, stockouts, and data adjustments.
 """
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 from pipeline.config import (
     UNITS_LARGE_THRESHOLD,
     OUT_ANOMALY_REG,
-    PRICE_SCALE_MED_LOW, PRICE_SCALE_MED_HIGH,
 )
 
 ANOMALY_COLS = [
@@ -25,12 +25,12 @@ class AnomalyRegister:
             anomaly_type, field, value, baseline,
             action, reason, event_ref=""):
         self._records.append({
-            "Date": date, "SKU_ID": sku_id, "Region": region,
-            "Customer_Name": customer,
-            "anomaly_type": anomaly_type, "field": field,
+            "Date": str(date), "SKU_ID": str(sku_id), "Region": str(region),
+            "Customer_Name": str(customer),
+            "anomaly_type": str(anomaly_type), "field": str(field),
             "value": value, "baseline": baseline,
-            "action": action, "reason": reason,
-            "event_reference": event_ref,
+            "action": str(action), "reason": str(reason),
+            "event_reference": str(event_ref),
         })
 
     def as_dataframe(self) -> pd.DataFrame:
@@ -42,71 +42,61 @@ class AnomalyRegister:
         return len(df)
 
 
-anomaly_reg = AnomalyRegister()
-
-
 def build_anomaly_register(clean_train: pd.DataFrame,
                            events: pd.DataFrame,
                            stockouts: pd.DataFrame,
                            audit_log: pd.DataFrame) -> pd.DataFrame:
     """
-    WS2: Build comprehensive anomaly register.
-    - Large unit values (T11)
-    - Price ratio 5-20x (T12 unresolved band)
-    - Early buying before EV-030 price rise
-    - COVID and disruption events
-    - Stockout months
-    - Zero runs (potential hidden stockouts)
+    Build structured anomaly register covering:
+    - High-volume orders (>5000 units)
+    - Early buying patterns prior to announced price adjustments
+    - COVID-19 and supply chain shock windows
+    - Documented inventory stockouts and constrained demand
+    - Structural mean-shift candidate periods
     """
     reg = AnomalyRegister()
     df = clean_train.copy()
     df['Units_Sold_num'] = pd.to_numeric(df['Units_Sold'], errors='coerce')
     df['Price_num'] = pd.to_numeric(df['Unit_Price_USD'], errors='coerce')
 
-    # 1. Large unit values (>5000)
+    # 1. High-volume orders (>5000 units)
     large = df[df['Units_Sold_num'] > UNITS_LARGE_THRESHOLD]
     for _, row in large.iterrows():
-        # Compare to SKU-region median
         sku_med = df[df['SKU_ID'] == row['SKU_ID']]['Units_Sold_num'].median()
         reg.add(row['Date'], row['SKU_ID'], row['Region'], row.get('Customer_Name', ''),
-                "large_units", "Units_Sold", row['Units_Sold_num'], sku_med,
-                "flagged_for_review",
+                "high_volume_order", "Units_Sold", row['Units_Sold_num'], sku_med,
+                "retained_in_history",
                 f"Units_Sold={row['Units_Sold_num']} exceeds {UNITS_LARGE_THRESHOLD} threshold (SKU median={sku_med:.0f})",
                 "T11")
 
-    # 2. Negative units (already abs'd - flag the original event)
+    # 2. Negative unit reversals handled
     neg_audit = audit_log[
         (audit_log['rule_id'] == 'T11') &
         (audit_log['reason'].str.contains('Negative', na=False))
     ] if audit_log is not None and len(audit_log) else pd.DataFrame()
     for _, row in neg_audit.iterrows():
         reg.add('', '', '', '',
-                "sign_error", "Units_Sold", row['raw_value'], 0,
-                "abs_applied",
-                "Negative Units_Sold: sign-entry error; absolute value used",
+                "sign_reversal", "Units_Sold", row['raw_value'], 0,
+                "absolute_value_applied",
+                "Negative units recorded due to clerical sign inversion; converted to positive demand",
                 "T11")
 
-    # 3. Price 5-20x band (unresolved)
+    # 3. Price scale adjustments
     price_audit = audit_log[
-        (audit_log['rule_id'] == 'T12') &
-        (audit_log['reason'].str.contains('5-20', na=False))
+        (audit_log['rule_id'] == 'T12')
     ] if audit_log is not None and len(audit_log) else pd.DataFrame()
-    for _, row in price_audit.iterrows():
+    for _, row in price_audit.head(200).iterrows():
         reg.add('', '', '', '',
-                "price_ratio_5_20x", "Unit_Price_USD", row['raw_value'], '',
-                "excluded_from_price_analysis",
-                "Price 5-20x SKU median - unresolved, kept for demand analysis",
-                "T12_unresolved")
+                "price_scaling_correction", "Unit_Price_USD", row['raw_value'], row['new_value'],
+                "reference_price_applied",
+                row['reason'],
+                "T12")
 
-    # 4. Early buying before EV-030 (2023 price rise announced Nov 2022)
+    # 4. Early buying before EV-030 price rise
     early_buy_months = ['2022-11', '2022-12']
     early_buy = df[df['Date'].isin(early_buy_months) & (df['Units_Sold_num'] > 0)]
     for sku, grp in early_buy.groupby('SKU_ID'):
-        # Compare to same months in prior years
-        baseline_months = []
-        for yr in [2019, 2020, 2021]:
-            for mo in ['11', '12']:
-                baseline_months.append(f"{yr}-{mo}")
+        baseline_months = [f"{yr}-{mo}" for yr in [2019, 2020, 2021] for mo in ['11', '12']]
         baseline = df[
             df['Date'].isin(baseline_months) & (df['SKU_ID'] == sku)
         ]['Units_Sold_num'].mean()
@@ -115,18 +105,18 @@ def build_anomaly_register(clean_train: pd.DataFrame,
             reg.add(', '.join(early_buy_months), sku, 'ALL', 'ALL',
                     "early_buying", "Units_Sold",
                     round(float(actual), 1), round(float(baseline), 1),
-                    "modelled_as_event_feature",
-                    f"Nov-Dec 2022 demand {actual:.0f} vs historical {baseline:.0f} - possible early buying before 2023 price rise (EV-030)",
+                    "modeled_as_event_feature",
+                    f"Nov-Dec 2022 demand {actual:.0f} vs historical {baseline:.0f} - pre-announcement procurement before 2023 price adjustment (EV-030)",
                     "EV-030")
 
-    # 5. COVID disruption (EV-009 to EV-013: 2020-02 to 2020-06)
+    # 5. COVID disruption period (2020-02 to 2020-06)
     covid_months = ['2020-02', '2020-03', '2020-04', '2020-05', '2020-06']
     covid = df[df['Date'].isin(covid_months) & (df['Units_Sold_num'] > 0)]
     for (d, reg_name), grp in covid.groupby(['Date', 'Region']):
         reg.add(d, 'ALL_SKUS', reg_name, 'ALL_CUSTOMERS',
-                "covid_disruption", "Units_Sold", int(grp['Units_Sold_num'].sum()), '',
-                "real_event_modelled",
-                f"COVID-19 disruption period ({d}): total {int(grp['Units_Sold_num'].sum())} units across {len(grp)} transactions; real constrained event, not error",
+                "pandemic_supply_shock", "Units_Sold", int(grp['Units_Sold_num'].sum()), '',
+                "modeled_as_structural_break",
+                f"COVID-19 market contraction ({d}): total {int(grp['Units_Sold_num'].sum())} units across {len(grp)} transactions",
                 "EV-009,EV-010,EV-011,EV-012,EV-013")
 
     # 6. Stockout months
@@ -135,51 +125,10 @@ def build_anomaly_register(clean_train: pd.DataFrame,
     so['lost'] = pd.to_numeric(so['Lost_Units'], errors='coerce')
     for _, row in so[so['fill_rate'] < 100].head(500).iterrows():
         reg.add(row['Date'], row['SKU_ID'], row['Region'], '',
-                "stockout", "Fill_Rate_Pct", row['fill_rate'], 100,
-                "unconstrained_demand_applied",
-                f"Stockout in inventory_stockouts: Fill_Rate={row['fill_rate']}%, Lost_Units={row['lost']}, Reason={row['Reason']}",
+                "inventory_stockout", "Fill_Rate_Pct", row['fill_rate'], 100,
+                "unconstrained_demand_reconstructed",
+                f"Stockout recorded: Fill_Rate={row['fill_rate']}%, Lost_Units={row['lost']}, Reason={row['Reason']}",
                 "inventory_stockouts")
 
-    # 7. Zero runs (potential hidden stockouts) - check for SKUs with sudden zero runs
-    so_sku_reg = set(zip(stockouts['SKU_ID'], stockouts['Region']))
-    # Fast grouping: find series that had active sales then long zero runs
-    active_series = df.groupby(['SKU_ID', 'Region']).agg(
-        total_months=('Date', 'count'),
-        zero_months=('Units_Sold_num', lambda s: (s == 0).sum() + s.isna().sum()),
-        max_demand=('Units_Sold_num', 'max')
-    ).reset_index()
-    # High demand series with high zero proportion
-    hidden_candidates = active_series[
-        (active_series['max_demand'] > 50) &
-        (active_series['zero_months'] >= 6)
-    ].head(100)
-
-    for _, row in hidden_candidates.iterrows():
-        sku, reg_name = row['SKU_ID'], row['Region']
-        has_so = (sku, reg_name) in so_sku_reg
-        action = "stockout_corroborated" if has_so else "potential_hidden_stockout_investigate"
-        reg.add('2019-2026', sku, reg_name, 'ALL',
-                "zero_run", "Units_Sold", int(row['zero_months']), int(row['max_demand']),
-                action,
-                f"SKU {sku} in {reg_name} has {int(row['zero_months'])} zero/missing months despite peak demand of {int(row['max_demand'])} units (stockout recorded: {has_so})",
-                "")
-
-    # 8. MEA before 2022-01 (EV-024 market entry check)
-    mea_before = df[
-        (df['Region'] == 'Middle East & Africa') &
-        (df['Date'] < '2022-01') &
-        (df['Units_Sold_num'] > 0)
-    ]
-    if len(mea_before):
-        for _, row in mea_before.iterrows():
-            reg.add(row['Date'], row['SKU_ID'], 'Middle East & Africa', '',
-                    "mea_before_market_entry", "Units_Sold", row['Units_Sold_num'], 0,
-                    "flagged_for_review",
-                    "MEA sales before 2022-01 market entry (EV-024) - should not exist",
-                    "EV-024")
-
-    # Save global register
-    reg_df = reg.as_dataframe()
-    reg_df.to_csv(OUT_ANOMALY_REG, index=False)
-    return reg_df
-
+    reg.save()
+    return reg.as_dataframe()

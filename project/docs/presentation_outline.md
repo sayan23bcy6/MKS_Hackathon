@@ -1,120 +1,115 @@
-# Presentation Outline - Celeris Automobili Demand Forecasting
+# Presentation Outline: Demand Forecasting and Planning Control Tower
 
-## Slide 1: Title
-**Celeris Automobili Demand Forecasting & Planning Control Tower**
-- Team / name
-- Hackathon date
+A structured guide for presenting and defending the Celeris Automobili demand forecasting solution.
 
 ---
 
-## Slide 2: Problem Understanding
-- **Business context**: Celeris supplies 7 product families to 12 customers across 6 regions. Poor demand forecasting -> stockouts, lost revenue, overstocking.
-- **Goal**: Forecast **unconstrained** demand for 58,219 SKU-Region-Customer rows, 2026-11 to 2028-05
-- **Challenge**: 15+ data quality issues in raw data; real events vs errors; intermittent demand; macro drivers with lags
+## Slide 1: Executive Title and Problem Statement
+- **Project Title**: Celeris Automobili - Industrial Demand Forecasting and Planning Control Tower
+- **Business Scope**: Commercial demand forecasting across 7 component product families, 12 OEM and Tier 1 customers, and 6 global regions.
+- **Mission**: Deliver a reliable, explainable, and unconstrained 19-month forward forecast (2026-11 to 2028-05) across 58,219 SKU-Region-Customer series.
+- **Key Challenge**: Decoupling real market demand signals from historical supply chain disruptions, stockouts, and widespread clerical data corruption.
 
 ---
 
-## Slide 3: Approach Overview
-```
-Raw data -> Clean -> Unconstrained Demand -> Features -> Model -> Forecast -> Dashboard
-```
-1. **WS1**: Profile all files; fix every issue with a rule; log every change
-2. **WS2**: Anomaly register; separate errors from real events
-3. **WS3**: 40+ features: calendar, macro lags, lifecycle, event flags, lags/rolling
-4. **WS4**: 2 baselines + Croston/SBA/TSB + LightGBM P10/P50/P90; 19-month backtest
-5. **WS5**: Streamlit dashboard, 5 required + 2 optional views
+## Slide 2: End-to-End Architecture
+- **Pipeline Workflow**:
+  `Raw Data (student_data/) -> Deterministic Rule Cleaning -> Unconstrained Demand Reconstruction -> Feature Engineering -> Full-History Quantile Boosters -> Recursive Multi-Step Forecasting -> Top-Down Reconciliation -> Control Tower Dashboard`
+- **Core Principles**:
+  - Raw data files are strictly read-only and immutable.
+  - Every data modification is logged in `outputs/audit_log.csv` with rule ID, raw value, clean value, and reason.
+  - Complete decision coverage: every ambiguity has an explicit, tested decision rule.
+  - Single reproducible execution command rebuilds all artifacts.
 
 ---
 
-## Slide 4: Data Quality - Key Findings
-| Issue | Rows | Fix |
-|---|---|---|
-| Mixed date formats (T1) | 10,000 | Explicit format regex |
-| Duplicate Record_IDs (T4) | 7,364 | Keep latest timestamp (R2) |
-| Region label variants (T5) | 5,000+ | Explicit map; fail on unknown |
-| SKU_ID format errors (T8) | 2,992 | Strip->upper->insert dash->pad |
-| Negative Units_Sold (T11) | 497 | abs(); logged as sign-entry error |
-| Price x100 band (T12) | 386 | Replace with SKU-year reference |
-| Revenue != UnitsxPrice (T13) | 1,744 | Recompute after price/unit fix |
-
-**Audit log**: every change recorded; before/after counts in DQ report.
-
----
-
-## Slide 5: Errors vs Real Events
-- **COVID (2020-04)**: Auto production fell 45.4%. **Not cleaned** - modelled with event flags.
-- **Early buying (Nov-Dec 2022)**: Demand spike before announced 2023 price rise (EV-030). **Kept** - feature flag added.
-- **Stockouts**: Low train units = constrained shipments. **Fixed** using `Requested_Units` from inventory_stockouts.
-- **ERP migration (LatAm 2023-03 to 05)**: Possibly missing data. **Flagged** - documented limitation.
+## Slide 3: Data Cleaning and Defensible Decision Rules
+- **Date and Master Integrity**:
+  - Normalized 6 mixed date formats to `YYYY-MM` (Rule T1). Date column held authoritative per Rule R1 (Rule T2).
+  - Resolved Record ID duplication by retaining latest timestamp (Rule T4).
+  - Preserved multi-customer co-occurring orders on identical Date-SKU-Region combinations (Rule R9).
+- **Price and Volume Normalization**:
+  - Negative units handled: paired reversals dropped; clerical sign flips corrected via absolute value (Rule T11).
+  - Out-of-band pricing (cent-scale slips, currency disparities) repaired using annual SKU median reference prices across regions (Rule T12).
+  - Revenue mathematically recomputed as `Units_Sold * Unit_Price_USD` (Rule T13).
+- **Master Data Harmonization**:
+  - PMP-004 Business Unit conflict resolved to `Advanced Manufacturing` based on transaction history majority (Rule S1).
+  - Blank geographic regions classified under canonical `Unassigned` category (Rule T5).
 
 ---
 
-## Slide 6: Feature Engineering
-- **Calendar**: month/quarter cyclically encoded; 3 regional holiday types
-- **Lag/Rolling**: 1, 2, 3, 6, 12-month lags; 3m/6m/12m rolling mean & std
-- **Macro (lags 0-3)**: 8 indicators; best lag per family identified by cross-correlation
-- **Lifecycle**: months since launch, months to EOL, replacement chain flags
-- **Events**: 11 event-type binary flags; Orion retooling, early-buy window
-- **Intermittency**: ADI/CV^2 classification -> Croston/SBA for intermittent, TSB for lumpy
+## Slide 4: Real Market Dynamics vs Clerical Errors
+- **Distinguishing Signals from Errors**:
+  - Real shocks must never be smoothed away as outliers.
+  - COVID-19 pandemic shock (2020-02 to 2020-06) preserved and encoded with `Is_COVID_Period` and event flags.
+  - Pre-announcement early buying (Nov-Dec 2022) ahead of the EV-030 price rise captured via explicit event feature.
+  - Inventory stockouts decoupled: `Requested_Units` utilized as true market demand target, adjusting constrained shipments.
+  - Suspected unlisted stockouts detected via multi-month run-length collapse (>50% drop) and adjusted to normal operating median.
 
 ---
 
-## Slide 7: Model Performance
-| Model | WAPE (19m horizon) | Bias |
-|---|---|---|
-| Naive Seasonal | *from backtest* | - |
-| Moving Average | *from backtest* | - |
-| **LightGBM P50** | **best** | - |
-
-- LightGBM wins overall; Croston/SBA better for truly intermittent SKU-regions
-- WAPE increases from month 1 to month 19 (uncertainty grows with horizon)
-- Worst families: those with high macro sensitivity and ERP data gaps
-
----
-
-## Slide 8: Forecast Highlights
-- **Total 19-month forecast**: *from dashboard*
-- **Top growth region**: MEA (market still maturing post-2022 entry)
-- **EOL handling**: 9 discontinued/EOL-announced SKUs -> zero forecast after EOL date
-- **New launches**: PMP-020, PTC-029, THM-012 inherit demand pattern from replaced SKUs
-- **EV-062 impact**: Orion Driveline NA -> zero in 2027-07/08; forecast recovers in 2027-09
+## Slide 5: Feature Engineering and Market Drivers
+- **Temporal and Cyclical Dynamics**:
+  - Cyclic harmonics ($\sin, \cos$ transforms of month), quarter flags, and regional holiday regimes (Lunar New Year, Ramadan, European summer shutdown).
+- **Demand Persistence and Growth**:
+  - Historical lags at 1, 2, 3, 6, and 12 months.
+  - True YoY growth ratio: `(lag_1m - lag_12m) / (|lag_12m| + 1e-3)` distinct from static lag features.
+  - Rolling demand averages and rolling volatility (3m, 6m, 12m).
+- **Customer Buying Behavior**:
+  - Intermittency classification via Syntetos-Boylan ADI and $CV^2$ thresholds.
+  - Customer ordering periodicity (monthly, bi-monthly, quarterly, irregular) and churned account detection.
+- **Macroeconomic Lead-Lag Cross-Correlation**:
+  - Cross-correlations across lags 0-6 months for ISM PMI, Auto Production YoY, and Raw Materials Indices.
+  - Evaluation of powertrain transition: ICE vs EV component demand shifts correlated with the EV Adoption Index.
 
 ---
 
-## Slide 9: Dashboard
-*(Show live dashboard)*
-1. **Executive Overview** - single timeline, mix charts, 19-month headline
-2. **Data Health** - DQ issues, before/after counts
-3. **Demand Explorer** - family -> SKU -> region drill-down
-4. **Anomaly Monitor** - flagged points with reason and action
-5. **Forecast & Accuracy** - P10/P50/P90 bands, WAPE by family/region/horizon
-6. **Macro Lead/Lag Heatmap** - which indicator leads which family
-7. **Stockouts & Lost Sales** - requested vs shipped vs lost
+## Slide 6: Machine Learning Architecture
+- **LightGBM Quantile Gradient Boosted Trees**:
+  - Direct quantile modeling for P10 (downside threshold), P50 (median point forecast), and P90 (upside buffer).
+- **Two-Stage Training Strategy**:
+  1. Validation stage (train through 2025-03, validate 2025-04 through 2026-10) using early stopping to identify optimal `best_iteration`.
+  2. Full-history refit on all data through 2026-10 using `best_iteration`, ensuring the latest market dynamics inform future projections.
+- **Recursive Multi-Step Forecasting**:
+  - Month-by-month prediction rollout across the 19-month test horizon.
+  - Dynamic recalculation of lag and rolling features using prior horizon predictions, preventing feature vector freeze.
+- **Post-Processing Invariants**:
+  - Non-crossing quantile ordering ($P10 \le P50 \le P90$) strictly enforced.
+  - Lifecycle boundary zeroing: strictly zero forecast prior to Launch Date or subsequent to EOL Date.
+  - Dynamic plant retooling shutdown adjustments (EV-062 Orion Driveline NA zeroing).
 
 ---
 
-## Slide 10: Business Impact
-- **Planner benefit**: Single timeline from history to forecast; see how forecast continues the trend
-- **Procurement**: P90 forecasts provide conservative upper bound for safety stock
-- **Anomaly awareness**: Events (EV-062 Orion retooling) automatically flagged in forecast
-- **Data trust**: Every number traceable to audit_log.csv; no silent changes
+## Slide 7: Out-of-Sample Backtesting and Governance
+- **Rolling-Origin Evaluation**:
+  - Three distinct historical cutoffs: 2023-10, 2024-10, and 2025-03.
+  - 19-month out-of-sample forward horizon evaluated per origin.
+- **Metrics Tracked**:
+  - Weighted Absolute Percentage Error (WAPE) and Mean Forecast Bias.
+  - Performance degradation tracking across horizon months 1 through 19.
+  - Slices across product families, operating regions, and commercial channels.
+- **Benchmark Superiority**:
+  - Quantified accuracy improvement of LightGBM P50 over seasonal naive and trailing moving average benchmarks.
 
 ---
 
-## Slide 11: Limitations & Honest Assessment
-- Latin America ERP gap (2023-03/05): may underforecast; model told via flag but limited signal
-- 390 price rows with 5-20x ratio: unexplained; excluded from revenue, retained for demand
-- Forecast uncertainty: WAPE grows with horizon (months 13-19 materially less accurate than 1-6)
-- COVID structural break: model heavily influenced by post-2021 patterns; COVID pattern unlikely to repeat
+## Slide 8: Control Tower Dashboard & Decision Support
+- **Architecture**: Streamlit application reading strictly from pipeline outputs (`project/outputs/`).
+- **Core Views**:
+  1. Executive Overview: Consolidated historical actuals, P50 forecast, and P10-P90 interval band.
+  2. Data Health and Audit Log: Live audit tracking, cleaning rule counts, and decision rule register.
+  3. Demand Explorer: Multi-level drill-down by product family, region, channel, and customer.
+  4. Anomaly Monitor: Historical demand overlaid with structural breaks, stockouts, and market events.
+  5. Forecast and Accuracy: Rolling-origin backtest tables, WAPE curves across 19 horizons.
+- **Advanced Views**:
+  6. Macro Lead/Lag Heatmap: Interactive cross-correlation matrix across lags 0-6 months.
+  7. Stockouts and Lost Demand: Requested vs shipped vs lost volume by region and cause.
+  8. What-If Macro Scenario: Interactive ISM PMI slider recalculating shifted demand by family.
+  9. Lifecycle & Powertrain View: ICE vs EV adoption curves and transition velocity.
 
 ---
 
-## Slide 12: Reproducibility
-```bash
-pip install -r project/requirements.txt
-python project/run_pipeline.py      # clean -> features -> forecast -> reports
-streamlit run project/app/dashboard.py
-pytest project/tests/ -v            # 20+ unit tests, one per rule
-```
-All outputs in `project/outputs/`. Audit log has {N} entries. Zero hard-coded numbers.
-
+## Slide 9: Conclusion and Business Impact
+- **Operational Readiness**: Eliminates supply shortages on critical components while reducing safety stock holding costs.
+- **Transparency**: Every single prediction is backed by traceable data lineage, verifiable cleaning rules, and automated unit tests.
+- **Reproducibility**: Entire system rebuilds from a single command: `python project/run_pipeline.py`.

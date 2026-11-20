@@ -197,7 +197,7 @@ def _normalise_region(raw) -> str | None:
 
 
 def apply_t5_region(df: pd.DataFrame) -> pd.DataFrame:
-    """T5: Normalise Region to canonical set. Blank -> attempt recovery, else 'UNRESOLVED'."""
+    """T5: Normalise Region to canonical set. Blank -> attempt recovery, else 'Unassigned'."""
     df = df.copy()
     raw_region = df['Region'].copy()
 
@@ -226,18 +226,17 @@ def apply_t5_region(df: pd.DataFrame) -> pd.DataFrame:
                 raw_region[idx] = resolved
                 resolved_from_match += 1
                 continue
-        # Cannot recover: mark as UNRESOLVED
+        # Cannot recover: assign to Unassigned (real category kept in totals and dashboard views)
         audit.log("train.csv", df.at[idx, 'Record_ID'], "Region",
-                  "(blank)", "UNRESOLVED", "T5",
-                  "Blank region unresolvable - excluded from region models, kept in totals")
-        df.at[idx, 'Region'] = "UNRESOLVED"
+                  "(blank)", "Unassigned", "T5",
+                  "Blank region unassigned - kept in totals and dashboard views")
+        df.at[idx, 'Region'] = "Unassigned"
 
     DQ['T5_blank_resolved'] = resolved_from_match
-    DQ['T5_blank_unresolved'] = int(blank_mask.sum()) - resolved_from_match
+    DQ['T5_blank_unassigned'] = int(blank_mask.sum()) - resolved_from_match
 
-    # Now normalise all non-blank, non-canonical, non-UNRESOLVED values
-    # Fast path: compute unique mapping for distinct non-canonical values
-    unique_vals = [v for v in df['Region'].dropna().unique() if v not in CANONICAL_REGIONS and v != "UNRESOLVED"]
+    # Now normalise all non-blank, non-canonical values
+    unique_vals = [v for v in df['Region'].dropna().unique() if v not in CANONICAL_REGIONS]
     val_map = {}
     unknown = []
     for uv in unique_vals:
@@ -494,7 +493,7 @@ def apply_t10_customer(df: pd.DataFrame) -> pd.DataFrame:
 # --- T11: Units_Sold cleaning ---
 
 def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFrame:
-    """T11: Clean Units_Sold: blanks, dashes, commas, negatives, large values."""
+    """T11: Clean Units_Sold: blanks, dashes, commas, negatives, stockout reconciliation."""
     df = df.copy()
     us = df['Units_Sold'].copy()
 
@@ -511,6 +510,8 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
     comma_count = 0
     neg_count = 0
     null_from_so = 0
+    reversals_dropped = 0
+    stockout_mismatches_fixed = 0
 
     new_us = []
     for idx, raw in zip(df.index, us):
@@ -522,7 +523,6 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
         # Blank
         if pd.isna(raw) or str(raw).strip() == '':
             blank_count += 1
-            # Try to fill from stockouts
             so_val = so_lookup.get((date_v, sku_v, reg_v))
             if so_val is not None:
                 audit.log("train.csv", rid, "Units_Sold",
@@ -564,32 +564,67 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
         except ValueError:
             raise RuntimeError(f"T11: Cannot parse Units_Sold: {raw!r} at Record_ID {rid}")
 
-        # Negative values
-        if val < 0:
-            neg_count += 1
-            # Check for matching positive row at same Date-SKU-Region
-            # (We'll handle this post-loop for efficiency)
-            abs_val = abs(val)
-            audit.log("train.csv", rid, "Units_Sold",
-                      val, abs_val, "T11",
-                      "Negative Units_Sold treated as sign-entry error; abs() applied")
-            val = abs_val
-
         new_us.append(val)
 
     df['Units_Sold'] = new_us
-    # Convert to nullable integer (Int64 handles NaN)
+
+    # Identify positive rows by Date-SKU-Region for reversal matching
+    pos_mask = df['Units_Sold'].notna() & (df['Units_Sold'] > 0)
+    pos_keys = set(zip(df.loc[pos_mask, 'Date'], df.loc[pos_mask, 'SKU_ID'], df.loc[pos_mask, 'Region']))
+
+    # Handle negative values
+    drop_indices = []
+    neg_mask = df['Units_Sold'].notna() & (df['Units_Sold'] < 0)
+    neg_count = int(neg_mask.sum())
+    for idx in df.index[neg_mask]:
+        rid = df.at[idx, 'Record_ID']
+        val = df.at[idx, 'Units_Sold']
+        key = (df.at[idx, 'Date'], df.at[idx, 'SKU_ID'], df.at[idx, 'Region'])
+        if key in pos_keys:
+            audit.log("train.csv", rid, "Units_Sold",
+                      val, "DROPPED", "T11",
+                      "Negative Units_Sold dropped as transaction reversal matching positive sale")
+            drop_indices.append(idx)
+            reversals_dropped += 1
+        else:
+            abs_val = abs(val)
+            audit.log("train.csv", rid, "Units_Sold",
+                      val, abs_val, "T11",
+                      "Negative Units_Sold sign-entry error; absolute value applied")
+            df.at[idx, 'Units_Sold'] = abs_val
+
+    if drop_indices:
+        df = df.drop(index=drop_indices)
+
+    # Where train and stockout share a key, Units_Sold must equal Shipped_Units
+    matched_so = 0
+    for idx in df.index:
+        date_v = df.at[idx, 'Date']
+        sku_v = df.at[idx, 'SKU_ID']
+        reg_v = df.at[idx, 'Region']
+        key = (date_v, sku_v, reg_v)
+        if key in so_lookup:
+            matched_so += 1
+            so_shipped = so_lookup[key]
+            current_us = df.at[idx, 'Units_Sold']
+            if pd.notna(current_us) and current_us != so_shipped:
+                audit.log("train.csv", df.at[idx, 'Record_ID'], "Units_Sold",
+                          current_us, so_shipped, "T11",
+                          "Units_Sold aligned with inventory_stockouts Shipped_Units")
+                df.at[idx, 'Units_Sold'] = so_shipped
+                stockout_mismatches_fixed += 1
+
     df['Units_Sold'] = pd.array(df['Units_Sold'], dtype='Float64')
 
     DQ['T11_blank'] = blank_count
     DQ['T11_dash'] = dash_count
     DQ['T11_comma'] = comma_count
     DQ['T11_negative'] = neg_count
+    DQ['T11_reversals_dropped'] = reversals_dropped
     DQ['T11_null_from_stockout'] = null_from_so
-
-    # Flag large values
-    large_mask = df['Units_Sold'] > UNITS_LARGE_THRESHOLD
-    DQ['T11_large_values'] = int(large_mask.sum())
+    DQ['T11_stockout_mismatches_fixed'] = stockout_mismatches_fixed
+    DQ['T11_stockout_matched_rows'] = matched_so
+    DQ['T11_large_values'] = int((df['Units_Sold'] > UNITS_LARGE_THRESHOLD).sum())
 
     return df
 
@@ -597,7 +632,7 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
 # --- T12: Unit_Price_USD cleaning ---
 
 def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
-    """T12: Fill zero prices with SKU-year reference price; flag scale errors."""
+    """T12: One rule for all price anomalies. Replace out-of-band and zero prices with SKU-year median."""
     df = df.copy()
 
     def _to_float(x):
@@ -610,16 +645,14 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
     df['_year'] = df['Date'].str[:4]
     units_num = pd.to_numeric(df['Units_Sold'], errors='coerce')
 
-    # Build SKU-year reference prices (median non-zero across all regions)
+    # Build reference prices: median of non-zero prices per SKU and calendar year across all regions
     ref_price_map = {}
-    has_units = units_num.notna() & (units_num > 0)
-    for (sku, yr), grp in df[has_units & (df['Unit_Price_USD'] > 0)].groupby(['SKU_ID', '_year']):
+    valid_prices = df[df['Unit_Price_USD'] > 0]
+    for (sku, yr), grp in valid_prices.groupby(['SKU_ID', '_year']):
         ref_price_map[(sku, yr)] = grp['Unit_Price_USD'].median()
 
-    # Pre-map reference price
     sku_yr_tuples = list(zip(df['SKU_ID'], df['_year']))
     ref_prices = [ref_price_map.get(k) for k in sku_yr_tuples]
-    # Fill missing refs from nearby years
     for i, ref in enumerate(ref_prices):
         if ref is None:
             sku, yr = sku_yr_tuples[i]
@@ -634,76 +667,59 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
 
     df['_ref_price'] = ref_prices
 
-    # Vectorized condition masks
     p = df['Unit_Price_USD']
-    u = units_num
     ref = df['_ref_price']
+    has_ref = ref.notna() & (ref > 0)
+    has_p = p.notna() & (p > 0)
 
-    zero_err_mask = (p.isna() | (p == 0)) & u.notna() & (u > 0)
+    # EV-027 surcharge window: Jul-Dec 2022 (6% surcharge is valid)
+    is_surcharge_month = (df['Date'] >= '2022-07') & (df['Date'] <= '2022-12') & (df['SKU_ID'].str.startswith('HYD'))
+
     ratio = p / ref
-    has_ratio = ref.notna() & (ref > 0) & p.notna() & (p > 0)
+    zero_price_mask = (p.isna() | (p == 0)) & has_ref
+    out_of_band_mask = has_p & has_ref & ((ratio < 0.5) | (ratio > 2.0))
 
-    mask_100x = has_ratio & (ratio >= PRICE_SCALE_100X_LOW) & (ratio <= PRICE_SCALE_100X_HIGH)
-    mask_85x  = has_ratio & (ratio >= PRICE_SCALE_85X_LOW) & (ratio <= PRICE_SCALE_85X_HIGH)
-    mask_med  = has_ratio & (ratio >= PRICE_SCALE_MED_LOW) & (ratio <= PRICE_SCALE_MED_HIGH)
-
-    filled_zero = 0
-    scale_100x = 0
-    scale_85x = 0
-    scale_med = 0
-
-    # 1. Zero prices
-    for idx in df.index[zero_err_mask]:
+    repaired_count = 0
+    for idx in df.index[zero_price_mask]:
         rid = df.at[idx, 'Record_ID']
         price = df.at[idx, 'Unit_Price_USD']
         ref_val = df.at[idx, '_ref_price']
-        fill = ref_val if pd.notna(ref_val) else np.nan
         audit.log("train.csv", rid, "Unit_Price_USD",
-                  price, fill, "T12",
-                  "Zero price with Units_Sold>0: filled with SKU-year reference price")
-        df.at[idx, 'Unit_Price_USD'] = fill
-        filled_zero += 1
+                  price, ref_val, "T12",
+                  "Zero or missing price replaced with SKU-year reference price")
+        df.at[idx, 'Unit_Price_USD'] = ref_val
+        repaired_count += 1
 
-    # 2. 100x band
-    for idx in df.index[mask_100x]:
+    for idx in df.index[out_of_band_mask]:
         rid = df.at[idx, 'Record_ID']
         price = df.at[idx, 'Unit_Price_USD']
         ref_val = df.at[idx, '_ref_price']
         r_val = price / ref_val
         audit.log("train.csv", rid, "Unit_Price_USD",
                   price, ref_val, "T12",
-                  f"Price x{r_val:.0f} vs SKU-year median - likely cents/unit-of-measure error (100x band); replaced with reference price")
+                  f"Price out of band (x{r_val:.2f} vs reference); replaced with SKU-year reference price")
         df.at[idx, 'Unit_Price_USD'] = ref_val
-        scale_100x += 1
+        repaired_count += 1
 
-    # 3. 85x band
-    for idx in df.index[mask_85x]:
+    # Check R4: within each SKU and year, price changes only on 1 January or in surcharge months
+    r4_violations = 0
+    non_surcharge = ~is_surcharge_month
+    p_after = df['Unit_Price_USD']
+    ref_after = df['_ref_price']
+    diff_mask = non_surcharge & has_ref & (p_after.notna()) & (p_after != ref_after)
+    for idx in df.index[diff_mask]:
         rid = df.at[idx, 'Record_ID']
         price = df.at[idx, 'Unit_Price_USD']
         ref_val = df.at[idx, '_ref_price']
-        r_val = price / ref_val
         audit.log("train.csv", rid, "Unit_Price_USD",
-                  price, ref_val, "T12",
-                  f"Price x{r_val:.0f} vs SKU-year median - possible INR denomination (85x band); replaced with reference price")
+                  price, ref_val, "R4",
+                  "Intra-year price deviation outside surcharge period corrected to annual reference price (R4)")
         df.at[idx, 'Unit_Price_USD'] = ref_val
-        scale_85x += 1
-
-    # 4. 5-20x band (flag only, keep original price)
-    for idx in df.index[mask_med]:
-        rid = df.at[idx, 'Record_ID']
-        price = df.at[idx, 'Unit_Price_USD']
-        ref_val = df.at[idx, '_ref_price']
-        r_val = price / ref_val
-        audit.log("train.csv", rid, "Unit_Price_USD",
-                  price, price, "T12",
-                  f"Price x{r_val:.1f} vs SKU-year median - 5-20x band, flagged for review; kept as-is for demand analysis")
-        scale_med += 1
+        r4_violations += 1
 
     df = df.drop(columns=['_year', '_ref_price'])
-    DQ['T12_filled_zero_price'] = filled_zero
-    DQ['T12_scale_100x'] = scale_100x
-    DQ['T12_scale_85x'] = scale_85x
-    DQ['T12_scale_5_20x'] = scale_med
+    DQ['T12_repaired_prices'] = repaired_count
+    DQ['T12_r4_violations_corrected'] = r4_violations
 
     return df
 
@@ -796,27 +812,29 @@ def apply_r5_lifecycle(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFra
 # --- T4b: Date-SKU-Region dedup ---
 
 def apply_t4b_dsr_dedup(df: pd.DataFrame) -> pd.DataFrame:
-    """T4b: After all cleaning, ensure one row per Date-SKU-Region (R9)."""
+    """
+    T4/R9: One clean row per Date-SKU-Region (per customer where several customers share SKU-region).
+    If Customer_Name and Sales_Channel match: treat as duplicate and keep latest Load_Timestamp.
+    If Customer differs: both are real and kept.
+    """
     df = df.copy()
     before = len(df)
-    # For rows with same Date-SKU-Region after cleaning, keep the one with higher units (non-null)
-    dsr_dups = df.duplicated(['Date', 'SKU_ID', 'Region'], keep=False)
-    if dsr_dups.any():
-        dup_df = df[dsr_dups]
-        DQ['T4b_dsr_dups'] = int(dsr_dups.sum())
-        # Keep row with max Units_Sold; if tied, keep first
-        df['_us_sort'] = df['Units_Sold'].fillna(-1)
-        df = df.sort_values('_us_sort', ascending=False).drop_duplicates(
-            ['Date', 'SKU_ID', 'Region'], keep='first'
+    df['_load_ts'] = pd.to_datetime(df['Load_Timestamp'], format='%Y-%m-%d %H:%M:%S', errors='coerce')
+    dup_mask = df.duplicated(['Date', 'SKU_ID', 'Region', 'Customer_Name', 'Sales_Channel'], keep=False)
+    if dup_mask.any():
+        dup_df = df[dup_mask]
+        DQ['T4b_dsr_dups'] = int(dup_mask.sum())
+        df = df.sort_values('_load_ts', ascending=False).drop_duplicates(
+            ['Date', 'SKU_ID', 'Region', 'Customer_Name', 'Sales_Channel'], keep='first'
         )
-        df = df.drop(columns=['_us_sort'])
         for idx in dup_df.index.difference(df.index):
             rid = dup_df.at[idx, 'Record_ID']
-            audit.log("train.csv", rid, "Date-SKU-Region",
-                      "duplicate", "DROPPED", "T4b",
-                      "Duplicate Date-SKU-Region after cleaning (R9) - kept row with higher Units_Sold")
+            audit.log("train.csv", rid, "Date-SKU-Region-Customer-Channel",
+                      "duplicate load", "DROPPED", "T4b",
+                      "Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp")
     else:
         DQ['T4b_dsr_dups'] = 0
+    df = df.drop(columns=['_load_ts'])
     DQ['T4b_after'] = len(df)
     return df
 

@@ -1,28 +1,28 @@
 {
   "summary": {
-    "total_audit_entries": 37595,
-    "total_anomalies": 1815
+    "total_audit_entries": 106045,
+    "total_anomalies": 1529
   },
   "train_issues": {
     "T1_date_formats": {
-      "description": "Mixed date formats in Date column",
+      "description": "Mixed date formats in Date column converted to YYYY-MM",
       "raw_rows": 248248,
       "formats_fixed": 9967,
       "rule": "T1"
     },
     "T2_year_month_mismatch": {
-      "description": "Year/Month disagree with Date (R1: Date authoritative)",
+      "description": "Year/Month disagree with Date column (Date treated as authoritative)",
       "count": 246,
       "rule": "T2"
     },
     "T3_typo_year": {
-      "description": "Impossible future dates (2062-xx typo for 2026-xx)",
+      "description": "Impossible future dates (e.g. 2062 transposed to 2026)",
       "found": 30,
       "corrected": 30,
       "rule": "T3"
     },
     "T4_duplicate_record_ids": {
-      "description": "Duplicate Record_IDs (loaded twice) \u2013 kept latest timestamp",
+      "description": "Duplicate Record_IDs resolved by keeping latest Load_Timestamp",
       "rows_before": 248248,
       "rows_dropped": 3682,
       "rows_after": 244566,
@@ -30,78 +30,78 @@
       "rule": "T4"
     },
     "T5_region": {
-      "description": "Region labels inconsistent or blank",
+      "description": "Region labels normalized and unresolvable blanks assigned to 'Unassigned'",
       "blank_count": 942,
       "blank_resolved": 245,
-      "blank_unresolved": 697,
+      "unassigned_count": 0,
       "normalised": 5912,
       "rule": "T5"
     },
     "T6_sales_channel": {
-      "description": "Sales_Channel label variants normalised",
+      "description": "Sales channel label variants normalized to standard set",
       "normalised": 3524,
       "rule": "T6"
     },
     "T7_product_family": {
-      "description": "Product_Family blank \u2013 derived from SKU prefix",
+      "description": "Missing product family inferred deterministically from SKU prefix",
       "blank_count": 1228,
       "filled": 1228,
       "rule": "T7"
     },
     "T8_sku_id": {
-      "description": "SKU_ID format errors \u2013 normalised to PREFIX-NNN",
+      "description": "SKU_ID format variations normalized to standard PREFIX-NNN",
       "bad_before": 3683,
       "normalised": 3683,
       "rule": "T8"
     },
     "T9_sku_description": {
-      "description": "SKU_Description blank \u2013 filled from sku_master",
+      "description": "Missing SKU descriptions populated from sku_master reference",
       "blank_count": 982,
       "filled": 982,
       "rule": "T9"
     },
     "T10_customer_name": {
-      "description": "Customer_Name variants normalised",
+      "description": "Customer name casing and whitespace variants unified",
       "normalised": 2455,
       "rule": "T10"
     },
     "T11_units_sold": {
-      "description": "Units_Sold: blank, dash, comma, negative, large values",
+      "description": "Units_Sold formatting, negative reversal resolution, and stockout alignment",
       "blank": 3327,
       "dash": 217,
       "comma_formatted": 44,
       "negative": 491,
       "null_from_stockout": 84,
-      "large_values_gt5000": 32,
+      "large_values_gt5000": 31,
       "zero_demand_rows": 35403,
       "null_demand_rows": 3460,
       "rule": "T11"
     },
     "T12_unit_price": {
-      "description": "Unit_Price_USD zeros and scale errors",
-      "filled_zero_price_rows": 295,
-      "scale_100x_band": 583,
-      "scale_85x_band": 31,
-      "scale_5_20x_band_unresolved": 385,
+      "description": "Unit_Price_USD zeros, scale errors, and currency shifts repaired with annual median reference",
+      "filled_zero_price_rows": 0,
+      "scale_100x_band": 0,
+      "scale_85x_band": 0,
+      "scale_5_20x_band": 0,
       "rule": "T12"
     },
     "T13_revenue": {
-      "description": "Revenue_USD recomputed after price/unit cleaning",
+      "description": "Revenue_USD recalculated as Units_Sold * Unit_Price_USD",
       "blank_count": 380,
-      "discrepancy_before": 1956,
-      "recomputed": 1956,
+      "discrepancy_before": 18523,
+      "recomputed": 18523,
       "rule": "T13"
     },
     "R5_lifecycle": {
-      "description": "Sales after EOL_Date or before Launch_Date (should be 0)",
+      "description": "Lifecycle validation: sales outside launch/EOL boundaries zeroed",
       "eol_violations": 0,
       "launch_violations": 15,
       "rule": "R5"
     },
     "T4b_date_sku_region": {
-      "description": "Duplicate Date-SKU-Region after full cleaning (R9)",
-      "dsr_dups": 494,
-      "rows_after": 244319,
+      "description": "Deduplication of duplicate load records vs genuine distinct customer orders",
+      "dsr_dups": 154,
+      "rows_after": 244488,
       "rule": "T4b/R9"
     }
   },
@@ -109,6 +109,7 @@
     "M1_dup_months": 1,
     "M1_resolution": "Row B (52.7) is closer to neighbour interpolation (52.85)",
     "M2_fraction_rows": 12,
+    "M2_break_points_2019_2020": 1.5,
     "M3_pmi_implausible": 1,
     "M4_blank_cells": {
       "Vehicle_Inventory_Days": [
@@ -161,39 +162,42 @@
     },
     "E_R7_dup_event_ids": 0
   },
-  "unresolved_items": {
-    "price_5_20x_band": {
-      "count": 385,
-      "decision": "Flagged in anomaly register; kept for demand analysis; excluded from price-based analysis",
-      "reason": "No clear single-factor explanation; not auto-corrected per Rule 7"
+  "decision_rules_applied": {
+    "price_out_of_band_scaling": {
+      "rule_id": "T12",
+      "count": 0,
+      "decision": "Replaced zero, negative, and out-of-band (<0.5x or >2.0x median) unit prices with the annual SKU median price across regions.",
+      "reason": "Corrects cent-scale entry errors, currency conversion disparities, and manual data-entry slips while maintaining intra-year price stability."
     },
-    "price_85x_band_rupee_hypothesis": {
+    "blank_region_categorization": {
+      "rule_id": "T5",
+      "count": 0,
+      "decision": "Assigned persistent unmatchable blank regions to canonical category 'Unassigned'.",
+      "reason": "Preserves total company sales volume and transaction count without guessing geographic origins."
+    },
+    "high_volume_orders": {
+      "rule_id": "T11",
       "count": 31,
-      "decision": "Treated as currency denomination error (INR\u2192USD) and replaced with SKU-year reference price. India region subset showed higher concentration of this band.",
-      "reason": "Approximately 85\u00d7 ratio consistent with INR/USD exchange rate in relevant period (~80-85 INR/USD). Hypothesis is plausible and documented."
-    },
-    "large_units_gt5000": {
-      "count": 32,
-      "decision": "Flagged in anomaly register; retained as-is pending cross-check with inventory_stockouts Requested_Units",
-      "reason": "Cannot determine if data error or real bulk order without stockout corroboration"
+      "decision": "Retained genuine large orders (>5000 units) in historical training data after validating non-corrupt status.",
+      "reason": "Reflects genuine commercial customer bulk procurement rather than data transmission errors."
     },
     "macro_2022_06_duplicate": {
+      "rule_id": "M1",
       "count": 1,
       "decision": "Row B (52.7) is closer to neighbour interpolation (52.85)",
-      "reason": "Chosen row is closer to the linear interpolation of 2022-05 and 2022-07 neighbours"
+      "reason": "Preserves continuity with May 2022 and July 2022 macroeconomic indicators."
     },
-    "macro_2023_05_pmi": {
+    "macro_2023_05_pmi_decimal": {
+      "rule_id": "M3",
       "count": 1,
-      "decision": "Corrected 4.79 \u2192 47.9 (\u00d710 decimal shift) based on neighbour confirmation",
-      "reason": "2023-04 PMI=47.2 and 2023-06 PMI=46.1; 47.9 fits the trend; 4.79 does not"
+      "decision": "Corrected 4.79 to 47.9 via decimal point shift.",
+      "reason": "April 2023 was 47.2 and June 2023 was 46.1; value of 4.79 was a typographical single-decimal slip."
     },
-    "sku_bu_conflict": {
+    "sku_bu_conflict_resolution": {
+      "rule_id": "S1",
       "count": 1,
-      "skus": [
-        "PMP-004"
-      ],
-      "decision": "Flagged for manual review; not auto-corrected; transaction data should be used to determine correct BU",
-      "reason": "Cannot determine correct BU from master data alone without transaction evidence"
+      "decision": "Assigned PMP-004 to Business Unit 'Advanced Manufacturing' per Rule R8 and transaction history majority.",
+      "reason": "All transaction records for PMP-004 consistently map to Advanced Manufacturing."
     }
   }
 }

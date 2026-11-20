@@ -537,9 +537,11 @@ class TestSchemaValidation:
         import pathlib
         if pathlib.Path(OUT_TRAIN_CLEAN).exists():
             df = pd.read_parquet(OUT_TRAIN_CLEAN)
-            allowed = CANONICAL_REGIONS | {'UNRESOLVED'}
+            allowed = CANONICAL_REGIONS
             bad = ~df['Region'].isin(allowed)
             assert bad.sum() == 0, f"{bad.sum()} non-canonical regions: {df.loc[bad,'Region'].unique()}"
+            assert 'Unassigned' in allowed
+            assert not (df['Region'] == 'Unknown').any()
 
     def test_clean_train_channels_canonical(self):
         from pipeline.config import OUT_TRAIN_CLEAN
@@ -564,4 +566,51 @@ class TestSchemaValidation:
         if pathlib.Path(OUT_FORECAST_SUB).exists():
             sub = pd.read_csv(OUT_FORECAST_SUB)
             assert len(sub) == 58219, f"Expected 58219 rows, got {len(sub)}"
+
+    def test_pmp004_bu_resolution(self):
+        """Rule S1: PMP-004 BU conflict resolved to Advanced Manufacturing."""
+        from pipeline.clean_master_macro_events import clean_sku_master
+        from pipeline.load import load_sku_master
+        sku_clean, dq = clean_sku_master(load_sku_master())
+        pmp = sku_clean[sku_clean['SKU_ID'] == 'PMP-004']
+        assert pmp['Business_Unit'].iloc[0] == 'Advanced Manufacturing'
+
+    def test_quantile_ordering(self):
+        """Verify P10 <= P50 <= P90 non-crossing constraint."""
+        from pipeline.models.lightgbm_model import enforce_quantile_ordering
+        p10 = np.array([10.0, 50.0, 30.0])
+        p50 = np.array([20.0, 40.0, 30.0])
+        p90 = np.array([15.0, 60.0, 25.0])
+        p10_o, p50_o, p90_o = enforce_quantile_ordering(p10, p50, p90)
+        assert (p10_o <= p50_o).all()
+        assert (p50_o <= p90_o).all()
+
+    def test_hierarchy_reconciliation_structure(self):
+        """Verify hierarchy reconciliation output exists and has status PASS."""
+        from pipeline.config import OUT_HIERARCHY_RECON
+        import pathlib
+        if pathlib.Path(OUT_HIERARCHY_RECON).exists():
+            df = pd.read_csv(OUT_HIERARCHY_RECON)
+            assert 'Level' in df.columns
+            assert 'Deviation_Pct' in df.columns
+            assert (df['Deviation_Pct'] <= 0.5).all()
+            assert (df['Status'] == 'PASS').all()
+
+    def test_features_yoy_growth_not_identical_to_lag12(self):
+        """Fix F4: lag_12m_yoy must be the YoY ratio, distinct from lag_12m."""
+        from pipeline.features import add_lag_rolling_features
+        df = pd.DataFrame([
+            {'SKU_ID': 'S1', 'Region': 'R1', 'Customer_Name': 'C1', 'Date': f'2020-{m:02d}', 'Units_Sold': 100 + m * 5}
+            for m in range(1, 13)
+        ] + [
+            {'SKU_ID': 'S1', 'Region': 'R1', 'Customer_Name': 'C1', 'Date': '2021-01', 'Units_Sold': 200}
+        ])
+        out = add_lag_rolling_features(df)
+        last_row = out.iloc[-1]
+        assert 'lag_12m_yoy' in out.columns
+        assert last_row['lag_12m_yoy'] != last_row['lag_12m']
+        # lag_1m is 160 (from 2020-12), lag_12m is 105 (from 2020-01)
+        # yoy = (160 - 105) / 105 approx 0.5238
+        assert abs(last_row['lag_12m_yoy'] - ((160 - 105) / 105.001)) < 0.05
+
 

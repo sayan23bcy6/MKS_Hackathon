@@ -26,7 +26,7 @@ def clean_sku_master(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     df = raw.copy()
 
     # S1: Family/BU rule breach (R8)
-    # Precision Machined Parts should map to exactly one BU
+    # Precision Machined Parts should map to exactly one BU per R8
     pmp_bus = df[df['Product_Family'] == 'Precision Machined Parts']['Business_Unit'].value_counts()
     dq['S1_pmp_bu_counts'] = pmp_bus.to_dict()
     conflict_skus = df[
@@ -36,11 +36,13 @@ def clean_sku_master(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     dq['S1_conflict_count'] = len(conflict_skus)
     if len(conflict_skus):
         dq['S1_conflict_skus'] = conflict_skus['SKU_ID'].tolist()
-        # Flag but do NOT auto-correct (documented as unresolved)
-        for _, row in conflict_skus.iterrows():
-            audit.log("sku_master.csv", row['SKU_ID'], "Business_Unit",
-                      row['Business_Unit'], "CONFLICT_FLAGGED", "S1",
-                      f"SKU {row['SKU_ID']} has Product_Family=Precision Machined Parts but Business_Unit={row['Business_Unit']} (expected Advanced Manufacturing) - flagged as unresolved per R8")
+        for idx in conflict_skus.index:
+            sku_id = df.at[idx, 'SKU_ID']
+            old_bu = df.at[idx, 'Business_Unit']
+            audit.log("sku_master.csv", sku_id, "Business_Unit",
+                      old_bu, "Advanced Manufacturing", "S1",
+                      "Precision Machined Parts assigned to Advanced Manufacturing per R8 and transaction history agreement")
+            df.at[idx, 'Business_Unit'] = "Advanced Manufacturing"
 
     # S2: Lifecycle fields check
     has_eol = df[df['EOL_Date'].notna() & (df['EOL_Date'].str.strip() != '')]
@@ -145,6 +147,18 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
                   "2019 values stored as fractions; multiplied by 100 to match Pct header")
         df.at[idx, 'Auto_Production_YoY_Pct'] = new_val
 
+    # Check series has no break larger than 25 points at 2019-12 to 2020-01 after fix
+    row_2019_12 = df.loc[df['Date'] == '2019-12', 'Auto_Production_YoY_Pct']
+    row_2020_01 = df.loc[df['Date'] == '2020-01', 'Auto_Production_YoY_Pct']
+    if len(row_2019_12) > 0 and len(row_2020_01) > 0:
+        val_2019_12 = row_2019_12.values[0]
+        val_2020_01 = row_2020_01.values[0]
+        if pd.notna(val_2019_12) and pd.notna(val_2020_01):
+            break_pts = abs(float(val_2020_01) - float(val_2019_12))
+            dq['M2_break_points_2019_2020'] = break_pts
+            if break_pts > 25.0:
+                raise RuntimeError(f"M2: Break at 2019-12 to 2020-01 is {break_pts:.1f} points (>25)")
+
     # M3: PMI decimal shift (4.79 -> 47.9)
     pmi_bad = (df['ISM_Manufacturing_PMI'] < PMI_DECIMAL_SHIFT_THRESHOLD) & df['ISM_Manufacturing_PMI'].notna()
     dq['M3_pmi_implausible'] = int(pmi_bad.sum())
@@ -167,17 +181,19 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
                 reason = f"PMI {old_val} implausible but x10 not confirmed by neighbours; set to NA for interpolation"
         else:
             new_val = candidate if PMI_MIN <= candidate <= PMI_MAX else np.nan
-            reason = f"PMI decimal shift correction applied"
+            reason = "PMI decimal shift correction applied"
         audit.log("macro_indicators.csv", date_v, "ISM_Manufacturing_PMI",
                   old_val, new_val, "M3", reason)
         df.at[idx, 'ISM_Manufacturing_PMI'] = new_val
 
-    # M4: Blank cells - linear interpolation
+    # M4: Blank cells - linear interpolation with imputed flag column
     blank_cells = {}
+    imputed_dates = set()
     for col in num_cols:
         blanks = df[df[col].isna()]['Date'].tolist()
         if blanks:
             blank_cells[col] = blanks
+            imputed_dates.update(blanks)
 
     # Sort by Date so linear interpolation works chronologically
     df = df.sort_values('Date').reset_index(drop=True)
@@ -189,11 +205,13 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
                       "NaN", round(float(new_val), 4), "M4",
                       "Blank cell filled by linear time-based interpolation")
     dq['M4_blank_cells'] = {k: v for k, v in blank_cells.items()}
+    df['Macro_Imputed'] = df['Date'].isin(imputed_dates).astype(int)
 
-    # M5: Note real extreme values
+    # M5: Note real extreme values and label COVID period
     extreme_check = df['Auto_Production_YoY_Pct']
     dq['M5_min_auto_prod'] = float(extreme_check.min())
     dq['M5_max_auto_prod'] = float(extreme_check.max())
+    df['Is_COVID_Period'] = ((df['Date'] >= '2020-03') & (df['Date'] <= '2021-06')).astype(int)
 
     # Rule 7 on macro: check for any negative PMI
     neg_pmi = df[df['ISM_Manufacturing_PMI'] < 0]

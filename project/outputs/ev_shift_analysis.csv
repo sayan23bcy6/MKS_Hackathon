@@ -1,0 +1,4 @@
+Metric_Type,Detail_1,Detail_2,Detail_3,Value
+EV_Adoption_vs_ICE_Regression,Best Lag: 1 months,Slope: -109.5997,"R^2: 0.2125, t-stat: -4.96",0.2125
+EV_Share_Growth,2019-01 EV Share: 0.0%,2026-10 EV Share: 10.9%,Net Gain: +10.9%,10.900197123457692
+Macro_Lag_Stability,Stable Indicator Pairs: 12/56,Stability Rate: 21.4%,Windows compared: 2019-2022 vs 2023-2026,0.21428571428571427
