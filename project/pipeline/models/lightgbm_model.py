@@ -88,6 +88,8 @@ def train_single_quantile(train_df: pd.DataFrame,
         'verbose': -1,
         'n_jobs': -1,
         'random_state': 42,
+        'deterministic': True,
+        'force_row_wise': True,
     }
 
     val_model = lgb.train(

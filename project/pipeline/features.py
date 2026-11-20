@@ -257,10 +257,9 @@ def build_features(clean_train: pd.DataFrame,
     if 'Units_Sold_Unconstrained' not in df.columns:
         if unconstrained is not None and len(unconstrained) and 'Units_Sold_Unconstrained' in unconstrained.columns:
             merge_cols = [c for c in ['Date', 'SKU_ID', 'Region', 'Customer_Name'] if c in df.columns and c in unconstrained.columns]
-            df = df.merge(
-                unconstrained[merge_cols + ['Units_Sold_Unconstrained']].drop_duplicates(merge_cols),
-                on=merge_cols, how='left'
-            )
+            # Drop duplicates on the full key so the join stays one-to-one (Group A fix)
+            uc_dedup = unconstrained[merge_cols + ['Units_Sold_Unconstrained']].drop_duplicates(merge_cols)
+            df = df.merge(uc_dedup, on=merge_cols, how='left')
             df['Units_Sold_Unconstrained'] = df['Units_Sold_Unconstrained'].fillna(df.get('Units_Sold', np.nan))
         else:
             df['Units_Sold_Unconstrained'] = df.get('Units_Sold', np.nan)

@@ -114,6 +114,7 @@ After running `run_pipeline.py`, the following files are produced in `project/ou
 | `forecast_submission.csv` | Final 19-month point forecast matching the 58,219 row submission format |
 | `forecast_intervals.csv` | P10, P50, and P90 prediction intervals for uncertainty planning |
 | `backtest_metrics.csv` | WAPE and bias scores evaluated across 3 origins and 19 horizons |
+| `backtest_predictions.csv` | Per-row held-out predictions for empirical P10-P90 coverage analysis |
 | `audit_log.csv` | Full row-level log of every value adjusted during cleaning |
 | `data_quality_report.json` | Machine-readable breakdown of issues found and rules applied |
 | `data_quality_report.md` | Human-readable documentation of data health |

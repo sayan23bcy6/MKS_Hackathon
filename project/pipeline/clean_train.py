@@ -555,7 +555,7 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
                 audit.log("train.csv", rid, "Units_Sold",
                           s, int(val), "T11", "Comma-formatted number parsed")
                 s = str(int(val))
-            except Exception:
+            except (ValueError, TypeError):
                 raise RuntimeError(f"T11: Comma-formatted Units_Sold not integer: {raw}")
 
         # Try numeric
@@ -638,7 +638,7 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
     def _to_float(x):
         try:
             return float(str(x).strip().replace(',', ''))
-        except Exception:
+        except (ValueError, TypeError):
             return np.nan
 
     df['Unit_Price_USD'] = df['Unit_Price_USD'].apply(_to_float)
@@ -662,7 +662,7 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
                     if r:
                         ref_prices[i] = r
                         break
-                except Exception:
+                except ValueError:
                     pass
 
     df['_ref_price'] = ref_prices
@@ -733,7 +733,7 @@ def apply_t13_revenue(df: pd.DataFrame) -> pd.DataFrame:
     def _to_float(x):
         try:
             return float(str(x).strip().replace(',', ''))
-        except Exception:
+        except (ValueError, TypeError):
             return np.nan
 
     df['Revenue_USD'] = df['Revenue_USD'].apply(_to_float)

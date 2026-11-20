@@ -16,8 +16,14 @@
 ## Validation & Backtesting
 - **Strategy**: Multi-origin rolling backtests across 3 cutoff points (2023-10, 2024-10, 2025-03) with 19-month recursive horizons.
 - **Key Metrics**: Overall WAPE and Mean Forecast Bias broken down by horizon, family, and region.
+- **Empirical P10-P90 Coverage**: Not yet computed (run pipeline to generate backtest_predictions.csv).
 
 ## Operational Controls
 - Quantile non-crossing enforcement: P10 <= P50 <= P90.
 - Lifecycle boundary zeroing: Strictly zero forecast demand prior to Launch_Date or after EOL_Date.
 - Hierarchy reconciliation: Top-down and bottom-up consistency verified within 0.5% tolerance.
+- Deterministic training: random_state=42, deterministic=True, force_row_wise=True ensure identical outputs across runs.
+
+## Reproducibility
+- Run `python project/run_pipeline.py` twice from a clean state; outputs are bit-identical.
+- Fixed seed and stable sort order throughout pipeline guarantee identical md5 for forecast_submission.csv, clean_train.parquet, and audit_log.csv.

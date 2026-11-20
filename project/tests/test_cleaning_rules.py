@@ -613,4 +613,33 @@ class TestSchemaValidation:
         # yoy = (160 - 105) / 105 approx 0.5238
         assert abs(last_row['lag_12m_yoy'] - ((160 - 105) / 105.001)) < 0.05
 
+    def test_features_no_duplicate_key_rows(self):
+        """Group A: features table must have zero duplicate rows on the full business key
+        (SKU_ID, Region, Customer_Name, Sales_Channel, Date).
+        Two rows with the same 4-key but different Sales_Channel are legitimate distinct orders
+        per rule T4b and are expected to be present.
+        """
+        import os
+        feat_path = os.path.join(os.path.dirname(__file__), '..', 'outputs', 'features.parquet')
+        if not os.path.exists(feat_path):
+            import pytest
+            pytest.skip("features.parquet not generated yet")
+        feat_df = pd.read_parquet(feat_path)
+        key_cols = ['SKU_ID', 'Region', 'Customer_Name', 'Sales_Channel', 'Date']
+        present = [c for c in key_cols if c in feat_df.columns]
+        dup_count = feat_df.duplicated(present).sum()
+        assert dup_count == 0, f"features table has {dup_count} duplicate rows on {present}"
+
+    def test_backtest_predictions_exists(self):
+        """Group F: backtest_predictions.csv must exist after a full pipeline run."""
+        import os
+        import pytest
+        pred_path = os.path.join(os.path.dirname(__file__), '..', 'outputs', 'backtest_predictions.csv')
+        if not os.path.exists(pred_path):
+            pytest.skip("backtest_predictions.csv not generated yet; run the pipeline first")
+        df = pd.read_csv(pred_path)
+        assert len(df) > 0, "backtest_predictions.csv is empty"
+        assert 'actual' in df.columns
+        assert 'p50' in df.columns
+        assert 'origin' in df.columns
 

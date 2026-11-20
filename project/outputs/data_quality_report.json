@@ -33,7 +33,7 @@
       "description": "Region labels normalized and unresolvable blanks assigned to 'Unassigned'",
       "blank_count": 942,
       "blank_resolved": 245,
-      "unassigned_count": 0,
+      "unassigned_count": 697,
       "normalised": 5912,
       "rule": "T5"
     },
@@ -171,7 +171,7 @@
     },
     "blank_region_categorization": {
       "rule_id": "T5",
-      "count": 0,
+      "count": 697,
       "decision": "Assigned persistent unmatchable blank regions to canonical category 'Unassigned'.",
       "reason": "Preserves total company sales volume and transaction count without guessing geographic origins."
     },

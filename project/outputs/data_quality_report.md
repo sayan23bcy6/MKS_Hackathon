@@ -13,7 +13,7 @@ Total anomalies registered: 1529
 | T2 | Year/Month disagree with Date column (Date treated as authoritative) | - | 246 rows |
 | T3 | Impossible future dates (e.g. 2062 transposed to 2026) | 30 found | 30 corrected |
 | T4 | Duplicate Record_IDs resolved by keeping latest Load_Timestamp | 248248 | 244566 (3682 duplicates removed) |
-| T5 | Region labels normalized and unresolvable blanks assigned to 'Unassigned' | 942 blank | 0 set to Unassigned |
+| T5 | Region labels normalized and unresolvable blanks assigned to 'Unassigned' | 942 blank | 697 set to Unassigned |
 | T6 | Sales channel label variants normalized to standard set | - | 3524 normalized |
 | T7 | Missing product family inferred deterministically from SKU prefix | 1228 blank | 1228 filled from SKU prefix |
 | T8 | SKU_ID format variations normalized to standard PREFIX-NNN | 3683 malformed | 3683 normalized to PREFIX-NNN |
@@ -48,7 +48,7 @@ Total anomalies registered: 1529
 
 ### blank_region_categorization
 - **Rule ID:** T5
-- **Affected Records:** 0
+- **Affected Records:** 697
 - **Decision:** Assigned persistent unmatchable blank regions to canonical category 'Unassigned'.
 - **Reason:** Preserves total company sales volume and transaction count without guessing geographic origins.
 

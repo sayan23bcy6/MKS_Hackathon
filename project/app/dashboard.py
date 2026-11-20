@@ -340,9 +340,10 @@ def view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, fil
         st.plotly_chart(fig_fam, use_container_width=True)
 
 
-# 6. Macro Lead/Lag Heatmap
+# 6. Macro Lead/Lag Heatmap (Opt 1)
 def view_macro_lag_heatmap(macro_lag_df):
-    st.header("6. Macroeconomic Lead/Lag Analysis")
+    st.header("Opt 1: Macro Lead/Lag Analysis")
+    st.caption("Source: outputs/macro_lag_analysis.csv")
     st.caption("Cross-correlation analysis between leading macroeconomic indicators and product family volumes at lags 0-6 months")
 
     if macro_lag_df.empty:
@@ -361,9 +362,10 @@ def view_macro_lag_heatmap(macro_lag_df):
     st.plotly_chart(fig, use_container_width=True)
 
 
-# 7. Stockouts and Lost Demand
+# 7. Stockouts and Lost Demand (Opt 2)
 def view_stockouts(stockouts_df, unconstrained_df, filters):
-    st.header("7. Stockouts and Unconstrained Demand")
+    st.header("Opt 2: Stockouts and Unconstrained Demand")
+    st.caption("Source: outputs/inventory_stockouts.csv, outputs/unconstrained_demand.parquet")
     st.caption("Reconstruction of lost demand from inventory stockouts and unlisted disruption events")
 
     if stockouts_df.empty:
@@ -390,9 +392,10 @@ def view_stockouts(stockouts_df, unconstrained_df, filters):
     st.plotly_chart(fig_so, use_container_width=True)
 
 
-# 8. What-If Macro Scenario
+# 8. What-If Macro Scenario (Opt 3)
 def view_scenario(scenario_df, df_forecast):
-    st.header("8. Macroeconomic What-If Scenario Generator")
+    st.header("Opt 3: Macroeconomic What-If Scenario Generator")
+    st.caption("Source: outputs/whatif_scenario_forecast.csv")
     st.caption("Interactive sensitivity analysis: simulate macroeconomic shocks and observe family-level demand shifts")
 
     pmi_shift = st.slider("ISM Manufacturing PMI Shock (Points)", min_value=-6.0, max_value=6.0, value=-3.0, step=0.5)
@@ -418,9 +421,10 @@ def view_scenario(scenario_df, df_forecast):
     st.metric("Net Projected Impact on 19-Month Volume", f"{int(delta_units):+,} units ({pct_impact:+.2f}%)")
 
 
-# 9. Lifecycle & Powertrain Transition View
+# 9. Lifecycle and Powertrain Transition View (Opt 4)
 def view_powertrain_lifecycle(ev_df):
-    st.header("9. Lifecycle and Powertrain Transition View")
+    st.header("Opt 4: Lifecycle and Powertrain Transition View")
+    st.caption("Source: outputs/ev_shift_analysis.csv")
     st.caption("Evolution of internal combustion (ICE) vs electric vehicle (EV) demand and technological transition rate")
 
     if ev_df.empty:
@@ -458,10 +462,10 @@ def main():
         "3. Demand Explorer",
         "4. Anomaly Monitor",
         "5. Forecast & Accuracy",
-        "6. Macro Lead/Lag",
-        "7. Stockouts & Lost Demand",
-        "8. What-If Scenario",
-        "9. Lifecycle & Powertrain"
+        "Opt 1: Macro Lead/Lag",
+        "Opt 2: Stockouts & Lost Demand",
+        "Opt 3: What-If Scenario",
+        "Opt 4: Lifecycle & Powertrain"
     ])
 
     with tabs[0]:
