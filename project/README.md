@@ -45,7 +45,7 @@ streamlit run project/app/dashboard.py
 The application runs locally at `http://localhost:8501`.
 
 ### Dashboard
-Public dashboard: https://celeris-control-tower.streamlit.app [link to be added after deployment]
+Public dashboard: https://celeris-control-tower.streamlit.app
 
 ---
 

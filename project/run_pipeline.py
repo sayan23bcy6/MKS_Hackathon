@@ -125,7 +125,7 @@ def main():
     # Step 8: Honest backtesting across multi-year rolling origins
     print("  Running honest multi-origin rolling backtests (2023-10, 2024-10, 2025-03)...")
     backtest_metrics, backtest_preds = run_honest_backtest(
-        df_clean, clean_mac, clean_ev, clean_sku,
+        df_unconstrained, clean_mac, clean_ev, clean_sku,
         origins=['2023-10', '2024-10', '2025-03'], horizon=19
     )
 
@@ -135,13 +135,13 @@ def main():
         raw_test, features_df, clean_mac, clean_ev, clean_sku, models
     )
 
-    recon_results = compute_hierarchy_reconciliation(submission, df_clean, clean_sku)
+    recon_results = compute_hierarchy_reconciliation(submission, df_unconstrained, clean_sku)
     print(f"  Hierarchy reconciliation: total forecast = {recon_results['total_forecast_units']} units, status = {'PASS' if recon_results['reconciled'] else 'FAIL'}")
 
     # What-if scenario simulation (model rerun with shifted PMI)
     print("  Generating macroeconomic what-if scenarios (-6.0 to +6.0 PMI shift)...")
     scenario_df = generate_whatif_scenario(
-        submission, raw_test, clean_mac, clean_sku, models, features_df, pmi_delta=-3.0
+        submission, raw_test, clean_mac, clean_sku, models, clean_ev, features_df, pmi_delta_target=-3.0
     )
 
     # Step 10: Generate documentation, model card, and data quality reports

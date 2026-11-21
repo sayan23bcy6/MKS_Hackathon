@@ -75,3 +75,15 @@ Total anomalies registered: 1529
 - **Affected Records:** 1
 - **Decision:** Assigned PMP-004 to Business Unit 'Advanced Manufacturing' per Rule R8 and transaction history majority.
 - **Reason:** All transaction records for PMP-004 consistently map to Advanced Manufacturing.
+
+### customer_series_deduplication
+- **Rule ID:** T4b
+- **Affected Records:** 167
+- **Decision:** Deduplicated series strictly on Date, SKU_ID, Region, Customer_Name by retaining latest Load_Timestamp.
+- **Reason:** Resolves multiple records loaded across differing sales channels for the same customer account; establishes authoritative 244,321 cleaned transaction rows.
+
+### stockout_account_allocation
+- **Rule ID:** A2
+- **Affected Records:** 0
+- **Decision:** Allocated inventory stockouts defined at Date-SKU-Region proportionally across active customer accounts by non-negative volume, with remainder to largest customer.
+- **Reason:** Preserves individual customer demand history while ensuring exact conservation of reported stockout units.

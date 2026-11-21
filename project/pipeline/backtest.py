@@ -1,12 +1,17 @@
 """
 backtest.py - Honest rolling-origin backtesting across multi-year horizons (Rule WS4 / Fixes V3, V4, V5, V6).
 Evaluates 19-month horizons at origins 2023-10, 2024-10, and 2025-03.
+- Target: Units_Sold_Unconstrained (Priority 2).
+- NULL Units_Sold / target rows are strictly excluded (never filled with 0).
+- Secondary metric: shipped Units_Sold score reported alongside unconstrained target.
 - No leakage: features, customer ordering cycles, and intermittency classifications are
   computed strictly using data up to and including each evaluation origin.
 - Models (P10, P50, P90) are trained and refit strictly on data up to each origin.
 - Recursive 19-month multi-step forecasting: lags in months 2-19 use model predictions.
+- Out-of-sample coverage calibration (Priority 1): residual quantiles estimated only
+  from origins prior to the one being scored. Raw and calibrated coverage reported side by side.
 - Baselines: Seasonal Naive, Moving Average (12m), and Croston / SBA / TSB intermittent methods.
-- Saves outputs/backtest_metrics.csv and outputs/backtest_predictions.csv (with p10, p50, p90).
+- Saves outputs/backtest_metrics.csv and outputs/backtest_predictions.csv.
 """
 
 from pathlib import Path
@@ -32,9 +37,15 @@ OUT_BACKTEST_PREDS = Path(str(OUT_BACKTEST).replace('backtest_metrics.csv', 'bac
 def evaluate_backtest_slice(actual_series: pd.Series, pred_series: pd.Series,
                             origin: str, model_name: str, breakdown: str,
                             group_name: str, horizon_month: int = -1) -> dict:
-    """Compute WAPE and Bias metrics for one evaluation slice."""
-    wape = compute_wape(actual_series, pred_series)
-    bias = compute_bias(actual_series, pred_series)
+    """Compute WAPE and Bias metrics for one evaluation slice, strictly excluding NULL actuals."""
+    valid = actual_series.notna()
+    act = actual_series[valid].astype(float)
+    pr = pred_series[valid].astype(float)
+    n_excluded = int((~valid).sum())
+
+    wape = compute_wape(act, pr) if len(act) > 0 else np.nan
+    bias = compute_bias(act, pr) if len(act) > 0 else np.nan
+
     return {
         'origin': origin,
         'model': model_name,
@@ -43,7 +54,8 @@ def evaluate_backtest_slice(actual_series: pd.Series, pred_series: pd.Series,
         'horizon_month': horizon_month,
         'WAPE': round(wape, 4) if pd.notna(wape) else np.nan,
         'Bias': round(bias, 2) if pd.notna(bias) else np.nan,
-        'n_obs': len(actual_series),
+        'n_obs': len(act),
+        'n_excluded': n_excluded,
     }
 
 
@@ -57,13 +69,15 @@ def run_honest_backtest(clean_train: pd.DataFrame,
     Run honest out-of-sample rolling-origin backtests.
     Ensures zero forward data leakage: models, cycle features, intermittency, and lags
     are computed strictly per origin.
+    Primary target: Units_Sold_Unconstrained.
+    Secondary metric: shipped Units_Sold.
     """
-    target_col = 'Units_Sold'
     all_dates = sorted(clean_train['Date'].unique())
     series_keys = ['SKU_ID', 'Region', 'Customer_Name']
 
     all_metrics = []
     all_preds = []
+    prior_residuals = []
 
     for origin in origins:
         print(f"\n  Evaluating honest backtest origin: {origin}...")
@@ -81,20 +95,39 @@ def run_honest_backtest(clean_train: pd.DataFrame,
         train_hist = clean_train[clean_train['Date'].isin(train_dates)].copy()
         test_actuals = clean_train[clean_train['Date'].isin(test_dates)].copy()
 
-        train_hist['Units_Sold_Unconstrained'] = pd.to_numeric(train_hist['Units_Sold'], errors='coerce').fillna(0)
-        test_actuals['actual'] = pd.to_numeric(test_actuals['Units_Sold'], errors='coerce').fillna(0)
+        # Primary target: Units_Sold_Unconstrained (do not fillna with 0, drop null targets)
+        if 'Units_Sold_Unconstrained' in train_hist.columns:
+            train_hist['target'] = pd.to_numeric(train_hist['Units_Sold_Unconstrained'], errors='coerce')
+        else:
+            train_hist['target'] = pd.to_numeric(train_hist['Units_Sold'], errors='coerce')
+
+        if 'Units_Sold_Unconstrained' in test_actuals.columns:
+            test_actuals['actual'] = pd.to_numeric(test_actuals['Units_Sold_Unconstrained'], errors='coerce')
+        else:
+            test_actuals['actual'] = pd.to_numeric(test_actuals['Units_Sold'], errors='coerce')
+
+        test_actuals['shipped_actual'] = pd.to_numeric(test_actuals['Units_Sold'], errors='coerce')
+
+        n_null_train = int(train_hist['target'].isna().sum())
+        n_null_test = int(test_actuals['actual'].isna().sum())
+        print(f"    Excluded {n_null_train} NULL rows from training target, {n_null_test} NULL rows from test evaluation")
 
         # 2. Recompute intermittency and customer cycles strictly on historical data up to origin
-        train_hist = classify_intermittency(train_hist)
-        train_hist = add_cycle_features(train_hist)
+        train_hist_valid = train_hist.dropna(subset=['target']).copy()
+        train_hist_valid['Units_Sold_Unconstrained'] = train_hist_valid['target']
+        train_hist_valid = classify_intermittency(train_hist_valid)
+        train_hist_valid = add_cycle_features(train_hist_valid)
 
         # 3. Build features strictly on historical data
-        train_feat = add_calendar_features(train_hist)
+        train_feat = add_calendar_features(train_hist_valid)
         train_feat = add_event_features(train_feat, clean_events)
         train_feat = add_lifecycle_features(train_feat, sku_master)
         train_feat = add_macro_features(train_feat, clean_macro, lags=[0, 1, 2, 3])
         train_feat = add_lag_rolling_features(train_feat)
         train_feat = add_sku_region_encodings(train_feat)
+
+        # Drop any remaining null targets
+        train_feat = train_feat.dropna(subset=['target']).copy()
 
         # 4. Train LightGBM models with internal 6-month validation window
         val_start_dt = pd.to_datetime(origin + '-01') - pd.DateOffset(months=5)
@@ -115,9 +148,9 @@ def run_honest_backtest(clean_train: pd.DataFrame,
                 enc_map[col] = dict(zip(train_feat[col], train_feat[enc_col]))
 
         # Rolling history buffer strictly up to origin
-        hist_buffer = train_hist[['Date', 'SKU_ID', 'Region', 'Customer_Name',
-                                  'Units_Sold_Unconstrained', 'Product_Family',
-                                  'Sales_Channel', 'Business_Unit']].copy()
+        hist_buffer = train_hist_valid[['Date', 'SKU_ID', 'Region', 'Customer_Name',
+                                        'Units_Sold_Unconstrained', 'Product_Family',
+                                        'Sales_Channel', 'Business_Unit']].copy()
 
         lgb_monthly_preds = []
         for m_idx, current_month in enumerate(test_dates):
@@ -142,13 +175,13 @@ def run_honest_backtest(clean_train: pd.DataFrame,
             # Compute lags from hist_buffer (contains predictions for m_idx > 0, not actuals)
             recent_dict = hist_buffer.sort_values('Date').groupby(series_keys)['Units_Sold_Unconstrained'].apply(list).to_dict()
 
+            keys_tuples = list(zip(current_test['SKU_ID'], current_test['Region'], current_test['Customer_Name']))
             l1_l, l2_l, l3_l, l6_l, l12_l = [], [], [], [], []
             rm3_l, rm6_l, rm12_l = [], [], []
             rs3_l, rs6_l = [], []
             yoy_l = []
 
-            for _, row in current_test.iterrows():
-                k = (row['SKU_ID'], row['Region'], row['Customer_Name'])
+            for k in keys_tuples:
                 h = recent_dict.get(k, [])
                 n = len(h)
                 l1 = h[-1] if n >= 1 else 0.0
@@ -213,65 +246,92 @@ def run_honest_backtest(clean_train: pd.DataFrame,
             lambda d: test_dates.index(d) + 1 if d in test_dates else -1
         )
 
-        # Empirical calibration for P10-P90 to achieve target ~80% coverage
-        raw_cov = float(((lgb_results['actual'] >= lgb_results['p10']) &
-                         (lgb_results['actual'] <= lgb_results['p90'])).mean())
-        if raw_cov < 0.75 or raw_cov > 0.85:
-            # Calibrate using residual quantiles
-            resids = lgb_results['actual'] - lgb_results['p50']
-            q10 = float(np.quantile(resids, 0.10))
-            q90 = float(np.quantile(resids, 0.90))
-            lgb_results['p10'] = np.clip(lgb_results['p50'] + q10, 0, None).round()
-            lgb_results['p90'] = np.clip(lgb_results['p50'] + q90, 0, None).round()
-            lgb_results['p10'], lgb_results['p50'], lgb_results['p90'] = enforce_quantile_ordering(
-                lgb_results['p10'].values, lgb_results['p50'].values, lgb_results['p90'].values
-            )
-            lgb_results['pred'] = lgb_results['p50']
+        # Store raw quantile forecasts (Priority 1)
+        lgb_results['p10_raw'] = lgb_results['p10'].copy()
+        lgb_results['p90_raw'] = lgb_results['p90'].copy()
+
+        val_rows = lgb_results['actual'].notna()
+        raw_cov = float(((lgb_results.loc[val_rows, 'actual'] >= lgb_results.loc[val_rows, 'p10_raw']) &
+                         (lgb_results.loc[val_rows, 'actual'] <= lgb_results.loc[val_rows, 'p90_raw'])).mean())
+
+        # Calibration using strictly prior origins' residuals (Priority 1c)
+        if len(prior_residuals) > 0:
+            all_prior_resids = np.concatenate(prior_residuals)
+            q10_off = float(np.quantile(all_prior_resids, 0.10))
+            q90_off = float(np.quantile(all_prior_resids, 0.90))
+
+            cal_p10 = np.clip(lgb_results['p50'] + q10_off, 0, None).round()
+            cal_p90 = np.clip(lgb_results['p50'] + q90_off, 0, None).round()
+            cal_p10, cal_p50, cal_p90 = enforce_quantile_ordering(cal_p10.values, lgb_results['p50'].values, cal_p90.values)
+
+            lgb_results['p10_cal'] = cal_p10
+            lgb_results['p90_cal'] = cal_p90
+            cal_cov = float(((lgb_results.loc[val_rows, 'actual'] >= lgb_results.loc[val_rows, 'p10_cal']) &
+                             (lgb_results.loc[val_rows, 'actual'] <= lgb_results.loc[val_rows, 'p90_cal'])).mean())
+            # Use calibrated intervals for reporting
+            lgb_results['p10'] = lgb_results['p10_cal']
+            lgb_results['p90'] = lgb_results['p90_cal']
+        else:
+            lgb_results['p10_cal'] = lgb_results['p10_raw']
+            lgb_results['p90_cal'] = lgb_results['p90_raw']
+            cal_cov = raw_cov
+
+        # Save current origin residuals for future origins strictly (Priority 1c)
+        cur_resids = (lgb_results.loc[val_rows, 'actual'] - lgb_results.loc[val_rows, 'p50']).values
+        prior_residuals.append(cur_resids)
 
         # Record LightGBM predictions
         id_cols = ['Date', 'SKU_ID', 'Region', 'Customer_Name']
-        lgb_save = lgb_results[id_cols + ['actual', 'p10', 'p50', 'p90']].copy()
+        lgb_save = lgb_results[id_cols + ['actual', 'p10', 'p50', 'p90', 'p10_raw', 'p90_raw', 'p10_cal', 'p90_cal']].copy()
         lgb_save.insert(0, 'model', 'lightgbm_p50')
         lgb_save.insert(0, 'origin', origin)
         all_preds.append(lgb_save)
 
         # 6. Baselines (evaluated on identical test rows)
-        # Baseline 1: Naive Seasonal
-        train_hist['month'] = train_hist['Date'].str[5:7].astype(int)
-        ns_lookup = train_hist.groupby(series_keys + ['month'])['Units_Sold_Unconstrained'].mean().to_dict()
-        extra_cols = [c for c in ['actual', 'horizon_month', 'Product_Family', 'Sales_Channel'] if c in lgb_results.columns]
+        extra_cols = [c for c in ['actual', 'shipped_actual', 'horizon_month', 'Product_Family', 'Sales_Channel'] if c in lgb_results.columns]
         test_copy = lgb_results[id_cols + extra_cols].copy()
         test_copy['month'] = test_copy['Date'].str[5:7].astype(int)
-        test_copy['pred'] = [
-            round(ns_lookup.get((s, r, c, m), 0.0))
-            for s, r, c, m in zip(test_copy['SKU_ID'], test_copy['Region'], test_copy['Customer_Name'], test_copy['month'])
-        ]
+
+        # Baseline 1: Naive Seasonal
+        train_hist_valid['month'] = train_hist_valid['Date'].str[5:7].astype(int)
+        ns_lookup = train_hist_valid.groupby(series_keys + ['month'])['Units_Sold_Unconstrained'].mean().to_dict()
+
+        keys_ns = list(zip(test_copy['SKU_ID'], test_copy['Region'], test_copy['Customer_Name'], test_copy['month']))
+        test_copy['pred'] = [round(ns_lookup.get(k, 0.0)) for k in keys_ns]
+
         ns_save = test_copy[id_cols + ['actual', 'pred']].copy()
         ns_save.rename(columns={'pred': 'p50'}, inplace=True)
         ns_save['p10'] = np.nan
         ns_save['p90'] = np.nan
+        ns_save['p10_raw'] = np.nan
+        ns_save['p90_raw'] = np.nan
+        ns_save['p10_cal'] = np.nan
+        ns_save['p90_cal'] = np.nan
         ns_save.insert(0, 'model', 'naive_seasonal')
         ns_save.insert(0, 'origin', origin)
         all_preds.append(ns_save)
 
         # Baseline 2: 12-month Moving Average
-        ma_lookup = train_hist.groupby(series_keys)['Units_Sold_Unconstrained'].apply(lambda s: s.tail(12).mean()).to_dict()
+        ma_lookup = train_hist_valid.groupby(series_keys)['Units_Sold_Unconstrained'].apply(lambda s: s.tail(12).mean()).to_dict()
         test_copy_ma = test_copy.copy()
-        test_copy_ma['pred'] = [
-            round(ma_lookup.get((s, r, c), 0.0))
-            for s, r, c in zip(test_copy_ma['SKU_ID'], test_copy_ma['Region'], test_copy_ma['Customer_Name'])
-        ]
+        keys_ma = list(zip(test_copy_ma['SKU_ID'], test_copy_ma['Region'], test_copy_ma['Customer_Name']))
+        test_copy_ma['pred'] = [round(ma_lookup.get(k, 0.0)) for k in keys_ma]
+
         ma_save = test_copy_ma[id_cols + ['actual', 'pred']].copy()
         ma_save.rename(columns={'pred': 'p50'}, inplace=True)
         ma_save['p10'] = np.nan
         ma_save['p90'] = np.nan
+        ma_save['p10_raw'] = np.nan
+        ma_save['p90_raw'] = np.nan
+        ma_save['p10_cal'] = np.nan
+        ma_save['p90_cal'] = np.nan
         ma_save.insert(0, 'model', 'moving_average')
         ma_save.insert(0, 'origin', origin)
         all_preds.append(ma_save)
 
         # Baseline 3: Intermittent methods (Croston, SBA, TSB)
         interm_lookup = {}
-        for k, grp in train_hist.groupby(series_keys):
+        for k, grp in train_hist_valid.groupby(series_keys):
             cls = grp['intermittency_class'].iloc[-1] if 'intermittency_class' in grp.columns else 'smooth'
             series = grp.sort_values('Date')['Units_Sold_Unconstrained']
             if cls == 'lumpy':
@@ -283,14 +343,17 @@ def run_honest_backtest(clean_train: pd.DataFrame,
             interm_lookup[k] = round(max(0, f))
 
         test_copy_int = test_copy.copy()
-        test_copy_int['pred'] = [
-            interm_lookup.get((s, r, c), 0)
-            for s, r, c in zip(test_copy_int['SKU_ID'], test_copy_int['Region'], test_copy_int['Customer_Name'])
-        ]
+        keys_int = list(zip(test_copy_int['SKU_ID'], test_copy_int['Region'], test_copy_int['Customer_Name']))
+        test_copy_int['pred'] = [interm_lookup.get(k, 0) for k in keys_int]
+
         int_save = test_copy_int[id_cols + ['actual', 'pred']].copy()
         int_save.rename(columns={'pred': 'p50'}, inplace=True)
         int_save['p10'] = np.nan
         int_save['p90'] = np.nan
+        int_save['p10_raw'] = np.nan
+        int_save['p90_raw'] = np.nan
+        int_save['p10_cal'] = np.nan
+        int_save['p90_cal'] = np.nan
         int_save.insert(0, 'model', 'croston_sba_tsb')
         int_save.insert(0, 'origin', origin)
         all_preds.append(int_save)
@@ -303,11 +366,24 @@ def run_honest_backtest(clean_train: pd.DataFrame,
             ('croston_sba_tsb', test_copy_int)
         ]
 
+        # Overall and slice metrics (Primary target: Units_Sold_Unconstrained)
         for m_name, df_eval in models_eval:
-            all_metrics.append(evaluate_backtest_slice(df_eval['actual'], df_eval['pred'], origin, m_name, 'overall', 'ALL'))
+            slice_row = evaluate_backtest_slice(df_eval['actual'], df_eval['pred'], origin, m_name, 'overall', 'ALL')
+            if m_name == 'lightgbm_p50':
+                slice_row['coverage_raw'] = round(raw_cov, 4)
+                slice_row['coverage_calibrated'] = round(cal_cov, 4)
+            all_metrics.append(slice_row)
+
+            # Secondary metric: evaluate against shipped actuals (Priority 2a)
+            if 'shipped_actual' in df_eval.columns:
+                all_metrics.append(evaluate_backtest_slice(
+                    df_eval['shipped_actual'], df_eval['pred'], origin, f"{m_name}_vs_shipped", 'secondary_shipped', 'ALL'
+                ))
 
             for h, grp in df_eval.groupby('horizon_month'):
-                all_metrics.append(evaluate_backtest_slice(grp['actual'], grp['pred'], origin, m_name, 'horizon', f"month_{h}", horizon_month=int(h)))
+                all_metrics.append(evaluate_backtest_slice(
+                    grp['actual'], grp['pred'], origin, m_name, 'horizon', f"month_{h}", horizon_month=int(h)
+                ))
 
             if 'Product_Family' in df_eval.columns:
                 for fam, grp in df_eval.groupby('Product_Family'):

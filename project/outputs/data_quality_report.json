@@ -199,6 +199,18 @@
       "count": 1,
       "decision": "Assigned PMP-004 to Business Unit 'Advanced Manufacturing' per Rule R8 and transaction history majority.",
       "reason": "All transaction records for PMP-004 consistently map to Advanced Manufacturing."
+    },
+    "customer_series_deduplication": {
+      "rule_id": "T4b",
+      "count": 167,
+      "decision": "Deduplicated series strictly on Date, SKU_ID, Region, Customer_Name by retaining latest Load_Timestamp.",
+      "reason": "Resolves multiple records loaded across differing sales channels for the same customer account; establishes authoritative 244,321 cleaned transaction rows."
+    },
+    "stockout_account_allocation": {
+      "rule_id": "A2",
+      "count": 0,
+      "decision": "Allocated inventory stockouts defined at Date-SKU-Region proportionally across active customer accounts by non-negative volume, with remainder to largest customer.",
+      "reason": "Preserves individual customer demand history while ensuring exact conservation of reported stockout units."
     }
   }
 }

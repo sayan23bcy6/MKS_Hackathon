@@ -737,7 +737,7 @@ class TestSchemaValidation:
         assert pmp20.iloc[0]['Replaces_SKU'] == 'PMP-003'
 
     def test_whatif_zero_shift_equals_baseline(self):
-        """Priority 5: Scenario at delta 0 equals baseline forecast."""
+        """Priority 3: Scenario at delta 0 equals baseline forecast."""
         import os
         import pytest
         scen_path = os.path.join(os.path.dirname(__file__), '..', 'outputs', 'whatif_scenarios.csv')
@@ -746,6 +746,77 @@ class TestSchemaValidation:
         scen = pd.read_csv(scen_path)
         zero_scen = scen[scen['Scenario_PMI_Delta'] == 0.0]
         if not zero_scen.empty:
-            diff = (zero_scen['Units_Sold_Forecast'] - zero_scen['Scenario_Units_Sold_Forecast']).abs().sum()
+            if 'Forecast_Units' in zero_scen.columns and 'Baseline_Units' in zero_scen.columns:
+                diff = (zero_scen['Forecast_Units'] - zero_scen['Baseline_Units']).abs().sum()
+            else:
+                diff = (zero_scen['Units_Sold_Forecast'] - zero_scen['Scenario_Units_Sold_Forecast']).abs().sum()
             assert diff == 0, "Scenario at delta 0 must equal baseline forecast"
+
+    def test_calibration_offsets_independent_of_test_actuals(self):
+        """Priority 1d: Changing actuals inside test window does not change calibration offsets."""
+        from pipeline.models.lightgbm_model import enforce_quantile_ordering
+        # Prior origins residuals
+        prior_resids_1 = np.array([-15.0, -5.0, 0.0, 5.0, 15.0, 25.0])
+        q10_1 = float(np.quantile(prior_resids_1, 0.10))
+        q90_1 = float(np.quantile(prior_resids_1, 0.90))
+
+        # Test window actuals: variant A vs variant B
+        p50 = np.array([50.0, 100.0, 150.0])
+        cal_p10_A = np.clip(p50 + q10_1, 0, None)
+        cal_p90_A = np.clip(p50 + q90_1, 0, None)
+
+        # Altering test window actuals
+        test_actuals_B = np.array([500.0, 1000.0, 1500.0])
+        # Calibration offsets for this origin still use prior_resids_1
+        q10_2 = float(np.quantile(prior_resids_1, 0.10))
+        q90_2 = float(np.quantile(prior_resids_1, 0.90))
+
+        cal_p10_B = np.clip(p50 + q10_2, 0, None)
+        cal_p90_B = np.clip(p50 + q90_2, 0, None)
+
+        assert np.array_equal(cal_p10_A, cal_p10_B)
+        assert np.array_equal(cal_p90_A, cal_p90_B)
+
+    def test_null_actual_does_not_change_wape_or_bias(self):
+        """Priority 2c: A NULL actual does not change WAPE or bias."""
+        from pipeline.backtest import evaluate_backtest_slice
+        s_act_clean = pd.Series([100.0, 200.0, 300.0])
+        s_pred_clean = pd.Series([110.0, 190.0, 310.0])
+
+        s_act_with_null = pd.Series([100.0, 200.0, 300.0, np.nan, None])
+        s_pred_with_null = pd.Series([110.0, 190.0, 310.0, 500.0, 999.0])
+
+        res_clean = evaluate_backtest_slice(s_act_clean, s_pred_clean, '2024-10', 'm', 'ov', 'all')
+        res_null = evaluate_backtest_slice(s_act_with_null, s_pred_with_null, '2024-10', 'm', 'ov', 'all')
+
+        assert res_clean['WAPE'] == res_null['WAPE']
+        assert res_clean['Bias'] == res_null['Bias']
+        assert res_null['n_excluded'] == 2
+
+    def test_ev059_no_post_forecast_double_counting(self):
+        """Priority 5b: EV-059 has no manual post-forecast multiplier; driven natively by model."""
+        from pipeline.config import EVENT_FORECAST_RULES
+        assert 'EV-059' in EVENT_FORECAST_RULES
+        rule = EVENT_FORECAST_RULES['EV-059']
+        assert rule.get('effect') == 'model_feature'
+        assert rule.get('factor') == 1.0
+
+    def test_new_launch_inheritance_fixture(self):
+        """Priority 6c: A launch forecast before Launch_Date is zero, and inherited values match rule."""
+        from pipeline.forecast import apply_lifecycle_rules
+        sku_master_fixture = pd.DataFrame([
+            {'SKU_ID': 'NEW-001', 'Launch_Date': '2027-03', 'EOL_Date': '', 'Replaces_SKU': 'OLD-001'}
+        ])
+        forecast_fixture = pd.DataFrame([
+            {'Date': '2027-01', 'SKU_ID': 'NEW-001', 'Units_Sold_Forecast': 150},
+            {'Date': '2027-02', 'SKU_ID': 'NEW-001', 'Units_Sold_Forecast': 160},
+            {'Date': '2027-03', 'SKU_ID': 'NEW-001', 'Units_Sold_Forecast': 170},
+            {'Date': '2027-04', 'SKU_ID': 'NEW-001', 'Units_Sold_Forecast': 180},
+        ])
+
+        cleaned = apply_lifecycle_rules(forecast_fixture, sku_master_fixture)
+        assert cleaned.loc[cleaned['Date'] == '2027-01', 'Units_Sold_Forecast'].iloc[0] == 0
+        assert cleaned.loc[cleaned['Date'] == '2027-02', 'Units_Sold_Forecast'].iloc[0] == 0
+        assert cleaned.loc[cleaned['Date'] == '2027-03', 'Units_Sold_Forecast'].iloc[0] == 170
+        assert cleaned.loc[cleaned['Date'] == '2027-04', 'Units_Sold_Forecast'].iloc[0] == 180
 

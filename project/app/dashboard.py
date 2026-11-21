@@ -409,44 +409,41 @@ def view_stockouts(stockouts_df, unconstrained_df, filters):
 # 8. What-If Macro Scenario (Opt 3)
 def view_scenario(scenario_df, df_forecast):
     st.header("Opt 3: Macroeconomic What-If Scenario Generator")
-    st.caption("Source: outputs/whatif_scenarios.csv & outputs/whatif_scenario_forecast.csv")
+    st.caption("Source: outputs/whatif_scenarios.csv")
     st.caption("Interactive sensitivity analysis: simulate macroeconomic shocks and observe family-level demand shifts from model reruns")
 
     all_scen = load_all_scenarios()
+    if all_scen.empty:
+        st.warning("Scenario analysis data not found (outputs/whatif_scenarios.csv).")
+        return
+
     pmi_options = [-6.0, -4.5, -3.0, -1.5, 0.0, 1.5, 3.0, 4.5, 6.0]
     pmi_shift = st.select_slider("ISM Manufacturing PMI Shock (Points)", options=pmi_options, value=-3.0)
 
-    if not all_scen.empty:
-        match_scen = all_scen[np.isclose(all_scen['Scenario_PMI_Delta'], pmi_shift)]
-        if not match_scen.empty:
-            scen_monthly = match_scen.groupby('Date').agg(
-                Base=('Units_Sold_Forecast', 'sum'),
-                Shifted=('Scenario_Units_Sold_Forecast', 'sum')
-            ).reset_index().sort_values('Date')
-        else:
-            scen_monthly = pd.DataFrame()
-    elif not scenario_df.empty:
-        scen_monthly = scenario_df.groupby('Date').agg(
-            Base=('Units_Sold_Forecast', 'sum'),
-            Shifted=('Scenario_Units_Sold_Forecast', 'sum')
-        ).reset_index().sort_values('Date')
-    else:
-        st.warning("Scenario forecast data not found.")
-        return
-
-    if scen_monthly.empty:
+    match_scen = all_scen[np.isclose(all_scen['Scenario_PMI_Delta'], pmi_shift)]
+    if match_scen.empty:
         st.warning("No data found for selected scenario delta.")
         return
 
-    fig_scen = go.Figure()
-    fig_scen.add_trace(go.Scatter(x=scen_monthly['Date'], y=scen_monthly['Base'], mode='lines', name='Baseline Forecast', line=dict(color='#1f77b4', width=2)))
-    fig_scen.add_trace(go.Scatter(x=scen_monthly['Date'], y=scen_monthly['Shifted'], mode='lines', name=f'Shifted Forecast ({pmi_shift:+.1f} PMI)', line=dict(color='#d62728', width=2, dash='dot')))
-    fig_scen.update_layout(title='Baseline vs Scenario Forecast', xaxis_title='Date', yaxis_title='Units', height=420)
-    st.plotly_chart(fig_scen, use_container_width=True)
+    tot_row = match_scen[match_scen['Level'] == 'Total']
+    if not tot_row.empty:
+        delta_units = tot_row['Shift_Units'].iloc[0]
+        pct_impact = tot_row['Shift_Pct'].iloc[0]
+        st.metric("Net Projected Impact on 19-Month Volume", f"{int(delta_units):+,} units ({pct_impact:+.2f}%)")
+        st.caption("Net unconstrained volume impact across the 19-month horizon (2026-11 to 2028-05) from rerunning the forecasting model with shifted ISM Manufacturing PMI trajectory.")
 
-    delta_units = scen_monthly['Shifted'].sum() - scen_monthly['Base'].sum()
-    pct_impact = (delta_units / max(scen_monthly['Base'].sum(), 1)) * 100
-    st.metric("Net Projected Impact on 19-Month Volume", f"{int(delta_units):+,} units ({pct_impact:+.2f}%)")
+    fam_rows = match_scen[match_scen['Level'] == 'Product_Family'].copy()
+    if not fam_rows.empty:
+        st.subheader(f"Family-Level Demand Shifts for {pmi_shift:+.1f} PMI Shock")
+        fig_fam = px.bar(
+            fam_rows, x='Group', y='Shift_Pct',
+            labels={'Group': 'Product Family', 'Shift_Pct': 'Volume Shift (%)'},
+            title=f'Projected Volume Shift (%) by Product Family ({pmi_shift:+.1f} PMI Delta)'
+        )
+        st.plotly_chart(fig_fam, use_container_width=True)
+
+        display_cols = ['Group', 'Baseline_Units', 'Forecast_Units', 'Shift_Units', 'Shift_Pct']
+        st.dataframe(fam_rows[display_cols].rename(columns={'Group': 'Product Family'}), use_container_width=True, hide_index=True)
 
 
 # 9. Lifecycle and Powertrain Transition View (Opt 4)

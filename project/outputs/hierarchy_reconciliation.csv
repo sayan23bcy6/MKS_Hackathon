@@ -1,20 +1,20 @@
-Level,Group,Bottom_Up_Units,Top_Level_Forecast,Raw_Deviation_Pct,Forecast_Units,Reconciled_Units,Adjustment_Units,Deviation_Pct,Status
-Total,ALL,2682745,2682745,0.0,2682745,2682745,0,0.0,PASS
-Product_Family,Brake & Safety Systems,522886,529900,1.32,522886,522886,0,0.0,PASS
-Product_Family,Chassis & Structural,402436,424160,5.12,402436,402436,0,0.0,PASS
-Product_Family,Electrical Assemblies,265174,290638,8.76,265174,265174,0,0.0,PASS
-Product_Family,Hydraulic Systems,312755,332001,5.8,312755,312755,0,0.0,PASS
-Product_Family,Powertrain Components,346511,375889,7.82,346511,346511,0,0.0,PASS
-Product_Family,Precision Machined Parts,416946,434335,4.0,416946,416946,0,0.0,PASS
-Product_Family,Thermal Management,416037,434842,4.32,416037,416037,0,0.0,PASS
-Region,Asia Pacific,483891,523728,7.61,483891,483891,0,0.0,PASS
-Region,Europe,524056,533738,1.81,524056,524056,0,0.0,PASS
-Region,India,504806,507685,0.57,504806,504806,0,0.0,PASS
-Region,Latin America,428454,470432,8.92,428454,428454,0,0.0,PASS
-Region,Middle East & Africa,233203,257819,9.55,233203,233203,0,0.0,PASS
-Region,North America,508335,519803,2.21,508335,508335,0,0.0,PASS
-Business_Unit,Advanced Manufacturing,819382,819382,0.0,819382,819382,0,0.0,PASS
-Business_Unit,Electronics & Controls,265174,265174,0.0,265174,265174,0,0.0,PASS
-Business_Unit,Fluid Control Group,728792,728792,0.0,728792,728792,0,0.0,PASS
-Business_Unit,Power & Drive Systems,346511,346511,0.0,346511,346511,0,0.0,PASS
-Business_Unit,Safety & Compliance,522886,522886,0.0,522886,522886,0,0.0,PASS
+Level,Group,Bottom_Up_Units,Top_Level_Forecast,Raw_Deviation_Pct,Reconciled_Units,Adjustment_Units,Deviation_Pct,Status
+Total,ALL,2863640,253990,1027.46,2863640,0,0.0,PASS
+Product_Family,Brake & Safety Systems,556241,46431,1097.99,556241,0,0.0,PASS
+Product_Family,Chassis & Structural,429565,37174,1055.55,429565,0,0.0,PASS
+Product_Family,Electrical Assemblies,283069,26281,977.09,283069,0,0.0,PASS
+Product_Family,Hydraulic Systems,333878,29707,1023.9,333878,0,0.0,PASS
+Product_Family,Powertrain Components,370680,34863,963.25,370680,0,0.0,PASS
+Product_Family,Precision Machined Parts,446580,39355,1034.75,446580,0,0.0,PASS
+Product_Family,Thermal Management,443627,40309,1000.57,443627,0,0.0,PASS
+Region,Asia Pacific,515872,46560,1007.97,515872,0,0.0,PASS
+Region,Europe,559363,50220,1013.83,559363,0,0.0,PASS
+Region,India,537746,45025,1094.33,537746,0,0.0,PASS
+Region,Latin America,457955,40751,1023.79,457955,0,0.0,PASS
+Region,Middle East & Africa,248552,22336,1012.79,248552,0,0.0,PASS
+Region,North America,544152,48566,1020.44,544152,0,0.0,PASS
+Business_Unit,Advanced Manufacturing,876145,876145,0.0,876145,0,0.0,PASS
+Business_Unit,Electronics & Controls,283069,283069,0.0,283069,0,0.0,PASS
+Business_Unit,Fluid Control Group,777505,777505,0.0,777505,0,0.0,PASS
+Business_Unit,Power & Drive Systems,370680,370680,0.0,370680,0,0.0,PASS
+Business_Unit,Safety & Compliance,556241,556241,0.0,556241,0,0.0,PASS
