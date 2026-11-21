@@ -79,7 +79,8 @@ def run_honest_backtest(clean_train: pd.DataFrame,
                         clean_events: pd.DataFrame,
                         sku_master: pd.DataFrame,
                         origins: list = ['2023-10', '2024-10', '2025-03'],
-                        horizon: int = 19) -> tuple[pd.DataFrame, pd.DataFrame]:
+                        horizon: int = 19,
+                        save_outputs: bool = True) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
     Run honest out-of-sample rolling-origin backtests.
     Ensures zero forward data leakage: models, cycle features, intermittency, and lags
@@ -413,12 +414,15 @@ def run_honest_backtest(clean_train: pd.DataFrame,
                     all_metrics.append(evaluate_backtest_slice(grp['actual'], grp['pred'], origin, m_name, 'channel', str(ch)))
 
     metrics_df = pd.DataFrame(all_metrics)
-    metrics_df.to_csv(OUT_BACKTEST, index=False)
-    print(f"\n  Backtest metrics saved to {OUT_BACKTEST} ({len(metrics_df)} slices)")
+    preds_df = pd.concat(all_preds, ignore_index=True) if all_preds else pd.DataFrame()
+    if save_outputs:
+        metrics_df.to_csv(OUT_BACKTEST, index=False)
+        print(f"\n  Backtest metrics saved to {OUT_BACKTEST} ({len(metrics_df)} slices)")
+        preds_df.to_csv(OUT_BACKTEST_PREDS, index=False)
+        print(f"  Backtest predictions saved to {OUT_BACKTEST_PREDS} ({len(preds_df)} rows)")
 
-    preds_df = pd.concat(all_preds, ignore_index=True)
-    preds_df.to_csv(OUT_BACKTEST_PREDS, index=False)
-    print(f"  Backtest predictions saved to {OUT_BACKTEST_PREDS} ({len(preds_df)} rows)")
+    if preds_df.empty or not save_outputs:
+        return metrics_df, preds_df
 
     # Generate and export coverage breakdown (Priority C1)
     lgb_preds = preds_df[preds_df['model'] == 'lightgbm_p50'].copy()

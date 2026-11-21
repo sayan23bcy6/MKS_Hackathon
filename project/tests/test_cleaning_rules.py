@@ -1113,12 +1113,58 @@ def test_hierarchy_submission_exact_sums():
 
 
 def test_backtest_temporal_isolation_no_leakage():
-    """PDF Part 4.5 & 6: Backtest origins strictly isolate training data; no future leakage."""
+    """Changing future actuals must not change predictions for the origin test window."""
+    from pipeline.backtest import run_honest_backtest
+
+    dates = pd.period_range('2021-01', periods=48, freq='M').strftime('%Y-%m').tolist()
+    rows = []
+    for sku in ['S1', 'S2']:
+        for region in ['North America', 'Europe']:
+            for i, date in enumerate(dates):
+                rows.append({
+                    'Date': date,
+                    'SKU_ID': sku,
+                    'Region': region,
+                    'Customer_Name': 'Customer',
+                    'Units_Sold': float(10 + i % 5 + (0 if sku == 'S1' else 3)),
+                    'Units_Sold_Unconstrained': float(10 + i % 5 + (0 if sku == 'S1' else 3)),
+                    'Product_Family': 'Family',
+                    'Sales_Channel': 'Direct OEM',
+                    'Business_Unit': 'BU',
+                })
+    original = pd.DataFrame(rows)
+    perturbed = original.copy()
+    rng = np.random.default_rng(90210)
+    future_mask = perturbed['Date'] > '2023-10'
+    perturbed.loc[future_mask, 'Units_Sold'] = rng.integers(1000, 10000, size=int(future_mask.sum()))
+    perturbed.loc[future_mask, 'Units_Sold_Unconstrained'] = perturbed.loc[future_mask, 'Units_Sold']
+
+    macro = pd.DataFrame({'Date': dates})
+    events = pd.DataFrame(columns=['Date', 'Event_ID', 'Start_Date', 'End_Date'])
+    sku_master = pd.DataFrame([
+        {'SKU_ID': 'S1', 'Product_Family': 'Family', 'Business_Unit': 'BU', 'Launch_Date': '', 'EOL_Date': '', 'Replaces_SKU': ''},
+        {'SKU_ID': 'S2', 'Product_Family': 'Family', 'Business_Unit': 'BU', 'Launch_Date': '', 'EOL_Date': '', 'Replaces_SKU': ''},
+    ])
+
+    _, predictions_original = run_honest_backtest(
+        original, macro, events, sku_master, origins=['2023-10'], horizon=3, save_outputs=False
+    )
+    _, predictions_perturbed = run_honest_backtest(
+        perturbed, macro, events, sku_master, origins=['2023-10'], horizon=3, save_outputs=False
+    )
+    merge_keys = ['origin', 'model', 'Date', 'SKU_ID', 'Region', 'Customer_Name']
+    left = predictions_original.sort_values(merge_keys).reset_index(drop=True)
+    right = predictions_perturbed.sort_values(merge_keys).reset_index(drop=True)
+    assert len(left) > 0
+    assert left[merge_keys].equals(right[merge_keys])
+    assert np.allclose(left['p50'], right['p50'], rtol=0.0, atol=0.0)
+
+
+def test_backtest_has_three_origins():
+    """The backtest configuration evaluates three rolling origins."""
     bm_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'backtest_metrics.csv')
-    assert os.path.exists(bm_path)
+    assert os.path.exists(bm_path), "run python project/run_pipeline.py first"
     bm = pd.read_csv(bm_path)
-    origins = sorted(bm['origin'].dropna().unique())
-    assert len(origins) >= 3
-    assert origins == sorted(origins)
+    assert bm['origin'].dropna().nunique() >= 3
 
 
