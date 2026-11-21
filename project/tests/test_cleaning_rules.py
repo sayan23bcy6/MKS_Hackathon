@@ -1035,6 +1035,7 @@ class TestSchemaValidation:
             view_stockouts(stockouts_df, unconstrained_df, flt)
             view_scenario(scenario_df, df_forecast)
             view_powertrain_lifecycle(ev_df)
+        assert len(combos) == 7
 
 
 # PDF Business Rules R1 through R7, Hierarchy Exactness, and Backtest Temporal Isolation

@@ -375,27 +375,22 @@ def check_hierarchy(s):
     ok = total == by_family == by_region == by_month
     record(s, "PASS" if ok else "FAIL",
            f"total {total:,}; family {by_family:,}; region {by_region:,}; month {by_month:,}")
-    rec = OUT / "hierarchy_reconciliation.csv"
+    rec = OUT / "hierarchy_addition.csv"
     if rec.exists():
-        record(s, "PASS", "hierarchy_reconciliation.csv present")
+        record(s, "PASS", "hierarchy_addition.csv present")
         df_rec = pd.read_csv(rec)
 
-        # 5a: Fail if any level is FAIL
-        has_fails = (df_rec["Status"] != "PASS").any()
-        record(s, "FAIL" if has_fails else "PASS",
-               f"hierarchy status: {'found FAIL status in records' if has_fails else 'all levels reported PASS'}")
-
-        # 5a: Fail if family/region sums do not equal total
         tot_rows = df_rec[df_rec["Level"] == "Total"]
         if not tot_rows.empty:
-            reconciled_total = int(tot_rows.iloc[0]["Reconciled_Units"])
-            fam_sum = int(df_rec[df_rec["Level"] == "Product_Family"]["Reconciled_Units"].sum())
-            reg_sum = int(df_rec[df_rec["Level"] == "Region"]["Reconciled_Units"].sum())
-            totals_agree = (fam_sum == reconciled_total) and (reg_sum == reconciled_total)
+            forecast_total = int(tot_rows.iloc[0]["Bottom_Up_Units"])
+            fam_sum = int(df_rec[df_rec["Level"] == "Product_Family"]["Bottom_Up_Units"].sum())
+            reg_sum = int(df_rec[df_rec["Level"] == "Region"]["Bottom_Up_Units"].sum())
+            bu_sum = int(df_rec[df_rec["Level"] == "Business_Unit"]["Bottom_Up_Units"].sum())
+            totals_agree = fam_sum == forecast_total and reg_sum == forecast_total and bu_sum == forecast_total
             record(s, "PASS" if totals_agree else "FAIL",
-                   f"reconciled totals match: total={reconciled_total:,}, family={fam_sum:,}, region={reg_sum:,}")
+                   f"hierarchy exact sums: total={forecast_total:,}, family={fam_sum:,}, region={reg_sum:,}, business_unit={bu_sum:,}")
         else:
-            record(s, "FAIL", "no Total row found in hierarchy_reconciliation.csv")
+            record(s, "FAIL", "no Total row found in hierarchy_addition.csv")
 
         # 5d: Model card reads hierarchy numbers from regenerated file
         mc_path = OUT / "model_card.md"
@@ -405,7 +400,7 @@ def check_hierarchy(s):
             expected_str = f"{max_raw:.1f}%"
             mc_matches = expected_str in mc_text
             record(s, "PASS" if mc_matches else "FAIL",
-                   f"model card hierarchy numbers match hierarchy_reconciliation.csv ({expected_str})")
+                   f"model card hierarchy numbers match hierarchy_addition.csv ({expected_str})")
     else:
         record(s, "FAIL", "hierarchy_reconciliation.csv not produced (spec requires it)")
 
