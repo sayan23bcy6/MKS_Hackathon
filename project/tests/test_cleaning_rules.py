@@ -611,7 +611,7 @@ class TestSchemaValidation:
         assert res['adds_up'] is True
         assert set(res) == {'adds_up', 'total_forecast_units'}
         df = pd.read_csv(out_path)
-        assert {'Level', 'Group', 'Bottom_Up_Units', 'Top_Level_Forecast', 'Raw_Deviation_Pct', 'Deviation_Pct', 'Status'} == set(df.columns)
+        assert {'Level', 'Group', 'Bottom_Up_Units', 'Deviation_Pct', 'Status'} == set(df.columns)
 
     def test_features_yoy_growth_not_identical_to_lag12(self):
         """Fix F4: lag_12m_yoy must be the YoY ratio, distinct from lag_12m."""

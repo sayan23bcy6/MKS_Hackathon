@@ -385,6 +385,7 @@ def compute_hierarchy_reconciliation(submission: pd.DataFrame,
                                      sku_master: pd.DataFrame,
                                      out_path=OUT_HIERARCHY_RECON) -> dict:
     """
+    diagnostic, not a PDF requirement
     Report exact bottom-up submission sums across family, region, business unit and total.
     Trend projections are diagnostic only and do not affect the result.
     """
@@ -435,8 +436,8 @@ def compute_hierarchy_reconciliation(submission: pd.DataFrame,
     total_trend = project(tot_monthly)
     recon_records.append({
         'Level': 'Total', 'Group': 'ALL', 'Bottom_Up_Units': total_units,
-        'Top_Level_Forecast': total_trend, 'Raw_Deviation_Pct': gap(total_units, total_trend),
-        'Deviation_Pct': 0.0, 'Status': 'PASS' if adds_up else 'FAIL',
+        'Deviation_Pct': 0.0,
+        'Status': 'PASS' if adds_up else 'FAIL',
     })
     diagnostic_records.append({
         'Level': 'Total', 'Group': 'ALL', 'Forecast_Units': total_units,
@@ -450,8 +451,8 @@ def compute_hierarchy_reconciliation(submission: pd.DataFrame,
             trend_units = project(monthly_pivot[group]) if monthly_pivot is not None and group in monthly_pivot.columns else forecast_units
             recon_records.append({
                 'Level': level_name, 'Group': group, 'Bottom_Up_Units': forecast_units,
-                'Top_Level_Forecast': trend_units, 'Raw_Deviation_Pct': gap(forecast_units, trend_units),
-                'Deviation_Pct': 0.0, 'Status': level_status,
+                'Deviation_Pct': 0.0,
+                'Status': level_status,
             })
             diagnostic_records.append({
                 'Level': level_name, 'Group': group, 'Forecast_Units': forecast_units,
