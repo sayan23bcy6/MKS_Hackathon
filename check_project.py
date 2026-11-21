@@ -15,6 +15,7 @@ Paste that file into the chat for review.
 
 import argparse
 import hashlib
+import ast
 import platform
 import re
 import subprocess
@@ -628,10 +629,24 @@ def check_pdf_compliance(s):
     test_file = PROJECT / "tests" / "test_cleaning_rules.py"
     test_content = test_file.read_text(encoding="utf-8") if test_file.exists() else ""
     available_tests = set(re.findall(r"def (test_[a-zA-Z0-9_]+)", test_content))
+    test_bodies_with_assert = set()
+    test_bodies_with_skip = set()
+    if test_file.exists():
+        tree = ast.parse(test_content, filename=str(test_file))
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name.startswith("test_"):
+                has_assert = any(isinstance(child, ast.Assert) for child in ast.walk(node))
+                if has_assert:
+                    test_bodies_with_assert.add(node.name)
+                for child in ast.walk(node):
+                    if isinstance(child, ast.Call):
+                        if isinstance(child.func, ast.Attribute) and child.func.attr == "skip":
+                            test_bodies_with_skip.add(node.name)
 
     missing_impl = []
     missing_out = []
     missing_tests = []
+    no_assert_tests = []
     invalid_status = []
 
     for idx, r in enumerate(data_rows, 1):
@@ -654,6 +669,8 @@ def check_pdf_compliance(s):
 
         if test_fn not in available_tests:
             missing_tests.append(f"{test_fn} (row {idx})")
+        elif test_fn not in test_bodies_with_assert:
+            no_assert_tests.append(f"{test_fn} (row {idx})")
 
         if status.lower() not in ("done", "not done"):
             invalid_status.append(f"Invalid status '{status}' (row {idx})")
@@ -666,10 +683,14 @@ def check_pdf_compliance(s):
         record(s, "FAIL", f"Output files/views missing ({len(missing_out)}): {', '.join(missing_out[:5])}")
     if missing_tests:
         record(s, "FAIL", f"Tests missing from test_cleaning_rules.py ({len(missing_tests)}): {', '.join(missing_tests[:5])}")
+    if no_assert_tests:
+        record(s, "FAIL", f"Rows with test bodies containing no assert ({len(no_assert_tests)}): {', '.join(no_assert_tests[:5])}")
+    if test_bodies_with_skip:
+        record(s, "FAIL", f"Tests skip on missing required output ({len(test_bodies_with_skip)}): {', '.join(sorted(test_bodies_with_skip))}")
     if invalid_status:
         record(s, "FAIL", f"Status errors ({len(invalid_status)}): {', '.join(invalid_status[:5])}")
 
-    if not (missing_impl or missing_out or missing_tests or invalid_status):
+    if not (missing_impl or missing_out or missing_tests or no_assert_tests or test_bodies_with_skip or invalid_status):
         record(s, "PASS", f"all {len(data_rows)} PDF specification rows verified with valid files, outputs, and unit tests")
 
 
