@@ -1,0 +1,31 @@
+Product_Family,Break_Date,Method,Threshold,Pre_Break_Mean_Units,Post_Break_Mean_Units,Shift_Percentage,Matched_Event
+Hydraulic Systems,2020-12,CUSUM rolling-mean variance test,25% sustained shift,10338.1,17717.0,71.4,Organic Macro / Volume Shift
+Hydraulic Systems,2020-09,CUSUM rolling-mean variance test,25% sustained shift,9920.4,16964.6,71.0,Organic Macro / Volume Shift
+Hydraulic Systems,2020-11,CUSUM rolling-mean variance test,25% sustained shift,10218.2,17449.4,70.8,Organic Macro / Volume Shift
+Hydraulic Systems,2020-10,CUSUM rolling-mean variance test,25% sustained shift,10187.8,17044.0,67.3,Organic Macro / Volume Shift
+Electrical Assemblies,2022-08,CUSUM rolling-mean variance test,25% sustained shift,6922.8,11355.7,64.0,Organic Macro / Volume Shift
+Electrical Assemblies,2022-09,CUSUM rolling-mean variance test,25% sustained shift,7096.0,11520.8,62.4,Organic Macro / Volume Shift
+Powertrain Components,2021-01,CUSUM rolling-mean variance test,25% sustained shift,11645.4,18751.0,61.0,Organic Macro / Volume Shift
+Electrical Assemblies,2022-07,CUSUM rolling-mean variance test,25% sustained shift,6907.3,11099.1,60.7,Organic Macro / Volume Shift
+Hydraulic Systems,2020-08,CUSUM rolling-mean variance test,25% sustained shift,10100.1,16195.6,60.4,Organic Macro / Volume Shift
+Powertrain Components,2021-02,CUSUM rolling-mean variance test,25% sustained shift,11690.6,18723.9,60.2,Organic Macro / Volume Shift
+Powertrain Components,2021-03,CUSUM rolling-mean variance test,25% sustained shift,11806.0,18704.8,58.4,EV-019 Global Semiconductor Shortage Wave 1
+Powertrain Components,2020-12,CUSUM rolling-mean variance test,25% sustained shift,11757.8,18520.6,57.5,Organic Macro / Volume Shift
+Thermal Management,2020-10,CUSUM rolling-mean variance test,25% sustained shift,14798.4,23042.1,55.7,Organic Macro / Volume Shift
+Electrical Assemblies,2022-06,CUSUM rolling-mean variance test,25% sustained shift,6976.2,10854.3,55.6,Organic Macro / Volume Shift
+Thermal Management,2020-09,CUSUM rolling-mean variance test,25% sustained shift,14794.7,23025.1,55.6,Organic Macro / Volume Shift
+Electrical Assemblies,2022-10,CUSUM rolling-mean variance test,25% sustained shift,7556.3,11568.0,53.1,Organic Macro / Volume Shift
+Powertrain Components,2020-11,CUSUM rolling-mean variance test,25% sustained shift,11990.7,18349.1,53.0,Organic Macro / Volume Shift
+Brake & Safety Systems,2020-09,CUSUM rolling-mean variance test,25% sustained shift,16747.0,25551.4,52.6,Organic Macro / Volume Shift
+Thermal Management,2020-11,CUSUM rolling-mean variance test,25% sustained shift,15011.1,22774.2,51.7,Organic Macro / Volume Shift
+Thermal Management,2020-08,CUSUM rolling-mean variance test,25% sustained shift,14992.5,22688.5,51.3,Organic Macro / Volume Shift
+Brake & Safety Systems,2020-10,CUSUM rolling-mean variance test,25% sustained shift,16926.0,25606.2,51.3,Organic Macro / Volume Shift
+Powertrain Components,2021-04,CUSUM rolling-mean variance test,25% sustained shift,12237.7,18437.6,50.7,Organic Macro / Volume Shift
+Electrical Assemblies,2020-10,CUSUM rolling-mean variance test,25% sustained shift,6591.9,9925.8,50.6,Organic Macro / Volume Shift
+Chassis & Structural,2020-11,CUSUM rolling-mean variance test,25% sustained shift,12913.2,19437.8,50.5,Organic Macro / Volume Shift
+Chassis & Structural,2020-10,CUSUM rolling-mean variance test,25% sustained shift,13018.7,19464.3,49.5,Organic Macro / Volume Shift
+Chassis & Structural,2020-12,CUSUM rolling-mean variance test,25% sustained shift,12916.8,19290.3,49.3,Organic Macro / Volume Shift
+Hydraulic Systems,2021-01,CUSUM rolling-mean variance test,25% sustained shift,11364.2,16958.4,49.2,Organic Macro / Volume Shift
+Electrical Assemblies,2020-09,CUSUM rolling-mean variance test,25% sustained shift,6706.6,10000.8,49.1,Organic Macro / Volume Shift
+Precision Machined Parts,2020-11,CUSUM rolling-mean variance test,25% sustained shift,14094.8,20843.0,47.9,Organic Macro / Volume Shift
+Hydraulic Systems,2020-07,CUSUM rolling-mean variance test,25% sustained shift,10531.2,15484.8,47.0,Organic Macro / Volume Shift

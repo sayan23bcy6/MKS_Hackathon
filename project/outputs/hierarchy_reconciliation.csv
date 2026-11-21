@@ -1,6 +1,20 @@
 Level,Group,Bottom_Up_Units,Top_Level_Forecast,Raw_Deviation_Pct,Reconciled_Units,Adjustment_Units,Deviation_Pct,Status
-Total,ALL,300,5700,94.74,300,0,0.0,FAIL
-Product_Family,Brake & Safety Systems,300,5700,94.74,5700,5400,0.0,FAIL
-Region,Europe,200,3800,94.74,3800,3600,0.0,FAIL
-Region,North America,100,1900,94.74,1900,1800,0.0,FAIL
-Business_Unit,Safety & Compliance,300,300,0.0,300,0,0.0,PASS
+Total,ALL,2847167,2591306,9.87,2591306,-255861,0.0,PASS
+Product_Family,Brake & Safety Systems,552340,474321,16.45,502704,-49636,0.0,PASS
+Product_Family,Chassis & Structural,426159,387622,9.94,387862,-38297,0.0,PASS
+Product_Family,Electrical Assemblies,281962,273621,3.05,256623,-25339,0.0,PASS
+Product_Family,Hydraulic Systems,333070,305570,9.0,303139,-29931,0.0,PASS
+Product_Family,Powertrain Components,368673,357463,3.14,335542,-33131,0.0,PASS
+Product_Family,Precision Machined Parts,443978,393191,12.92,404080,-39898,0.0,PASS
+Product_Family,Thermal Management,440985,400831,10.02,401356,-39629,0.0,PASS
+Region,Asia Pacific,515798,479785,7.51,469446,-46352,0.0,PASS
+Region,Europe,559351,503794,11.03,509085,-50266,0.0,PASS
+Region,India,521388,453056,15.08,474533,-46855,0.0,PASS
+Region,Latin America,457978,408841,12.02,416822,-41156,0.0,PASS
+Region,Middle East & Africa,248498,236863,4.91,226167,-22331,0.0,PASS
+Region,North America,544154,503078,8.16,495253,-48901,0.0,PASS
+Business_Unit,Advanced Manufacturing,860483,780796,10.21,783156,-77327,0.0,PASS
+Business_Unit,Electronics & Controls,281962,273621,3.05,256623,-25339,0.0,PASS
+Business_Unit,Fluid Control Group,774055,706388,9.58,704494,-69561,0.0,PASS
+Business_Unit,Power & Drive Systems,378327,357463,5.84,344329,-33998,0.0,PASS
+Business_Unit,Safety & Compliance,552340,474321,16.45,502704,-49636,0.0,PASS

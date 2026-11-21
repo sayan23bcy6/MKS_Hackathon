@@ -1,0 +1,397 @@
+SKU_ID,Region,Customer_Name,Order_Cycle,Expected_Gap_Months,Last_Order_Date,Months_Inactive,Status
+BSS-001,Asia Pacific,Helios Auto Parts,Monthly,1,2022-08,50,Lost Account
+BSS-002,Unassigned,Apex Tier One,Sporadic,6,2022-02,56,Lost Account
+BSS-003,Unassigned,Meridian Assembly,Sporadic,6,2023-06,40,Lost Account
+BSS-004,Unassigned,Apex Tier One,Sporadic,6,2023-12,34,Lost Account
+BSS-007,Unassigned,Nexon Motor Group,Sporadic,6,2025-02,20,Lost Account
+BSS-010,Unassigned,Vantara Auto,Sporadic,6,2021-11,59,Lost Account
+BSS-015,Unassigned,Falcon Gulf Motors,Sporadic,6,2024-03,31,Lost Account
+BSS-016,Unassigned,Apex Tier One,Sporadic,6,2019-05,89,Lost Account
+BSS-016,Unassigned,Vantara Auto,Sporadic,6,2025-01,21,Lost Account
+BSS-017,Unassigned,Falcon Gulf Motors,Sporadic,6,2025-03,19,Lost Account
+BSS-017,Unassigned,Vantara Auto,Sporadic,6,2023-03,43,Lost Account
+BSS-020,Unassigned,Apex Tier One,Sporadic,6,2024-04,30,Lost Account
+BSS-023,Unassigned,Helios Auto Parts,Sporadic,6,2019-08,86,Lost Account
+BSS-024,Asia Pacific,Solaris Automotive,Monthly,1,2024-03,31,Lost Account
+BSS-024,Unassigned,Nexon Motor Group,Sporadic,6,2023-05,41,Lost Account
+BSS-028,Unassigned,Quantum Drive Systems,Sporadic,6,2023-08,38,Lost Account
+BSS-029,Unassigned,Helios Auto Parts,Sporadic,6,2022-06,52,Lost Account
+BSS-032,Unassigned,Apex Tier One,Sporadic,6,2019-01,93,Lost Account
+BSS-033,Unassigned,Orion Driveline,Sporadic,6,2023-08,38,Lost Account
+BSS-034,North America,Solaris Automotive,Monthly,1,2025-11,11,Lost Account
+BSS-034,Unassigned,Solaris Automotive,Irregular,12,2021-02,68,Lost Account
+BSS-038,Unassigned,Nexon Motor Group,Sporadic,6,2020-07,75,Lost Account
+BSS-041,Unassigned,Helios Auto Parts,Sporadic,6,2019-09,85,Lost Account
+BSS-043,Unassigned,Crestline Manufacturing,Sporadic,6,2024-02,32,Lost Account
+BSS-045,Unassigned,Helios Auto Parts,Quarterly,3,2020-03,79,Lost Account
+BSS-045,Unassigned,Solaris Automotive,Irregular,5,2023-08,38,Lost Account
+BSS-046,Unassigned,Apex Tier One,Sporadic,6,2019-01,93,Lost Account
+BSS-046,Unassigned,Orion Driveline,Sporadic,6,2023-10,36,Lost Account
+BSS-047,Unassigned,Meridian Assembly,Sporadic,6,2024-06,28,Lost Account
+BSS-047,Unassigned,Solaris Automotive,Sporadic,6,2021-02,68,Lost Account
+BSS-051,Unassigned,Meridian Assembly,Sporadic,6,2019-08,86,Lost Account
+BSS-054,Unassigned,Crestline Manufacturing,Sporadic,6,2024-05,29,Lost Account
+BSS-064,Unassigned,Orion Driveline,Irregular,8,2021-11,59,Lost Account
+BSS-064,Unassigned,Quantum Drive Systems,Sporadic,6,2022-05,53,Lost Account
+BSS-065,Unassigned,Crestline Manufacturing,Sporadic,6,2022-04,54,Lost Account
+BSS-066,Unassigned,Nexon Motor Group,Sporadic,6,2020-01,81,Lost Account
+BSS-066,Unassigned,Vantara Auto,Monthly,1,2025-02,20,Lost Account
+BSS-070,Unassigned,Kestrel Mobility,Sporadic,6,2024-11,23,Lost Account
+BSS-075,Unassigned,Apex Tier One,Sporadic,6,2019-07,87,Lost Account
+BSS-076,Unassigned,Crestline Manufacturing,Sporadic,6,2019-12,82,Lost Account
+BSS-077,Unassigned,Helios Auto Parts,Irregular,7,2021-09,61,Lost Account
+BSS-077,Unassigned,Vantara Auto,Sporadic,6,2019-06,88,Lost Account
+BSS-081,North America,Nexon Motor Group,Monthly,1,2024-12,22,Lost Account
+BSS-082,India,Quantum Drive Systems,Monthly,1,2025-12,10,Lost Account
+BSS-082,Unassigned,Nexon Motor Group,Sporadic,6,2024-09,25,Lost Account
+BSS-083,Unassigned,Meridian Assembly,Sporadic,6,2020-04,78,Lost Account
+BSS-084,Unassigned,Apex Tier One,Sporadic,6,2025-01,21,Lost Account
+CSS-003,Unassigned,Kestrel Mobility,Sporadic,6,2022-03,55,Lost Account
+CSS-004,Unassigned,Nexon Motor Group,Sporadic,6,2023-01,45,Lost Account
+CSS-005,Unassigned,Crestline Manufacturing,Sporadic,6,2019-04,90,Lost Account
+CSS-005,Unassigned,Meridian Assembly,Sporadic,6,2022-08,50,Lost Account
+CSS-005,Unassigned,Orion Driveline,Sporadic,6,2024-08,26,Lost Account
+CSS-008,Unassigned,Nexon Motor Group,Sporadic,6,2023-06,40,Lost Account
+CSS-020,Unassigned,Atlas Mideast Components,Sporadic,6,2024-07,27,Lost Account
+CSS-021,Unassigned,Orion Driveline,Sporadic,6,2025-01,21,Lost Account
+CSS-023,Unassigned,Crestline Manufacturing,Sporadic,6,2020-07,75,Lost Account
+CSS-023,Unassigned,Nexon Motor Group,Sporadic,6,2021-12,58,Lost Account
+CSS-034,Unassigned,Nexon Motor Group,Sporadic,6,2021-09,61,Lost Account
+CSS-039,Unassigned,Helios Auto Parts,Sporadic,6,2019-03,91,Lost Account
+CSS-040,Unassigned,Crestline Manufacturing,Sporadic,6,2022-01,57,Lost Account
+CSS-040,Unassigned,Orion Driveline,Sporadic,6,2019-11,83,Lost Account
+CSS-043,Unassigned,Helios Auto Parts,Sporadic,6,2024-06,28,Lost Account
+CSS-044,Unassigned,Meridian Assembly,Sporadic,6,2023-07,39,Lost Account
+CSS-045,India,Vantara Auto,Monthly,1,2025-10,12,Lost Account
+CSS-045,Unassigned,Apex Tier One,Sporadic,6,2022-07,51,Lost Account
+CSS-045,Unassigned,Solaris Automotive,Sporadic,6,2024-12,22,Lost Account
+CSS-046,Unassigned,Kestrel Mobility,Irregular,8,2023-06,40,Lost Account
+CSS-046,Unassigned,Meridian Assembly,Sporadic,6,2022-11,47,Lost Account
+CSS-047,Unassigned,Crestline Manufacturing,Sporadic,6,2024-03,31,Lost Account
+CSS-050,Unassigned,Meridian Assembly,Sporadic,6,2025-03,19,Lost Account
+CSS-050,Unassigned,Quantum Drive Systems,Sporadic,6,2023-08,38,Lost Account
+CSS-050,Unassigned,Solaris Automotive,Irregular,4,2023-02,44,Lost Account
+CSS-056,Unassigned,Solaris Automotive,Irregular,6,2025-01,21,Lost Account
+CSS-059,Unassigned,Orion Driveline,Sporadic,6,2019-01,93,Lost Account
+CSS-061,Unassigned,Solaris Automotive,Sporadic,6,2024-04,30,Lost Account
+CSS-062,Asia Pacific,Quantum Drive Systems,Monthly,1,2025-09,13,Lost Account
+CSS-064,Unassigned,Apex Tier One,Sporadic,6,2021-07,63,Lost Account
+CSS-065,Unassigned,Crestline Manufacturing,Sporadic,6,2021-05,65,Lost Account
+CSS-065,Unassigned,Quantum Drive Systems,Sporadic,6,2025-03,19,Lost Account
+CSS-066,Latin America,Helios Auto Parts,Bi-monthly,2,2024-10,24,Lost Account
+CSS-066,Unassigned,Quantum Drive Systems,Sporadic,6,2021-07,63,Lost Account
+CSS-067,Unassigned,Helios Auto Parts,Sporadic,6,2024-03,31,Lost Account
+CSS-067,Unassigned,Meridian Assembly,Sporadic,6,2024-11,23,Lost Account
+CSS-068,Unassigned,Helios Auto Parts,Bi-monthly,2,2019-07,87,Lost Account
+CSS-074,Unassigned,Nexon Motor Group,Sporadic,6,2024-03,31,Lost Account
+CSS-079,Unassigned,Helios Auto Parts,Sporadic,6,2020-02,80,Lost Account
+CSS-079,Unassigned,Meridian Assembly,Sporadic,6,2020-11,71,Lost Account
+CSS-081,Unassigned,Apex Tier One,Sporadic,6,2023-07,39,Lost Account
+CSS-083,Unassigned,Apex Tier One,Sporadic,6,2024-06,28,Lost Account
+CSS-084,Unassigned,Solaris Automotive,Sporadic,6,2023-07,39,Lost Account
+CSS-085,Europe,Apex Tier One,Monthly,1,2025-11,11,Lost Account
+CSS-085,India,Crestline Manufacturing,Monthly,1,2022-06,52,Lost Account
+CSS-085,Unassigned,Apex Tier One,Sporadic,6,2023-07,39,Lost Account
+CSS-085,Unassigned,Nexon Motor Group,Sporadic,6,2021-08,62,Lost Account
+CSS-087,Unassigned,Crestline Manufacturing,Sporadic,6,2023-02,44,Lost Account
+CSS-087,Unassigned,Meridian Assembly,Sporadic,6,2021-11,59,Lost Account
+ELA-001,Unassigned,Vantara Auto,Sporadic,6,2022-06,52,Lost Account
+ELA-002,Unassigned,Vantara Auto,Sporadic,6,2019-08,86,Lost Account
+ELA-007,Unassigned,Atlas Mideast Components,Sporadic,6,2024-12,22,Lost Account
+ELA-008,Unassigned,Helios Auto Parts,Sporadic,6,2021-06,64,Lost Account
+ELA-010,Unassigned,Helios Auto Parts,Sporadic,6,2024-03,31,Lost Account
+ELA-014,Asia Pacific,Quantum Drive Systems,Monthly,1,2023-06,40,Lost Account
+ELA-014,India,Nexon Motor Group,Monthly,1,2023-06,40,Lost Account
+ELA-014,Latin America,Solaris Automotive,Quarterly,3,2023-05,41,Lost Account
+ELA-014,Middle East & Africa,Falcon Gulf Motors,Monthly,1,2023-06,40,Lost Account
+ELA-014,Unassigned,Quantum Drive Systems,Sporadic,6,2021-12,58,Lost Account
+ELA-015,Unassigned,Orion Driveline,Sporadic,6,2024-03,31,Lost Account
+ELA-015,Unassigned,Quantum Drive Systems,Sporadic,6,2025-01,21,Lost Account
+ELA-018,Unassigned,Solaris Automotive,Sporadic,6,2025-03,19,Lost Account
+ELA-019,Unassigned,Kestrel Mobility,Sporadic,6,2023-05,41,Lost Account
+ELA-021,Unassigned,Helios Auto Parts,Sporadic,6,2021-08,62,Lost Account
+ELA-022,Unassigned,Helios Auto Parts,Sporadic,6,2020-05,77,Lost Account
+ELA-023,Europe,Apex Tier One,Monthly,1,2024-10,24,Lost Account
+ELA-024,Unassigned,Crestline Manufacturing,Sporadic,6,2022-08,50,Lost Account
+ELA-024,Unassigned,Kestrel Mobility,Sporadic,6,2023-04,42,Lost Account
+ELA-028,Unassigned,Crestline Manufacturing,Sporadic,6,2025-04,18,Lost Account
+ELA-028,Unassigned,Quantum Drive Systems,Sporadic,6,2024-11,23,Lost Account
+ELA-031,Unassigned,Orion Driveline,Sporadic,6,2021-12,58,Lost Account
+ELA-032,Unassigned,Vantara Auto,Sporadic,6,2022-09,49,Lost Account
+ELA-033,Unassigned,Meridian Assembly,Sporadic,6,2021-03,67,Lost Account
+ELA-033,Unassigned,Orion Driveline,Sporadic,6,2022-02,56,Lost Account
+ELA-034,Unassigned,Apex Tier One,Sporadic,6,2024-01,33,Lost Account
+ELA-036,Unassigned,Solaris Automotive,Sporadic,6,2023-02,44,Lost Account
+ELA-037,Unassigned,Quantum Drive Systems,Irregular,19,2021-03,67,Lost Account
+ELA-039,Unassigned,Meridian Assembly,Irregular,9,2020-05,77,Lost Account
+ELA-040,North America,Crestline Manufacturing,Monthly,1,2025-07,15,Lost Account
+ELA-041,Unassigned,Solaris Automotive,Sporadic,6,2024-10,24,Lost Account
+ELA-042,Unassigned,Vantara Auto,Sporadic,6,2024-03,31,Lost Account
+ELA-043,Unassigned,Helios Auto Parts,Sporadic,6,2024-06,28,Lost Account
+ELA-044,Unassigned,Kestrel Mobility,Sporadic,6,2023-09,37,Lost Account
+ELA-046,Unassigned,Apex Tier One,Sporadic,6,2022-09,49,Lost Account
+ELA-051,Unassigned,Crestline Manufacturing,Irregular,13,2022-01,57,Lost Account
+ELA-051,Unassigned,Orion Driveline,Sporadic,6,2023-11,35,Lost Account
+ELA-052,Unassigned,Helios Auto Parts,Sporadic,6,2020-10,72,Lost Account
+ELA-054,Unassigned,Nexon Motor Group,Sporadic,6,2020-08,74,Lost Account
+ELA-054,Unassigned,Vantara Auto,Sporadic,6,2021-12,58,Lost Account
+ELA-055,Latin America,Orion Driveline,Monthly,1,2025-12,10,Lost Account
+ELA-055,Unassigned,Atlas Mideast Components,Sporadic,6,2022-08,50,Lost Account
+ELA-059,Unassigned,Crestline Manufacturing,Sporadic,6,2020-02,80,Lost Account
+ELA-063,India,Quantum Drive Systems,Bi-monthly,2,2024-04,30,Lost Account
+ELA-063,Unassigned,Kestrel Mobility,Sporadic,6,2023-11,35,Lost Account
+ELA-069,Unassigned,Crestline Manufacturing,Sporadic,6,2024-03,31,Lost Account
+ELA-078,Unassigned,Vantara Auto,Sporadic,6,2019-04,90,Lost Account
+ELA-079,Unassigned,Helios Auto Parts,Sporadic,6,2025-03,19,Lost Account
+ELA-082,Unassigned,Crestline Manufacturing,Sporadic,6,2021-12,58,Lost Account
+ELA-084,India,Vantara Auto,Monthly,1,2025-10,12,Lost Account
+ELA-086,Unassigned,Nexon Motor Group,Sporadic,6,2022-06,52,Lost Account
+ELA-086,Unassigned,Vantara Auto,Sporadic,6,2024-03,31,Lost Account
+ELA-087,Unassigned,Quantum Drive Systems,Sporadic,6,2022-05,53,Lost Account
+HYD-001,Asia Pacific,Meridian Assembly,Monthly,1,2024-04,30,Lost Account
+HYD-001,Unassigned,Crestline Manufacturing,Sporadic,6,2021-01,69,Lost Account
+HYD-002,Unassigned,Quantum Drive Systems,Sporadic,6,2022-08,50,Lost Account
+HYD-003,Unassigned,Meridian Assembly,Sporadic,6,2021-06,64,Lost Account
+HYD-005,Unassigned,Atlas Mideast Components,Sporadic,6,2022-07,51,Lost Account
+HYD-006,Unassigned,Nexon Motor Group,Sporadic,6,2024-11,23,Lost Account
+HYD-009,Europe,Nexon Motor Group,Monthly,1,2024-04,30,Lost Account
+HYD-010,Unassigned,Crestline Manufacturing,Sporadic,6,2019-03,91,Lost Account
+HYD-012,Unassigned,Meridian Assembly,Sporadic,6,2022-02,56,Lost Account
+HYD-013,North America,Nexon Motor Group,Monthly,1,2022-09,49,Lost Account
+HYD-014,Unassigned,Falcon Gulf Motors,Sporadic,6,2022-05,53,Lost Account
+HYD-018,Unassigned,Atlas Mideast Components,Sporadic,6,2023-12,34,Lost Account
+HYD-019,Unassigned,Orion Driveline,Sporadic,6,2023-09,37,Lost Account
+HYD-020,Asia Pacific,Apex Tier One,Monthly,1,2024-09,25,Lost Account
+HYD-020,Europe,Helios Auto Parts,Monthly,1,2024-09,25,Lost Account
+HYD-020,India,Orion Driveline,Monthly,1,2024-09,25,Lost Account
+HYD-020,Latin America,Crestline Manufacturing,Monthly,1,2024-09,25,Lost Account
+HYD-020,Middle East & Africa,Falcon Gulf Motors,Monthly,1,2024-09,25,Lost Account
+HYD-020,North America,Crestline Manufacturing,Monthly,1,2024-09,25,Lost Account
+HYD-022,Unassigned,Crestline Manufacturing,Sporadic,6,2019-06,88,Lost Account
+HYD-025,Unassigned,Crestline Manufacturing,Sporadic,6,2025-04,18,Lost Account
+HYD-028,Unassigned,Solaris Automotive,Sporadic,6,2019-10,84,Lost Account
+HYD-029,Unassigned,Orion Driveline,Sporadic,6,2024-08,26,Lost Account
+HYD-031,Unassigned,Helios Auto Parts,Sporadic,6,2024-12,22,Lost Account
+HYD-037,Unassigned,Quantum Drive Systems,Sporadic,6,2021-03,67,Lost Account
+HYD-037,Unassigned,Vantara Auto,Sporadic,6,2023-11,35,Lost Account
+HYD-040,Unassigned,Meridian Assembly,Sporadic,6,2019-06,88,Lost Account
+HYD-044,Unassigned,Falcon Gulf Motors,Sporadic,6,2022-02,56,Lost Account
+HYD-046,Unassigned,Meridian Assembly,Sporadic,6,2020-09,73,Lost Account
+HYD-046,Unassigned,Solaris Automotive,Sporadic,6,2019-09,85,Lost Account
+HYD-047,Unassigned,Vantara Auto,Sporadic,6,2022-06,52,Lost Account
+HYD-049,Unassigned,Kestrel Mobility,Sporadic,6,2023-01,45,Lost Account
+HYD-053,Unassigned,Nexon Motor Group,Sporadic,6,2024-06,28,Lost Account
+HYD-054,Unassigned,Helios Auto Parts,Sporadic,6,2020-09,73,Lost Account
+HYD-055,Asia Pacific,Orion Driveline,Monthly,1,2022-08,50,Lost Account
+HYD-055,Unassigned,Vantara Auto,Sporadic,6,2021-06,64,Lost Account
+HYD-057,Unassigned,Meridian Assembly,Sporadic,6,2022-01,57,Lost Account
+HYD-058,Unassigned,Atlas Mideast Components,Sporadic,6,2025-04,18,Lost Account
+HYD-059,India,Crestline Manufacturing,Monthly,1,2024-09,25,Lost Account
+HYD-061,Europe,Nexon Motor Group,Monthly,1,2025-10,12,Lost Account
+HYD-061,Unassigned,Quantum Drive Systems,Sporadic,6,2021-06,64,Lost Account
+HYD-064,Unassigned,Quantum Drive Systems,Sporadic,6,2022-04,54,Lost Account
+HYD-064,Unassigned,Solaris Automotive,Sporadic,6,2023-04,42,Lost Account
+HYD-065,Unassigned,Nexon Motor Group,Sporadic,6,2019-11,83,Lost Account
+HYD-065,Unassigned,Quantum Drive Systems,Sporadic,6,2024-08,26,Lost Account
+HYD-073,Unassigned,Crestline Manufacturing,Sporadic,6,2022-08,50,Lost Account
+HYD-073,Unassigned,Vantara Auto,Irregular,20,2021-06,64,Lost Account
+HYD-074,Unassigned,Apex Tier One,Sporadic,6,2020-02,80,Lost Account
+HYD-075,Unassigned,Quantum Drive Systems,Sporadic,6,2023-07,39,Lost Account
+HYD-075,Unassigned,Solaris Automotive,Sporadic,6,2023-03,43,Lost Account
+HYD-076,Unassigned,Orion Driveline,Sporadic,6,2025-01,21,Lost Account
+HYD-076,Unassigned,Vantara Auto,Sporadic,6,2024-01,33,Lost Account
+HYD-077,Unassigned,Falcon Gulf Motors,Sporadic,6,2022-05,53,Lost Account
+HYD-077,Unassigned,Vantara Auto,Sporadic,6,2023-02,44,Lost Account
+HYD-078,Unassigned,Helios Auto Parts,Sporadic,6,2023-10,36,Lost Account
+HYD-080,Unassigned,Solaris Automotive,Sporadic,6,2024-01,33,Lost Account
+HYD-081,North America,Quantum Drive Systems,Monthly,1,2025-03,19,Lost Account
+HYD-082,Unassigned,Crestline Manufacturing,Sporadic,6,2025-04,18,Lost Account
+HYD-083,Unassigned,Kestrel Mobility,Sporadic,6,2024-03,31,Lost Account
+HYD-085,Unassigned,Orion Driveline,Sporadic,6,2021-05,65,Lost Account
+HYD-087,Unassigned,Meridian Assembly,Sporadic,6,2024-03,31,Lost Account
+HYD-087,Unassigned,Quantum Drive Systems,Sporadic,6,2021-07,63,Lost Account
+HYD-087,Unassigned,Vantara Auto,Irregular,4,2025-08,14,Lost Account
+HYD-088,Unassigned,Orion Driveline,Sporadic,6,2024-08,26,Lost Account
+PMP-001,Unassigned,Atlas Mideast Components,Sporadic,6,2024-11,23,Lost Account
+PMP-001,Unassigned,Meridian Assembly,Sporadic,6,2024-01,33,Lost Account
+PMP-001,Unassigned,Solaris Automotive,Sporadic,6,2023-02,44,Lost Account
+PMP-002,Unassigned,Helios Auto Parts,Sporadic,6,2022-03,55,Lost Account
+PMP-003,Unassigned,Crestline Manufacturing,Sporadic,6,2022-02,56,Lost Account
+PMP-003,Unassigned,Orion Driveline,Sporadic,6,2025-02,20,Lost Account
+PMP-003,Unassigned,Quantum Drive Systems,Sporadic,6,2021-10,60,Lost Account
+PMP-004,Unassigned,Nexon Motor Group,Sporadic,6,2023-09,37,Lost Account
+PMP-007,Unassigned,Meridian Assembly,Sporadic,6,2025-03,19,Lost Account
+PMP-008,Unassigned,Helios Auto Parts,Sporadic,6,2021-06,64,Lost Account
+PMP-009,Unassigned,Apex Tier One,Sporadic,6,2020-03,79,Lost Account
+PMP-010,Unassigned,Meridian Assembly,Sporadic,6,2025-03,19,Lost Account
+PMP-012,Unassigned,Orion Driveline,Sporadic,6,2021-10,60,Lost Account
+PMP-013,Unassigned,Helios Auto Parts,Sporadic,6,2025-03,19,Lost Account
+PMP-015,Europe,Crestline Manufacturing,Monthly,1,2025-03,19,Lost Account
+PMP-015,Unassigned,Crestline Manufacturing,Sporadic,6,2020-07,75,Lost Account
+PMP-015,Unassigned,Meridian Assembly,Sporadic,6,2020-05,77,Lost Account
+PMP-015,Unassigned,Quantum Drive Systems,Sporadic,6,2021-10,60,Lost Account
+PMP-015,Unassigned,Vantara Auto,Sporadic,6,2022-03,55,Lost Account
+PMP-017,Asia Pacific,Crestline Manufacturing,Monthly,1,2022-03,55,Lost Account
+PMP-017,Europe,Nexon Motor Group,Monthly,1,2022-03,55,Lost Account
+PMP-017,India,Meridian Assembly,Quarterly,3,2022-03,55,Lost Account
+PMP-021,Unassigned,Crestline Manufacturing,Sporadic,6,2023-01,45,Lost Account
+PMP-022,India,Helios Auto Parts,Monthly,1,2025-12,10,Lost Account
+PMP-023,Unassigned,Quantum Drive Systems,Sporadic,6,2020-10,72,Lost Account
+PMP-025,Unassigned,Falcon Gulf Motors,Sporadic,6,2024-01,33,Lost Account
+PMP-027,Unassigned,Vantara Auto,Sporadic,6,2022-06,52,Lost Account
+PMP-030,Unassigned,Helios Auto Parts,Sporadic,6,2022-10,48,Lost Account
+PMP-032,Europe,Solaris Automotive,Monthly,1,2023-07,39,Lost Account
+PMP-033,Unassigned,Atlas Mideast Components,Sporadic,6,2023-04,42,Lost Account
+PMP-033,Unassigned,Orion Driveline,Sporadic,6,2024-12,22,Lost Account
+PMP-034,Unassigned,Quantum Drive Systems,Sporadic,6,2020-09,73,Lost Account
+PMP-037,Unassigned,Orion Driveline,Sporadic,6,2021-07,63,Lost Account
+PMP-040,Unassigned,Crestline Manufacturing,Sporadic,6,2021-09,61,Lost Account
+PMP-041,Unassigned,Nexon Motor Group,Sporadic,6,2019-01,93,Lost Account
+PMP-041,Unassigned,Orion Driveline,Sporadic,6,2025-02,20,Lost Account
+PMP-044,Unassigned,Crestline Manufacturing,Sporadic,6,2019-08,86,Lost Account
+PMP-046,Unassigned,Apex Tier One,Sporadic,6,2019-05,89,Lost Account
+PMP-047,North America,Vantara Auto,Monthly,1,2022-12,46,Lost Account
+PMP-047,Unassigned,Nexon Motor Group,Sporadic,6,2021-03,67,Lost Account
+PMP-048,Unassigned,Orion Driveline,Sporadic,6,2020-05,77,Lost Account
+PMP-052,Unassigned,Crestline Manufacturing,Sporadic,6,2024-02,32,Lost Account
+PMP-052,Unassigned,Vantara Auto,Sporadic,6,2021-01,69,Lost Account
+PMP-055,Unassigned,Helios Auto Parts,Sporadic,6,2023-02,44,Lost Account
+PMP-056,Unassigned,Nexon Motor Group,Sporadic,6,2023-11,35,Lost Account
+PMP-057,Unassigned,Crestline Manufacturing,Sporadic,6,2019-01,93,Lost Account
+PMP-062,Unassigned,Crestline Manufacturing,Sporadic,6,2021-08,62,Lost Account
+PMP-062,Unassigned,Quantum Drive Systems,Sporadic,6,2023-02,44,Lost Account
+PMP-064,Unassigned,Orion Driveline,Sporadic,6,2020-06,76,Lost Account
+PMP-065,Unassigned,Atlas Mideast Components,Sporadic,6,2023-05,41,Lost Account
+PMP-069,Unassigned,Meridian Assembly,Sporadic,6,2024-02,32,Lost Account
+PMP-070,Unassigned,Meridian Assembly,Sporadic,6,2024-04,30,Lost Account
+PMP-072,Unassigned,Meridian Assembly,Sporadic,6,2023-09,37,Lost Account
+PMP-074,Latin America,Orion Driveline,Quarterly,3,2023-10,36,Lost Account
+PMP-074,Unassigned,Apex Tier One,Sporadic,6,2023-01,45,Lost Account
+PMP-075,Unassigned,Meridian Assembly,Sporadic,6,2023-09,37,Lost Account
+PMP-076,India,Meridian Assembly,Monthly,1,2025-10,12,Lost Account
+PMP-076,Unassigned,Meridian Assembly,Sporadic,6,2022-12,46,Lost Account
+PMP-076,Unassigned,Vantara Auto,Sporadic,6,2019-01,93,Lost Account
+PMP-079,Unassigned,Atlas Mideast Components,Sporadic,6,2022-11,47,Lost Account
+PMP-079,Unassigned,Quantum Drive Systems,Sporadic,6,2023-10,36,Lost Account
+PMP-080,Unassigned,Quantum Drive Systems,Sporadic,6,2021-05,65,Lost Account
+PMP-081,Unassigned,Apex Tier One,Sporadic,6,2019-08,86,Lost Account
+PMP-082,Unassigned,Falcon Gulf Motors,Sporadic,6,2022-12,46,Lost Account
+PMP-083,Unassigned,Crestline Manufacturing,Sporadic,6,2020-05,77,Lost Account
+PMP-087,Unassigned,Vantara Auto,Sporadic,6,2020-07,75,Lost Account
+PTC-002,North America,Quantum Drive Systems,Bi-monthly,2,2025-05,17,Lost Account
+PTC-002,Unassigned,Solaris Automotive,Sporadic,6,2024-04,30,Lost Account
+PTC-003,Europe,Solaris Automotive,Monthly,1,2025-10,12,Lost Account
+PTC-004,Unassigned,Nexon Motor Group,Sporadic,6,2022-02,56,Lost Account
+PTC-006,Unassigned,Apex Tier One,Sporadic,6,2019-04,90,Lost Account
+PTC-007,Unassigned,Orion Driveline,Sporadic,6,2020-09,73,Lost Account
+PTC-007,Unassigned,Solaris Automotive,Sporadic,6,2021-07,63,Lost Account
+PTC-009,Unassigned,Meridian Assembly,Sporadic,6,2021-10,60,Lost Account
+PTC-009,Unassigned,Orion Driveline,Sporadic,6,2021-05,65,Lost Account
+PTC-011,Unassigned,Falcon Gulf Motors,Sporadic,6,2023-03,43,Lost Account
+PTC-013,Unassigned,Crestline Manufacturing,Sporadic,6,2019-04,90,Lost Account
+PTC-013,Unassigned,Nexon Motor Group,Sporadic,6,2023-08,38,Lost Account
+PTC-015,Unassigned,Falcon Gulf Motors,Sporadic,6,2023-08,38,Lost Account
+PTC-015,Unassigned,Helios Auto Parts,Sporadic,6,2020-10,72,Lost Account
+PTC-015,Unassigned,Meridian Assembly,Sporadic,6,2024-05,29,Lost Account
+PTC-019,Unassigned,Vantara Auto,Sporadic,6,2019-01,93,Lost Account
+PTC-021,Unassigned,Meridian Assembly,Sporadic,6,2024-08,26,Lost Account
+PTC-022,Unassigned,Solaris Automotive,Sporadic,6,2021-01,69,Lost Account
+PTC-023,Unassigned,Nexon Motor Group,Sporadic,6,2023-12,34,Lost Account
+PTC-024,Unassigned,Nexon Motor Group,Sporadic,6,2019-09,85,Lost Account
+PTC-025,Asia Pacific,Nexon Motor Group,Monthly,1,2021-06,64,Lost Account
+PTC-025,Europe,Apex Tier One,Monthly,1,2021-06,64,Lost Account
+PTC-025,India,Helios Auto Parts,Quarterly,3,2021-06,64,Lost Account
+PTC-025,North America,Vantara Auto,Bi-monthly,2,2021-06,64,Lost Account
+PTC-026,Latin America,Orion Driveline,Monthly,1,2024-03,31,Lost Account
+PTC-026,Middle East & Africa,Kestrel Mobility,Monthly,1,2024-03,31,Lost Account
+PTC-026,North America,Nexon Motor Group,Monthly,1,2024-03,31,Lost Account
+PTC-027,Unassigned,Quantum Drive Systems,Sporadic,6,2022-07,51,Lost Account
+PTC-031,Unassigned,Nexon Motor Group,Sporadic,6,2022-02,56,Lost Account
+PTC-031,Unassigned,Solaris Automotive,Bi-monthly,2,2021-12,58,Lost Account
+PTC-034,India,Nexon Motor Group,Monthly,1,2024-04,30,Lost Account
+PTC-034,Unassigned,Orion Driveline,Sporadic,6,2020-09,73,Lost Account
+PTC-037,Unassigned,Nexon Motor Group,Sporadic,6,2019-07,87,Lost Account
+PTC-038,North America,Vantara Auto,Bi-monthly,2,2025-10,12,Lost Account
+PTC-039,Unassigned,Nexon Motor Group,Sporadic,6,2023-11,35,Lost Account
+PTC-044,Unassigned,Kestrel Mobility,Sporadic,6,2024-02,32,Lost Account
+PTC-046,Unassigned,Apex Tier One,Sporadic,6,2020-03,79,Lost Account
+PTC-047,Unassigned,Crestline Manufacturing,Sporadic,6,2021-10,60,Lost Account
+PTC-049,Unassigned,Helios Auto Parts,Sporadic,6,2023-12,34,Lost Account
+PTC-050,Europe,Helios Auto Parts,Monthly,1,2025-04,18,Lost Account
+PTC-052,Unassigned,Crestline Manufacturing,Sporadic,6,2021-06,64,Lost Account
+PTC-053,Unassigned,Quantum Drive Systems,Sporadic,6,2021-10,60,Lost Account
+PTC-054,Unassigned,Atlas Mideast Components,Sporadic,6,2025-02,20,Lost Account
+PTC-054,Unassigned,Quantum Drive Systems,Sporadic,6,2022-01,57,Lost Account
+PTC-055,Unassigned,Orion Driveline,Sporadic,6,2019-11,83,Lost Account
+PTC-062,Unassigned,Nexon Motor Group,Sporadic,6,2023-08,38,Lost Account
+PTC-063,Unassigned,Nexon Motor Group,Sporadic,6,2022-08,50,Lost Account
+PTC-064,Unassigned,Crestline Manufacturing,Sporadic,6,2022-01,57,Lost Account
+PTC-064,Unassigned,Nexon Motor Group,Sporadic,6,2020-05,77,Lost Account
+PTC-066,Unassigned,Quantum Drive Systems,Sporadic,6,2020-08,74,Lost Account
+PTC-068,Unassigned,Falcon Gulf Motors,Sporadic,6,2023-02,44,Lost Account
+PTC-068,Unassigned,Meridian Assembly,Sporadic,6,2023-06,40,Lost Account
+PTC-068,Unassigned,Vantara Auto,Sporadic,6,2022-07,51,Lost Account
+PTC-071,Unassigned,Vantara Auto,Sporadic,6,2022-05,53,Lost Account
+PTC-073,Unassigned,Atlas Mideast Components,Sporadic,6,2022-09,49,Lost Account
+PTC-075,Unassigned,Kestrel Mobility,Sporadic,6,2023-12,34,Lost Account
+PTC-076,Unassigned,Orion Driveline,Sporadic,6,2020-06,76,Lost Account
+PTC-077,Unassigned,Solaris Automotive,Sporadic,6,2019-04,90,Lost Account
+PTC-081,Unassigned,Apex Tier One,Sporadic,6,2023-09,37,Lost Account
+PTC-081,Unassigned,Crestline Manufacturing,Sporadic,6,2025-01,21,Lost Account
+PTC-081,Unassigned,Falcon Gulf Motors,Sporadic,6,2024-11,23,Lost Account
+PTC-085,Unassigned,Falcon Gulf Motors,Sporadic,6,2024-10,24,Lost Account
+PTC-085,Unassigned,Orion Driveline,Sporadic,6,2020-09,73,Lost Account
+THM-001,Unassigned,Crestline Manufacturing,Sporadic,6,2020-11,71,Lost Account
+THM-002,Unassigned,Nexon Motor Group,Sporadic,6,2022-01,57,Lost Account
+THM-003,Latin America,Meridian Assembly,Monthly,1,2024-11,23,Lost Account
+THM-003,Unassigned,Helios Auto Parts,Sporadic,6,2019-10,84,Lost Account
+THM-004,Unassigned,Falcon Gulf Motors,Sporadic,6,2024-02,32,Lost Account
+THM-004,Unassigned,Helios Auto Parts,Sporadic,6,2024-03,31,Lost Account
+THM-004,Unassigned,Nexon Motor Group,Sporadic,6,2025-04,18,Lost Account
+THM-009,Asia Pacific,Nexon Motor Group,Monthly,1,2022-12,46,Lost Account
+THM-009,Europe,Helios Auto Parts,Monthly,1,2022-12,46,Lost Account
+THM-009,India,Solaris Automotive,Quarterly,3,2022-12,46,Lost Account
+THM-009,Latin America,Nexon Motor Group,Monthly,1,2022-12,46,Lost Account
+THM-009,Middle East & Africa,Atlas Mideast Components,Bi-monthly,2,2022-12,46,Lost Account
+THM-015,North America,Crestline Manufacturing,Monthly,1,2025-06,16,Lost Account
+THM-015,Unassigned,Crestline Manufacturing,Sporadic,6,2020-08,74,Lost Account
+THM-017,Europe,Solaris Automotive,Monthly,1,2022-12,46,Lost Account
+THM-017,Unassigned,Meridian Assembly,Sporadic,6,2023-10,36,Lost Account
+THM-018,Unassigned,Helios Auto Parts,Sporadic,6,2021-01,69,Lost Account
+THM-019,Unassigned,Falcon Gulf Motors,Sporadic,6,2023-08,38,Lost Account
+THM-019,Unassigned,Vantara Auto,Sporadic,6,2022-12,46,Lost Account
+THM-020,India,Orion Driveline,Monthly,1,2024-12,22,Lost Account
+THM-020,Unassigned,Orion Driveline,Sporadic,6,2020-12,70,Lost Account
+THM-021,Unassigned,Falcon Gulf Motors,Sporadic,6,2023-02,44,Lost Account
+THM-023,Unassigned,Crestline Manufacturing,Sporadic,6,2020-12,70,Lost Account
+THM-023,Unassigned,Orion Driveline,Sporadic,6,2022-12,46,Lost Account
+THM-024,Unassigned,Helios Auto Parts,Quarterly,3,2022-10,48,Lost Account
+THM-026,Latin America,Vantara Auto,Monthly,1,2023-04,42,Lost Account
+THM-026,Unassigned,Helios Auto Parts,Sporadic,6,2019-10,84,Lost Account
+THM-027,Unassigned,Crestline Manufacturing,Sporadic,6,2021-02,68,Lost Account
+THM-027,Unassigned,Meridian Assembly,Sporadic,6,2023-07,39,Lost Account
+THM-027,Unassigned,Nexon Motor Group,Sporadic,6,2020-11,71,Lost Account
+THM-030,Unassigned,Helios Auto Parts,Sporadic,6,2023-06,40,Lost Account
+THM-031,Unassigned,Apex Tier One,Sporadic,6,2021-12,58,Lost Account
+THM-031,Unassigned,Orion Driveline,Sporadic,6,2024-02,32,Lost Account
+THM-034,Unassigned,Vantara Auto,Sporadic,6,2023-04,42,Lost Account
+THM-035,Unassigned,Helios Auto Parts,Sporadic,6,2020-09,73,Lost Account
+THM-036,Unassigned,Falcon Gulf Motors,Sporadic,6,2022-11,47,Lost Account
+THM-040,Unassigned,Falcon Gulf Motors,Sporadic,6,2023-06,40,Lost Account
+THM-041,Unassigned,Orion Driveline,Sporadic,6,2023-09,37,Lost Account
+THM-042,Unassigned,Crestline Manufacturing,Sporadic,6,2022-08,50,Lost Account
+THM-046,Unassigned,Nexon Motor Group,Sporadic,6,2022-12,46,Lost Account
+THM-046,Unassigned,Orion Driveline,Sporadic,6,2024-10,24,Lost Account
+THM-047,India,Apex Tier One,Bi-monthly,2,2024-11,23,Lost Account
+THM-049,Unassigned,Orion Driveline,Irregular,6,2022-08,50,Lost Account
+THM-050,Unassigned,Solaris Automotive,Sporadic,6,2021-08,62,Lost Account
+THM-057,Unassigned,Apex Tier One,Sporadic,6,2022-11,47,Lost Account
+THM-058,Unassigned,Crestline Manufacturing,Sporadic,6,2025-02,20,Lost Account
+THM-063,Unassigned,Helios Auto Parts,Sporadic,6,2024-06,28,Lost Account
+THM-065,Unassigned,Helios Auto Parts,Sporadic,6,2019-03,91,Lost Account
+THM-065,Unassigned,Vantara Auto,Sporadic,6,2024-04,30,Lost Account
+THM-068,Unassigned,Crestline Manufacturing,Sporadic,6,2023-08,38,Lost Account
+THM-068,Unassigned,Helios Auto Parts,Sporadic,6,2021-04,66,Lost Account
+THM-074,Unassigned,Quantum Drive Systems,Sporadic,6,2022-07,51,Lost Account
+THM-075,Unassigned,Vantara Auto,Sporadic,6,2020-04,78,Lost Account
+THM-076,Unassigned,Solaris Automotive,Sporadic,6,2019-12,82,Lost Account

@@ -1,0 +1,3 @@
+Check_Type,SKU_ID,Master_Value,Transaction_Finding,Decision_Rule
+Sales_Before_Launch,BSS-018,2025-06,15 records before official Launch_Date,Enforce Rule R5: zero out pre-launch entries; planned SKUs forecast 0 before launch
+Business_Unit_Consistency,PMP-004,Power & Drive Systems (raw master typo),All 533 train transactions booked under Advanced Manufacturing,Enforce Rule S1 & R8: mapped PMP-004 to Advanced Manufacturing to maintain 1:1 family-BU hierarchy

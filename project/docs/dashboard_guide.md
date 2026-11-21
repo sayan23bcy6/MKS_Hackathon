@@ -24,6 +24,44 @@ To deploy the dashboard to Streamlit Community Cloud:
 3. Set the requirements file path to `project/requirements.txt`.
 4. Deploy application and update the public link in `project/README.md`.
 
+## Required Committed Outputs
+
+The dashboard and deployment depend on the following outputs tracked in version control (`git ls-files`):
+
+| Output File | Size | Description |
+|---|---|---|
+| `clean_train.parquet` | ~6.0 MB | Cleaned commercial sales transaction history |
+| `clean_macro.csv` | < 0.1 MB | Cleaned macroeconomic indicators and lead indices |
+| `clean_events.csv` | < 0.1 MB | Scoped corporate and market events calendar |
+| `audit_log.csv` | ~12.5 MB | Complete deterministic audit log of every corrected record |
+| `data_quality_report.json` | < 0.1 MB | Machine-readable data health and rule counts |
+| `data_quality_report.md` | < 0.1 MB | Comprehensive human-readable data governance report |
+| `anomaly_register.csv` | ~0.3 MB | Documented market disruptions and operational shocks |
+| `unconstrained_demand.parquet` | ~6.0 MB | True unconstrained demand with stockouts added back |
+| `inventory_stockouts.csv` | ~0.5 MB | Historical stockout transactions and fill rate metrics |
+| `features.parquet` | ~13.0 MB | Feature store including lags, rolling statistics, and macro factors |
+| `forecast_submission.csv` | ~1.8 MB | 19-month forward commercial forecast submission |
+| `forecast_intervals.csv` | ~2.1 MB | Quantile forecast intervals P10, P50, and P90 |
+| `hierarchy_reconciliation.csv` | < 0.1 MB | Proportional consensus reconciliation across families and regions |
+| `model_card.md` | < 0.1 MB | Model architecture, calibration, and governance card |
+| `backtest_metrics.csv` | < 0.1 MB | Rolling-origin backtest slices across 3 evaluation cutoffs |
+| `coverage_breakdown.csv` | < 0.1 MB | P10-P90 interval empirical coverage by origin and family |
+| `panel_status.csv` | ~18.0 MB | Complete panel series status, intermittent flags, and zero-demand counts |
+| `master_data_contradictions.csv` | < 0.1 MB | Reconciliation log of contradictory catalog metadata |
+| `early_buying.csv` | < 0.1 MB | Measured volume advance purchases ahead of price rises |
+| `holiday_effects.csv` | < 0.1 MB | Regional holiday demand shifts (LNY, Ramadan, Summer shutdowns) |
+| `structural_breaks.csv` | < 0.1 MB | Statistical structural breaks in component demand profiles |
+| `customer_switches.csv` | < 0.1 MB | Account supplier switching and vendor consolidation tracking |
+| `lost_accounts.csv` | < 0.1 MB | Account attrition and churn detection register |
+| `macro_lag_analysis.csv` | < 0.1 MB | Macroeconomic lead-lag cross-correlations (lags 0 to 6 months) |
+| `lag_stability.csv` | < 0.1 MB | Macro lead stability evaluation comparing historical regimes |
+| `ev_shift_analysis.csv` | < 0.1 MB | Internal combustion vs electric powertrain transition analysis |
+| `whatif_scenarios.csv` | < 0.1 MB | Macroeconomic PMI shock grid simulations (-6.0 to +6.0 points) |
+| `whatif_scenario_forecast.csv` | ~2.0 MB | Full SKU-region forecast for the target -3.0 PMI recession scenario |
+| `event_impact_estimates.csv` | < 0.1 MB | Operational event adjustment and capacity uplift calibration |
+
+> Note: `backtest_predictions.csv` (~66 MB) is excluded from version control to prevent repository bloat; all dashboard visualisations rely strictly on `coverage_breakdown.csv` and `backtest_metrics.csv`.
+
 ---
 
 ## Error Fallback and Troubleshooting

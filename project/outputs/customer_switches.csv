@@ -1,0 +1,35 @@
+SKU_ID,Region,Prior_Customer,Prior_Last_Date,New_Customer,New_Start_Date,Transition_Gap_Months
+BSS-001,Asia Pacific,Helios Auto Parts,2022-08,Crestline Manufacturing,2022-09,1
+BSS-024,Asia Pacific,Solaris Automotive,2024-03,Meridian Assembly,2024-04,1
+BSS-051,Unassigned,Meridian Assembly,2019-08,Vantara Auto,2019-10,2
+BSS-081,North America,Nexon Motor Group,2024-12,Apex Tier One,2025-01,1
+CSS-066,Latin America,Helios Auto Parts,2024-10,Apex Tier One,2024-12,2
+CSS-085,India,Crestline Manufacturing,2022-06,Helios Auto Parts,2022-07,1
+ELA-023,Europe,Apex Tier One,2024-10,Quantum Drive Systems,2024-11,1
+ELA-028,Unassigned,Crestline Manufacturing,2025-04,Orion Driveline,2025-05,1
+ELA-063,India,Quantum Drive Systems,2024-04,Apex Tier One,2024-06,2
+HYD-001,Asia Pacific,Meridian Assembly,2024-04,Orion Driveline,2024-05,1
+HYD-009,Europe,Nexon Motor Group,2024-04,Apex Tier One,2024-05,1
+HYD-013,North America,Nexon Motor Group,2022-09,Crestline Manufacturing,2022-10,1
+HYD-055,Asia Pacific,Orion Driveline,2022-08,Helios Auto Parts,2022-09,1
+HYD-059,India,Crestline Manufacturing,2024-09,Vantara Auto,2024-10,1
+HYD-075,Unassigned,Solaris Automotive,2023-03,Quantum Drive Systems,2023-07,4
+PMP-003,Unassigned,Quantum Drive Systems,2021-10,Crestline Manufacturing,2022-02,4
+PMP-015,Europe,Crestline Manufacturing,2025-03,Apex Tier One,2025-04,1
+PMP-015,Unassigned,Meridian Assembly,2020-05,Crestline Manufacturing,2020-07,2
+PMP-032,Europe,Solaris Automotive,2023-07,Quantum Drive Systems,2023-09,2
+PMP-047,North America,Vantara Auto,2022-12,Solaris Automotive,2023-01,1
+PMP-074,Latin America,Orion Driveline,2023-10,Apex Tier One,2024-01,3
+PMP-076,Unassigned,Vantara Auto,2019-01,Solaris Automotive,2019-04,3
+PTC-031,Unassigned,Solaris Automotive,2021-12,Nexon Motor Group,2022-02,2
+PTC-034,India,Nexon Motor Group,2024-04,Meridian Assembly,2024-05,1
+PTC-050,Europe,Helios Auto Parts,2025-04,Quantum Drive Systems,2025-05,1
+PTC-068,Unassigned,Falcon Gulf Motors,2023-02,Meridian Assembly,2023-06,4
+PTC-081,Unassigned,Falcon Gulf Motors,2024-11,Crestline Manufacturing,2025-01,2
+THM-003,Latin America,Meridian Assembly,2024-11,Solaris Automotive,2025-01,2
+THM-004,Unassigned,Falcon Gulf Motors,2024-02,Helios Auto Parts,2024-03,1
+THM-017,Europe,Solaris Automotive,2022-12,Nexon Motor Group,2023-01,1
+THM-020,India,Orion Driveline,2024-12,Crestline Manufacturing,2025-01,1
+THM-026,Latin America,Vantara Auto,2023-04,Quantum Drive Systems,2023-05,1
+THM-027,Unassigned,Nexon Motor Group,2020-11,Crestline Manufacturing,2021-02,3
+THM-047,India,Apex Tier One,2024-11,Helios Auto Parts,2025-01,2

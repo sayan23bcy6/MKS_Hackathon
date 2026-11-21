@@ -167,5 +167,5 @@ A structured guide for presenting and defending the Celeris Automobili demand fo
 | EXP-EV-SHIFT-01 | Expert | Powertrain transition regression of EV adoption vs ICE volume decline | outputs/ev_shift_analysis.csv | done |
 | EXP-WHATIF-01 | Expert | Model rerun macroeconomic what-if simulation (-6.0 to +6.0 PMI grid) | outputs/whatif_scenarios.csv, outputs/whatif_scenario_forecast.csv | done |
 | EXP-RECURSIVE-01 | Expert | Multi-step recursive forecasting updating lags from prior predictions | project/pipeline/forecast.py | done |
-| EXP-CALIBRATION-01 | Expert | Out-of-sample coverage calibration using only prior origin residuals | outputs/coverage_breakdown.csv, outputs/backtest_predictions.csv | done |
+| EXP-CALIBRATION-01 | Expert | Out-of-sample coverage calibration using only prior origin residuals | outputs/coverage_breakdown.csv, outputs/backtest_metrics.csv | done |
 | EXP-MODELCARD-01 | Expert | Model card documenting architecture, training regimes, features, and honest out-of-sample coverage | outputs/model_card.md | done |

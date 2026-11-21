@@ -813,7 +813,7 @@ class TestSchemaValidation:
             {'Date': '2027-02', 'SKU_ID': 'BSS-001', 'Region': 'India',
              'Customer_Name': 'Helios Auto Parts', 'Units_Sold_Forecast': 100}
         ])
-        adjusted = apply_event_adjustments(df_forecast, events_fixture)
+        adjusted = apply_event_adjustments(df_forecast, events_fixture, out_estimates_path=None)
         assert adjusted['Units_Sold_Forecast'].iloc[0] == 100
 
     def test_hierarchy_reconciliation_structure_and_reconciled_flag(self):
@@ -831,10 +831,80 @@ class TestSchemaValidation:
             {'Date': '2026-10', 'Product_Family': 'Brake & Safety Systems', 'Region': 'North America', 'Units_Sold_Unconstrained': 100},
             {'Date': '2026-10', 'Product_Family': 'Brake & Safety Systems', 'Region': 'Europe', 'Units_Sold_Unconstrained': 200},
         ])
-        res = compute_hierarchy_reconciliation(sub_fixture, clean_train_fixture, sku_master_fixture)
+        res = compute_hierarchy_reconciliation(sub_fixture, clean_train_fixture, sku_master_fixture, out_path=None)
         assert 'total_forecast_units' in res
         assert 'reconciled' in res
         assert isinstance(res['reconciled'], bool)
+
+    def test_hierarchy_reconciliation_deviating_fixture_adds_up(self, tmp_path):
+        """Fix 2c: Test with a deviating fixture that reconciled family totals equal reconciled total,
+        reconciled region totals equal reconciled total, and adjustments sum to total adjustment."""
+        from pipeline.forecast import compute_hierarchy_reconciliation
+        sub_fixture = pd.DataFrame([
+            {'Date': '2026-11', 'SKU_ID': 'BSS-001', 'Region': 'North America', 'Units_Sold_Forecast': 100},
+            {'Date': '2026-11', 'SKU_ID': 'BSS-002', 'Region': 'Europe', 'Units_Sold_Forecast': 200},
+            {'Date': '2026-11', 'SKU_ID': 'CHA-001', 'Region': 'Asia Pacific', 'Units_Sold_Forecast': 150},
+        ])
+        sku_master_fixture = pd.DataFrame([
+            {'SKU_ID': 'BSS-001', 'Product_Family': 'Brake & Safety Systems', 'Business_Unit': 'Safety & Compliance'},
+            {'SKU_ID': 'BSS-002', 'Product_Family': 'Brake & Safety Systems', 'Business_Unit': 'Safety & Compliance'},
+            {'SKU_ID': 'CHA-001', 'Product_Family': 'Chassis & Structural', 'Business_Unit': 'Advanced Manufacturing'},
+        ])
+        clean_train_fixture = pd.DataFrame([
+            {'Date': '2026-10', 'Product_Family': 'Brake & Safety Systems', 'Region': 'North America', 'Units_Sold_Unconstrained': 2000},
+            {'Date': '2026-10', 'Product_Family': 'Brake & Safety Systems', 'Region': 'Europe', 'Units_Sold_Unconstrained': 3000},
+            {'Date': '2026-10', 'Product_Family': 'Chassis & Structural', 'Region': 'Asia Pacific', 'Units_Sold_Unconstrained': 2500},
+        ])
+        tmp_recon_file = tmp_path / "hierarchy_reconciliation_test.csv"
+        res = compute_hierarchy_reconciliation(sub_fixture, clean_train_fixture, sku_master_fixture,
+                                               tolerance_pct=0.5, out_path=tmp_recon_file)
+        assert res['reconciled'] is True
+        assert tmp_recon_file.exists()
+
+        df_recon = pd.read_csv(tmp_recon_file)
+        tot_row = df_recon[df_recon['Level'] == 'Total'].iloc[0]
+        reconciled_total = tot_row['Reconciled_Units']
+        tot_adj = tot_row['Adjustment_Units']
+
+        fam_rows = df_recon[df_recon['Level'] == 'Product_Family']
+        reg_rows = df_recon[df_recon['Level'] == 'Region']
+
+        # Reconciled family totals must equal reconciled total
+        assert fam_rows['Reconciled_Units'].sum() == reconciled_total
+        # Reconciled region totals must equal reconciled total
+        assert reg_rows['Reconciled_Units'].sum() == reconciled_total
+        # Adjustments must sum to total adjustment
+        assert fam_rows['Adjustment_Units'].sum() == tot_adj
+        assert reg_rows['Adjustment_Units'].sum() == tot_adj
+        # All rows must report PASS
+        assert (df_recon['Status'] == 'PASS').all()
+
+    def test_pytest_does_not_modify_outputs(self):
+        """Fix 1b: Verify that running the test suite does not modify production outputs."""
+        import subprocess, sys
+        from pathlib import Path
+        out_dir = Path(__file__).resolve().parent.parent / "outputs"
+        if not out_dir.exists():
+            return
+
+        initial_mtimes = {p: p.stat().st_mtime_ns for p in out_dir.glob("*") if p.is_file()}
+
+        cmd = [
+            sys.executable, "-m", "pytest", "tests",
+            "-k", "not test_pytest_does_not_modify_outputs",
+            "-q", "-p", "no:cacheprovider"
+        ]
+        res = subprocess.run(cmd, cwd=str(out_dir.parent), capture_output=True, text=True, timeout=300)
+        assert res.returncode == 0, f"Pytest subprocess failed: {res.stdout}\n{res.stderr}"
+
+        modified_files = []
+        for p, orig_mtime in initial_mtimes.items():
+            if p.exists():
+                curr_mtime = p.stat().st_mtime_ns
+                if curr_mtime != orig_mtime:
+                    modified_files.append((p.name, orig_mtime, curr_mtime))
+
+        assert not modified_files, f"Production files in outputs/ were modified during test execution: {modified_files}"
 
     def test_new_launch_inheritance_fixture(self):
         """Priority 6c: A launch forecast before Launch_Date is zero, and inherited values match rule."""
@@ -854,4 +924,64 @@ class TestSchemaValidation:
         assert cleaned.loc[cleaned['Date'] == '2027-02', 'Units_Sold_Forecast'].iloc[0] == 0
         assert cleaned.loc[cleaned['Date'] == '2027-03', 'Units_Sold_Forecast'].iloc[0] == 170
         assert cleaned.loc[cleaned['Date'] == '2027-04', 'Units_Sold_Forecast'].iloc[0] == 180
+
+    def test_dashboard_all_filter_combinations(self):
+        """Fix 6a: Test dashboard views across all 7 filter combinations and verify 0 exceptions."""
+        from unittest.mock import MagicMock
+        import streamlit as st
+        for attr in ['header', 'subheader', 'caption', 'dataframe', 'metric', 'plotly_chart', 'write', 'warning', 'info', 'error', 'stop']:
+            setattr(st, attr, MagicMock())
+
+        def mock_columns(n_or_list):
+            n = n_or_list if isinstance(n_or_list, int) else len(n_or_list)
+            return [MagicMock() for _ in range(n)]
+        st.columns = mock_columns
+        st.radio = MagicMock(return_value='Units Sold')
+        st.selectbox = MagicMock(return_value='Product_Family')
+        st.slider = MagicMock(return_value=-3.0)
+
+        from app.dashboard import (
+            load_clean_train, load_forecast, load_dq_report, load_anomaly_register,
+            load_backtest_metrics, load_macro_lag, load_stockouts, load_ev_shift,
+            load_scenario, view_executive_overview, view_data_health, view_demand_explorer,
+            view_anomaly_monitor, view_forecast_accuracy, view_macro_lag_heatmap,
+            view_stockouts, view_scenario, view_powertrain_lifecycle
+        )
+
+        df_train = load_clean_train()
+        df_forecast, df_intervals = load_forecast()
+        dq_report = load_dq_report()
+        anomaly_df = load_anomaly_register()
+        backtest_df = load_backtest_metrics()
+        macro_lag_df = load_macro_lag()
+        stockouts_df, unconstrained_df = load_stockouts()
+        ev_df = load_ev_shift()
+        scenario_df = load_scenario()
+
+        all_fams = sorted(df_train['Product_Family'].dropna().unique())
+        all_skus = sorted(df_train['SKU_ID'].dropna().unique())
+        all_regs = sorted(df_train['Region'].dropna().unique())
+        all_chs = sorted(df_train['Sales_Channel'].dropna().unique())
+        all_custs = sorted(df_train['Customer_Name'].dropna().unique())
+
+        combos = [
+            ('no_filters', {'families': all_fams, 'skus': all_skus, 'regions': all_regs, 'channels': all_chs, 'customers': all_custs}),
+            ('1_family', {'families': [all_fams[0]], 'skus': all_skus, 'regions': all_regs, 'channels': all_chs, 'customers': all_custs}),
+            ('1_sku', {'families': all_fams, 'skus': [all_skus[0]], 'regions': all_regs, 'channels': all_chs, 'customers': all_custs}),
+            ('1_region', {'families': all_fams, 'skus': all_skus, 'regions': [all_regs[0]], 'channels': all_chs, 'customers': all_custs}),
+            ('1_channel', {'families': all_fams, 'skus': all_skus, 'regions': all_regs, 'channels': [all_chs[0]], 'customers': all_custs}),
+            ('1_customer', {'families': all_fams, 'skus': all_skus, 'regions': all_regs, 'channels': all_chs, 'customers': [all_custs[0]]}),
+            ('2_combined', {'families': [all_fams[0]], 'skus': all_skus, 'regions': [all_regs[0]], 'channels': all_chs, 'customers': all_custs}),
+        ]
+
+        for _, flt in combos:
+            view_executive_overview(df_train, df_forecast, df_intervals, flt)
+            view_data_health(dq_report)
+            view_demand_explorer(df_train, flt)
+            view_anomaly_monitor(df_train, anomaly_df, flt)
+            view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, flt)
+            view_macro_lag_heatmap(macro_lag_df)
+            view_stockouts(stockouts_df, unconstrained_df, flt)
+            view_scenario(scenario_df, df_forecast)
+            view_powertrain_lifecycle(ev_df)
 

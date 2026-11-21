@@ -271,11 +271,13 @@ def view_executive_overview(df_train, df_forecast, df_intervals, filters):
         if 'Product_Family' in df_t.columns:
             fam_mix = df_t.groupby('Product_Family')['Units_Sold_num'].sum().reset_index()
             fig_fam = px.bar(fam_mix, x='Product_Family', y='Units_Sold_num', title='Historical Volume by Family')
+            fig_fam.update_layout(xaxis_title='Product Family', yaxis_title='Historical Units Sold')
             st.plotly_chart(fig_fam, use_container_width=True)
     with mix_col2:
         if 'Region' in df_f.columns:
             reg_mix = df_f.groupby('Region')['Units_Sold_Forecast'].sum().reset_index()
             fig_reg = px.bar(reg_mix, x='Region', y='Units_Sold_Forecast', title='Forecast Volume by Region')
+            fig_reg.update_layout(xaxis_title='Region', yaxis_title='Forecast Units')
             st.plotly_chart(fig_reg, use_container_width=True)
     with mix_col3:
         if 'Sales_Channel' in df_t.columns:
@@ -345,6 +347,7 @@ def view_demand_explorer(df_train, filters):
         df['Month_Num'] = df['Date'].str[5:7].astype(int)
         seas = df.groupby('Month_Num')['Units_Sold_num'].mean().reset_index()
         fig_seas = px.bar(seas, x='Month_Num', y='Units_Sold_num', title='Average Demand by Calendar Month')
+        fig_seas.update_layout(xaxis_title='Month of Year (1-12)', yaxis_title='Average Units Sold')
         st.plotly_chart(fig_seas, use_container_width=True)
 
     with col_s2:
@@ -352,6 +355,7 @@ def view_demand_explorer(df_train, filters):
         zero_df = df[df['Units_Sold_num'] == 0].groupby('Date')['SKU_ID'].count().reset_index()
         if not zero_df.empty:
             fig_zeros = px.bar(zero_df, x='Date', y='SKU_ID', labels={'SKU_ID': 'Zero Demand Rows'}, title='Zero-Demand Occurrences over Time')
+            fig_zeros.update_layout(xaxis_title='Date', yaxis_title='Zero Demand Rows')
             st.plotly_chart(fig_zeros, use_container_width=True)
 
 
@@ -377,6 +381,7 @@ def view_anomaly_monitor(df_train, anomaly_df, filters):
     with col2:
         monthly = df.groupby('Date')['Units_Sold_num'].sum().reset_index()
         fig_line = px.line(monthly, x='Date', y='Units_Sold_num', title='Monthly Demand Trend with Anomaly Overlay')
+        fig_line.update_layout(xaxis_title='Date', yaxis_title='Units Sold')
 
         # Add anomaly markers
         anom_dates = anomaly_df[anomaly_df['Date'].isin(monthly['Date'])].groupby('Date').first().reset_index()
@@ -423,6 +428,7 @@ def view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, fil
         horizons = backtest_df[(backtest_df['breakdown'] == 'horizon') & (backtest_df['model'] == 'lightgbm_p50')].sort_values('horizon_month')
         if not horizons.empty:
             fig_hor = px.line(horizons, x='horizon_month', y='WAPE', color='origin', title='WAPE by Horizon Month')
+            fig_hor.update_layout(xaxis_title='Forecast Horizon (Month)', yaxis_title='WAPE')
             st.plotly_chart(fig_hor, use_container_width=True)
 
     with col2:
@@ -430,12 +436,14 @@ def view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, fil
         fam_bias = backtest_df[(backtest_df['breakdown'] == 'family') & (backtest_df['model'] == 'lightgbm_p50')]
         if not fam_bias.empty:
             fig_bias = px.bar(fam_bias, x='group', y='Bias', color='origin', barmode='group', title='Mean Bias (Pred - Actual) by Family')
+            fig_bias.update_layout(xaxis_title='Product Family', yaxis_title='Mean Bias (Units)')
             st.plotly_chart(fig_bias, use_container_width=True)
 
     reg_metrics = backtest_df[(backtest_df['breakdown'] == 'region') & (backtest_df['model'] == 'lightgbm_p50')]
     if not reg_metrics.empty:
         st.subheader("Model Accuracy (WAPE) by Region")
         fig_reg = px.bar(reg_metrics, x='group', y='WAPE', color='origin', barmode='group', title='WAPE by Geographic Region')
+        fig_reg.update_layout(xaxis_title='Geographic Region', yaxis_title='WAPE')
         st.plotly_chart(fig_reg, use_container_width=True)
 
 
@@ -487,7 +495,7 @@ def view_stockouts(stockouts_df, unconstrained_df, filters):
     fig_so = go.Figure()
     fig_so.add_bar(x=so_monthly['Date'], y=so_monthly['Shipped'], name='Shipped Demand', marker_color='#1f77b4')
     fig_so.add_bar(x=so_monthly['Date'], y=so_monthly['Lost'], name='Lost Demand (Stockout)', marker_color='#d62728')
-    fig_so.update_layout(barmode='stack', title='Shipped vs Lost Units by Month', height=400)
+    fig_so.update_layout(barmode='stack', title='Shipped vs Lost Units by Month', height=400, xaxis_title='Date', yaxis_title='Units')
     st.plotly_chart(fig_so, use_container_width=True)
 
 

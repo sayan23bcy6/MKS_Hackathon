@@ -1,0 +1,4 @@
+Event_ID,Description,Effect,Factor,Scope_Customer,Scope_Region,Source
+EV-062,Planned retooling shutdown at Orion Driveline North American plants,zero,1.0,Orion Driveline,North America,events_calendar
+EV-052,Helios Auto Parts capacity increase at India plant captured natively by tree model through customer-region features and lag dynamics without post-forecast multiplier to prevent double counting,model_feature,1.0828,Helios Auto Parts,India,historical_learning_model_feature
+EV-059,Global price rise driven natively by model feature flag_price_change without post-hoc multiplier to prevent double counting,model_feature,1.0,Global,Global,native_model_feature

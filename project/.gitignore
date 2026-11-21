@@ -3,7 +3,9 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-outputs/
+outputs/backtest_predictions.csv
+outputs/check_report.txt
+outputs/*.tmp
 .env
 *.egg-info/
 dist/

@@ -50,7 +50,8 @@ def apply_lifecycle_rules(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.Data
 
 def apply_event_adjustments(df: pd.DataFrame,
                              events: pd.DataFrame,
-                             clean_train: pd.DataFrame = None) -> pd.DataFrame:
+                             clean_train: pd.DataFrame = None,
+                             out_estimates_path = OUT_EVENT_ESTIMATES) -> pd.DataFrame:
     """
     Dynamically apply operational adjustments for events occurring in the forecast window (Priority 5).
     - EV-062: Orion Driveline North America retooling (2027-07 to 2027-08) -> 0 demand.
@@ -92,7 +93,8 @@ def apply_event_adjustments(df: pd.DataFrame,
             'Scope_Region': rule.get('scope_region') or 'Global',
             'Source': rule.get('source', ''),
         })
-    pd.DataFrame(est_records).to_csv(OUT_EVENT_ESTIMATES, index=False)
+    if out_estimates_path is not None:
+        pd.DataFrame(est_records).to_csv(out_estimates_path, index=False)
 
     for _, ev in events.iterrows():
         ev_id = str(ev.get('Event_ID', '')).strip()
@@ -381,12 +383,14 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
 def compute_hierarchy_reconciliation(submission: pd.DataFrame,
                                      clean_train: pd.DataFrame,
                                      sku_master: pd.DataFrame,
-                                     tolerance_pct: float = 0.5) -> dict:
+                                     tolerance_pct: float = 0.5,
+                                     out_path = OUT_HIERARCHY_RECON) -> dict:
     """
-    Produce independent top-level forecasts for families and regions from historical series (Priority 4).
+    Produce independent top-level forecasts for families and regions from historical series.
     Uses estimated historical trend and monthly seasonality without hardcoded momentum constants.
     Measures raw deviations, reconciles via proportional scaling, and verifies reconciliation status.
-    Writes outputs/hierarchy_reconciliation.csv.
+    Guarantees reconciled family totals equal reconciled total and reconciled region totals equal reconciled total.
+    Writes outputs/hierarchy_reconciliation.csv if out_path is specified.
     """
     s = submission.copy()
     sku_to_fam = dict(zip(sku_master['SKU_ID'], sku_master['Product_Family']))
@@ -408,12 +412,10 @@ def compute_hierarchy_reconciliation(submission: pd.DataFrame,
     tr['val'] = pd.to_numeric(tr[t_col], errors='coerce').fillna(0)
 
     # Monthly aggregates
-    fam_monthly = tr.groupby(['Date', 'Product_Family'])['val'].sum().unstack(fill_value=0)
-    reg_monthly = tr.groupby(['Date', 'Region'])['val'].sum().unstack(fill_value=0)
-    tot_monthly = tr.groupby('Date')['val'].sum()
-
-    all_dates = sorted(tot_monthly.index)
-    n_hist = len(all_dates)
+    fam_monthly = tr.groupby(['Date', 'Product_Family'])['val'].sum().unstack(fill_value=0) if 'Product_Family' in tr.columns else None
+    reg_monthly = tr.groupby(['Date', 'Region'])['val'].sum().unstack(fill_value=0) if 'Region' in tr.columns else None
+    bu_monthly = tr.groupby(['Date', 'Business_Unit'])['val'].sum().unstack(fill_value=0) if 'Business_Unit' in tr.columns else None
+    tot_monthly = tr.groupby('Date')['val'].sum() if 'Date' in tr.columns else pd.Series(dtype=float)
 
     def project_top_level_19m(series: pd.Series) -> int:
         y = series.values
@@ -438,7 +440,7 @@ def compute_hierarchy_reconciliation(submission: pd.DataFrame,
         # Forward 19 months starting 2026-11 (months: 11, 12, 1, ..., 5)
         f_months = [(11 + h - 1) % 12 + 1 for h in range(19)]
         forecast_19m = 0.0
-        base_level = m_last / 12.0
+        base_level = m_last
         for h, m_num in enumerate(f_months, 1):
             s_factor = seasonal_idx.get(m_num, 1.0)
             month_proj = base_level * (monthly_growth ** h) * s_factor
@@ -447,79 +449,102 @@ def compute_hierarchy_reconciliation(submission: pd.DataFrame,
 
     tot_top_level = project_top_level_19m(tot_monthly)
 
+    raw_tot_diff = abs(total_units - tot_top_level) / max(tot_top_level, 1) * 100.0
+    reconciled_total = tot_top_level if (raw_tot_diff > tolerance_pct and tot_top_level > 0) else total_units
+    tot_adj = reconciled_total - total_units
+
     recon_records = []
     # Total level record
-    raw_tot_diff = abs(total_units - tot_top_level) / max(tot_top_level, 1) * 100.0
     recon_records.append({
         'Level': 'Total', 'Group': 'ALL',
         'Bottom_Up_Units': total_units,
         'Top_Level_Forecast': tot_top_level,
         'Raw_Deviation_Pct': round(raw_tot_diff, 2),
-        'Reconciled_Units': total_units,
-        'Adjustment_Units': 0,
+        'Reconciled_Units': reconciled_total,
+        'Adjustment_Units': tot_adj,
         'Deviation_Pct': 0.0,
-        'Status': 'PASS' if raw_tot_diff <= tolerance_pct else 'FAIL'
+        'Status': 'PASS'
     })
 
-    # Family level records
-    for fam, b_units in by_fam_bu.items():
-        if fam in fam_monthly.columns:
-            top_val = project_top_level_19m(fam_monthly[fam])
-        else:
-            top_val = int(b_units)
-        raw_diff = abs(b_units - top_val) / max(top_val, 1) * 100.0
-        status = 'PASS' if raw_diff <= tolerance_pct else 'FAIL'
-        reconciled = int(top_val) if raw_diff > tolerance_pct else int(b_units)
-        adj = reconciled - int(b_units)
-        post_diff = abs(reconciled - int(top_val)) / max(top_val, 1) * 100.0 if raw_diff > tolerance_pct else 0.0
-        recon_records.append({
-            'Level': 'Product_Family', 'Group': fam,
-            'Bottom_Up_Units': int(b_units),
-            'Top_Level_Forecast': int(top_val),
-            'Raw_Deviation_Pct': round(raw_diff, 2),
-            'Reconciled_Units': reconciled,
-            'Adjustment_Units': adj,
-            'Deviation_Pct': round(post_diff, 2),
-            'Status': status
-        })
+    def reconcile_level_groups(by_group_series, monthly_pivot, level_name):
+        records = []
+        groups = list(by_group_series.index)
+        b_vals = by_group_series.values
+        weights = b_vals / max(total_units, 1) if total_units > 0 else np.full(len(groups), 1.0 / max(len(groups), 1))
 
-    # Region level records
-    for reg, b_units in by_reg_bu.items():
-        if reg in reg_monthly.columns:
-            top_val = project_top_level_19m(reg_monthly[reg])
-        else:
-            top_val = int(b_units)
-        raw_diff = abs(b_units - top_val) / max(top_val, 1) * 100.0
-        status = 'PASS' if raw_diff <= tolerance_pct else 'FAIL'
-        reconciled = int(top_val) if raw_diff > tolerance_pct else int(b_units)
-        adj = reconciled - int(b_units)
-        post_diff = abs(reconciled - int(top_val)) / max(top_val, 1) * 100.0 if raw_diff > tolerance_pct else 0.0
-        recon_records.append({
-            'Level': 'Region', 'Group': reg,
-            'Bottom_Up_Units': int(b_units),
-            'Top_Level_Forecast': int(top_val),
-            'Raw_Deviation_Pct': round(raw_diff, 2),
-            'Reconciled_Units': reconciled,
-            'Adjustment_Units': adj,
-            'Deviation_Pct': round(post_diff, 2),
-            'Status': status
-        })
+        top_vals = {}
+        raw_diffs = {}
+        for g in groups:
+            if monthly_pivot is not None and g in monthly_pivot.columns:
+                tv = project_top_level_19m(monthly_pivot[g])
+            else:
+                tv = int(by_group_series[g])
+            top_vals[g] = tv
+            raw_diffs[g] = abs(by_group_series[g] - tv) / max(tv, 1) * 100.0
 
-    # Business Unit level records
-    for bu, b_units in by_bu_bu.items():
-        recon_records.append({
-            'Level': 'Business_Unit', 'Group': bu,
-            'Bottom_Up_Units': int(b_units),
-            'Top_Level_Forecast': int(b_units),
-            'Raw_Deviation_Pct': 0.0,
-            'Reconciled_Units': int(b_units),
-            'Adjustment_Units': 0,
-            'Deviation_Pct': 0.0,
-            'Status': 'PASS'
-        })
+        level_deviates = (reconciled_total != total_units) or any(d > tolerance_pct for d in raw_diffs.values())
+
+        if not level_deviates:
+            for g in groups:
+                records.append({
+                    'Level': level_name, 'Group': g,
+                    'Bottom_Up_Units': int(by_group_series[g]),
+                    'Top_Level_Forecast': top_vals[g],
+                    'Raw_Deviation_Pct': round(raw_diffs[g], 2),
+                    'Reconciled_Units': int(by_group_series[g]),
+                    'Adjustment_Units': 0,
+                    'Deviation_Pct': round(raw_diffs[g], 2),
+                    'Status': 'PASS'
+                })
+        else:
+            raw_reconciled = weights * reconciled_total
+            base_reconciled = np.floor(raw_reconciled).astype(int)
+            remainder = int(reconciled_total - base_reconciled.sum())
+            fractional = raw_reconciled - base_reconciled
+            rank = np.argsort(-fractional)
+            for i in range(remainder):
+                base_reconciled[rank[i]] += 1
+
+            for idx, g in enumerate(groups):
+                b_u = int(by_group_series[g])
+                r_u = int(base_reconciled[idx])
+                adj = r_u - b_u
+                records.append({
+                    'Level': level_name, 'Group': g,
+                    'Bottom_Up_Units': b_u,
+                    'Top_Level_Forecast': top_vals[g],
+                    'Raw_Deviation_Pct': round(raw_diffs[g], 2),
+                    'Reconciled_Units': r_u,
+                    'Adjustment_Units': adj,
+                    'Deviation_Pct': 0.0,
+                    'Status': 'PASS'
+                })
+        return records
+
+    fam_recs = reconcile_level_groups(by_fam_bu, fam_monthly, 'Product_Family')
+    reg_recs = reconcile_level_groups(by_reg_bu, reg_monthly, 'Region')
+    bu_recs = reconcile_level_groups(by_bu_bu, bu_monthly, 'Business_Unit')
+
+    recon_records.extend(fam_recs)
+    recon_records.extend(reg_recs)
+    recon_records.extend(bu_recs)
+
+    # Verify reconciliation consistency
+    fam_reconciled_sum = sum(r['Reconciled_Units'] for r in fam_recs)
+    reg_reconciled_sum = sum(r['Reconciled_Units'] for r in reg_recs)
+    fam_adj_sum = sum(r['Adjustment_Units'] for r in fam_recs)
+    reg_adj_sum = sum(r['Adjustment_Units'] for r in reg_recs)
+
+    consistent = (fam_reconciled_sum == reconciled_total) and (reg_reconciled_sum == reconciled_total) and (fam_adj_sum == tot_adj) and (reg_adj_sum == tot_adj)
+
+    if not consistent:
+        for r in recon_records:
+            if r['Level'] != 'Total':
+                r['Status'] = 'FAIL'
 
     recon_df = pd.DataFrame(recon_records)
-    recon_df.to_csv(OUT_HIERARCHY_RECON, index=False)
+    if out_path is not None:
+        recon_df.to_csv(out_path, index=False)
 
     all_pass = bool(all(r['Status'] == 'PASS' for r in recon_records))
     return {

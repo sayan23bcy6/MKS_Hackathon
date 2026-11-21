@@ -36,5 +36,5 @@
 - Quantile non-crossing enforcement: P10 <= P50 <= P90.
 - Lifecycle boundary zeroing: Strictly zero forecast demand prior to Launch_Date or after EOL_Date.
 - New launch history inheritance: Replaces_SKU first 6 months scaled by relative ratio, or family-region ratio before data exists.
-- Hierarchy reconciliation: Top-level independent projections reconciled with maximum raw deviation of 1089.6%.
+- Hierarchy reconciliation: Top-level independent projections reconciled with maximum raw deviation of 16.4%.
 - Deterministic training: random_state=42, deterministic=True, force_row_wise=True.
