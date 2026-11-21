@@ -471,6 +471,74 @@ def compute_hierarchy_reconciliation(submission: pd.DataFrame,
     return {'adds_up': bool(adds_up), 'total_forecast_units': total_units}
 
 
+def generate_whatif_scenario(base_submission: pd.DataFrame,
+                              test_df: pd.DataFrame,
+                              clean_macro: pd.DataFrame,
+                              sku_master: pd.DataFrame,
+                              models: dict,
+                              clean_events: pd.DataFrame,
+                              train_history: pd.DataFrame,
+                              pmi_delta_target: float = -3.0) -> pd.DataFrame:
+    """Rerun forecasts over the PMI shift grid and export scenario outputs."""
+    pmi_grid = [-6.0, -4.5, -3.0, -1.5, 0.0, 1.5, 3.0, 4.5, 6.0]
+    sku_to_fam = dict(zip(sku_master['SKU_ID'], sku_master['Product_Family']))
+    base = base_submission.copy()
+    base['Product_Family'] = base['SKU_ID'].map(sku_to_fam).fillna('Unknown')
+    base_fam = base.groupby('Product_Family')['Units_Sold_Forecast'].sum().to_dict()
+    base_tot = int(base['Units_Sold_Forecast'].sum())
+    all_scenario_rows = []
+    target_sub = None
+
+    for delta in pmi_grid:
+        if delta == 0.0:
+            sub = base_submission.copy()
+            sub['Product_Family'] = base['Product_Family']
+        else:
+            sub, _ = generate_recursive_forecast(
+                test_df, train_history, clean_macro, clean_events, sku_master, models,
+                pmi_delta=delta, save_outputs=False
+            )
+            sub['Product_Family'] = sub['SKU_ID'].map(sku_to_fam).fillna('Unknown')
+
+        tot_u = int(sub['Units_Sold_Forecast'].sum())
+        all_scenario_rows.append({
+            'Scenario_PMI_Delta': delta,
+            'Level': 'Total',
+            'Group': 'ALL',
+            'Forecast_Units': tot_u,
+            'Baseline_Units': base_tot,
+            'Units_Sold_Forecast': base_tot,
+            'Scenario_Units_Sold_Forecast': tot_u,
+            'Shift_Units': tot_u - base_tot,
+            'Shift_Pct': round((tot_u - base_tot) / max(base_tot, 1) * 100, 2),
+        })
+        fam_sums = sub.groupby('Product_Family')['Units_Sold_Forecast'].sum()
+        for fam, fam_u in fam_sums.items():
+            b_fam = base_fam.get(fam, fam_u)
+            all_scenario_rows.append({
+                'Scenario_PMI_Delta': delta,
+                'Level': 'Product_Family',
+                'Group': fam,
+                'Forecast_Units': int(fam_u),
+                'Baseline_Units': int(b_fam),
+                'Units_Sold_Forecast': int(b_fam),
+                'Scenario_Units_Sold_Forecast': int(fam_u),
+                'Shift_Units': int(fam_u) - int(b_fam),
+                'Shift_Pct': round((int(fam_u) - int(b_fam)) / max(b_fam, 1) * 100, 2),
+            })
+        if delta == pmi_delta_target:
+            target_sub = sub[['Date', 'SKU_ID', 'Region', 'Units_Sold_Forecast']].copy()
+            target_sub.rename(columns={'Units_Sold_Forecast': 'Scenario_Units_Sold_Forecast'}, inplace=True)
+
+    scen_df = pd.DataFrame(all_scenario_rows)
+    scen_df.to_csv(OUT_WHATIF_SCENARIOS, index=False)
+    if target_sub is not None:
+        merged_target = base_submission.merge(target_sub, on=['Date', 'SKU_ID', 'Region'], how='left')
+        merged_target.to_csv(OUT_SCENARIO, index=False)
+        return merged_target
+    return scen_df
+
+
 def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFrame = None):
     """Write model governance card to outputs/model_card.md using verified output files (Priority 7c)."""
     preds_path = Path(str(OUT_MODEL_CARD)).parent / 'backtest_predictions.csv'
