@@ -1130,6 +1130,22 @@ def test_rule_r6_customer_ordering_cycles():
     assert 'Prior_Customer' in cs_df.columns
     assert 'New_Customer' in cs_df.columns
 
+    from pipeline.ordering_cycles import analyze_customer_cycles
+    # Build a true monthly-then-quarterly series.
+    quarterly = pd.period_range('2021-01', periods=12, freq='3M').strftime('%Y-%m').tolist()
+    fixture_dates = pd.period_range('2020-01', periods=12, freq='M').strftime('%Y-%m').tolist() + quarterly
+    fixture = pd.DataFrame([
+        {'Date': date, 'SKU_ID': 'S1', 'Region': 'North America',
+         'Customer_Name': 'Customer A', 'Units_Sold': 10}
+        for date in fixture_dates
+    ])
+    cycles, _, _ = analyze_customer_cycles(fixture)
+    cycle_row = cycles.iloc[0]
+    assert cycle_row['Change_Points'] != 'None'
+    intervals = np.diff([int(date[:4]) * 12 + int(date[5:7]) for date in fixture_dates])
+    split = len(intervals) // 2
+    assert np.median(intervals[:split]) != np.median(intervals[split:])
+
 
 def test_rule_r7_unconstrained_demand_forecast():
     """PDF Rule R7: Forecast window has no supply limits; forecast unconstrained demand."""
