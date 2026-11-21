@@ -638,7 +638,7 @@ class TestSchemaValidation:
         import pytest
         feat_path = os.path.join(os.path.dirname(__file__), '..', 'outputs', 'features.parquet')
         if not os.path.exists(feat_path):
-            pytest.skip("features.parquet not generated yet")
+            pytest.fail("features.parquet not found; run python project/run_pipeline.py first")
         feat_df = pd.read_parquet(feat_path)
         key_cols = ['Date', 'SKU_ID', 'Region', 'Customer_Name']
         dup_count = feat_df.duplicated(key_cols).sum()
@@ -726,7 +726,7 @@ class TestSchemaValidation:
         import pytest
         pred_path = os.path.join(os.path.dirname(__file__), '..', 'outputs', 'backtest_predictions.csv')
         if not os.path.exists(pred_path):
-            pytest.skip("backtest_predictions.csv not generated yet")
+            pytest.fail("backtest_predictions.csv not found; run python project/run_pipeline.py first")
         df = pd.read_csv(pred_path, low_memory=False)
         assert len(df) > 0, "backtest_predictions.csv is empty"
         expected = {'origin', 'model', 'Date', 'SKU_ID', 'Region', 'Customer_Name', 'actual', 'p10', 'p50', 'p90'}
@@ -805,7 +805,7 @@ class TestSchemaValidation:
         import pytest
         scen_path = os.path.join(os.path.dirname(__file__), '..', 'outputs', 'whatif_scenarios.csv')
         if not os.path.exists(scen_path):
-            pytest.skip("whatif_scenarios.csv not generated yet")
+            pytest.fail("whatif_scenarios.csv not found; run python project/run_pipeline.py first")
         scen = pd.read_csv(scen_path)
         zero_scen = scen[scen['Scenario_PMI_Delta'] == 0.0]
         if not zero_scen.empty:
