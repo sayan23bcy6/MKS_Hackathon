@@ -543,6 +543,23 @@ def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFram
     """Write model governance card to outputs/model_card.md using verified output files (Priority 7c)."""
     preds_path = Path(str(OUT_MODEL_CARD)).parent / 'backtest_predictions.csv'
     recon_path = Path(str(OUT_MODEL_CARD)).parent / 'hierarchy_addition.csv'
+    if not recon_path.exists():
+        raise FileNotFoundError("run python project/run_pipeline.py first")
+    recon_df = pd.read_csv(recon_path)
+    total_row = recon_df[recon_df['Level'] == 'Total']
+    if total_row.empty:
+        raise ValueError("hierarchy_addition.csv has no Total row")
+    total_units = int(total_row.iloc[0]['Bottom_Up_Units'])
+    adds_up = bool(all(recon_df['Status'] == 'PASS'))
+    level_rows_checked = len(recon_df) - len(total_row)
+    recon_summary = (
+        f"Total forecast units: {total_units:,}; "
+        f"adds_up: {str(adds_up).lower()}; "
+        f"level rows checked: {level_rows_checked}."
+    )
+    diagnostic_path = recon_path.parent / 'hierarchy_diagnostic.csv'
+    if diagnostic_path.exists():
+        recon_summary += " Trend gap values are in hierarchy_diagnostic.csv, which is diagnostic, not a PDF requirement."
 
     raw_cov_str = "N/A"
     cal_cov_str = "N/A"
@@ -565,15 +582,6 @@ def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFram
         except (OSError, KeyError, ValueError):
             pass
 
-    # Extract hierarchy addition summary
-    recon_summary = "Hierarchy addition table present."
-    if recon_path.exists():
-        try:
-            rc = pd.read_csv(recon_path)
-            max_raw = rc['Raw_Deviation_Pct'].max()
-            recon_summary = f"Hierarchy row-level raw deviations: maximum {max_raw:.1f}%."
-        except (OSError, KeyError, ValueError):
-            pass
 
     # Extract backtest winner per family and comparison vs naive
     winner_summary = []
@@ -630,7 +638,7 @@ def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFram
         "- Quantile non-crossing enforcement: P10 <= P50 <= P90.",
         "- Lifecycle boundary zeroing: Strictly zero forecast demand prior to Launch_Date or after EOL_Date.",
         "- New launch history inheritance: Replaces_SKU first 6 months scaled by relative ratio, or family-region ratio before data exists.",
-        f"- Hierarchy reconciliation: {recon_summary}",
+        f"- Hierarchy addition: {recon_summary}",
         "- Deterministic training: random_state=42, deterministic=True, force_row_wise=True.",
         "",
     ]
