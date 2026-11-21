@@ -402,7 +402,7 @@ def check_hierarchy(s):
             record(s, "PASS" if mc_matches else "FAIL",
                    f"model card hierarchy numbers match hierarchy_addition.csv ({expected_str})")
     else:
-        record(s, "FAIL", "hierarchy_reconciliation.csv not produced (spec requires it)")
+        record(s, "FAIL", "hierarchy_addition.csv not produced (spec requires it)")
 
 
 # ------------------------------------------------------------- 10 dashboard
@@ -497,7 +497,7 @@ REQUIRED = [
     "project/outputs/backtest_metrics.csv",
     "project/outputs/forecast_submission.csv",
     "project/outputs/forecast_intervals.csv",
-    "project/outputs/hierarchy_reconciliation.csv",
+    "project/outputs/hierarchy_addition.csv",
     "project/outputs/model_card.md",
     "project/outputs/panel_status.csv",
     "project/outputs/master_data_contradictions.csv",

@@ -591,7 +591,7 @@ class TestSchemaValidation:
         assert (p10_o <= p50_o).all()
         assert (p50_o <= p90_o).all()
 
-    def test_hierarchy_reconciliation_structure(self, tmp_path):
+    def test_hierarchy_addition_structure(self, tmp_path):
         """Verify the hierarchy addition columns and exact result."""
         from pipeline.forecast import compute_hierarchy_reconciliation
         sub = pd.DataFrame([
@@ -871,7 +871,7 @@ class TestSchemaValidation:
         adjusted = apply_event_adjustments(df_forecast, events_fixture, out_estimates_path=None)
         assert adjusted['Units_Sold_Forecast'].iloc[0] == 100
 
-    def test_hierarchy_reconciliation_structure_and_reconciled_flag(self):
+    def test_hierarchy_addition_structure_and_result(self):
         """Priority A3: Hierarchy addition reports exact totals."""
         from pipeline.forecast import compute_hierarchy_reconciliation
         sub_fixture = pd.DataFrame([
@@ -891,7 +891,7 @@ class TestSchemaValidation:
         assert 'adds_up' in res
         assert res['adds_up'] is True
 
-    def test_hierarchy_reconciliation_deviating_fixture_adds_up(self, tmp_path):
+    def test_hierarchy_addition_deviating_fixture_adds_up(self, tmp_path):
         """The submission fixture adds exactly across family, region and business unit."""
         from pipeline.forecast import compute_hierarchy_reconciliation
         sub_fixture = pd.DataFrame([

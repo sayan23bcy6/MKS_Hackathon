@@ -159,7 +159,7 @@ A structured guide for presenting and defending the Celeris Automobili demand fo
 | ADV-BACKTEST-01 | Advanced | Multi-origin honest rolling backtest (2023-10, 2024-10, 2025-03) | outputs/backtest_metrics.csv | done |
 | ADV-BACKTEST-02 | Advanced | Benchmark comparison against Seasonal Naive, Moving Average, Croston/SBA/TSB | outputs/backtest_metrics.csv | done |
 | ADV-INTERVALS-01 | Advanced | Quantile forecast intervals P10, P50, P90 with non-crossing constraints | outputs/forecast_intervals.csv | done |
-| ADV-RECON-01 | Advanced | Top-down hierarchy reconciliation and raw deviation reporting | outputs/hierarchy_reconciliation.csv | done |
+| ADV-RECON-01 | Advanced | Exact bottom-up hierarchy addition reporting | outputs/hierarchy_addition.csv | done |
 | ADV-DASH-OPT-01 | Advanced | 4 optional dashboard views (Macro Heatmap, Stockouts, What-If, Lifecycle) | project/app/dashboard.py (Tabs Opt 1-4) | done |
 | EXP-INTERMITTENT-01 | Expert | ADI/CV^2 intermittency categorisation and customer ordering periodicity | outputs/features.parquet, outputs/customer_switches.csv, outputs/lost_accounts.csv | done |
 | EXP-INHERIT-01 | Expert | New-launch demand inheritance from replaced SKU catalog history | outputs/forecast_submission.csv | done |

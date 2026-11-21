@@ -121,7 +121,7 @@ After running `run_pipeline.py`, the following files are produced in `project/ou
 | `audit_log.csv` | Full row-level log of every value adjusted during cleaning |
 | `data_quality_report.json` | Machine-readable breakdown of issues found and rules applied |
 | `data_quality_report.md` | Human-readable documentation of data health |
-| `hierarchy_reconciliation.csv` | Verification of bottom-up consistency within 0.5% tolerance |
+| `hierarchy_addition.csv` | Exact bottom-up consistency across family, region and business unit |
 | `whatif_scenario_forecast.csv` | Macroeconomic sensitivity simulation (ISM PMI shift) |
 | `ev_shift_analysis.csv` | Powertrain technological transition progression |
 | `macro_lag_analysis.csv` | Cross-correlations between economic indicators and family volume |

@@ -42,7 +42,7 @@ The dashboard and deployment depend on the following outputs tracked in version 
 | `features.parquet` | ~13.0 MB | Feature store including lags, rolling statistics, and macro factors |
 | `forecast_submission.csv` | ~1.8 MB | 19-month forward commercial forecast submission |
 | `forecast_intervals.csv` | ~2.1 MB | Quantile forecast intervals P10, P50, and P90 |
-| `hierarchy_reconciliation.csv` | < 0.1 MB | Proportional consensus reconciliation across families and regions |
+| `hierarchy_addition.csv` | < 0.1 MB | Exact bottom-up hierarchy addition across families, regions and business units |
 | `model_card.md` | < 0.1 MB | Model architecture, calibration, and governance card |
 | `backtest_metrics.csv` | < 0.1 MB | Rolling-origin backtest slices across 3 evaluation cutoffs |
 | `coverage_breakdown.csv` | < 0.1 MB | P10-P90 interval empirical coverage by origin and family |

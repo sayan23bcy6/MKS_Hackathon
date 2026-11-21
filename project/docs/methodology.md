@@ -145,7 +145,7 @@ To avoid feature vector freeze and lag leakage across the 19-month horizon:
      $$R_i = \lfloor w_i \times \text{Reconciled\_Total} \rfloor$$
      Integer remainders are allocated systematically to groups with the largest fractional parts to ensure exact integer balance:
      $$\sum_{i} R_i = \text{Reconciled\_Total}, \quad \sum_{i} A_i = A_{\text{total}}$$
-   - **Status Criteria**: Status is recorded as `PASS` if the raw deviation is within tolerance, or if the proportional consensus adjustment is made consistent across all levels (reconciled family sum equals reconciled total, reconciled region sum equals reconciled total, and adjustments sum to the total adjustment). A level reports `FAIL` only if the adjustment cannot be made mathematically consistent. All records in `outputs/hierarchy_reconciliation.csv` pass this consistency verification.
+   - **Status Criteria**: Status reports exact hierarchy addition. The PDF-facing file in `outputs/hierarchy_addition.csv` contains only exact-sum levels and units. Trend projections and gaps are separated into `outputs/hierarchy_diagnostic.csv` and do not affect status.
 
 ---
 
@@ -251,7 +251,7 @@ Every file in `project/outputs/` is regenerated end-to-end when executing `pytho
 - **Cleaned Data**: `clean_train.parquet`, `unconstrained_demand.parquet`, `inventory_stockouts.csv`, `clean_macro.csv`, `clean_events.csv`, `audit_log.csv`.
 - **Feature Matrix**: `features.parquet`.
 - **Forecasts & Intervals**: `forecast_submission.csv` (58,219 rows), `forecast_intervals.csv`.
-- **Governance & Verification**: `backtest_metrics.csv`, `backtest_predictions.csv`, `hierarchy_reconciliation.csv`, `event_impact_estimates.csv`.
+- **Governance & Verification**: `backtest_metrics.csv`, `backtest_predictions.csv`, `hierarchy_addition.csv`, `hierarchy_diagnostic.csv`, `event_impact_estimates.csv`.
 - **Scenarios & Dynamics**: `whatif_scenarios.csv`, `whatif_scenario_forecast.csv`, `ev_shift_analysis.csv`, `macro_lag_analysis.csv`, `anomaly_register.csv`.
 - **Documentation**: `data_quality_report.json`, `data_quality_report.md`, `model_card.md`, `check_report.txt`.
 
