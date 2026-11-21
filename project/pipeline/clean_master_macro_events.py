@@ -16,9 +16,7 @@ from pipeline.audit import audit
 DQ_MME = {}
 
 
-# ------------------------------------------------------------
-# SKU MASTER CLEANING (S1, S2)
-# ------------------------------------------------------------
+# SKU Master Cleaning (S1, S2)
 
 def clean_sku_master(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     """S1-S2: Validate sku_master. No silent changes."""
@@ -74,9 +72,7 @@ def clean_sku_master(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     return df, dq
 
 
-# ------------------------------------------------------------
-# MACRO INDICATORS CLEANING (M1-M5)
-# ------------------------------------------------------------
+# Macro Indicators Cleaning (M1-M5)
 
 def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     """M1-M5: Clean macro_indicators."""
@@ -225,9 +221,7 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     return df, dq
 
 
-# ------------------------------------------------------------
-# EVENTS CALENDAR CLEANING (E1-E4)
-# ------------------------------------------------------------
+# Events Calendar Cleaning (E1-E4)
 
 def _normalise_event_date(d: str) -> tuple[str, str]:
     """

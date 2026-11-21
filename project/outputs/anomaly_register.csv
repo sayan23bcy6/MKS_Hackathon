@@ -1,35 +1,35 @@
 Date,SKU_ID,Region,Customer_Name,anomaly_type,field,value,baseline,action,reason,event_reference
-2026-05,PMP-018,Europe,Orion Driveline,high_volume_order,Units_Sold,5100.0,39.0,retained_in_history,Units_Sold=5100.0 exceeds 5000 threshold (SKU median=39),T11
-2026-04,ELA-028,Latin America,Orion Driveline,high_volume_order,Units_Sold,6900.0,29.0,retained_in_history,Units_Sold=6900.0 exceeds 5000 threshold (SKU median=29),T11
-2025-11,THM-032,Asia Pacific,Apex Tier One,high_volume_order,Units_Sold,10700.0,79.0,retained_in_history,Units_Sold=10700.0 exceeds 5000 threshold (SKU median=79),T11
-2025-10,BSS-036,Asia Pacific,Quantum Drive Systems,high_volume_order,Units_Sold,6700.0,60.0,retained_in_history,Units_Sold=6700.0 exceeds 5000 threshold (SKU median=60),T11
-2025-09,BSS-056,Asia Pacific,Nexon Motor Group,high_volume_order,Units_Sold,5700.0,56.5,retained_in_history,Units_Sold=5700.0 exceeds 5000 threshold (SKU median=56),T11
-2025-09,BSS-056,Latin America,Helios Auto Parts,high_volume_order,Units_Sold,9400.0,56.5,retained_in_history,Units_Sold=9400.0 exceeds 5000 threshold (SKU median=56),T11
-2025-07,BSS-072,Latin America,Vantara Auto,high_volume_order,Units_Sold,16300.0,51.0,retained_in_history,Units_Sold=16300.0 exceeds 5000 threshold (SKU median=51),T11
-2025-05,CSS-025,India,Solaris Automotive,high_volume_order,Units_Sold,6400.0,42.0,retained_in_history,Units_Sold=6400.0 exceeds 5000 threshold (SKU median=42),T11
-2025-05,PTC-078,Latin America,Solaris Automotive,high_volume_order,Units_Sold,9200.0,37.0,retained_in_history,Units_Sold=9200.0 exceeds 5000 threshold (SKU median=37),T11
-2025-04,PMP-022,India,Helios Auto Parts,high_volume_order,Units_Sold,5100.0,40.0,retained_in_history,Units_Sold=5100.0 exceeds 5000 threshold (SKU median=40),T11
-2025-03,CSS-022,Asia Pacific,Meridian Assembly,high_volume_order,Units_Sold,5100.0,36.0,retained_in_history,Units_Sold=5100.0 exceeds 5000 threshold (SKU median=36),T11
-2025-03,PMP-056,Latin America,Helios Auto Parts,high_volume_order,Units_Sold,6300.0,47.0,retained_in_history,Units_Sold=6300.0 exceeds 5000 threshold (SKU median=47),T11
-2025-02,CSS-030,Europe,Quantum Drive Systems,high_volume_order,Units_Sold,10000.0,51.0,retained_in_history,Units_Sold=10000.0 exceeds 5000 threshold (SKU median=51),T11
-2025-01,THM-026,India,Orion Driveline,high_volume_order,Units_Sold,13800.0,83.0,retained_in_history,Units_Sold=13800.0 exceeds 5000 threshold (SKU median=83),T11
-2024-08,BSS-041,Asia Pacific,Quantum Drive Systems,high_volume_order,Units_Sold,6000.0,58.0,retained_in_history,Units_Sold=6000.0 exceeds 5000 threshold (SKU median=58),T11
-2024-01,BSS-079,Asia Pacific,Solaris Automotive,high_volume_order,Units_Sold,6100.0,38.0,retained_in_history,Units_Sold=6100.0 exceeds 5000 threshold (SKU median=38),T11
-2023-12,CSS-017,Europe,Meridian Assembly,high_volume_order,Units_Sold,7100.0,45.0,retained_in_history,Units_Sold=7100.0 exceeds 5000 threshold (SKU median=45),T11
-2023-05,CSS-034,Latin America,Meridian Assembly,high_volume_order,Units_Sold,6000.0,28.0,retained_in_history,Units_Sold=6000.0 exceeds 5000 threshold (SKU median=28),T11
-2023-02,CSS-021,Latin America,Helios Auto Parts,high_volume_order,Units_Sold,10200.0,51.0,retained_in_history,Units_Sold=10200.0 exceeds 5000 threshold (SKU median=51),T11
-2022-12,BSS-081,North America,Nexon Motor Group,high_volume_order,Units_Sold,5200.0,39.0,retained_in_history,Units_Sold=5200.0 exceeds 5000 threshold (SKU median=39),T11
-2022-06,HYD-061,Europe,Nexon Motor Group,high_volume_order,Units_Sold,8400.0,35.0,retained_in_history,Units_Sold=8400.0 exceeds 5000 threshold (SKU median=35),T11
-2022-06,THM-076,India,Solaris Automotive,high_volume_order,Units_Sold,7100.0,44.0,retained_in_history,Units_Sold=7100.0 exceeds 5000 threshold (SKU median=44),T11
-2021-12,PMP-035,North America,Solaris Automotive,high_volume_order,Units_Sold,7400.0,39.0,retained_in_history,Units_Sold=7400.0 exceeds 5000 threshold (SKU median=39),T11
-2021-08,BSS-080,Latin America,Nexon Motor Group,high_volume_order,Units_Sold,10200.0,59.0,retained_in_history,Units_Sold=10200.0 exceeds 5000 threshold (SKU median=59),T11
-2021-05,ELA-087,Asia Pacific,Quantum Drive Systems,high_volume_order,Units_Sold,6200.0,22.0,retained_in_history,Units_Sold=6200.0 exceeds 5000 threshold (SKU median=22),T11
-2021-04,BSS-078,India,Orion Driveline,high_volume_order,Units_Sold,6700.0,36.0,retained_in_history,Units_Sold=6700.0 exceeds 5000 threshold (SKU median=36),T11
-2020-12,CSS-043,India,Nexon Motor Group,high_volume_order,Units_Sold,8800.0,57.0,retained_in_history,Units_Sold=8800.0 exceeds 5000 threshold (SKU median=57),T11
-2020-12,HYD-088,India,Vantara Auto,high_volume_order,Units_Sold,9000.0,19.0,retained_in_history,Units_Sold=9000.0 exceeds 5000 threshold (SKU median=19),T11
-2020-02,BSS-004,Europe,Crestline Manufacturing,high_volume_order,Units_Sold,15100.0,80.5,retained_in_history,Units_Sold=15100.0 exceeds 5000 threshold (SKU median=80),T11
-2019-07,THM-056,Europe,Helios Auto Parts,high_volume_order,Units_Sold,8200.0,45.0,retained_in_history,Units_Sold=8200.0 exceeds 5000 threshold (SKU median=45),T11
 2019-01,BSS-076,Asia Pacific,Solaris Automotive,high_volume_order,Units_Sold,9600.0,42.0,retained_in_history,Units_Sold=9600.0 exceeds 5000 threshold (SKU median=42),T11
+2019-07,THM-056,Europe,Helios Auto Parts,high_volume_order,Units_Sold,8200.0,45.0,retained_in_history,Units_Sold=8200.0 exceeds 5000 threshold (SKU median=45),T11
+2020-02,BSS-004,Europe,Crestline Manufacturing,high_volume_order,Units_Sold,15100.0,80.5,retained_in_history,Units_Sold=15100.0 exceeds 5000 threshold (SKU median=80),T11
+2020-12,HYD-088,India,Vantara Auto,high_volume_order,Units_Sold,9000.0,19.0,retained_in_history,Units_Sold=9000.0 exceeds 5000 threshold (SKU median=19),T11
+2020-12,CSS-043,India,Nexon Motor Group,high_volume_order,Units_Sold,8800.0,57.0,retained_in_history,Units_Sold=8800.0 exceeds 5000 threshold (SKU median=57),T11
+2021-04,BSS-078,India,Orion Driveline,high_volume_order,Units_Sold,6700.0,36.0,retained_in_history,Units_Sold=6700.0 exceeds 5000 threshold (SKU median=36),T11
+2021-05,ELA-087,Asia Pacific,Quantum Drive Systems,high_volume_order,Units_Sold,6200.0,22.0,retained_in_history,Units_Sold=6200.0 exceeds 5000 threshold (SKU median=22),T11
+2021-08,BSS-080,Latin America,Nexon Motor Group,high_volume_order,Units_Sold,10200.0,59.0,retained_in_history,Units_Sold=10200.0 exceeds 5000 threshold (SKU median=59),T11
+2021-12,PMP-035,North America,Solaris Automotive,high_volume_order,Units_Sold,7400.0,39.0,retained_in_history,Units_Sold=7400.0 exceeds 5000 threshold (SKU median=39),T11
+2022-06,THM-076,India,Solaris Automotive,high_volume_order,Units_Sold,7100.0,44.0,retained_in_history,Units_Sold=7100.0 exceeds 5000 threshold (SKU median=44),T11
+2022-06,HYD-061,Europe,Nexon Motor Group,high_volume_order,Units_Sold,8400.0,35.0,retained_in_history,Units_Sold=8400.0 exceeds 5000 threshold (SKU median=35),T11
+2022-12,BSS-081,North America,Nexon Motor Group,high_volume_order,Units_Sold,5200.0,39.0,retained_in_history,Units_Sold=5200.0 exceeds 5000 threshold (SKU median=39),T11
+2023-02,CSS-021,Latin America,Helios Auto Parts,high_volume_order,Units_Sold,10200.0,51.0,retained_in_history,Units_Sold=10200.0 exceeds 5000 threshold (SKU median=51),T11
+2023-05,CSS-034,Latin America,Meridian Assembly,high_volume_order,Units_Sold,6000.0,28.0,retained_in_history,Units_Sold=6000.0 exceeds 5000 threshold (SKU median=28),T11
+2023-12,CSS-017,Europe,Meridian Assembly,high_volume_order,Units_Sold,7100.0,45.0,retained_in_history,Units_Sold=7100.0 exceeds 5000 threshold (SKU median=45),T11
+2024-01,BSS-079,Asia Pacific,Solaris Automotive,high_volume_order,Units_Sold,6100.0,38.0,retained_in_history,Units_Sold=6100.0 exceeds 5000 threshold (SKU median=38),T11
+2024-08,BSS-041,Asia Pacific,Quantum Drive Systems,high_volume_order,Units_Sold,6000.0,58.0,retained_in_history,Units_Sold=6000.0 exceeds 5000 threshold (SKU median=58),T11
+2025-01,THM-026,India,Orion Driveline,high_volume_order,Units_Sold,13800.0,83.0,retained_in_history,Units_Sold=13800.0 exceeds 5000 threshold (SKU median=83),T11
+2025-02,CSS-030,Europe,Quantum Drive Systems,high_volume_order,Units_Sold,10000.0,51.0,retained_in_history,Units_Sold=10000.0 exceeds 5000 threshold (SKU median=51),T11
+2025-03,PMP-056,Latin America,Helios Auto Parts,high_volume_order,Units_Sold,6300.0,47.0,retained_in_history,Units_Sold=6300.0 exceeds 5000 threshold (SKU median=47),T11
+2025-03,CSS-022,Asia Pacific,Meridian Assembly,high_volume_order,Units_Sold,5100.0,36.0,retained_in_history,Units_Sold=5100.0 exceeds 5000 threshold (SKU median=36),T11
+2025-04,PMP-022,India,Helios Auto Parts,high_volume_order,Units_Sold,5100.0,40.0,retained_in_history,Units_Sold=5100.0 exceeds 5000 threshold (SKU median=40),T11
+2025-05,PTC-078,Latin America,Solaris Automotive,high_volume_order,Units_Sold,9200.0,37.0,retained_in_history,Units_Sold=9200.0 exceeds 5000 threshold (SKU median=37),T11
+2025-05,CSS-025,India,Solaris Automotive,high_volume_order,Units_Sold,6400.0,42.0,retained_in_history,Units_Sold=6400.0 exceeds 5000 threshold (SKU median=42),T11
+2025-07,BSS-072,Latin America,Vantara Auto,high_volume_order,Units_Sold,16300.0,51.0,retained_in_history,Units_Sold=16300.0 exceeds 5000 threshold (SKU median=51),T11
+2025-09,BSS-056,Latin America,Helios Auto Parts,high_volume_order,Units_Sold,9400.0,56.0,retained_in_history,Units_Sold=9400.0 exceeds 5000 threshold (SKU median=56),T11
+2025-09,BSS-056,Asia Pacific,Nexon Motor Group,high_volume_order,Units_Sold,5700.0,56.0,retained_in_history,Units_Sold=5700.0 exceeds 5000 threshold (SKU median=56),T11
+2025-10,BSS-036,Asia Pacific,Quantum Drive Systems,high_volume_order,Units_Sold,6700.0,60.0,retained_in_history,Units_Sold=6700.0 exceeds 5000 threshold (SKU median=60),T11
+2025-11,THM-032,Asia Pacific,Apex Tier One,high_volume_order,Units_Sold,10700.0,79.0,retained_in_history,Units_Sold=10700.0 exceeds 5000 threshold (SKU median=79),T11
+2026-04,ELA-028,Latin America,Orion Driveline,high_volume_order,Units_Sold,6900.0,29.0,retained_in_history,Units_Sold=6900.0 exceeds 5000 threshold (SKU median=29),T11
+2026-05,PMP-018,Europe,Orion Driveline,high_volume_order,Units_Sold,5100.0,39.0,retained_in_history,Units_Sold=5100.0 exceeds 5000 threshold (SKU median=39),T11
 ,,,,sign_reversal,Units_Sold,-23.0,0,absolute_value_applied,Negative units recorded due to clerical sign inversion; converted to positive demand,T11
 ,,,,sign_reversal,Units_Sold,-33.0,0,absolute_value_applied,Negative units recorded due to clerical sign inversion; converted to positive demand,T11
 ,,,,sign_reversal,Units_Sold,-37.0,0,absolute_value_applied,Negative units recorded due to clerical sign inversion; converted to positive demand,T11
@@ -732,14 +732,14 @@ Date,SKU_ID,Region,Customer_Name,anomaly_type,field,value,baseline,action,reason
 "2022-11, 2022-12",BSS-020,ALL,ALL,early_buying,Units_Sold,148.9,96.7,modeled_as_event_feature,Nov-Dec 2022 demand 149 vs historical 97 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",BSS-021,ALL,ALL,early_buying,Units_Sold,55.5,18.8,modeled_as_event_feature,Nov-Dec 2022 demand 56 vs historical 19 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",BSS-025,ALL,ALL,early_buying,Units_Sold,74.1,6.0,modeled_as_event_feature,Nov-Dec 2022 demand 74 vs historical 6 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
-"2022-11, 2022-12",BSS-031,ALL,ALL,early_buying,Units_Sold,90.8,66.9,modeled_as_event_feature,Nov-Dec 2022 demand 91 vs historical 67 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
+"2022-11, 2022-12",BSS-031,ALL,ALL,early_buying,Units_Sold,90.8,67.8,modeled_as_event_feature,Nov-Dec 2022 demand 91 vs historical 68 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",BSS-036,ALL,ALL,early_buying,Units_Sold,100.3,74.7,modeled_as_event_feature,Nov-Dec 2022 demand 100 vs historical 75 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",BSS-038,ALL,ALL,early_buying,Units_Sold,77.0,54.9,modeled_as_event_feature,Nov-Dec 2022 demand 77 vs historical 55 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",BSS-039,ALL,ALL,early_buying,Units_Sold,51.2,37.7,modeled_as_event_feature,Nov-Dec 2022 demand 51 vs historical 38 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",BSS-044,ALL,ALL,early_buying,Units_Sold,90.6,72.0,modeled_as_event_feature,Nov-Dec 2022 demand 91 vs historical 72 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",BSS-045,ALL,ALL,early_buying,Units_Sold,178.3,50.3,modeled_as_event_feature,Nov-Dec 2022 demand 178 vs historical 50 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",BSS-046,ALL,ALL,early_buying,Units_Sold,126.0,55.9,modeled_as_event_feature,Nov-Dec 2022 demand 126 vs historical 56 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
-"2022-11, 2022-12",BSS-047,ALL,ALL,early_buying,Units_Sold,75.6,36.7,modeled_as_event_feature,Nov-Dec 2022 demand 76 vs historical 37 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
+"2022-11, 2022-12",BSS-047,ALL,ALL,early_buying,Units_Sold,75.6,38.3,modeled_as_event_feature,Nov-Dec 2022 demand 76 vs historical 38 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",BSS-048,ALL,ALL,early_buying,Units_Sold,86.8,50.4,modeled_as_event_feature,Nov-Dec 2022 demand 87 vs historical 50 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",BSS-049,ALL,ALL,early_buying,Units_Sold,78.7,61.7,modeled_as_event_feature,Nov-Dec 2022 demand 79 vs historical 62 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",BSS-051,ALL,ALL,early_buying,Units_Sold,140.6,83.7,modeled_as_event_feature,Nov-Dec 2022 demand 141 vs historical 84 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
@@ -873,7 +873,7 @@ Date,SKU_ID,Region,Customer_Name,anomaly_type,field,value,baseline,action,reason
 "2022-11, 2022-12",HYD-045,ALL,ALL,early_buying,Units_Sold,58.7,38.8,modeled_as_event_feature,Nov-Dec 2022 demand 59 vs historical 39 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",HYD-046,ALL,ALL,early_buying,Units_Sold,56.5,26.5,modeled_as_event_feature,Nov-Dec 2022 demand 56 vs historical 26 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",HYD-048,ALL,ALL,early_buying,Units_Sold,47.5,28.0,modeled_as_event_feature,Nov-Dec 2022 demand 48 vs historical 28 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
-"2022-11, 2022-12",HYD-053,ALL,ALL,early_buying,Units_Sold,58.4,30.1,modeled_as_event_feature,Nov-Dec 2022 demand 58 vs historical 30 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
+"2022-11, 2022-12",HYD-053,ALL,ALL,early_buying,Units_Sold,58.4,30.0,modeled_as_event_feature,Nov-Dec 2022 demand 58 vs historical 30 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",HYD-054,ALL,ALL,early_buying,Units_Sold,56.6,44.5,modeled_as_event_feature,Nov-Dec 2022 demand 57 vs historical 45 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",HYD-057,ALL,ALL,early_buying,Units_Sold,63.1,47.4,modeled_as_event_feature,Nov-Dec 2022 demand 63 vs historical 47 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
 "2022-11, 2022-12",HYD-059,ALL,ALL,early_buying,Units_Sold,43.0,31.6,modeled_as_event_feature,Nov-Dec 2022 demand 43 vs historical 32 - pre-announcement procurement before 2023 price adjustment (EV-030),EV-030
@@ -1005,14 +1005,14 @@ Date,SKU_ID,Region,Customer_Name,anomaly_type,field,value,baseline,action,reason
 2020-02,ALL_SKUS,North America,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,22790,,modeled_as_structural_break,COVID-19 market contraction (2020-02): total 22790 units across 340 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-02,ALL_SKUS,Unassigned,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,262,,modeled_as_structural_break,COVID-19 market contraction (2020-02): total 262 units across 6 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-03,ALL_SKUS,Asia Pacific,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,17782,,modeled_as_structural_break,COVID-19 market contraction (2020-03): total 17782 units across 353 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
-2020-03,ALL_SKUS,Europe,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,16584,,modeled_as_structural_break,COVID-19 market contraction (2020-03): total 16584 units across 348 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
+2020-03,ALL_SKUS,Europe,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,16517,,modeled_as_structural_break,COVID-19 market contraction (2020-03): total 16517 units across 346 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-03,ALL_SKUS,India,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,23068,,modeled_as_structural_break,COVID-19 market contraction (2020-03): total 23068 units across 352 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-03,ALL_SKUS,Latin America,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,18490,,modeled_as_structural_break,COVID-19 market contraction (2020-03): total 18490 units across 346 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
-2020-03,ALL_SKUS,North America,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,23921,,modeled_as_structural_break,COVID-19 market contraction (2020-03): total 23921 units across 351 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
+2020-03,ALL_SKUS,North America,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,23844,,modeled_as_structural_break,COVID-19 market contraction (2020-03): total 23844 units across 350 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-03,ALL_SKUS,Unassigned,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,767,,modeled_as_structural_break,COVID-19 market contraction (2020-03): total 767 units across 5 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-04,ALL_SKUS,Asia Pacific,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,21937,,modeled_as_structural_break,COVID-19 market contraction (2020-04): total 21937 units across 368 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-04,ALL_SKUS,Europe,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,7092,,modeled_as_structural_break,COVID-19 market contraction (2020-04): total 7092 units across 346 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
-2020-04,ALL_SKUS,India,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,3582,,modeled_as_structural_break,COVID-19 market contraction (2020-04): total 3582 units across 290 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
+2020-04,ALL_SKUS,India,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,3581,,modeled_as_structural_break,COVID-19 market contraction (2020-04): total 3581 units across 289 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-04,ALL_SKUS,Latin America,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,8812,,modeled_as_structural_break,COVID-19 market contraction (2020-04): total 8812 units across 345 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-04,ALL_SKUS,North America,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,10094,,modeled_as_structural_break,COVID-19 market contraction (2020-04): total 10094 units across 341 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-04,ALL_SKUS,Unassigned,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,56,,modeled_as_structural_break,COVID-19 market contraction (2020-04): total 56 units across 2 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
@@ -1020,12 +1020,12 @@ Date,SKU_ID,Region,Customer_Name,anomaly_type,field,value,baseline,action,reason
 2020-05,ALL_SKUS,Europe,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,10791,,modeled_as_structural_break,COVID-19 market contraction (2020-05): total 10791 units across 358 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-05,ALL_SKUS,India,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,5206,,modeled_as_structural_break,COVID-19 market contraction (2020-05): total 5206 units across 346 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-05,ALL_SKUS,Latin America,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,10024,,modeled_as_structural_break,COVID-19 market contraction (2020-05): total 10024 units across 347 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
-2020-05,ALL_SKUS,North America,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,9567,,modeled_as_structural_break,COVID-19 market contraction (2020-05): total 9567 units across 345 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
+2020-05,ALL_SKUS,North America,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,9521,,modeled_as_structural_break,COVID-19 market contraction (2020-05): total 9521 units across 344 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-05,ALL_SKUS,Unassigned,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,236,,modeled_as_structural_break,COVID-19 market contraction (2020-05): total 236 units across 7 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
-2020-06,ALL_SKUS,Asia Pacific,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,16438,,modeled_as_structural_break,COVID-19 market contraction (2020-06): total 16438 units across 344 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
+2020-06,ALL_SKUS,Asia Pacific,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,16427,,modeled_as_structural_break,COVID-19 market contraction (2020-06): total 16427 units across 344 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-06,ALL_SKUS,Europe,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,14167,,modeled_as_structural_break,COVID-19 market contraction (2020-06): total 14167 units across 341 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-06,ALL_SKUS,India,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,9222,,modeled_as_structural_break,COVID-19 market contraction (2020-06): total 9222 units across 343 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
-2020-06,ALL_SKUS,Latin America,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,10482,,modeled_as_structural_break,COVID-19 market contraction (2020-06): total 10482 units across 325 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
+2020-06,ALL_SKUS,Latin America,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,10426,,modeled_as_structural_break,COVID-19 market contraction (2020-06): total 10426 units across 323 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-06,ALL_SKUS,North America,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,13232,,modeled_as_structural_break,COVID-19 market contraction (2020-06): total 13232 units across 343 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2020-06,ALL_SKUS,Unassigned,ALL_CUSTOMERS,pandemic_supply_shock,Units_Sold,216,,modeled_as_structural_break,COVID-19 market contraction (2020-06): total 216 units across 4 transactions,"EV-009,EV-010,EV-011,EV-012,EV-013"
 2019-01,BSS-053,Latin America,,inventory_stockout,Fill_Rate_Pct,33.5,100,unconstrained_demand_reconstructed,"Stockout recorded: Fill_Rate=33.5%, Lost_Units=18, Reason=Logistics delay",inventory_stockouts

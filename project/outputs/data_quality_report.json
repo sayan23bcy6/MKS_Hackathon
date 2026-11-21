@@ -1,6 +1,6 @@
 {
   "summary": {
-    "total_audit_entries": 106045,
+    "total_audit_entries": 106226,
     "total_anomalies": 1529
   },
   "train_issues": {
@@ -88,8 +88,8 @@
     "T13_revenue": {
       "description": "Revenue_USD recalculated as Units_Sold * Unit_Price_USD",
       "blank_count": 380,
-      "discrepancy_before": 18523,
-      "recomputed": 18523,
+      "discrepancy_before": 18529,
+      "recomputed": 18529,
       "rule": "T13"
     },
     "R5_lifecycle": {
@@ -99,10 +99,11 @@
       "rule": "R5"
     },
     "T4b_date_sku_region": {
-      "description": "Deduplication of duplicate load records vs genuine distinct customer orders",
-      "dsr_dups": 154,
-      "rows_after": 244488,
-      "rule": "T4b/R9"
+      "description": "Deduplication of duplicate load records across differing sales channels",
+      "rows_before": 244488,
+      "channels_differed": 167,
+      "rows_after": 244321,
+      "rule": "T4b"
     }
   },
   "macro_issues": {

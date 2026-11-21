@@ -32736,11 +32736,11 @@ train.csv,CEL-0243403,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not repor
 train.csv,CEL-0087757,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0003787,Units_Sold,"2,002",2002,T11,Comma-formatted number parsed
 train.csv,CEL-0097004,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0096287,Units_Sold,(blank),29.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0096287,Units_Sold,(blank),29,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0181951,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0170910,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0085791,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0127903,Units_Sold,(blank),5.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0127903,Units_Sold,(blank),5,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0231069,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0019774,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0091926,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
@@ -32748,21 +32748,21 @@ train.csv,CEL-0161807,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not repor
 train.csv,CEL-0238933,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0012949,Units_Sold,"2,800",2800,T11,Comma-formatted number parsed
 train.csv,CEL-0013507,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0016418,Units_Sold,(blank),12.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0016418,Units_Sold,(blank),12,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0105135,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0098198,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0225936,Units_Sold,(blank),12.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0225936,Units_Sold,(blank),12,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0040355,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0034539,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0104606,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0171042,Units_Sold,(blank),8.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0171042,Units_Sold,(blank),8,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0098356,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0110941,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0051973,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0008818,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0022697,Units_Sold,"5,700",5700,T11,Comma-formatted number parsed
 train.csv,CEL-0035006,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0232456,Units_Sold,(blank),2.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0232456,Units_Sold,(blank),2,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0125454,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0149485,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0159405,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
@@ -32792,18 +32792,18 @@ train.csv,CEL-0046886,Units_Sold,"10,000",10000,T11,Comma-formatted number parse
 train.csv,CEL-0075210,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0182028,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0085247,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0139653,Units_Sold,(blank),16.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0139653,Units_Sold,(blank),16,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0223380,Units_Sold,"13,800",13800,T11,Comma-formatted number parsed
 train.csv,CEL-0003617,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0029227,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0052210,Units_Sold,"1,120",1120,T11,Comma-formatted number parsed
 train.csv,CEL-0201211,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0144775,Units_Sold,(blank),7.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0144775,Units_Sold,(blank),7,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0222569,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0027209,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0190714,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0101427,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0239905,Units_Sold,(blank),91.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0239905,Units_Sold,(blank),91,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0189511,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0226018,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0167847,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
@@ -32850,7 +32850,7 @@ train.csv,CEL-0157174,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not repor
 train.csv,CEL-0143339,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0004562,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0202685,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0057380,Units_Sold,(blank),62.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0057380,Units_Sold,(blank),62,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0131031,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0232432,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0048617,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
@@ -32858,7 +32858,7 @@ train.csv,CEL-0057379,Units_Sold,"2,250",2250,T11,Comma-formatted number parsed
 train.csv,CEL-0005087,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0039931,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0155316,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0226433,Units_Sold,(blank),65.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0226433,Units_Sold,(blank),65,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0212275,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0116586,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0072310,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
@@ -32866,137 +32866,137 @@ train.csv,CEL-0182871,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not repor
 train.csv,CEL-0189301,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0057897,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0064809,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0242010,Units_Sold,(blank),0.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0242010,Units_Sold,(blank),0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0073976,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0140024,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0139040,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0209749,Units_Sold,"1,360",1360,T11,Comma-formatted number parsed
-train.csv,CEL-0073360,Units_Sold,(blank),11.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0103324,Units_Sold,(blank),23.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0099831,Units_Sold,(blank),28.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0073360,Units_Sold,(blank),11,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0103324,Units_Sold,(blank),23,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0099831,Units_Sold,(blank),28,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0029597,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0095409,Units_Sold,(blank),27.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0089570,Units_Sold,(blank),18.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0095409,Units_Sold,(blank),27,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0089570,Units_Sold,(blank),18,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0168594,Units_Sold,"1,110",1110,T11,Comma-formatted number parsed
 train.csv,CEL-0129102,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0101399,Units_Sold,(blank),0.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0101399,Units_Sold,(blank),0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0042783,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0072678,Units_Sold,(blank),33.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0071056,Units_Sold,(blank),0.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0072678,Units_Sold,(blank),33,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0071056,Units_Sold,(blank),0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0089757,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0099923,Units_Sold,(blank),23.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0098585,Units_Sold,(blank),25.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0099923,Units_Sold,(blank),23,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0098585,Units_Sold,(blank),25,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0214120,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0219080,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0181281,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0084877,Units_Sold,(blank),11.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0084877,Units_Sold,(blank),11,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0040741,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0092549,Units_Sold,(blank),0.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0078632,Units_Sold,(blank),54.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0082048,Units_Sold,(blank),22.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0081860,Units_Sold,(blank),10.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0092549,Units_Sold,(blank),0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0078632,Units_Sold,(blank),54,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0082048,Units_Sold,(blank),22,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0081860,Units_Sold,(blank),10,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0025092,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0097013,Units_Sold,(blank),11.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0075272,Units_Sold,(blank),0.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0079008,Units_Sold,(blank),0.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0097013,Units_Sold,(blank),11,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0075272,Units_Sold,(blank),0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0079008,Units_Sold,(blank),0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0116390,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0084969,Units_Sold,(blank),26.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0083573,Units_Sold,(blank),15.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0084969,Units_Sold,(blank),26,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0083573,Units_Sold,(blank),15,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0128231,Units_Sold,"2,380",2380,T11,Comma-formatted number parsed
-train.csv,CEL-0102604,Units_Sold,(blank),5.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0085649,Units_Sold,(blank),15.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0102604,Units_Sold,(blank),5,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0085649,Units_Sold,(blank),15,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0171539,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0190167,Units_Sold,(blank),19.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0190167,Units_Sold,(blank),19,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0132627,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0096294,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0002434,Units_Sold,"4,700",4700,T11,Comma-formatted number parsed
-train.csv,CEL-0089258,Units_Sold,(blank),16.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0097011,Units_Sold,(blank),9.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0070466,Units_Sold,(blank),17.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0089258,Units_Sold,(blank),16,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0097011,Units_Sold,(blank),9,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0070466,Units_Sold,(blank),17,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0076731,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0218810,Units_Sold,(blank),16.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0095957,Units_Sold,(blank),12.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0218810,Units_Sold,(blank),16,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0095957,Units_Sold,(blank),12,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0156018,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0079779,Units_Sold,(blank),19.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0096364,Units_Sold,(blank),4.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0083816,Units_Sold,(blank),67.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0072579,Units_Sold,(blank),36.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0079779,Units_Sold,(blank),19,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0096364,Units_Sold,(blank),4,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0083816,Units_Sold,(blank),67,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0072579,Units_Sold,(blank),36,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0007656,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0044608,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0097512,Units_Sold,(blank),9.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0097512,Units_Sold,(blank),9,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0136579,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0076506,Units_Sold,(blank),3.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0094965,Units_Sold,(blank),4.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0094625,Units_Sold,(blank),4.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0073496,Units_Sold,(blank),2.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0076506,Units_Sold,(blank),3,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0094965,Units_Sold,(blank),4,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0094625,Units_Sold,(blank),4,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0073496,Units_Sold,(blank),2,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0027335,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0089657,Units_Sold,(blank),0.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0089657,Units_Sold,(blank),0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0069560,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0082043,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0071050,Units_Sold,(blank),0.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0098310,Units_Sold,(blank),0.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0096604,Units_Sold,(blank),1.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0071050,Units_Sold,(blank),0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0098310,Units_Sold,(blank),0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0096604,Units_Sold,(blank),1,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0163984,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0144587,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0038412,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0094212,Units_Sold,(blank),26.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0075454,Units_Sold,(blank),18.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0099821,Units_Sold,(blank),18.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0071670,Units_Sold,(blank),26.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0073775,Units_Sold,(blank),268.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0094212,Units_Sold,(blank),26,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0075454,Units_Sold,(blank),18,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0099821,Units_Sold,(blank),18,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0071670,Units_Sold,(blank),26,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0073775,Units_Sold,(blank),268,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0243817,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0137668,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0243722,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0085056,Units_Sold,(blank),16.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0073962,Units_Sold,(blank),92.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0085056,Units_Sold,(blank),16,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0073962,Units_Sold,(blank),92,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0146697,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0200739,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0083565,Units_Sold,(blank),16.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0073679,Units_Sold,(blank),181.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0083565,Units_Sold,(blank),16,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0073679,Units_Sold,(blank),181,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0123994,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0090544,Units_Sold,(blank),29.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0072668,Units_Sold,(blank),17.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0015169,Units_Sold,(blank),29.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0090544,Units_Sold,(blank),29,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0072668,Units_Sold,(blank),17,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0015169,Units_Sold,(blank),29,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0112229,Units_Sold,"2,500",2500,T11,Comma-formatted number parsed
 train.csv,CEL-0112381,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0187606,Units_Sold,"1,213",1213,T11,Comma-formatted number parsed
 train.csv,CEL-0123899,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0036824,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0089406,Units_Sold,(blank),29.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0076651,Units_Sold,(blank),6.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0085639,Units_Sold,(blank),22.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0089406,Units_Sold,(blank),29,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0076651,Units_Sold,(blank),6,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0085639,Units_Sold,(blank),22,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0143596,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0079091,Units_Sold,(blank),0.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0079091,Units_Sold,(blank),0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0020585,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0082319,Units_Sold,(blank),30.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0082319,Units_Sold,(blank),30,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0243719,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0035145,Units_Sold,"1,540",1540,T11,Comma-formatted number parsed
 train.csv,CEL-0215352,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0140818,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0176164,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0083656,Units_Sold,(blank),0.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0083656,Units_Sold,(blank),0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0169871,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0095394,Units_Sold,(blank),8.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0095394,Units_Sold,(blank),8,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0100965,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0102159,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0109305,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0089650,Units_Sold,(blank),42.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0080682,Units_Sold,(blank),14.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0089650,Units_Sold,(blank),42,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0080682,Units_Sold,(blank),14,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0041279,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0236786,Units_Sold,(blank),74.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0236786,Units_Sold,(blank),74,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0065072,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0075013,Units_Sold,(blank),75.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0101314,Units_Sold,(blank),31.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0083807,Units_Sold,(blank),0.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0075013,Units_Sold,(blank),75,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0101314,Units_Sold,(blank),31,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0083807,Units_Sold,(blank),0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0215971,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0087448,Units_Sold,(blank),0.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
-train.csv,CEL-0099250,Units_Sold,(blank),57.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0087448,Units_Sold,(blank),0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0099250,Units_Sold,(blank),57,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0230141,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0080754,Units_Sold,(blank),14.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0080754,Units_Sold,(blank),14,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0030483,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0041559,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0036197,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0073257,Units_Sold,(blank),13.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0073257,Units_Sold,(blank),13,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0201600,Units_Sold,"1,190",1190,T11,Comma-formatted number parsed
 train.csv,CEL-0193046,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0004532,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
@@ -33037,13 +33037,13 @@ train.csv,CEL-0032208,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not repor
 train.csv,CEL-0091854,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0131462,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0200439,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0035036,Units_Sold,(blank),17.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0035036,Units_Sold,(blank),17,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0105066,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0085189,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0041264,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0201833,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0224189,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
-train.csv,CEL-0038014,Units_Sold,(blank),29.0,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
+train.csv,CEL-0038014,Units_Sold,(blank),29,T11,Blank Units_Sold filled from inventory_stockouts Shipped_Units
 train.csv,CEL-0001786,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
 train.csv,CEL-0001692,Units_Sold,"15,100",15100,T11,Comma-formatted number parsed
 train.csv,CEL-0173435,Units_Sold,-,NULL,T11,"Dash '-' treated as NULL (not reported, R3)"
@@ -33558,60 +33558,68 @@ train.csv,CEL-0235054,Units_Sold,-84.0,84.0,T11,Negative Units_Sold sign-entry e
 train.csv,CEL-0161439,Units_Sold,-79.0,79.0,T11,Negative Units_Sold sign-entry error; absolute value applied
 train.csv,CEL-0047001,Units_Sold,-59.0,59.0,T11,Negative Units_Sold sign-entry error; absolute value applied
 train.csv,CEL-0068562,Units_Sold,-35.0,35.0,T11,Negative Units_Sold sign-entry error; absolute value applied
-train.csv,CEL-0092846,Units_Sold,5400.0,54.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0104405,Units_Sold,30.0,3.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0179087,Units_Sold,500.0,5.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0082521,Units_Sold,40.0,78.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0071868,Units_Sold,50.0,75.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0089418,Units_Sold,18.0,26.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0071672,Units_Sold,34.0,15.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0098672,Units_Sold,2.0,22.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0092120,Units_Sold,2.0,20.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0083380,Units_Sold,1.0,7.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0086642,Units_Sold,2.0,17.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0095056,Units_Sold,3.0,30.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0072858,Units_Sold,7.0,67.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0076781,Units_Sold,2.0,15.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0086641,Units_Sold,1.0,7.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0083379,Units_Sold,2.0,15.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0095055,Units_Sold,2.0,23.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0098388,Units_Sold,1.0,10.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0098670,Units_Sold,1.0,8.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0076780,Units_Sold,1.0,12.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0083378,Units_Sold,1.0,9.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0090017,Units_Sold,15.0,11.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0184722,Units_Sold,1.0,10.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0079094,Units_Sold,11.0,108.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0086640,Units_Sold,1.0,14.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0092118,Units_Sold,4.0,40.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0095054,Units_Sold,1.0,12.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0083377,Units_Sold,1.0,14.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0098387,Units_Sold,1.0,13.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0086639,Units_Sold,1.0,14.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0098669,Units_Sold,2.0,16.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0090262,Units_Sold,2.0,17.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0076779,Units_Sold,1.0,13.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0085829,Units_Sold,900.0,9.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0092117,Units_Sold,3.0,32.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0076778,Units_Sold,2.0,21.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0072855,Units_Sold,4.0,35.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0098668,Units_Sold,2.0,19.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0098386,Units_Sold,1.0,11.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0086638,Units_Sold,1.0,10.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0079092,Units_Sold,9.0,86.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0114797,Units_Sold,2.0,22.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0090261,Units_Sold,1.0,12.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0086637,Units_Sold,2.0,17.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0146600,Units_Sold,1.0,9.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0090260,Units_Sold,2.0,17.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0095052,Units_Sold,2.0,17.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0076777,Units_Sold,2.0,18.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0098667,Units_Sold,3.0,34.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0201604,Units_Sold,280.0,28.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0092115,Units_Sold,4.0,35.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0083375,Units_Sold,2.0,17.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0095948,Units_Sold,900.0,9.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
-train.csv,CEL-0086447,Units_Sold,58.0,24.0,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0092846,Units_Sold,5400.0,54,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0104405,Units_Sold,30.0,3,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0179087,Units_Sold,500.0,5,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0071680,Units_Sold,75.0,45,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.6000 of total 75)
+train.csv,CEL-0082521,Units_Sold,40.0,26,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.3390 of total 78)
+train.csv,CEL-0071868,Units_Sold,50.0,30,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.4000 of total 75)
+train.csv,CEL-0082333,Units_Sold,78.0,52,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.6610 of total 78)
+train.csv,CEL-0089262,Units_Sold,26.0,16,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.5909 of total 26)
+train.csv,CEL-0089418,Units_Sold,18.0,10,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.4091 of total 26)
+train.csv,CEL-0071672,Units_Sold,34.0,11,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.6939 of total 15)
+train.csv,CEL-0071860,Units_Sold,15.0,4,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.3061 of total 15)
+train.csv,CEL-0098672,Units_Sold,2.0,22,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0092120,Units_Sold,2.0,20,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0083380,Units_Sold,1.0,7,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0086642,Units_Sold,2.0,17,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0095056,Units_Sold,3.0,30,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0072858,Units_Sold,7.0,67,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0076781,Units_Sold,2.0,15,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0086641,Units_Sold,1.0,7,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0083379,Units_Sold,2.0,15,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0095055,Units_Sold,2.0,23,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0098388,Units_Sold,1.0,10,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0098670,Units_Sold,1.0,8,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0076780,Units_Sold,1.0,12,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0083378,Units_Sold,1.0,9,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0090451,Units_Sold,11.0,4,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.4231 of total 11)
+train.csv,CEL-0090017,Units_Sold,15.0,7,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.5769 of total 11)
+train.csv,CEL-0184722,Units_Sold,1.0,10,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0079094,Units_Sold,11.0,108,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0086640,Units_Sold,1.0,14,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0092118,Units_Sold,4.0,40,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0095054,Units_Sold,1.0,12,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0083377,Units_Sold,1.0,14,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0098387,Units_Sold,1.0,13,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0086639,Units_Sold,1.0,14,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0098669,Units_Sold,2.0,16,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0090262,Units_Sold,2.0,17,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0076779,Units_Sold,1.0,13,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0085829,Units_Sold,900.0,9,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0092117,Units_Sold,3.0,32,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0076778,Units_Sold,2.0,21,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0072855,Units_Sold,4.0,35,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0098668,Units_Sold,2.0,19,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0098386,Units_Sold,1.0,11,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0086638,Units_Sold,1.0,10,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0079092,Units_Sold,9.0,86,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0114797,Units_Sold,2.0,22,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0090261,Units_Sold,1.0,12,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0086637,Units_Sold,2.0,17,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0146600,Units_Sold,1.0,9,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0090260,Units_Sold,2.0,17,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0095052,Units_Sold,2.0,17,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0076777,Units_Sold,2.0,18,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0098667,Units_Sold,3.0,34,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0201604,Units_Sold,280.0,28,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0092115,Units_Sold,4.0,35,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0083375,Units_Sold,2.0,17,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0095948,Units_Sold,900.0,9,T11,Units_Sold aligned with inventory_stockouts Shipped_Units
+train.csv,CEL-0086635,Units_Sold,24.0,7,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.2927 of total 24)
+train.csv,CEL-0086447,Units_Sold,58.0,17,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.7073 of total 24)
+train.csv,CEL-0173628,Units_Sold,23.0,12,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.5000 of total 23)
+train.csv,CEL-0173910,Units_Sold,23.0,11,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.5000 of total 23)
 train.csv,CEL-0217935,Unit_Price_USD,0.0,796.91,T12,Zero or missing price replaced with SKU-year reference price
 train.csv,CEL-0022139,Unit_Price_USD,0.0,275.13,T12,Zero or missing price replaced with SKU-year reference price
 train.csv,CEL-0214453,Unit_Price_USD,0.0,1027.24,T12,Zero or missing price replaced with SKU-year reference price
@@ -92489,7 +92497,7 @@ train.csv,CEL-0166919,Revenue_USD,107874.24,104821.18,T13,Revenue_USD recomputed
 train.csv,CEL-0182621,Revenue_USD,36873.0,34786.08,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0034349,Revenue_USD,185875.2,17535.28,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0146086,Revenue_USD,46428.0,43800.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0071680,Revenue_USD,49026.0,46251.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0071680,Revenue_USD,49026.0,27750.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0013937,Revenue_USD,35714.37,34703.43,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0045299,Revenue_USD,8134.72,7904.48,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0052088,Revenue_USD,3103.56,3015.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -92861,7 +92869,7 @@ train.csv,CEL-0164463,Revenue_USD,37566.0,36502.8,T13,Revenue_USD recomputed as 
 train.csv,CEL-0063868,Revenue_USD,42809.25,41597.62,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0150770,Revenue_USD,72989.15,70923.45,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0232704,Revenue_USD,17668.56,17168.55,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0082521,Revenue_USD,31734.0,61881.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0082521,Revenue_USD,31734.0,20627.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0072774,Revenue_USD,54971.64,53415.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0191215,Revenue_USD,29202.15,27549.15,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0188675,Revenue_USD,136982.56,129229.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -93299,7 +93307,7 @@ train.csv,CEL-0090650,Revenue_USD,45750.5,43161.0,T13,Revenue_USD recomputed as 
 train.csv,CEL-0034067,Revenue_USD,55478.5,52338.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0058176,Revenue_USD,20019.78,19453.17,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0155402,Revenue_USD,33606.96,32655.81,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0071868,Revenue_USD,32684.0,46251.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0071868,Revenue_USD,32684.0,18500.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0196178,Revenue_USD,45850.96,44553.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0227612,Revenue_USD,64361.44,62539.88,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0094498,Revenue_USD,20368.48,19792.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -93319,6 +93327,7 @@ train.csv,CEL-0238815,Revenue_USD,10811.7,10505.7,T13,Revenue_USD recomputed as 
 train.csv,CEL-0172505,Revenue_USD,27759.2,26187.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0235532,Revenue_USD,55051.62,51935.52,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0203354,Revenue_USD,28895.36,28077.53,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0082333,Revenue_USD,61881.3,41254.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0154722,Revenue_USD,55761.2,54182.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0057522,Revenue_USD,12090.62,11748.38,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0035687,Revenue_USD,9700.34,9425.78,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -94343,7 +94352,7 @@ train.csv,CEL-0094631,Revenue_USD,5092.12,4948.0,T13,Revenue_USD recomputed as U
 train.csv,CEL-0001100,Revenue_USD,23450.14,22786.39,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0224559,Revenue_USD,22379.76,21746.34,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0230685,Revenue_USD,55216.85,53654.25,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0089262,Revenue_USD,30552.86,29688.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0089262,Revenue_USD,30552.86,18269.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0151485,Revenue_USD,56173.12,52993.28,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0161670,Revenue_USD,31481.52,30590.56,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0042632,Revenue_USD,12439.55,12087.49,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -94529,7 +94538,7 @@ train.csv,CEL-0223937,Revenue_USD,26134.92,25395.3,T13,Revenue_USD recomputed as
 train.csv,CEL-0191836,Revenue_USD,35318.08,33319.04,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0150769,Revenue_USD,55022.59,53465.37,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0063525,Revenue_USD,19977.65,19412.22,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0089418,Revenue_USD,21151.98,29688.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0089418,Revenue_USD,21151.98,11418.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0033538,Revenue_USD,27399.52,25848.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0229347,Revenue_USD,48292.4,45558.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0070623,Revenue_USD,212318.35,200299.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -103825,7 +103834,7 @@ train.csv,CEL-0218980,Revenue_USD,26491.52,28080.99,T13,Revenue_USD recomputed a
 train.csv,CEL-0152582,Revenue_USD,23662.08,24371.88,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0081040,Revenue_USD,72340.32,74510.48,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0183141,Revenue_USD,15656.42,16595.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0071672,Revenue_USD,20967.12,9250.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0071672,Revenue_USD,20967.12,6783.48,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0017857,Revenue_USD,16082.0,18069.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0012298,Revenue_USD,60943.31,64600.61,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0128509,Revenue_USD,20240.21,20847.34,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -104919,6 +104928,7 @@ train.csv,CEL-0229962,Revenue_USD,29085.86,33661.1,T13,Revenue_USD recomputed as
 train.csv,CEL-0088137,Revenue_USD,15123.81,16031.21,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0012508,Revenue_USD,16228.8,17202.62,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0208027,Revenue_USD,24608.31,26085.08,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0071860,Revenue_USD,9250.2,2466.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0242857,Revenue_USD,49274.4,52231.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0021343,Revenue_USD,2857.5,2943.22,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0000131,Revenue_USD,23964.91,26926.75,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105186,10 +105196,11 @@ train.csv,CEL-0050856,Revenue_USD,32250.4,3225.04,T13,Revenue_USD recomputed as 
 train.csv,CEL-0114367,Revenue_USD,23409.0,2340.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0202663,Revenue_USD,16853.85,168538.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0081037,Revenue_USD,53049.3,5304.93,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0090451,Revenue_USD,8911.76,3240.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0120921,Revenue_USD,23164.2,2316.42,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0054471,Revenue_USD,52645.2,5264.52,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0123279,Revenue_USD,17637.2,1763.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0090017,Revenue_USD,12152.4,8911.76,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0090017,Revenue_USD,12152.4,5671.12,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0062161,Revenue_USD,0.0,19361.97,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0025224,Revenue_USD,85221.0,8522.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0235615,Revenue_USD,12709.6,1270.96,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105507,12 +105518,13 @@ train.csv,CEL-0062250,Revenue_USD,1283626.9,128362.69,T13,Revenue_USD recomputed
 train.csv,CEL-0041901,Revenue_USD,143931.1,134931.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0105174,Revenue_USD,0.0,37811.76,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0059198,Revenue_USD,47110.62,41710.62,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0086635,Revenue_USD,24805.92,7235.06,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0128125,Revenue_USD,-35868.96,35868.96,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0172431,Revenue_USD,66778.76,67678.76,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0135420,Revenue_USD,61164.65,611646.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0218210,Revenue_USD,-43831.53,43831.53,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0172771,Revenue_USD,66788.25,667882.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0086447,Revenue_USD,59947.64,24805.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0086447,Revenue_USD,59947.64,17570.86,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0113000,Revenue_USD,-53909.64,53909.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0064978,Revenue_USD,-29907.33,29907.33,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0168391,Revenue_USD,18628.92,186289.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105690,9 +105702,11 @@ train.csv,CEL-0218047,Revenue_USD,-27474.72,27474.72,T13,Revenue_USD recomputed 
 train.csv,CEL-0232771,Revenue_USD,0.0,102776.76,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0187158,Revenue_USD,-28029.37,28029.37,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0155281,Revenue_USD,231808.0,23180.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0173628,Revenue_USD,11812.11,6162.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0136747,Revenue_USD,5468.4,546840.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0173440,Revenue_USD,-13808.09,13808.09,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0104823,Revenue_USD,164321.6,16432.16,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0173910,Revenue_USD,11812.11,5649.27,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0018684,Revenue_USD,92790.6,29790.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0041796,Revenue_USD,-22980.12,22980.12,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0033360,Revenue_USD,-16786.16,16786.16,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105967,80 +105981,247 @@ train.csv,CEL-0008058,Units_Sold,7.0,R5_VIOLATION,R5,Sale before Launch_Date=202
 train.csv,CEL-0008016,Units_Sold,14.0,R5_VIOLATION,R5,Sale before Launch_Date=2025-06 for SKU BSS-018
 train.csv,CEL-0008037,Units_Sold,10.0,R5_VIOLATION,R5,Sale before Launch_Date=2025-06 for SKU BSS-018
 train.csv,CEL-0007995,Units_Sold,16.0,R5_VIOLATION,R5,Sale before Launch_Date=2025-06 for SKU BSS-018
-train.csv,CEL-0016185,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0165668,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0216383,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0073071,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0216388,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0134841,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0082304,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0172571,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0173910,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0221424,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0228396,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0165834,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0093456,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0172579,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0174387,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0221055,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0000217,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0079183,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0228407,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0233311,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0230143,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0151566,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0230674,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0019661,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0175169,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0045099,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0065230,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0230300,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0172589,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0071860,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0124901,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0212416,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0172596,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0089418,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0165859,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0185167,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0159653,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0082333,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0071868,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0105907,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0086089,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0221454,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0116492,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0216242,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0188683,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0040813,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0219878,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0176502,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0096756,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0096888,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0160106,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0239144,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0070646,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0133389,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0183079,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0105555,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0195618,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0124863,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0240249,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0219454,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0187406,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0074346,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0165894,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0195559,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0018089,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0085783,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0004306,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0167766,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0244488,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0042053,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0151869,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0167770,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0079585,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0216280,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0073151,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0074982,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
-train.csv,CEL-0104276,Date-SKU-Region-Customer-Channel,duplicate load,DROPPED,T4b,Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp
+train.csv,CEL-0075852,Date-SKU-Region-Customer,channel=Export,kept_CEL-0076134,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0075852, kept CEL-0076134 (channels differed: True)"
+train.csv,CEL-0025834,Date-SKU-Region-Customer,channel=Export,kept_CEL-0025708,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0025834, kept CEL-0025708 (channels differed: True)"
+train.csv,CEL-0104276,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0103994,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0104276, kept CEL-0103994 (channels differed: False)"
+train.csv,CEL-0074982,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0074700,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0074982, kept CEL-0074700 (channels differed: False)"
+train.csv,CEL-0236071,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0235919,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0236071, kept CEL-0235919 (channels differed: True)"
+train.csv,CEL-0169228,Date-SKU-Region-Customer,channel=Export,kept_CEL-0169076,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0169228, kept CEL-0169076 (channels differed: True)"
+train.csv,CEL-0079585,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0079245,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0079585, kept CEL-0079245 (channels differed: False)"
+train.csv,CEL-0155354,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0155448,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0155354, kept CEL-0155448 (channels differed: True)"
+train.csv,CEL-0073151,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0073321,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0073151, kept CEL-0073321 (channels differed: False)"
+train.csv,CEL-0216280,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0216468,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0216280, kept CEL-0216468 (channels differed: False)"
+train.csv,CEL-0107970,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0107688,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0107970, kept CEL-0107688 (channels differed: True)"
+train.csv,CEL-0188814,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0189096,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0188814, kept CEL-0189096 (channels differed: True)"
+train.csv,CEL-0141543,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0141449,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0141543, kept CEL-0141449 (channels differed: True)"
+train.csv,CEL-0114855,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0114949,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0114855, kept CEL-0114949 (channels differed: True)"
+train.csv,CEL-0040079,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0040303,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0040079, kept CEL-0040303 (channels differed: True)"
+train.csv,CEL-0124578,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0124296,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0124578, kept CEL-0124296 (channels differed: True)"
+train.csv,CEL-0105327,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0105045,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0105327, kept CEL-0105045 (channels differed: True)"
+train.csv,CEL-0167770,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0168110,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0167770, kept CEL-0168110 (channels differed: False)"
+train.csv,CEL-0151869,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0151623,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0151869, kept CEL-0151623 (channels differed: False)"
+train.csv,CEL-0225470,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0225376,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0225470, kept CEL-0225376 (channels differed: True)"
+train.csv,CEL-0062999,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0063069,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0062999, kept CEL-0063069 (channels differed: True)"
+train.csv,CEL-0042053,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0042147,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0042053, kept CEL-0042147 (channels differed: False)"
+train.csv,CEL-0084732,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0084826,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0084732, kept CEL-0084826 (channels differed: True)"
+train.csv,CEL-0158259,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0158165,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0158259, kept CEL-0158165 (channels differed: True)"
+train.csv,CEL-0244488,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0244300,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0244488, kept CEL-0244300 (channels differed: False)"
+train.csv,CEL-0234949,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0234855,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0234949, kept CEL-0234855 (channels differed: True)"
+train.csv,CEL-0167766,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0168106,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0167766, kept CEL-0168106 (channels differed: False)"
+train.csv,CEL-0004929,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0004835,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0004929, kept CEL-0004835 (channels differed: True)"
+train.csv,CEL-0016851,Date-SKU-Region-Customer,channel=Export,kept_CEL-0016945,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0016851, kept CEL-0016945 (channels differed: True)"
+train.csv,CEL-0114942,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0114848,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0114942, kept CEL-0114848 (channels differed: True)"
+train.csv,CEL-0225371,Date-SKU-Region-Customer,channel=Export,kept_CEL-0225465,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0225371, kept CEL-0225465 (channels differed: True)"
+train.csv,CEL-0008131,Date-SKU-Region-Customer,channel=Export,kept_CEL-0008196,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0008131, kept CEL-0008196 (channels differed: True)"
+train.csv,CEL-0108207,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0108489,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0108207, kept CEL-0108489 (channels differed: True)"
+train.csv,CEL-0004306,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0004682,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0004306, kept CEL-0004682 (channels differed: False)"
+train.csv,CEL-0060929,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0060835,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0060929, kept CEL-0060835 (channels differed: True)"
+train.csv,CEL-0192401,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0192213,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0192401, kept CEL-0192213 (channels differed: True)"
+train.csv,CEL-0018089,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0017901,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0018089, kept CEL-0017901 (channels differed: False)"
+train.csv,CEL-0085783,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0086123,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0085783, kept CEL-0086123 (channels differed: False)"
+train.csv,CEL-0029538,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0029726,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0029538, kept CEL-0029726 (channels differed: True)"
+train.csv,CEL-0178526,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0178338,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0178526, kept CEL-0178338 (channels differed: True)"
+train.csv,CEL-0140948,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0140994,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0140948, kept CEL-0140994 (channels differed: True)"
+train.csv,CEL-0165894,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0165742,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0165894, kept CEL-0165742 (channels differed: False)"
+train.csv,CEL-0195559,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0195627,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0195559, kept CEL-0195627 (channels differed: False)"
+train.csv,CEL-0166890,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0167082,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0166890, kept CEL-0167082 (channels differed: True)"
+train.csv,CEL-0057404,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0057650,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0057404, kept CEL-0057650 (channels differed: True)"
+train.csv,CEL-0092832,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0092738,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0092832, kept CEL-0092738 (channels differed: True)"
+train.csv,CEL-0086685,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0086497,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0086685, kept CEL-0086497 (channels differed: True)"
+train.csv,CEL-0112087,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0111899,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0112087, kept CEL-0111899 (channels differed: True)"
+train.csv,CEL-0116955,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0116803,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0116955, kept CEL-0116803 (channels differed: True)"
+train.csv,CEL-0074346,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0074158,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0074346, kept CEL-0074158 (channels differed: False)"
+train.csv,CEL-0187406,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0187218,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0187406, kept CEL-0187218 (channels differed: False)"
+train.csv,CEL-0219454,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0219020,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0219454, kept CEL-0219020 (channels differed: False)"
+train.csv,CEL-0141436,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0141530,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0141436, kept CEL-0141530 (channels differed: True)"
+train.csv,CEL-0155997,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0155903,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0155997, kept CEL-0155903 (channels differed: True)"
+train.csv,CEL-0240249,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0240003,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0240249, kept CEL-0240003 (channels differed: False)"
+train.csv,CEL-0218924,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0218846,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0218924, kept CEL-0218846 (channels differed: True)"
+train.csv,CEL-0124863,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0124937,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0124863, kept CEL-0124937 (channels differed: False)"
+train.csv,CEL-0166074,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0166168,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0166074, kept CEL-0166168 (channels differed: True)"
+train.csv,CEL-0041510,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0041604,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0041510, kept CEL-0041604 (channels differed: True)"
+train.csv,CEL-0056281,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0056093,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0056281, kept CEL-0056093 (channels differed: True)"
+train.csv,CEL-0053793,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0053547,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0053793, kept CEL-0053547 (channels differed: True)"
+train.csv,CEL-0195618,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0195550,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0195618, kept CEL-0195550 (channels differed: False)"
+train.csv,CEL-0172039,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0171945,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0172039, kept CEL-0171945 (channels differed: True)"
+train.csv,CEL-0236050,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0235898,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0236050, kept CEL-0235898 (channels differed: True)"
+train.csv,CEL-0002371,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0002465,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0002371, kept CEL-0002465 (channels differed: True)"
+train.csv,CEL-0126081,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0126301,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0126081, kept CEL-0126301 (channels differed: True)"
+train.csv,CEL-0194767,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0194861,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0194767, kept CEL-0194861 (channels differed: True)"
+train.csv,CEL-0105555,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0105931,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0105555, kept CEL-0105931 (channels differed: False)"
+train.csv,CEL-0183079,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0183173,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0183079, kept CEL-0183173 (channels differed: False)"
+train.csv,CEL-0133389,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0133426,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0133389, kept CEL-0133426 (channels differed: False)"
+train.csv,CEL-0021186,Date-SKU-Region-Customer,channel=Export,kept_CEL-0021374,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0021186, kept CEL-0021374 (channels differed: True)"
+train.csv,CEL-0110586,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0110304,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0110586, kept CEL-0110304 (channels differed: True)"
+train.csv,CEL-0234932,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0234838,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0234932, kept CEL-0234838 (channels differed: True)"
+train.csv,CEL-0070646,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0070928,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0070646, kept CEL-0070928 (channels differed: False)"
+train.csv,CEL-0060913,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0060819,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0060913, kept CEL-0060819 (channels differed: True)"
+train.csv,CEL-0239144,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0238778,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0239144, kept CEL-0238778 (channels differed: False)"
+train.csv,CEL-0158618,Date-SKU-Region-Customer,channel=Export,kept_CEL-0158304,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0158618, kept CEL-0158304 (channels differed: True)"
+train.csv,CEL-0011951,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0011705,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0011951, kept CEL-0011705 (channels differed: True)"
+train.csv,CEL-0203317,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0203223,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0203317, kept CEL-0203223 (channels differed: True)"
+train.csv,CEL-0217571,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0217471,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0217571, kept CEL-0217471 (channels differed: True)"
+train.csv,CEL-0191857,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0191763,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0191857, kept CEL-0191763 (channels differed: True)"
+train.csv,CEL-0219734,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0219515,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0219734, kept CEL-0219515 (channels differed: True)"
+train.csv,CEL-0136606,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0136794,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0136606, kept CEL-0136794 (channels differed: True)"
+train.csv,CEL-0225447,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0225353,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0225447, kept CEL-0225353 (channels differed: True)"
+train.csv,CEL-0090481,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0090047,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0090481, kept CEL-0090047 (channels differed: True)"
+train.csv,CEL-0160106,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0160388,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0160106, kept CEL-0160388 (channels differed: False)"
+train.csv,CEL-0096756,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0096976,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0096756, kept CEL-0096976 (channels differed: False)"
+train.csv,CEL-0096888,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0096844,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0096888, kept CEL-0096844 (channels differed: False)"
+train.csv,CEL-0130271,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0130025,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0130271, kept CEL-0130025 (channels differed: True)"
+train.csv,CEL-0110298,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0110580,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0110298, kept CEL-0110580 (channels differed: True)"
+train.csv,CEL-0171935,Date-SKU-Region-Customer,channel=Export,kept_CEL-0172029,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0171935, kept CEL-0172029 (channels differed: True)"
+train.csv,CEL-0218909,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0218831,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0218909, kept CEL-0218831 (channels differed: True)"
+train.csv,CEL-0075818,Date-SKU-Region-Customer,channel=Export,kept_CEL-0076100,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0075818, kept CEL-0076100 (channels differed: True)"
+train.csv,CEL-0005714,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0005620,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0005714, kept CEL-0005620 (channels differed: True)"
+train.csv,CEL-0000774,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0000586,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0000774, kept CEL-0000586 (channels differed: True)"
+train.csv,CEL-0004810,Date-SKU-Region-Customer,channel=Export,kept_CEL-0004904,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0004810, kept CEL-0004904 (channels differed: True)"
+train.csv,CEL-0203121,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0203027,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0203121, kept CEL-0203027 (channels differed: True)"
+train.csv,CEL-0176502,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0176461,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0176502, kept CEL-0176461 (channels differed: False)"
+train.csv,CEL-0125824,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0125918,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0125824, kept CEL-0125918 (channels differed: True)"
+train.csv,CEL-0219878,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0220030,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0219878, kept CEL-0220030 (channels differed: False)"
+train.csv,CEL-0160626,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0160720,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0160626, kept CEL-0160720 (channels differed: True)"
+train.csv,CEL-0127248,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0126966,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0127248, kept CEL-0126966 (channels differed: True)"
+train.csv,CEL-0124545,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0124263,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0124545, kept CEL-0124263 (channels differed: True)"
+train.csv,CEL-0040813,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0040754,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0040813, kept CEL-0040754 (channels differed: False)"
+train.csv,CEL-0081627,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0081768,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0081627, kept CEL-0081768 (channels differed: True)"
+train.csv,CEL-0197222,Date-SKU-Region-Customer,channel=Export,kept_CEL-0197128,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0197222, kept CEL-0197128 (channels differed: True)"
+train.csv,CEL-0190544,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0190450,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0190544, kept CEL-0190450 (channels differed: True)"
+train.csv,CEL-0144417,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0144323,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0144417, kept CEL-0144323 (channels differed: True)"
+train.csv,CEL-0188683,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0188965,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0188683, kept CEL-0188965 (channels differed: False)"
+train.csv,CEL-0216242,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0216430,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0216242, kept CEL-0216430 (channels differed: False)"
+train.csv,CEL-0070104,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0070292,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0070104, kept CEL-0070292 (channels differed: True)"
+train.csv,CEL-0110290,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0110572,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0110290, kept CEL-0110572 (channels differed: True)"
+train.csv,CEL-0056261,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0056073,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0056261, kept CEL-0056073 (channels differed: True)"
+train.csv,CEL-0031716,Date-SKU-Region-Customer,channel=Export,kept_CEL-0031528,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0031716, kept CEL-0031528 (channels differed: True)"
+train.csv,CEL-0099837,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0099555,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0099837, kept CEL-0099555 (channels differed: True)"
+train.csv,CEL-0223944,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0224038,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0223944, kept CEL-0224038 (channels differed: True)"
+train.csv,CEL-0142805,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0142993,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0142805, kept CEL-0142993 (channels differed: True)"
+train.csv,CEL-0025790,Date-SKU-Region-Customer,channel=Export,kept_CEL-0025664,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0025790, kept CEL-0025664 (channels differed: True)"
+train.csv,CEL-0116492,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0116680,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0116492, kept CEL-0116680 (channels differed: False)"
+train.csv,CEL-0137929,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0137835,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0137929, kept CEL-0137835 (channels differed: True)"
+train.csv,CEL-0221454,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0221360,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0221454, kept CEL-0221360 (channels differed: False)"
+train.csv,CEL-0126279,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0126059,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0126279, kept CEL-0126059 (channels differed: True)"
+train.csv,CEL-0011687,Date-SKU-Region-Customer,channel=Export,kept_CEL-0011933,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0011687, kept CEL-0011933 (channels differed: True)"
+train.csv,CEL-0160711,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0160617,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0160711, kept CEL-0160617 (channels differed: True)"
+train.csv,CEL-0086089,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0085749,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0086089, kept CEL-0085749 (channels differed: False)"
+train.csv,CEL-0105907,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0105531,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0105907, kept CEL-0105531 (channels differed: False)"
+train.csv,CEL-0207145,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0207340,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0207145, kept CEL-0207340 (channels differed: True)"
+train.csv,CEL-0051561,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0051749,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0051561, kept CEL-0051749 (channels differed: True)"
+train.csv,CEL-0185167,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0185355,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0185167, kept CEL-0185355 (channels differed: False)"
+train.csv,CEL-0071868,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0071680,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0071868, kept CEL-0071680 (channels differed: False)"
+train.csv,CEL-0159653,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0159841,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0159653, kept CEL-0159841 (channels differed: False)"
+train.csv,CEL-0165859,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0165707,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0165859, kept CEL-0165707 (channels differed: False)"
+train.csv,CEL-0082333,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0082521,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0082333, kept CEL-0082521 (channels differed: False)"
+train.csv,CEL-0109601,Date-SKU-Region-Customer,channel=Export,kept_CEL-0109225,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0109601, kept CEL-0109225 (channels differed: True)"
+train.csv,CEL-0152155,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0151880,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0152155, kept CEL-0151880 (channels differed: True)"
+train.csv,CEL-0089418,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0089262,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0089418, kept CEL-0089262 (channels differed: False)"
+train.csv,CEL-0189296,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0189202,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0189296, kept CEL-0189202 (channels differed: True)"
+train.csv,CEL-0236648,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0236800,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0236648, kept CEL-0236800 (channels differed: True)"
+train.csv,CEL-0122326,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0122174,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0122326, kept CEL-0122174 (channels differed: True)"
+train.csv,CEL-0224312,Date-SKU-Region-Customer,channel=Export,kept_CEL-0224406,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0224312, kept CEL-0224406 (channels differed: True)"
+train.csv,CEL-0218814,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0218892,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0218814, kept CEL-0218892 (channels differed: True)"
+train.csv,CEL-0172596,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0172784,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0172596, kept CEL-0172784 (channels differed: False)"
+train.csv,CEL-0224405,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0224311,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0224405, kept CEL-0224311 (channels differed: True)"
+train.csv,CEL-0217442,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0217346,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0217442, kept CEL-0217346 (channels differed: True)"
+train.csv,CEL-0169647,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0169553,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0169647, kept CEL-0169553 (channels differed: True)"
+train.csv,CEL-0041479,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0041573,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0041479, kept CEL-0041573 (channels differed: True)"
+train.csv,CEL-0172009,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0171915,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0172009, kept CEL-0171915 (channels differed: True)"
+train.csv,CEL-0212416,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0212792,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0212416, kept CEL-0212792 (channels differed: False)"
+train.csv,CEL-0104995,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0105277,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0104995, kept CEL-0105277 (channels differed: True)"
+train.csv,CEL-0194735,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0194829,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0194735, kept CEL-0194829 (channels differed: True)"
+train.csv,CEL-0124901,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0124827,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0124901, kept CEL-0124827 (channels differed: False)"
+train.csv,CEL-0167040,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0166848,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0167040, kept CEL-0166848 (channels differed: True)"
+train.csv,CEL-0009059,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0008931,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0009059, kept CEL-0008931 (channels differed: True)"
+train.csv,CEL-0071860,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0071672,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0071860, kept CEL-0071672 (channels differed: False)"
+train.csv,CEL-0126453,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0126793,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0126453, kept CEL-0126793 (channels differed: True)"
+train.csv,CEL-0019381,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0019135,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0019381, kept CEL-0019135 (channels differed: True)"
+train.csv,CEL-0065230,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0065324,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0065230, kept CEL-0065324 (channels differed: False)"
+train.csv,CEL-0230300,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0230148,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0230300, kept CEL-0230148 (channels differed: False)"
+train.csv,CEL-0172589,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0172777,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0172589, kept CEL-0172777 (channels differed: False)"
+train.csv,CEL-0234805,Date-SKU-Region-Customer,channel=Export,kept_CEL-0234899,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0234805, kept CEL-0234899 (channels differed: True)"
+train.csv,CEL-0045382,Date-SKU-Region-Customer,channel=Export,kept_CEL-0045722,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0045382, kept CEL-0045722 (channels differed: True)"
+train.csv,CEL-0090017,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0090451,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0090017, kept CEL-0090451 (channels differed: True)"
+train.csv,CEL-0230674,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0230768,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0230674, kept CEL-0230768 (channels differed: False)"
+train.csv,CEL-0019661,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0019473,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0019661, kept CEL-0019473 (channels differed: False)"
+train.csv,CEL-0175169,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0175075,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0175169, kept CEL-0175075 (channels differed: False)"
+train.csv,CEL-0045099,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0045005,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0045099, kept CEL-0045005 (channels differed: False)"
+train.csv,CEL-0225415,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0225321,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0225415, kept CEL-0225321 (channels differed: True)"
+train.csv,CEL-0189284,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0189190,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0189284, kept CEL-0189190 (channels differed: True)"
+train.csv,CEL-0151566,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0151812,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0151566, kept CEL-0151812 (channels differed: False)"
+train.csv,CEL-0155388,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0155294,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0155388, kept CEL-0155294 (channels differed: True)"
+train.csv,CEL-0144394,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0144300,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0144394, kept CEL-0144300 (channels differed: True)"
+train.csv,CEL-0230143,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0230295,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0230143, kept CEL-0230295 (channels differed: False)"
+train.csv,CEL-0216841,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0216935,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0216841, kept CEL-0216935 (channels differed: True)"
+train.csv,CEL-0233311,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0233499,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0233311, kept CEL-0233499 (channels differed: False)"
+train.csv,CEL-0228407,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0228125,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0228407, kept CEL-0228125 (channels differed: False)"
+train.csv,CEL-0019129,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0019375,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0019129, kept CEL-0019375 (channels differed: True)"
+train.csv,CEL-0000217,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0000311,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0000217, kept CEL-0000311 (channels differed: False)"
+train.csv,CEL-0185867,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0185679,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0185867, kept CEL-0185679 (channels differed: True)"
+train.csv,CEL-0079183,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0079523,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0079183, kept CEL-0079523 (channels differed: False)"
+train.csv,CEL-0086447,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0086635,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0086447, kept CEL-0086635 (channels differed: True)"
+train.csv,CEL-0013111,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0013038,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0013111, kept CEL-0013038 (channels differed: True)"
+train.csv,CEL-0234799,Date-SKU-Region-Customer,channel=Export,kept_CEL-0234893,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0234799, kept CEL-0234893 (channels differed: True)"
+train.csv,CEL-0104985,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0105267,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0104985, kept CEL-0105267 (channels differed: True)"
+train.csv,CEL-0121689,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0121595,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0121689, kept CEL-0121595 (channels differed: True)"
+train.csv,CEL-0059349,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0059443,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0059349, kept CEL-0059443 (channels differed: True)"
+train.csv,CEL-0155949,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0155855,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0155949, kept CEL-0155855 (channels differed: True)"
+train.csv,CEL-0051731,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0051543,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0051731, kept CEL-0051543 (channels differed: True)"
+train.csv,CEL-0114793,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0114887,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0114793, kept CEL-0114887 (channels differed: True)"
+train.csv,CEL-0121196,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0121102,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0121196, kept CEL-0121102 (channels differed: True)"
+train.csv,CEL-0000402,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0000026,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0000402, kept CEL-0000026 (channels differed: True)"
+train.csv,CEL-0221055,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0220903,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0221055, kept CEL-0220903 (channels differed: False)"
+train.csv,CEL-0118953,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0119047,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0118953, kept CEL-0119047 (channels differed: True)"
+train.csv,CEL-0153446,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0153540,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0153446, kept CEL-0153540 (channels differed: True)"
+train.csv,CEL-0172579,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0172767,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0172579, kept CEL-0172767 (channels differed: False)"
+train.csv,CEL-0174387,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0174011,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0174387, kept CEL-0174011 (channels differed: False)"
+train.csv,CEL-0012828,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0012755,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0012828, kept CEL-0012755 (channels differed: True)"
+train.csv,CEL-0093456,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0093738,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0093456, kept CEL-0093738 (channels differed: False)"
+train.csv,CEL-0086628,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0086440,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0086628, kept CEL-0086440 (channels differed: True)"
+train.csv,CEL-0019989,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0020141,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0019989, kept CEL-0020141 (channels differed: True)"
+train.csv,CEL-0165834,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0165682,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0165834, kept CEL-0165682 (channels differed: False)"
+train.csv,CEL-0002413,Date-SKU-Region-Customer,channel=Export,kept_CEL-0002319,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0002413, kept CEL-0002319 (channels differed: True)"
+train.csv,CEL-0231094,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0231000,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0231094, kept CEL-0231000 (channels differed: True)"
+train.csv,CEL-0228396,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0228114,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0228396, kept CEL-0228114 (channels differed: False)"
+train.csv,CEL-0221424,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0221330,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0221424, kept CEL-0221330 (channels differed: False)"
+train.csv,CEL-0000019,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0000395,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0000019, kept CEL-0000395 (channels differed: True)"
+train.csv,CEL-0106313,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0106407,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0106313, kept CEL-0106407 (channels differed: True)"
+train.csv,CEL-0173910,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0173628,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0173910, kept CEL-0173628 (channels differed: False)"
+train.csv,CEL-0029664,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0029476,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0029664, kept CEL-0029476 (channels differed: True)"
+train.csv,CEL-0025289,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0025453,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0025289, kept CEL-0025453 (channels differed: True)"
+train.csv,CEL-0172571,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0172759,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0172571, kept CEL-0172759 (channels differed: False)"
+train.csv,CEL-0208722,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0209004,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0208722, kept CEL-0209004 (channels differed: True)"
+train.csv,CEL-0082304,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0082492,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0082304, kept CEL-0082492 (channels differed: False)"
+train.csv,CEL-0015915,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0015821,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0015915, kept CEL-0015821 (channels differed: True)"
+train.csv,CEL-0072650,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0072556,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0072650, kept CEL-0072556 (channels differed: True)"
+train.csv,CEL-0215336,Date-SKU-Region-Customer,channel=Export,kept_CEL-0215148,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0215336, kept CEL-0215148 (channels differed: True)"
+train.csv,CEL-0134841,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0134595,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0134841, kept CEL-0134595 (channels differed: False)"
+train.csv,CEL-0223905,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0223999,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0223905, kept CEL-0223999 (channels differed: True)"
+train.csv,CEL-0216388,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0216200,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0216388, kept CEL-0216200 (channels differed: False)"
+train.csv,CEL-0073071,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0073241,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0073071, kept CEL-0073241 (channels differed: False)"
+train.csv,CEL-0108136,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0108418,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0108136, kept CEL-0108418 (channels differed: True)"
+train.csv,CEL-0058047,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0057859,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0058047, kept CEL-0057859 (channels differed: True)"
+train.csv,CEL-0060669,Date-SKU-Region-Customer,channel=Export,kept_CEL-0060517,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0060669, kept CEL-0060517 (channels differed: True)"
+train.csv,CEL-0077920,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0078202,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0077920, kept CEL-0078202 (channels differed: True)"
+train.csv,CEL-0030805,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0030465,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0030805, kept CEL-0030465 (channels differed: True)"
+train.csv,CEL-0023739,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0023493,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0023739, kept CEL-0023493 (channels differed: True)"
+train.csv,CEL-0126919,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0127201,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0126919, kept CEL-0127201 (channels differed: True)"
+train.csv,CEL-0223902,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0223996,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0223902, kept CEL-0223996 (channels differed: True)"
+train.csv,CEL-0084749,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0084655,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0084749, kept CEL-0084655 (channels differed: True)"
+train.csv,CEL-0127916,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0127822,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0127916, kept CEL-0127822 (channels differed: True)"
+train.csv,CEL-0160578,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0160672,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0160578, kept CEL-0160672 (channels differed: True)"
+train.csv,CEL-0136736,Date-SKU-Region-Customer,channel=Export,kept_CEL-0136548,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0136736, kept CEL-0136548 (channels differed: True)"
+train.csv,CEL-0011892,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0011646,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0011892, kept CEL-0011646 (channels differed: True)"
+train.csv,CEL-0165668,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0165820,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0165668, kept CEL-0165820 (channels differed: False)"
+train.csv,CEL-0185844,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0185656,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0185844, kept CEL-0185656 (channels differed: True)"
+train.csv,CEL-0216383,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0216195,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0216383, kept CEL-0216195 (channels differed: False)"
+train.csv,CEL-0092664,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0092758,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0092664, kept CEL-0092758 (channels differed: True)"
+train.csv,CEL-0191702,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0191796,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0191702, kept CEL-0191796 (channels differed: True)"
+train.csv,CEL-0016185,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0016091,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0016185, kept CEL-0016091 (channels differed: False)"
+train.csv,CEL-0105241,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0104959,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0105241, kept CEL-0104959 (channels differed: True)"
+train.csv,CEL-0075138,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0075232,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0075138, kept CEL-0075232 (channels differed: True)"
+train.csv,CEL-0022958,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0022806,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0022958, kept CEL-0022806 (channels differed: True)"
+train.csv,CEL-0058038,Date-SKU-Region-Customer,channel=Direct OEM,kept_CEL-0057850,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0058038, kept CEL-0057850 (channels differed: True)"
+train.csv,CEL-0144270,Date-SKU-Region-Customer,channel=Aftermarket,kept_CEL-0144364,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0144270, kept CEL-0144364 (channels differed: True)"
+train.csv,CEL-0107070,Date-SKU-Region-Customer,channel=Tier-1 Distributor,kept_CEL-0107446,T4b,"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - dropped CEL-0107070, kept CEL-0107446 (channels differed: True)"

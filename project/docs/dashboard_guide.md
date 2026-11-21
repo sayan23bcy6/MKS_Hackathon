@@ -16,6 +16,14 @@ streamlit run project/app/dashboard.py
 
 The application will be accessible at `http://localhost:8501`.
 
+## Deployment to Streamlit Community Cloud (Steps to Follow)
+
+To deploy the dashboard to Streamlit Community Cloud:
+1. Connect your GitHub repository (`sayan23bcy6/MKS_Hackathon`).
+2. Set the main file path to `project/app/dashboard.py`.
+3. Set the requirements file path to `project/requirements.txt`.
+4. Deploy application and update the public link in `project/README.md`.
+
 ---
 
 ## Global Filter Behavior

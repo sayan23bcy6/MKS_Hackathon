@@ -19,6 +19,7 @@ from pipeline.config import (
     UNITS_LARGE_THRESHOLD,
 )
 from pipeline.audit import audit
+from pipeline.unconstrained import allocate_stockout_metric
 
 DQ = {}  # data-quality counts, populated as we clean
 
@@ -493,17 +494,12 @@ def apply_t10_customer(df: pd.DataFrame) -> pd.DataFrame:
 # --- T11: Units_Sold cleaning ---
 
 def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFrame:
-    """T11: Clean Units_Sold: blanks, dashes, commas, negatives, stockout reconciliation."""
+    """T11 & A2: Clean Units_Sold: blanks, dashes, commas, negatives, and proportional stockout allocation."""
     df = df.copy()
     us = df['Units_Sold'].copy()
 
-    # Build stockout lookup: (date, sku, region) -> shipped_units
-    so_lookup = dict(
-        zip(
-            zip(stockouts['Date'], stockouts['SKU_ID'], stockouts['Region']),
-            stockouts['Shipped_Units'].astype(float)
-        )
-    )
+    # Pre-allocate stockouts for blank filling
+    so_alloc = allocate_stockout_metric(df, stockouts, 'Shipped_Units', target_demand_col='Units_Sold')
 
     blank_count = 0
     dash_count = 0
@@ -516,19 +512,21 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
     new_us = []
     for idx, raw in zip(df.index, us):
         rid = df.at[idx, 'Record_ID']
-        date_v = df.at[idx, 'Date']
-        sku_v = df.at[idx, 'SKU_ID']
-        reg_v = df.at[idx, 'Region']
 
         # Blank
         if pd.isna(raw) or str(raw).strip() == '':
             blank_count += 1
-            so_val = so_lookup.get((date_v, sku_v, reg_v))
-            if so_val is not None:
+            so_val = so_alloc.at[idx, 'allocated_Shipped_Units']
+            if pd.notna(so_val):
+                n_cust = so_alloc.at[idx, 'n_cust_matched']
+                share = so_alloc.at[idx, 'share_Shipped_Units']
+                tot = so_alloc.at[idx, 'total_Shipped_Units']
+                rule_id = "A2" if n_cust > 1 else "T11"
+                reason = (f"Blank Units_Sold filled from allocated Shipped_Units (share={share:.4f} of {int(tot)})"
+                          if n_cust > 1 else "Blank Units_Sold filled from inventory_stockouts Shipped_Units")
                 audit.log("train.csv", rid, "Units_Sold",
-                          "(blank)", so_val, "T11",
-                          "Blank Units_Sold filled from inventory_stockouts Shipped_Units")
-                new_us.append(so_val)
+                          "(blank)", int(so_val), rule_id, reason)
+                new_us.append(float(so_val))
                 null_from_so += 1
             else:
                 new_us.append(np.nan)
@@ -596,23 +594,30 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
     if drop_indices:
         df = df.drop(index=drop_indices)
 
-    # Where train and stockout share a key, Units_Sold must equal Shipped_Units
+    # Where train and stockout share a key, Units_Sold must equal Shipped_Units (proportional allocation if multiple customers)
     matched_so = 0
-    for idx in df.index:
-        date_v = df.at[idx, 'Date']
-        sku_v = df.at[idx, 'SKU_ID']
-        reg_v = df.at[idx, 'Region']
-        key = (date_v, sku_v, reg_v)
-        if key in so_lookup:
-            matched_so += 1
-            so_shipped = so_lookup[key]
-            current_us = df.at[idx, 'Units_Sold']
-            if pd.notna(current_us) and current_us != so_shipped:
-                audit.log("train.csv", df.at[idx, 'Record_ID'], "Units_Sold",
-                          current_us, so_shipped, "T11",
-                          "Units_Sold aligned with inventory_stockouts Shipped_Units")
-                df.at[idx, 'Units_Sold'] = so_shipped
-                stockout_mismatches_fixed += 1
+    df['_us_temp'] = df['Units_Sold']
+    so_alloc_aligned = allocate_stockout_metric(df, stockouts, 'Shipped_Units', target_demand_col='_us_temp')
+    has_so_match = so_alloc_aligned['allocated_Shipped_Units'].notna()
+
+    for idx in df.index[has_so_match]:
+        matched_so += 1
+        so_shipped = so_alloc_aligned.at[idx, 'allocated_Shipped_Units']
+        current_us = df.at[idx, 'Units_Sold']
+        n_cust = so_alloc_aligned.at[idx, 'n_cust_matched']
+        share = so_alloc_aligned.at[idx, 'share_Shipped_Units']
+        tot = so_alloc_aligned.at[idx, 'total_Shipped_Units']
+
+        if pd.notna(current_us) and current_us != so_shipped:
+            rule_id = "A2" if n_cust > 1 else "T11"
+            reason = (f"Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share={share:.4f} of total {int(tot)})"
+                      if n_cust > 1 else "Units_Sold aligned with inventory_stockouts Shipped_Units")
+            audit.log("train.csv", df.at[idx, 'Record_ID'], "Units_Sold",
+                      current_us, int(so_shipped), rule_id, reason)
+            df.at[idx, 'Units_Sold'] = so_shipped
+            stockout_mismatches_fixed += 1
+
+    df = df.drop(columns=['_us_temp'], errors='ignore')
 
     df['Units_Sold'] = pd.array(df['Units_Sold'], dtype='Float64')
 
@@ -813,28 +818,44 @@ def apply_r5_lifecycle(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFra
 
 def apply_t4b_dsr_dedup(df: pd.DataFrame) -> pd.DataFrame:
     """
-    T4/R9: One clean row per Date-SKU-Region (per customer where several customers share SKU-region).
-    If Customer_Name and Sales_Channel match: treat as duplicate and keep latest Load_Timestamp.
-    If Customer differs: both are real and kept.
+    T4b/R9: One clean row per Date-SKU-Region-Customer.
+    Sales_Channel is dropped from the deduplication key.
+    Keep the row with the latest Load_Timestamp (R2).
+    Log every dropped row with rule ID T4b, the dropped Record_ID, the kept Record_ID,
+    and whether the channels differed.
     """
     df = df.copy()
     before = len(df)
     df['_load_ts'] = pd.to_datetime(df['Load_Timestamp'], format='%Y-%m-%d %H:%M:%S', errors='coerce')
-    dup_mask = df.duplicated(['Date', 'SKU_ID', 'Region', 'Customer_Name', 'Sales_Channel'], keep=False)
+    key_cols = ['Date', 'SKU_ID', 'Region', 'Customer_Name']
+
+    # Sort descending by load timestamp, then Record_ID descending for determinism
+    df = df.sort_values(['_load_ts', 'Record_ID'], ascending=[False, False])
+    dup_mask = df.duplicated(key_cols, keep=False)
+
     if dup_mask.any():
         dup_df = df[dup_mask]
-        DQ['T4b_dsr_dups'] = int(dup_mask.sum())
-        df = df.sort_values('_load_ts', ascending=False).drop_duplicates(
-            ['Date', 'SKU_ID', 'Region', 'Customer_Name', 'Sales_Channel'], keep='first'
-        )
-        for idx in dup_df.index.difference(df.index):
-            rid = dup_df.at[idx, 'Record_ID']
-            audit.log("train.csv", rid, "Date-SKU-Region-Customer-Channel",
-                      "duplicate load", "DROPPED", "T4b",
-                      "Duplicate load for Date-SKU-Region-Customer-Channel (T4/R9) - kept latest Load_Timestamp")
+        DQ['T4b_dsr_dups'] = int(df.duplicated(key_cols, keep='first').sum())
+
+        for _, grp in dup_df.groupby(key_cols, sort=False):
+            kept_row = grp.iloc[0]
+            kept_rid = kept_row['Record_ID']
+            kept_chan = kept_row.get('Sales_Channel', '')
+            for i in range(1, len(grp)):
+                dropped_row = grp.iloc[i]
+                dropped_rid = dropped_row['Record_ID']
+                dropped_chan = dropped_row.get('Sales_Channel', '')
+                channels_differed = (dropped_chan != kept_chan)
+                reason = (f"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - "
+                          f"dropped {dropped_rid}, kept {kept_rid} (channels differed: {channels_differed})")
+                audit.log("train.csv", dropped_rid, "Date-SKU-Region-Customer",
+                          f"channel={dropped_chan}", f"kept_{kept_rid}", "T4b", reason)
+
+        df = df.drop_duplicates(key_cols, keep='first')
     else:
         DQ['T4b_dsr_dups'] = 0
-    df = df.drop(columns=['_load_ts'])
+
+    df = df.drop(columns=['_load_ts']).sort_index()
     DQ['T4b_after'] = len(df)
     return df
 
@@ -868,6 +889,12 @@ def clean_train(raw: pd.DataFrame, sku_master: pd.DataFrame,
     df = apply_t15_zero_demand_flag(df)
     df = apply_r5_lifecycle(df, sku_master)
     df = apply_t4b_dsr_dedup(df)
+
+    # Guard: ensure zero duplicate Date, SKU_ID, Region, Customer_Name rows (Priority 1c)
+    dups = df[df.duplicated(['Date', 'SKU_ID', 'Region', 'Customer_Name'], keep=False)]
+    if not dups.empty:
+        first_five = dups[['Date', 'SKU_ID', 'Region', 'Customer_Name']].drop_duplicates().head(5).to_dict(orient='records')
+        raise RuntimeError(f"clean_train: duplicate Date, SKU_ID, Region, Customer_Name keys found: {first_five}")
 
     DQ['clean_rows'] = len(df)
     return df, DQ

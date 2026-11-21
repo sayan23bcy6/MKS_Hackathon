@@ -19,6 +19,7 @@ from pipeline.config import (
     OUT_AUDIT_LOG, OUT_FEATURES, OUT_BACKTEST,
     OUT_FORECAST_SUB, OUT_FORECAST_INT, OUT_HIERARCHY_RECON,
     OUT_SCENARIO, OUT_EV_SHIFT, OUT_MACRO_LAG,
+    OUT_WHATIF_SCENARIOS, OUT_EVENT_ESTIMATES,
 )
 from pipeline.load import (
     load_train, load_test, load_macro,
@@ -39,9 +40,8 @@ from pipeline.structural_breaks import (
 )
 from pipeline.anomalies import build_anomaly_register
 from pipeline.reports import generate_dq_report
-from pipeline.models.baselines import naive_seasonal_forecast, moving_average_forecast
 from pipeline.models.lightgbm_model import train_all_quantiles, get_feature_names
-from pipeline.backtest import run_all_backtests
+from pipeline.backtest import run_honest_backtest, OUT_BACKTEST_PREDS
 from pipeline.forecast import (
     generate_recursive_forecast, compute_hierarchy_reconciliation,
     generate_whatif_scenario, write_model_card
@@ -122,21 +122,11 @@ def main():
     # Train on validation split then refit on full history (Fix F1)
     models = train_all_quantiles(train_split, val_split, full_df=features_df)
 
-    # Backtesting
-    print("  Running multi-origin rolling backtests (2023-10, 2024-10, 2025-03)...")
-    def _lgbm_backtest_fn(tr_df, te_df):
-        from pipeline.models.lightgbm_model import predict_lgbm
-        preds = predict_lgbm(models['p50'], te_df)
-        res = te_df[['Date', 'SKU_ID', 'Region', 'Customer_Name']].copy()
-        res['Units_Sold_Forecast'] = np.clip(preds, 0, None)
-        return res
-
-    backtest_metrics = run_all_backtests(
-        features_df,
-        naive_seasonal_forecast,
-        moving_average_forecast,
-        _lgbm_backtest_fn,
-        origins=['2023-10', '2024-10', '2025-03']
+    # Step 8: Honest backtesting across multi-year rolling origins
+    print("  Running honest multi-origin rolling backtests (2023-10, 2024-10, 2025-03)...")
+    backtest_metrics, backtest_preds = run_honest_backtest(
+        df_clean, clean_mac, clean_ev, clean_sku,
+        origins=['2023-10', '2024-10', '2025-03'], horizon=19
     )
 
     # Step 9: Recursive forecasting and hierarchy reconciliation
@@ -148,12 +138,16 @@ def main():
     recon_results = compute_hierarchy_reconciliation(submission, df_clean, clean_sku)
     print(f"  Hierarchy reconciliation: total forecast = {recon_results['total_forecast_units']} units, status = {'PASS' if recon_results['reconciled'] else 'FAIL'}")
 
-    # What-if scenario simulation
-    print("  Generating macroeconomic what-if scenario (-3.0 PMI shift)...")
-    scenario_df = generate_whatif_scenario(submission, raw_test, clean_mac, clean_sku, pmi_delta=-3.0)
+    # What-if scenario simulation (model rerun with shifted PMI)
+    print("  Generating macroeconomic what-if scenarios (-6.0 to +6.0 PMI shift)...")
+    scenario_df = generate_whatif_scenario(
+        submission, raw_test, clean_mac, clean_sku, models, features_df, pmi_delta=-3.0
+    )
 
     # Step 10: Generate documentation, model card, and data quality reports
     print("\n[10/10] Generating model card and data quality reports...")
+    n_audit = audit.save()
+    audit_df = pd.read_csv(OUT_AUDIT_LOG)
     write_model_card(models, get_feature_names(features_df), backtest_metrics=backtest_metrics)
     dq_report = generate_dq_report(dq_train, dq_mac, dq_sku, dq_ev, audit_df, anomaly_df)
 
@@ -167,8 +161,9 @@ def main():
     print("\nGenerated output files:")
     for out_path in [
         OUT_TRAIN_CLEAN, OUT_MACRO_CLEAN, OUT_EVENTS_CLEAN,
-        OUT_AUDIT_LOG, OUT_BACKTEST, OUT_FORECAST_SUB,
-        OUT_FORECAST_INT, OUT_HIERARCHY_RECON, OUT_SCENARIO,
+        OUT_AUDIT_LOG, OUT_BACKTEST, OUT_BACKTEST_PREDS,
+        OUT_FORECAST_SUB, OUT_FORECAST_INT, OUT_HIERARCHY_RECON,
+        OUT_SCENARIO, OUT_WHATIF_SCENARIOS, OUT_EVENT_ESTIMATES,
         OUT_EV_SHIFT, OUT_MACRO_LAG
     ]:
         p = pathlib.Path(str(out_path))

@@ -95,6 +95,12 @@ def load_scenario():
     return pd.read_csv(path) if path.exists() else pd.DataFrame()
 
 
+@st.cache_data
+def load_all_scenarios():
+    path = OUTPUTS_DIR / "whatif_scenarios.csv"
+    return pd.read_csv(path) if path.exists() else pd.DataFrame()
+
+
 # Shared Filters
 def sidebar_filters(df_train: pd.DataFrame, df_forecast: pd.DataFrame) -> dict:
     st.sidebar.header("Global Filters")
@@ -122,10 +128,17 @@ def sidebar_filters(df_train: pd.DataFrame, df_forecast: pd.DataFrame) -> dict:
     ))
 
     sel_families = st.sidebar.multiselect("Product Family", all_families, default=all_families, key='family')
-    sel_skus = st.sidebar.multiselect("SKU ID", options=all_skus, default=[], key='sku', help="Select specific SKUs or leave empty for all")
     sel_regions = st.sidebar.multiselect("Region", all_regions, default=all_regions, key='region')
+
+    # Filter available SKUs and customers by selected families and regions
+    df_filtered_meta = df_train[df_train['Product_Family'].isin(sel_families or all_families) &
+                                df_train['Region'].isin(sel_regions or all_regions)]
+    filtered_skus = sorted(df_filtered_meta['SKU_ID'].dropna().unique()) if not df_filtered_meta.empty else all_skus
+    filtered_customers = sorted(df_filtered_meta['Customer_Name'].dropna().unique()) if not df_filtered_meta.empty else all_customers
+
+    sel_skus = st.sidebar.multiselect("SKU ID", options=filtered_skus, default=filtered_skus, key='sku', help="Select specific SKUs")
     sel_channels = st.sidebar.multiselect("Sales Channel", all_channels, default=all_channels, key='channel')
-    sel_customers = st.sidebar.multiselect("Customer Name", options=all_customers, default=[], key='customer', help="Select specific customers or leave empty for all")
+    sel_customers = st.sidebar.multiselect("Customer Name", options=filtered_customers, default=filtered_customers, key='customer', help="Select specific customers")
 
     return {
         'families': sel_families or all_families,
@@ -223,7 +236,8 @@ def view_executive_overview(df_train, df_forecast, df_intervals, filters):
         st.metric("Trailing 12-Month Volume", f"{int(last12):,}")
     with col4:
         pct_growth = ((fc_pts['Units'].sum() / (last12 * (19 / 12))) - 1) * 100 if last12 > 0 else 0
-        st.metric("Annualized Run-Rate Shift", f"{pct_growth:+.1f}%")
+        st.metric("19-Month Forecast vs Trailing Run-Rate", f"{pct_growth:+.1f}%")
+        st.caption("Ratio of 19m forecast to annualized 12m trailing volume: FC / (T12 * 19/12) - 1")
 
 
 # 2. Data Health and Audit
@@ -395,20 +409,34 @@ def view_stockouts(stockouts_df, unconstrained_df, filters):
 # 8. What-If Macro Scenario (Opt 3)
 def view_scenario(scenario_df, df_forecast):
     st.header("Opt 3: Macroeconomic What-If Scenario Generator")
-    st.caption("Source: outputs/whatif_scenario_forecast.csv")
-    st.caption("Interactive sensitivity analysis: simulate macroeconomic shocks and observe family-level demand shifts")
+    st.caption("Source: outputs/whatif_scenarios.csv & outputs/whatif_scenario_forecast.csv")
+    st.caption("Interactive sensitivity analysis: simulate macroeconomic shocks and observe family-level demand shifts from model reruns")
 
-    pmi_shift = st.slider("ISM Manufacturing PMI Shock (Points)", min_value=-6.0, max_value=6.0, value=-3.0, step=0.5)
+    all_scen = load_all_scenarios()
+    pmi_options = [-6.0, -4.5, -3.0, -1.5, 0.0, 1.5, 3.0, 4.5, 6.0]
+    pmi_shift = st.select_slider("ISM Manufacturing PMI Shock (Points)", options=pmi_options, value=-3.0)
 
-    if scenario_df.empty:
+    if not all_scen.empty:
+        match_scen = all_scen[np.isclose(all_scen['Scenario_PMI_Delta'], pmi_shift)]
+        if not match_scen.empty:
+            scen_monthly = match_scen.groupby('Date').agg(
+                Base=('Units_Sold_Forecast', 'sum'),
+                Shifted=('Scenario_Units_Sold_Forecast', 'sum')
+            ).reset_index().sort_values('Date')
+        else:
+            scen_monthly = pd.DataFrame()
+    elif not scenario_df.empty:
+        scen_monthly = scenario_df.groupby('Date').agg(
+            Base=('Units_Sold_Forecast', 'sum'),
+            Shifted=('Scenario_Units_Sold_Forecast', 'sum')
+        ).reset_index().sort_values('Date')
+    else:
         st.warning("Scenario forecast data not found.")
         return
 
-    scen = scenario_df.copy()
-    scen_monthly = scen.groupby('Date').agg(
-        Base=('Units_Sold_Forecast', 'sum'),
-        Shifted=('Scenario_Units_Sold_Forecast', 'sum')
-    ).reset_index()
+    if scen_monthly.empty:
+        st.warning("No data found for selected scenario delta.")
+        return
 
     fig_scen = go.Figure()
     fig_scen.add_trace(go.Scatter(x=scen_monthly['Date'], y=scen_monthly['Base'], mode='lines', name='Baseline Forecast', line=dict(color='#1f77b4', width=2)))
@@ -417,7 +445,7 @@ def view_scenario(scenario_df, df_forecast):
     st.plotly_chart(fig_scen, use_container_width=True)
 
     delta_units = scen_monthly['Shifted'].sum() - scen_monthly['Base'].sum()
-    pct_impact = (delta_units / scen_monthly['Base'].sum()) * 100
+    pct_impact = (delta_units / max(scen_monthly['Base'].sum(), 1)) * 100
     st.metric("Net Projected Impact on 19-Month Volume", f"{int(delta_units):+,} units ({pct_impact:+.2f}%)")
 
 

@@ -614,32 +614,138 @@ class TestSchemaValidation:
         assert abs(last_row['lag_12m_yoy'] - ((160 - 105) / 105.001)) < 0.05
 
     def test_features_no_duplicate_key_rows(self):
-        """Group A: features table must have zero duplicate rows on the full business key
-        (SKU_ID, Region, Customer_Name, Sales_Channel, Date).
-        Two rows with the same 4-key but different Sales_Channel are legitimate distinct orders
-        per rule T4b and are expected to be present.
+        """Priority 1: features table must have zero duplicate rows on
+        Date, SKU_ID, Region, Customer_Name (Fixes V1).
         """
         import os
+        import pytest
         feat_path = os.path.join(os.path.dirname(__file__), '..', 'outputs', 'features.parquet')
         if not os.path.exists(feat_path):
-            import pytest
             pytest.skip("features.parquet not generated yet")
         feat_df = pd.read_parquet(feat_path)
-        key_cols = ['SKU_ID', 'Region', 'Customer_Name', 'Sales_Channel', 'Date']
-        present = [c for c in key_cols if c in feat_df.columns]
-        dup_count = feat_df.duplicated(present).sum()
-        assert dup_count == 0, f"features table has {dup_count} duplicate rows on {present}"
+        key_cols = ['Date', 'SKU_ID', 'Region', 'Customer_Name']
+        dup_count = feat_df.duplicated(key_cols).sum()
+        assert dup_count == 0, f"features table has {dup_count} duplicate rows on {key_cols}"
+
+    def test_t4b_one_row_per_customer_key(self):
+        """Priority 1: A fixture with two channels for one customer-SKU-region-month
+        yields exactly one row and logs the drop with rule ID T4b (Rule R2).
+        """
+        from pipeline.clean_train import apply_t4b_dsr_dedup
+        from pipeline.audit import audit
+        fixture = pd.DataFrame([
+            {
+                'Record_ID': 'REC-001', 'Date': '2024-05', 'SKU_ID': 'HYD-001',
+                'Region': 'North America', 'Customer_Name': 'Orion Driveline',
+                'Sales_Channel': 'Direct OEM', 'Load_Timestamp': '2024-05-01 10:00:00',
+                'Units_Sold': 50
+            },
+            {
+                'Record_ID': 'REC-002', 'Date': '2024-05', 'SKU_ID': 'HYD-001',
+                'Region': 'North America', 'Customer_Name': 'Orion Driveline',
+                'Sales_Channel': 'Tier-1 Distributor', 'Load_Timestamp': '2024-05-02 12:00:00',
+                'Units_Sold': 60
+            }
+        ])
+        audit_len_before = len(audit)
+        cleaned = apply_t4b_dsr_dedup(fixture)
+        assert len(cleaned) == 1
+        assert cleaned.iloc[0]['Record_ID'] == 'REC-002'
+        # Check drop was logged
+        audit_records = audit.as_dataframe()
+        t4b_drops = audit_records[audit_records['rule_id'] == 'T4b']
+        assert len(t4b_drops) > 0
+        assert 'REC-001' in t4b_drops['row_key'].values
+
+    def test_stockout_allocation_two_customers_sums_to_total(self):
+        """Priority 2: Two-customer key splits proportionally and sums to stockout total."""
+        from pipeline.unconstrained import allocate_stockout_metric
+        train_fixture = pd.DataFrame([
+            {'Date': '2024-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe', 'Units_Sold': 60},
+            {'Date': '2024-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe', 'Units_Sold': 40},
+        ])
+        so_fixture = pd.DataFrame([
+            {'Date': '2024-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe', 'Requested_Units': 100}
+        ])
+        res = allocate_stockout_metric(train_fixture, so_fixture, 'Requested_Units')
+        assert len(res) == 2
+        assert res['allocated_Requested_Units'].sum() == 100
+        assert res.iloc[0]['allocated_Requested_Units'] == 60
+        assert res.iloc[1]['allocated_Requested_Units'] == 40
+
+    def test_stockout_allocation_single_customer_unchanged(self):
+        """Priority 2: Single customer key gets 100% of stockout value."""
+        from pipeline.unconstrained import allocate_stockout_metric
+        train_fixture = pd.DataFrame([
+            {'Date': '2024-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe', 'Units_Sold': 50}
+        ])
+        so_fixture = pd.DataFrame([
+            {'Date': '2024-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe', 'Requested_Units': 75}
+        ])
+        res = allocate_stockout_metric(train_fixture, so_fixture, 'Requested_Units')
+        assert len(res) == 1
+        assert res.iloc[0]['allocated_Requested_Units'] == 75
+        assert res.iloc[0]['share_Requested_Units'] == 1.0
+
+    def test_stockout_allocation_all_zero_splits_equally(self):
+        """Priority 2: All-zero demand splits equally, remainder to largest/first customer."""
+        from pipeline.unconstrained import allocate_stockout_metric
+        train_fixture = pd.DataFrame([
+            {'Date': '2024-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe', 'Units_Sold': 0},
+            {'Date': '2024-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe', 'Units_Sold': 0},
+        ])
+        so_fixture = pd.DataFrame([
+            {'Date': '2024-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe', 'Requested_Units': 7}
+        ])
+        res = allocate_stockout_metric(train_fixture, so_fixture, 'Requested_Units')
+        assert len(res) == 2
+        assert res['allocated_Requested_Units'].sum() == 7
+        # 7 / 2 = 3.5 -> floor is 3, remainder 1 goes to first
+        assert set(res['allocated_Requested_Units'].values) == {3.0, 4.0}
 
     def test_backtest_predictions_exists(self):
-        """Group F: backtest_predictions.csv must exist after a full pipeline run."""
+        """Priority 3: backtest_predictions.csv exists with required columns."""
         import os
         import pytest
         pred_path = os.path.join(os.path.dirname(__file__), '..', 'outputs', 'backtest_predictions.csv')
         if not os.path.exists(pred_path):
-            pytest.skip("backtest_predictions.csv not generated yet; run the pipeline first")
+            pytest.skip("backtest_predictions.csv not generated yet")
         df = pd.read_csv(pred_path)
         assert len(df) > 0, "backtest_predictions.csv is empty"
-        assert 'actual' in df.columns
-        assert 'p50' in df.columns
-        assert 'origin' in df.columns
+        expected = {'origin', 'model', 'Date', 'SKU_ID', 'Region', 'Customer_Name', 'actual', 'p10', 'p50', 'p90'}
+        assert expected.issubset(set(df.columns)), f"Missing columns: {expected - set(df.columns)}"
+
+    def test_event_rules_no_helios_mobility(self):
+        """Priority 4a: 'Helios Mobility' must not appear anywhere in code; canonical is Helios Auto Parts."""
+        import os
+        pipeline_dir = os.path.join(os.path.dirname(__file__), '..', 'pipeline')
+        for fname in os.listdir(pipeline_dir):
+            if fname.endswith('.py'):
+                fpath = os.path.join(pipeline_dir, fname)
+                with open(fpath, encoding='utf-8') as f:
+                    content = f.read()
+                    assert 'Helios Mobility' not in content, f"Found 'Helios Mobility' in {fname}"
+
+    def test_new_launch_history_inheritance_rule(self):
+        """Priority 4b: New launches with Replaces_SKU inherit replaced catalog history."""
+        from pipeline.config import RAW_SKU_MASTER
+        sku_master = pd.read_csv(RAW_SKU_MASTER)
+        replaces = sku_master[sku_master['Replaces_SKU'].notna() & (sku_master['Replaces_SKU'] != '')]
+        assert len(replaces) > 0
+        pmp20 = replaces[replaces['SKU_ID'] == 'PMP-020']
+        assert not pmp20.empty
+        assert pmp20.iloc[0]['Replaces_SKU'] == 'PMP-003'
+
+    def test_whatif_zero_shift_equals_baseline(self):
+        """Priority 5: Scenario at delta 0 equals baseline forecast."""
+        import os
+        import pytest
+        scen_path = os.path.join(os.path.dirname(__file__), '..', 'outputs', 'whatif_scenarios.csv')
+        if not os.path.exists(scen_path):
+            pytest.skip("whatif_scenarios.csv not generated yet")
+        scen = pd.read_csv(scen_path)
+        zero_scen = scen[scen['Scenario_PMI_Delta'] == 0.0]
+        if not zero_scen.empty:
+            diff = (zero_scen['Units_Sold_Forecast'] - zero_scen['Scenario_Units_Sold_Forecast']).abs().sum()
+            assert diff == 0, "Scenario at delta 0 must equal baseline forecast"
 

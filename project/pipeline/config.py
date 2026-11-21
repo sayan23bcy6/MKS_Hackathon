@@ -37,6 +37,8 @@ OUT_HIERARCHY_RECON = OUTPUT_DIR / "hierarchy_reconciliation.csv"
 OUT_EV_SHIFT        = OUTPUT_DIR / "ev_shift_analysis.csv"
 OUT_MACRO_LAG       = OUTPUT_DIR / "macro_lag_analysis.csv"
 OUT_SCENARIO        = OUTPUT_DIR / "whatif_scenario_forecast.csv"
+OUT_WHATIF_SCENARIOS = OUTPUT_DIR / "whatif_scenarios.csv"
+OUT_EVENT_ESTIMATES = OUTPUT_DIR / "event_impact_estimates.csv"
 OUT_STOCKOUTS       = OUTPUT_DIR / "inventory_stockouts.csv"
 
 # --- T5: Region canonical map ---
@@ -170,4 +172,31 @@ MONTH_NAME_MAP = {
     "jan": "01", "feb": "02", "mar": "03", "apr": "04",
     "may": "05", "jun": "06", "jul": "07", "aug": "08",
     "sep": "09", "oct": "10", "nov": "11", "dec": "12",
+}
+
+# --- Forecast Event Adjustment Rules ---
+EVENT_FORECAST_RULES = {
+    'EV-062': {
+        'effect': 'zero',
+        'scope_customer': 'Orion Driveline',
+        'scope_region': 'North America',
+        'source': 'events_calendar',
+        'description': 'Planned retooling shutdown at Orion Driveline North American plants',
+    },
+    'EV-052': {
+        'effect': 'multiply',
+        'factor': 1.0828,
+        'scope_customer': 'Helios Auto Parts',
+        'scope_region': 'India',
+        'source': 'estimated',
+        'description': 'Helios Auto Parts permanent capacity increase at Indian plant (empirical ratio 3915.9/3616.4)',
+    },
+    'EV-059': {
+        'effect': 'multiply',
+        'factor': 0.970,
+        'scope_customer': None,
+        'scope_region': None,
+        'source': 'estimated',
+        'description': 'Annual list-price increase 4.5% with -0.67 price elasticity',
+    },
 }

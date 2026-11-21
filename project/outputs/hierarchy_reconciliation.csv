@@ -1,20 +1,20 @@
-Level,Group,Forecast_Units,Deviation_Pct,Status
-Total,ALL,2820265,0.0,PASS
-Product_Family,Brake & Safety Systems,553910,0.0,PASS
-Product_Family,Chassis & Structural,421851,0.0,PASS
-Product_Family,Electrical Assemblies,278938,0.0,PASS
-Product_Family,Hydraulic Systems,326568,0.0,PASS
-Product_Family,Powertrain Components,363139,0.0,PASS
-Product_Family,Precision Machined Parts,433722,0.0,PASS
-Product_Family,Thermal Management,442137,0.0,PASS
-Region,Asia Pacific,514411,0.0,PASS
-Region,Europe,556691,0.0,PASS
-Region,India,517977,0.0,PASS
-Region,Latin America,450100,0.0,PASS
-Region,Middle East & Africa,244685,0.0,PASS
-Region,North America,536401,0.0,PASS
-Business_Unit,Advanced Manufacturing,855573,0.0,PASS
-Business_Unit,Electronics & Controls,278938,0.0,PASS
-Business_Unit,Fluid Control Group,768705,0.0,PASS
-Business_Unit,Power & Drive Systems,363139,0.0,PASS
-Business_Unit,Safety & Compliance,553910,0.0,PASS
+Level,Group,Bottom_Up_Units,Top_Level_Forecast,Raw_Deviation_Pct,Forecast_Units,Reconciled_Units,Adjustment_Units,Deviation_Pct,Status
+Total,ALL,2682745,2682745,0.0,2682745,2682745,0,0.0,PASS
+Product_Family,Brake & Safety Systems,522886,529900,1.32,522886,522886,0,0.0,PASS
+Product_Family,Chassis & Structural,402436,424160,5.12,402436,402436,0,0.0,PASS
+Product_Family,Electrical Assemblies,265174,290638,8.76,265174,265174,0,0.0,PASS
+Product_Family,Hydraulic Systems,312755,332001,5.8,312755,312755,0,0.0,PASS
+Product_Family,Powertrain Components,346511,375889,7.82,346511,346511,0,0.0,PASS
+Product_Family,Precision Machined Parts,416946,434335,4.0,416946,416946,0,0.0,PASS
+Product_Family,Thermal Management,416037,434842,4.32,416037,416037,0,0.0,PASS
+Region,Asia Pacific,483891,523728,7.61,483891,483891,0,0.0,PASS
+Region,Europe,524056,533738,1.81,524056,524056,0,0.0,PASS
+Region,India,504806,507685,0.57,504806,504806,0,0.0,PASS
+Region,Latin America,428454,470432,8.92,428454,428454,0,0.0,PASS
+Region,Middle East & Africa,233203,257819,9.55,233203,233203,0,0.0,PASS
+Region,North America,508335,519803,2.21,508335,508335,0,0.0,PASS
+Business_Unit,Advanced Manufacturing,819382,819382,0.0,819382,819382,0,0.0,PASS
+Business_Unit,Electronics & Controls,265174,265174,0.0,265174,265174,0,0.0,PASS
+Business_Unit,Fluid Control Group,728792,728792,0.0,728792,728792,0,0.0,PASS
+Business_Unit,Power & Drive Systems,346511,346511,0.0,346511,346511,0,0.0,PASS
+Business_Unit,Safety & Compliance,522886,522886,0.0,522886,522886,0,0.0,PASS

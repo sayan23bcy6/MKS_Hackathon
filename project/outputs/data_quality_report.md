@@ -1,6 +1,6 @@
 # Data Quality Report - Celeris Automobili Demand Forecasting
 
-Total audit log entries recorded: 106045  
+Total audit log entries recorded: 106226  
 Total anomalies registered: 1529
 
 ---
@@ -21,9 +21,9 @@ Total anomalies registered: 1529
 | T10 | Customer name casing and whitespace variants unified | - | 2455 normalized |
 | T11 | Units_Sold formatting and negatives | 44 comma, 491 negative | Converted to numeric and absolute value applied |
 | T12 | Unit_Price_USD scale errors & zero prices | 0 zero rows | Annual SKU median reference price applied |
-| T13 | Revenue_USD recalculation | 18523 discrepant | Recalculated as Units_Sold * Unit_Price_USD |
+| T13 | Revenue_USD recalculation | 18529 discrepant | Recalculated as Units_Sold * Unit_Price_USD |
 | R5 | Sales outside launch/EOL lifecycle | - | Zeroed out 0 EOL and 15 pre-launch records |
-| T4b | Duplicate Date-SKU-Region records | - | Kept genuine distinct customers; resolved duplicate loads |
+| T4b | Duplicate customer series records across differing channels | 244488 | 244321 (167 duplicates removed; clean dataset = 244,321 rows) |
 
 ## Macroeconomic Indicators
 
