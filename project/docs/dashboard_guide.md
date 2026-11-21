@@ -16,6 +16,8 @@ streamlit run project/app/dashboard.py
 
 The application will be accessible at `http://localhost:8501`.
 
+The public dashboard URL is not considered deployment-verified until it responds with HTTP 200.
+
 ## Deployment to Streamlit Community Cloud (Steps to Follow)
 
 To deploy the dashboard to Streamlit Community Cloud:
