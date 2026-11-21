@@ -4,7 +4,7 @@
 
 Celeris Automobili manufactures engineered automotive systems across seven product families, delivering to twelve major commercial customers across six global operating regions. The core objective is forecasting true unconstrained demand (underlying customer order volume, independent of temporary plant disruptions or inventory stockouts) across 58,219 forecast rows for the 19-month horizon from 2026-11 through 2028-05.
 
-The source data exhibits real-world data quality issues across transactional history (`train.csv`), macroeconomic time series (`macro_indicators.csv`), product master definitions (`sku_master.csv`), and the operational calendar (`events_calendar.csv`). Our methodology establishes an explainable, rule-based data transformation pipeline coupled with gradient boosted quantile regression, honest rolling-origin backtesting, recursive multi-step forecasting, and top-down reconciliation.
+The source data exhibits real-world data quality issues across transactional history (`train.csv`), macroeconomic time series (`macro_indicators.csv`), product master definitions (`sku_master.csv`), and the operational calendar (`events_calendar.csv`). Our methodology establishes an explainable, rule-based data transformation pipeline coupled with gradient boosted quantile regression, honest rolling-origin backtesting, recursive multi-step forecasting, and exact hierarchy addition reporting.
 
 ---
 
@@ -293,7 +293,7 @@ In accordance with Section 8 of the competition specification, this declaration 
 - **AI Coding Assistants**: Antigravity and Large Language Model agents were utilized for boilerplate syntax generation, refactoring repetitive data cleaning rule definitions, drafting unit test fixtures, and compiling structured markdown documentation.
 
 ### Human Engineering Governance and Verification
-- **Mathematical Formulations**: The unconstrained demand allocation framework (Rule A2), the proportional consensus reconciliation algorithm, and the non-leakage rolling-origin backtest structure were designed, mathematically derived, and validated directly by human engineers.
+- **Mathematical Formulations**: The unconstrained demand allocation framework (Rule A2), the exact hierarchy addition rules, and the non-leakage rolling-origin backtest structure were designed, mathematically derived, and validated directly by human engineers.
 - **Data Integrity & Rule Verification**: Every deterministic rule (T1-T15, M1-M5, S1-S2, E1-E4, R1-R9) was verified against real business logic, with explicit unit tests failing upon any deviation.
 - **Model Validation**: Out-of-sample backtest scores, coverage metrics, and economic sensitivity scenarios were reviewed and reported honestly without post-hoc tuning or artificial score inflation.
 
