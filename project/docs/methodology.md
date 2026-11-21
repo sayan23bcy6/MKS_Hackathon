@@ -30,17 +30,25 @@ All data repairs are rule-governed, deterministic, and logged in `outputs/audit_
 | T11 | Formatting slips and sign errors in Units Sold | Commas removed, dashes converted to null, paired negative reversals dropped, unpaired sign errors corrected via `abs()` | Differentiates zero demand from clerical sign errors and accounting reversals. |
 | T12 | Pricing scaling anomalies (0.01x, 85x, 5-20x) | Replaced with annual SKU median price across regions | Addresses cent-scale recording, currency conversion shifts (INR/USD), and unit transcription slips. |
 | T13 | Revenue calculation discrepancies | Recalculated as `Units_Sold * Unit_Price_USD` | Eliminates mathematical inconsistency following unit and price normalization. |
+| T14 | Real market shock preservation | Logged to anomaly register without artificial outlier clipping | Preserves real supply chain shocks and early buying spikes for model training. |
+| T15 | Zero-demand vs missing cells | Differentiated zero orders from non-recorded transactions | Enables honest classification of unrecorded vs zero-demand series-months (B1). |
 | R5 | Transactions outside active product lifecycle | Sales prior to Launch Date or subsequent to EOL Date zeroed | Enforces catalog lifecycle boundaries. |
+| R9 | Co-occurring customer transactions | Preserved multi-customer orders on identical Date-SKU-Region keys | Ensures distinct customer accounts in the same territory are never conflated or dropped. |
 | A2 | Multi-account stockout allocation | Proportional integer allocation by customer volume with remainder to largest customer | Guarantees that allocated customer units sum exactly to total reported stockout units. |
 
 ### Master Data and Macroeconomic Cleaning
 
 - **Rule S1 (PMP-004 BU Alignment)**: Reconciled PMP-004 to `Advanced Manufacturing` based on agreement with transaction history majority and Rule R8.
+- **Rule S2 (Lifecycle Date Integrity)**: Validated Launch_Date and EOL_Date formats in SKU master, ensuring chronological ordering (Launch <= EOL).
 - **Rule M1 (2022-06 Macro Duplicate)**: Selected observation with minimal distance to adjacent linear interpolation (May and July 2022).
 - **Rule M2 (Auto Production Percentage Scaling)**: Scaled 2019 fractional values x100, verified continuity step from 2019-12 to 2020-01 is under 25.0 points.
 - **Rule M3 (PMI Decimal Misplacement)**: Corrected May 2023 PMI from 4.79 to 47.9 via single-decimal shift.
 - **Rule M4 (Missing Macro Indicator Imputation)**: Linear time interpolation applied with `Macro_Imputed` indicator flag.
 - **Rule M5 (COVID Structural Break)**: Added `Is_COVID_Period` indicator for 2020-03 through 2021-06.
+- **Rule E1 (Event Date Normalisation)**: Formatted Start_Date and End_Date strings to canonical ISO `YYYY-MM-DD`.
+- **Rule E2 (Open-Ended Event Bounding)**: Preserved ongoing multi-year structural transitions while bounding temporary operational shocks.
+- **Rule E3 (Event Scope Separation)**: Parsed compound `Scope_Value` strings (e.g. `Customer | Region`) into discrete `Scope_Customer` and `Scope_Region` attributes.
+- **Rule E4 (Event Referential Validation)**: Aligned operational events with transaction anomalies and documented impact mechanisms.
 
 ---
 

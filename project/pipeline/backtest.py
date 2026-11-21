@@ -32,6 +32,21 @@ from pipeline.ordering_cycles import add_cycle_features
 from pipeline.models.croston import sba_method, tsb_method
 
 OUT_BACKTEST_PREDS = Path(str(OUT_BACKTEST).replace('backtest_metrics.csv', 'backtest_predictions.csv'))
+OUT_COVERAGE_BREAKDOWN = Path(str(OUT_BACKTEST).replace('backtest_metrics.csv', 'coverage_breakdown.csv'))
+
+
+def get_calibration_offsets(residuals_with_date: list[tuple[str, float]], current_origin: str) -> tuple[float, float]:
+    """
+    Compute P10 and P90 residual offsets using strictly residuals from dates <= current_origin (Priority A2).
+    residuals_with_date is a list of (date_str, residual_float).
+    Returns (q10_offset, q90_offset). If no prior residuals, returns (0.0, 0.0).
+    """
+    valid_resids = [r for d, r in residuals_with_date if str(d)[:7] <= str(current_origin)[:7]]
+    if not valid_resids:
+        return 0.0, 0.0
+    q10_off = float(np.quantile(valid_resids, 0.10))
+    q90_off = float(np.quantile(valid_resids, 0.90))
+    return q10_off, q90_off
 
 
 def evaluate_backtest_slice(actual_series: pd.Series, pred_series: pd.Series,
@@ -77,7 +92,7 @@ def run_honest_backtest(clean_train: pd.DataFrame,
 
     all_metrics = []
     all_preds = []
-    prior_residuals = []
+    residuals_with_date = []
 
     for origin in origins:
         print(f"\n  Evaluating honest backtest origin: {origin}...")
@@ -254,12 +269,9 @@ def run_honest_backtest(clean_train: pd.DataFrame,
         raw_cov = float(((lgb_results.loc[val_rows, 'actual'] >= lgb_results.loc[val_rows, 'p10_raw']) &
                          (lgb_results.loc[val_rows, 'actual'] <= lgb_results.loc[val_rows, 'p90_raw'])).mean())
 
-        # Calibration using strictly prior origins' residuals (Priority 1c)
-        if len(prior_residuals) > 0:
-            all_prior_resids = np.concatenate(prior_residuals)
-            q10_off = float(np.quantile(all_prior_resids, 0.10))
-            q90_off = float(np.quantile(all_prior_resids, 0.90))
-
+        # Calibration using strictly prior origins' residuals (Priority A2)
+        q10_off, q90_off = get_calibration_offsets(residuals_with_date, origin)
+        if q10_off != 0.0 or q90_off != 0.0:
             cal_p10 = np.clip(lgb_results['p50'] + q10_off, 0, None).round()
             cal_p90 = np.clip(lgb_results['p50'] + q90_off, 0, None).round()
             cal_p10, cal_p50, cal_p90 = enforce_quantile_ordering(cal_p10.values, lgb_results['p50'].values, cal_p90.values)
@@ -276,13 +288,16 @@ def run_honest_backtest(clean_train: pd.DataFrame,
             lgb_results['p90_cal'] = lgb_results['p90_raw']
             cal_cov = raw_cov
 
-        # Save current origin residuals for future origins strictly (Priority 1c)
-        cur_resids = (lgb_results.loc[val_rows, 'actual'] - lgb_results.loc[val_rows, 'p50']).values
-        prior_residuals.append(cur_resids)
+        # Save current origin residuals tagged with date for future origins strictly (Priority A2)
+        for d, act, pred in zip(lgb_results.loc[val_rows, 'Date'],
+                                lgb_results.loc[val_rows, 'actual'],
+                                lgb_results.loc[val_rows, 'p50']):
+            residuals_with_date.append((str(d)[:7], float(act - pred)))
 
         # Record LightGBM predictions
         id_cols = ['Date', 'SKU_ID', 'Region', 'Customer_Name']
-        lgb_save = lgb_results[id_cols + ['actual', 'p10', 'p50', 'p90', 'p10_raw', 'p90_raw', 'p10_cal', 'p90_cal']].copy()
+        extra_save_cols = [c for c in ['Product_Family', 'Region', 'horizon_month'] if c in lgb_results.columns and c not in id_cols]
+        lgb_save = lgb_results[id_cols + extra_save_cols + ['actual', 'p10', 'p50', 'p90', 'p10_raw', 'p90_raw', 'p10_cal', 'p90_cal']].copy()
         lgb_save.insert(0, 'model', 'lightgbm_p50')
         lgb_save.insert(0, 'origin', origin)
         all_preds.append(lgb_save)
@@ -404,5 +419,47 @@ def run_honest_backtest(clean_train: pd.DataFrame,
     preds_df = pd.concat(all_preds, ignore_index=True)
     preds_df.to_csv(OUT_BACKTEST_PREDS, index=False)
     print(f"  Backtest predictions saved to {OUT_BACKTEST_PREDS} ({len(preds_df)} rows)")
+
+    # Generate and export coverage breakdown (Priority C1)
+    lgb_preds = preds_df[preds_df['model'] == 'lightgbm_p50'].copy()
+    cov_rows = []
+    val_overall = lgb_preds['actual'].notna()
+    c_raw = float(((lgb_preds.loc[val_overall, 'actual'] >= lgb_preds.loc[val_overall, 'p10_raw']) &
+                   (lgb_preds.loc[val_overall, 'actual'] <= lgb_preds.loc[val_overall, 'p90_raw'])).mean())
+    c_cal = float(((lgb_preds.loc[val_overall, 'actual'] >= lgb_preds.loc[val_overall, 'p10_cal']) &
+                   (lgb_preds.loc[val_overall, 'actual'] <= lgb_preds.loc[val_overall, 'p90_cal'])).mean())
+    cov_rows.append({
+        'origin': 'ALL', 'breakdown': 'overall', 'group': 'ALL', 'horizon_month': -1,
+        'n_obs': int(val_overall.sum()), 'coverage_raw': round(c_raw, 4), 'coverage_calibrated': round(c_cal, 4)
+    })
+    for orig, grp in lgb_preds.groupby('origin'):
+        v = grp['actual'].notna()
+        c_raw = float(((grp.loc[v, 'actual'] >= grp.loc[v, 'p10_raw']) & (grp.loc[v, 'actual'] <= grp.loc[v, 'p90_raw'])).mean())
+        c_cal = float(((grp.loc[v, 'actual'] >= grp.loc[v, 'p10_cal']) & (grp.loc[v, 'actual'] <= grp.loc[v, 'p90_cal'])).mean())
+        cov_rows.append({
+            'origin': str(orig), 'breakdown': 'origin', 'group': str(orig), 'horizon_month': -1,
+            'n_obs': int(v.sum()), 'coverage_raw': round(c_raw, 4), 'coverage_calibrated': round(c_cal, 4)
+        })
+    if 'horizon_month' in lgb_preds.columns:
+        for h, grp in lgb_preds.groupby('horizon_month'):
+            v = grp['actual'].notna()
+            c_raw = float(((grp.loc[v, 'actual'] >= grp.loc[v, 'p10_raw']) & (grp.loc[v, 'actual'] <= grp.loc[v, 'p90_raw'])).mean())
+            c_cal = float(((grp.loc[v, 'actual'] >= grp.loc[v, 'p10_cal']) & (grp.loc[v, 'actual'] <= grp.loc[v, 'p90_cal'])).mean())
+            cov_rows.append({
+                'origin': 'ALL', 'breakdown': 'horizon', 'group': f"month_{h}", 'horizon_month': int(h),
+                'n_obs': int(v.sum()), 'coverage_raw': round(c_raw, 4), 'coverage_calibrated': round(c_cal, 4)
+            })
+    if 'Product_Family' in lgb_preds.columns:
+        for fam, grp in lgb_preds.groupby('Product_Family'):
+            v = grp['actual'].notna()
+            c_raw = float(((grp.loc[v, 'actual'] >= grp.loc[v, 'p10_raw']) & (grp.loc[v, 'actual'] <= grp.loc[v, 'p90_raw'])).mean())
+            c_cal = float(((grp.loc[v, 'actual'] >= grp.loc[v, 'p10_cal']) & (grp.loc[v, 'actual'] <= grp.loc[v, 'p90_cal'])).mean())
+            cov_rows.append({
+                'origin': 'ALL', 'breakdown': 'family', 'group': str(fam), 'horizon_month': -1,
+                'n_obs': int(v.sum()), 'coverage_raw': round(c_raw, 4), 'coverage_calibrated': round(c_cal, 4)
+            })
+    cov_df = pd.DataFrame(cov_rows)
+    cov_df.to_csv(OUT_COVERAGE_BREAKDOWN, index=False)
+    print(f"  Coverage breakdown saved to {OUT_COVERAGE_BREAKDOWN} ({len(cov_df)} breakdown rows)")
 
     return metrics_df, preds_df

@@ -25,6 +25,13 @@ Total anomalies registered: 1529
 | R5 | Sales outside launch/EOL lifecycle | - | Zeroed out 0 EOL and 15 pre-launch records |
 | T4b | Duplicate customer series records across differing channels | 244488 | 244321 (167 duplicates removed; clean dataset = 244,321 rows) |
 
+## Stockout Reconciliation and Unconstrained Demand (Rule A2 / T11)
+
+- **Stockout Records:** Documented inventory shortage periods from inventory_stockouts.csv.
+- **Transaction Match Rate:** 84 shortage occurrences aligned with sales transactions.
+- **Customer Account Allocation:** Allocated stockouts proportionally across active customer accounts by non-negative sales volume, assigning remainder units to largest account.
+- **Unconstrained Reconstruction:** Reconstructed actual demand using Fill_Rate adjustment to eliminate artificial supply-constrained dips before model training.
+
 ## Macroeconomic Indicators
 
 - **M1** Duplicate 2022-06 month: 1 duplicates resolved via nearest linear neighbor interpolation.

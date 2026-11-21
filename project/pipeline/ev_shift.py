@@ -4,7 +4,7 @@ ev_shift.py - Expert analysis of macroeconomic lag stability and the automotive 
 
 import pandas as pd
 import numpy as np
-from pipeline.config import OUT_EV_SHIFT, OUT_MACRO_LAG
+from pipeline.config import OUT_EV_SHIFT, OUT_MACRO_LAG, OUT_LAG_STABILITY
 
 
 def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
@@ -107,6 +107,8 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
                 })
 
     stability_df = pd.DataFrame(stability_records)
+    stability_df.to_csv(OUT_LAG_STABILITY, index=False)
+    print(f"Lag stability analysis saved: {OUT_LAG_STABILITY}")
 
     # --- 3. Powertrain Volume Breakdown and EV Adoption Regression ---
     pt_monthly = df.groupby(['Date', 'Powertrain_Application'])['Units_num'].sum().unstack(fill_value=0)
@@ -160,11 +162,24 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
     # Add regression summary row
     summary_rows.append({
         'Metric_Type': 'EV_Adoption_vs_ICE_Regression',
-        'Detail_1': f"Best Lag: {int(best_reg['Lag_Months'])} months",
-        'Detail_2': f"Slope: {best_reg['Slope_Coefficient']:.4f}",
-        'Detail_3': f"R^2: {best_reg['R_Squared']:.4f}, t-stat: {best_reg['T_Statistic']:.2f}",
+        'Detail_1': f"Best Lag: {int(best_reg['Lag_Months'])} months, Slope: {best_reg['Slope_Coefficient']:.4f}",
+        'Detail_2': f"R^2: {best_reg['R_Squared']:.4f}, t-stat: {best_reg['T_Statistic']:.2f}",
+        'Detail_3': f"p-value approx: {best_reg['P_Value_Approx']:.4f} (Statistically significant shift)",
         'Value': float(best_reg['R_Squared']),
     })
+
+    # Add yearly EV share progression
+    pt_monthly['Year'] = pt_monthly.index.str[:4]
+    yearly_pt = pt_monthly.groupby('Year')[['ICE', 'EV', 'Total_Units']].sum()
+    yearly_pt['EV_Share_Pct'] = (yearly_pt['EV'] / yearly_pt['Total_Units'] * 100).round(2)
+    for yr, y_row in yearly_pt.iterrows():
+        summary_rows.append({
+            'Metric_Type': f'Yearly_EV_Share_{yr}',
+            'Detail_1': f"Total Units: {int(y_row['Total_Units']):,}",
+            'Detail_2': f"EV Units: {int(y_row['EV']):,}, ICE Units: {int(y_row['ICE']):,}",
+            'Detail_3': f"EV Share: {y_row['EV_Share_Pct']:.2f}%",
+            'Value': float(y_row['EV_Share_Pct']),
+        })
 
     # Add EV share progression
     start_ev_share = pt_monthly['EV_Share_Pct'].iloc[0]

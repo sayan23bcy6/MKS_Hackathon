@@ -20,6 +20,9 @@ from pipeline.config import (
     OUT_FORECAST_SUB, OUT_FORECAST_INT, OUT_HIERARCHY_RECON,
     OUT_SCENARIO, OUT_EV_SHIFT, OUT_MACRO_LAG,
     OUT_WHATIF_SCENARIOS, OUT_EVENT_ESTIMATES,
+    OUT_PANEL_STATUS, OUT_MASTER_CONTRADICTIONS, OUT_EARLY_BUYING,
+    OUT_HOLIDAY_EFFECTS, OUT_STRUCTURAL_BREAKS, OUT_CUSTOMER_SWITCHES,
+    OUT_LOST_ACCOUNTS, OUT_LAG_STABILITY, OUT_COVERAGE_BREAKDOWN
 )
 from pipeline.load import (
     load_train, load_test, load_macro,
@@ -39,7 +42,7 @@ from pipeline.structural_breaks import (
     measure_holiday_impacts, audit_master_data_integrity
 )
 from pipeline.anomalies import build_anomaly_register
-from pipeline.reports import generate_dq_report
+from pipeline.reports import generate_dq_report, build_panel_status
 from pipeline.models.lightgbm_model import train_all_quantiles, get_feature_names
 from pipeline.backtest import run_honest_backtest, OUT_BACKTEST_PREDS
 from pipeline.forecast import (
@@ -91,12 +94,23 @@ def main():
     # Step 5: Advanced structural breaks, customer cycles, and powertrain transition
     print("\n[5/10] Running structural breaks and advanced market dynamics analysis...")
     breaks_df = detect_structural_breaks(df_clean, clean_ev)
+    breaks_df.to_csv(OUT_STRUCTURAL_BREAKS, index=False)
+
     early_buying_summary = quantify_early_buying(df_clean)
+    early_buying_summary.to_csv(OUT_EARLY_BUYING, index=False)
+
     holiday_summary = measure_holiday_impacts(df_clean)
+    holiday_summary.to_csv(OUT_HOLIDAY_EFFECTS, index=False)
+
     master_integrity = audit_master_data_integrity(df_clean, clean_sku)
-    cycle_df, _, _ = analyze_ordering_cycles(df_clean)
+    master_integrity.to_csv(OUT_MASTER_CONTRADICTIONS, index=False)
+
+    cycle_df, switches_df, lost_accounts_df = analyze_ordering_cycles(df_clean)
+    switches_df.to_csv(OUT_CUSTOMER_SWITCHES, index=False)
+    lost_accounts_df.to_csv(OUT_LOST_ACCOUNTS, index=False)
+
     ev_summary = run_ev_transition_analysis(df_clean, clean_mac, clean_sku)
-    print(f"  Structural breaks detected: {len(breaks_df)}, Customer cycle series: {len(cycle_df)}")
+    print(f"  Structural breaks: {len(breaks_df)}, Customer switches: {len(switches_df)}, Lost accounts: {len(lost_accounts_df)}")
 
     # Step 6: Assemble anomaly register
     print("\n[6/10] Assembling anomaly register...")
@@ -145,11 +159,12 @@ def main():
     )
 
     # Step 10: Generate documentation, model card, and data quality reports
-    print("\n[10/10] Generating model card and data quality reports...")
+    print("\n[10/10] Generating model card, data quality reports, and panel status...")
     n_audit = audit.save()
     audit_df = pd.read_csv(OUT_AUDIT_LOG)
     write_model_card(models, get_feature_names(features_df), backtest_metrics=backtest_metrics)
     dq_report = generate_dq_report(dq_train, dq_mac, dq_sku, dq_ev, audit_df, anomaly_df)
+    build_panel_status(df_clean, clean_sku)
 
     elapsed = time.time() - t0
     print(f"\nPipeline finished successfully in {elapsed:.1f}s")
@@ -164,7 +179,10 @@ def main():
         OUT_AUDIT_LOG, OUT_BACKTEST, OUT_BACKTEST_PREDS,
         OUT_FORECAST_SUB, OUT_FORECAST_INT, OUT_HIERARCHY_RECON,
         OUT_SCENARIO, OUT_WHATIF_SCENARIOS, OUT_EVENT_ESTIMATES,
-        OUT_EV_SHIFT, OUT_MACRO_LAG
+        OUT_EV_SHIFT, OUT_MACRO_LAG, OUT_PANEL_STATUS,
+        OUT_MASTER_CONTRADICTIONS, OUT_EARLY_BUYING, OUT_HOLIDAY_EFFECTS,
+        OUT_STRUCTURAL_BREAKS, OUT_CUSTOMER_SWITCHES, OUT_LOST_ACCOUNTS,
+        OUT_LAG_STABILITY, OUT_COVERAGE_BREAKDOWN
     ]:
         p = pathlib.Path(str(out_path))
         if p.exists():

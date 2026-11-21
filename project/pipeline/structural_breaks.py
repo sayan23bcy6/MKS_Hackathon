@@ -50,6 +50,8 @@ def detect_structural_breaks(clean_train: pd.DataFrame, events: pd.DataFrame) ->
                 break_records.append({
                     'Product_Family': fam,
                     'Break_Date': date_str,
+                    'Method': 'CUSUM rolling-mean variance test',
+                    'Threshold': '25% sustained shift',
                     'Pre_Break_Mean_Units': round(float(pre_mean), 1),
                     'Post_Break_Mean_Units': round(float(post_mean), 1),
                     'Shift_Percentage': round(float(pct_shift * 100), 1),

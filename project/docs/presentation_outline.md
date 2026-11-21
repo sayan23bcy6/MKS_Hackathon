@@ -113,3 +113,59 @@ A structured guide for presenting and defending the Celeris Automobili demand fo
 - **Operational Readiness**: Eliminates supply shortages on critical components while reducing safety stock holding costs.
 - **Transparency**: Every single prediction is backed by traceable data lineage, verifiable cleaning rules, and automated unit tests.
 - **Reproducibility**: Entire system rebuilds from a single command: `python project/run_pipeline.py`.
+
+---
+
+## Appendix: Complete Requirements Compliance Matrix
+
+| Requirement Code | Spec Tier | Description | Implementation File / Dashboard View | Status |
+|---|---|---|---|---|
+| CORE-DATA-01 | Core | Date normalisation to YYYY-MM (Rule T1) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-02 | Core | Year/Month column mismatch correction (Rule T2) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-03 | Core | Typo year 2062 correction (Rule T3) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-04 | Core | Duplicate Record_ID deduplication by Load_Timestamp (Rule T4) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-04b | Core | Series-month customer deduplication across channels (Rule T4b) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-05 | Core | Region normalisation and canonical Unassigned (Rule T5) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-06 | Core | Sales channel normalisation (Rule T6) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-07 | Core | Product family derivation from SKU prefix (Rule T7) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-08 | Core | SKU_ID formatting and zero-padding (Rule T8) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-09 | Core | Missing SKU descriptions from sku_master (Rule T9) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-10 | Core | Customer name casing and canonical mapping (Rule T10) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-11 | Core | Units sold numeric parsing, comma/dash/sign/zero handling (Rule T11) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-12 | Core | Unit price scale repair via annual median reference (Rule T12) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-13 | Core | Revenue recalculation Units * Price (Rule T13) | outputs/clean_train.parquet, outputs/audit_log.csv | done |
+| CORE-DATA-14 | Core | Zero-demand vs missing transaction distinction (Rule T15, B1) | outputs/panel_status.csv | done |
+| CORE-DATA-15 | Core | Lifecycle constraint enforcement, launch and EOL boundaries (Rule R5) | outputs/clean_train.parquet, outputs/forecast_submission.csv | done |
+| CORE-MACRO-01 | Core | Macro 2022-06 duplicate resolution (Rule M1) | outputs/clean_macro.csv | done |
+| CORE-MACRO-02 | Core | Auto production 2019 fraction to percentage scaling (Rule M2) | outputs/clean_macro.csv | done |
+| CORE-MACRO-03 | Core | May 2023 PMI decimal slip repair (Rule M3) | outputs/clean_macro.csv | done |
+| CORE-MACRO-04 | Core | Missing macro indicator interpolation (Rule M4) | outputs/clean_macro.csv | done |
+| CORE-MACRO-05 | Core | COVID period indicator (Rule M5) | outputs/clean_macro.csv | done |
+| CORE-SKU-01 | Core | PMP-004 Business Unit conflict resolution (Rule S1) | outputs/clean_train.parquet, outputs/master_data_contradictions.csv | done |
+| CORE-EVENT-01 | Core | Events calendar normalisation and scoping (Rules E1-E4) | outputs/clean_events.csv | done |
+| CORE-FORECAST-01 | Core | 19-month forward forecast submission format (Date, SKU_ID, Region, Units_Sold_Forecast) | outputs/forecast_submission.csv | done |
+| CORE-FORECAST-02 | Core | Non-negative integer forecasts matching test.csv keys exactly | outputs/forecast_submission.csv | done |
+| CORE-GOV-01 | Core | Audit log capturing every data modification | outputs/audit_log.csv | done |
+| CORE-GOV-02 | Core | Data quality report in JSON and Markdown | outputs/data_quality_report.json, outputs/data_quality_report.md | done |
+| CORE-GOV-03 | Core | Comprehensive automated pytest test suite | project/tests/test_cleaning_rules.py | done |
+| CORE-DASH-01 | Core | Streamlit interactive dashboard with 5 required views | project/app/dashboard.py (Tabs 1-5) | done |
+| ADV-UNCONSTRAINED-01 | Advanced | Unconstrained demand reconstruction from stockouts | outputs/unconstrained_demand.parquet | done |
+| ADV-ALLOCATION-01 | Advanced | Customer stockout integer allocation with remainder rule (Rule A2) | outputs/unconstrained_demand.parquet, outputs/audit_log.csv | done |
+| ADV-ANOMALY-01 | Advanced | Structured anomaly register | outputs/anomaly_register.csv | done |
+| ADV-BREAKS-01 | Advanced | Structural break detection on family demand | outputs/structural_breaks.csv | done |
+| ADV-PREBUY-01 | Advanced | Nov-Dec 2022 early buying quantification ahead of EV-030 price rise | outputs/early_buying.csv | done |
+| ADV-HOLIDAY-01 | Advanced | Regional holiday effect measurement (LNY, Ramadan, Summer) | outputs/holiday_effects.csv | done |
+| ADV-MACRO-LAG-01 | Advanced | Macroeconomic lead-lag cross-correlation analysis across lags 0-6m | outputs/macro_lag_analysis.csv | done |
+| ADV-BACKTEST-01 | Advanced | Multi-origin honest rolling backtest (2023-10, 2024-10, 2025-03) | outputs/backtest_metrics.csv | done |
+| ADV-BACKTEST-02 | Advanced | Benchmark comparison against Seasonal Naive, Moving Average, Croston/SBA/TSB | outputs/backtest_metrics.csv | done |
+| ADV-INTERVALS-01 | Advanced | Quantile forecast intervals P10, P50, P90 with non-crossing constraints | outputs/forecast_intervals.csv | done |
+| ADV-RECON-01 | Advanced | Top-down hierarchy reconciliation and raw deviation reporting | outputs/hierarchy_reconciliation.csv | done |
+| ADV-DASH-OPT-01 | Advanced | 4 optional dashboard views (Macro Heatmap, Stockouts, What-If, Lifecycle) | project/app/dashboard.py (Tabs Opt 1-4) | done |
+| EXP-INTERMITTENT-01 | Expert | ADI/CV^2 intermittency categorisation and customer ordering periodicity | outputs/features.parquet, outputs/customer_switches.csv, outputs/lost_accounts.csv | done |
+| EXP-INHERIT-01 | Expert | New-launch demand inheritance from replaced SKU catalog history | outputs/forecast_submission.csv | done |
+| EXP-LAG-STAB-01 | Expert | Macro lag stability evaluation (2019-2022 vs 2023-2026) | outputs/lag_stability.csv | done |
+| EXP-EV-SHIFT-01 | Expert | Powertrain transition regression of EV adoption vs ICE volume decline | outputs/ev_shift_analysis.csv | done |
+| EXP-WHATIF-01 | Expert | Model rerun macroeconomic what-if simulation (-6.0 to +6.0 PMI grid) | outputs/whatif_scenarios.csv, outputs/whatif_scenario_forecast.csv | done |
+| EXP-RECURSIVE-01 | Expert | Multi-step recursive forecasting updating lags from prior predictions | project/pipeline/forecast.py | done |
+| EXP-CALIBRATION-01 | Expert | Out-of-sample coverage calibration using only prior origin residuals | outputs/coverage_breakdown.csv, outputs/backtest_predictions.csv | done |
+| EXP-MODELCARD-01 | Expert | Model card documenting architecture, training regimes, features, and honest out-of-sample coverage | outputs/model_card.md | done |

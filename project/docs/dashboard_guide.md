@@ -26,6 +26,25 @@ To deploy the dashboard to Streamlit Community Cloud:
 
 ---
 
+## Error Fallback and Troubleshooting
+
+If the Streamlit dashboard fails to display or encounters missing data:
+1. **Verify output generation:** Ensure all required pipeline outputs have been created by running:
+   ```bash
+   python project/run_pipeline.py
+   ```
+2. **Missing or stale cache:** Clear Streamlit cache via the top-right menu (`Clear cache`) or restart Streamlit:
+   ```bash
+   streamlit run project/app/dashboard.py --server.runOnSave true
+   ```
+3. **Port conflicts:** If port 8501 is occupied, specify an alternative port:
+   ```bash
+   streamlit run project/app/dashboard.py --server.port 8502
+   ```
+4. **Offline fallback:** All underlying analytical artifacts exist as standalone CSV, Parquet, JSON, and Markdown files in `project/outputs/` and can be inspected directly in Excel, pandas, or text viewers without running Streamlit.
+
+---
+
 ## Global Filter Behavior
 
 The sidebar provides shared filters that update all active dashboard views simultaneously:

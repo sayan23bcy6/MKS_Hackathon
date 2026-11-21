@@ -40,6 +40,15 @@ OUT_SCENARIO        = OUTPUT_DIR / "whatif_scenario_forecast.csv"
 OUT_WHATIF_SCENARIOS = OUTPUT_DIR / "whatif_scenarios.csv"
 OUT_EVENT_ESTIMATES = OUTPUT_DIR / "event_impact_estimates.csv"
 OUT_STOCKOUTS       = OUTPUT_DIR / "inventory_stockouts.csv"
+OUT_PANEL_STATUS         = OUTPUT_DIR / "panel_status.csv"
+OUT_MASTER_CONTRADICTIONS = OUTPUT_DIR / "master_data_contradictions.csv"
+OUT_EARLY_BUYING         = OUTPUT_DIR / "early_buying.csv"
+OUT_HOLIDAY_EFFECTS      = OUTPUT_DIR / "holiday_effects.csv"
+OUT_STRUCTURAL_BREAKS    = OUTPUT_DIR / "structural_breaks.csv"
+OUT_CUSTOMER_SWITCHES    = OUTPUT_DIR / "customer_switches.csv"
+OUT_LOST_ACCOUNTS        = OUTPUT_DIR / "lost_accounts.csv"
+OUT_LAG_STABILITY        = OUTPUT_DIR / "lag_stability.csv"
+OUT_COVERAGE_BREAKDOWN   = OUTPUT_DIR / "coverage_breakdown.csv"
 
 # --- T5: Region canonical map ---
 # Strip + casefold applied first, then this dict (keys are casefolded+stripped)
@@ -149,7 +158,7 @@ PRICE_SCALE_100X_LOW  = 95.0   # x100 band
 PRICE_SCALE_100X_HIGH = 120.0
 PRICE_SCALE_85X_LOW   = 80.0   # x85 band (possible INR)
 PRICE_SCALE_85X_HIGH  = 95.0
-PRICE_SCALE_MED_LOW   = 5.0    # 5-20x band - flag only
+PRICE_SCALE_MED_LOW   = 5.0    # 5-20x band - repaired using annual median reference price
 PRICE_SCALE_MED_HIGH  = 20.0
 
 UNITS_LARGE_THRESHOLD = 5000   # T11: flag for review
@@ -184,12 +193,12 @@ EVENT_FORECAST_RULES = {
         'description': 'Planned retooling shutdown at Orion Driveline North American plants',
     },
     'EV-052': {
-        'effect': 'multiply',
-        'factor': 1.0828,
+        'effect': 'model_feature',
+        'factor': 1.0,
         'scope_customer': 'Helios Auto Parts',
         'scope_region': 'India',
-        'source': 'estimated_from_history',
-        'description': 'Helios Auto Parts capacity increase at India plant (empirical ratio 3915.9/3616.4)',
+        'source': 'historical_learning_model_feature',
+        'description': 'Helios Auto Parts capacity increase at India plant captured natively by tree model through customer-region features and lag dynamics without post-forecast multiplier to prevent double counting',
     },
     'EV-059': {
         'effect': 'model_feature',

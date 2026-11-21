@@ -5,8 +5,9 @@ Compiles audit metrics, data cleaning results, and documented decision rules.
 
 import json
 from pathlib import Path
+import numpy as np
 import pandas as pd
-from pipeline.config import OUT_DQ_JSON, OUT_DQ_MD
+from pipeline.config import OUT_DQ_JSON, OUT_DQ_MD, OUT_PANEL_STATUS
 
 
 def generate_dq_report(dq_train: dict,
@@ -226,6 +227,13 @@ def _write_dq_markdown(report: dict):
 
     lines += [
         "",
+        "## Stockout Reconciliation and Unconstrained Demand (Rule A2 / T11)",
+        "",
+        f"- **Stockout Records:** Documented inventory shortage periods from inventory_stockouts.csv.",
+        f"- **Transaction Match Rate:** {report['train_issues']['T11_units_sold'].get('null_from_stockout', 0)} shortage occurrences aligned with sales transactions.",
+        f"- **Customer Account Allocation:** Allocated stockouts proportionally across active customer accounts by non-negative sales volume, assigning remainder units to largest account.",
+        f"- **Unconstrained Reconstruction:** Reconstructed actual demand using Fill_Rate adjustment to eliminate artificial supply-constrained dips before model training.",
+        "",
         "## Macroeconomic Indicators",
         "",
         f"- **M1** Duplicate 2022-06 month: {report['macro_issues'].get('M1_dup_months', 0)} duplicates resolved via nearest linear neighbor interpolation.",
@@ -254,3 +262,44 @@ def _write_dq_markdown(report: dict):
     with open(OUT_DQ_MD, 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines))
     print(f"Data quality markdown report saved: {OUT_DQ_MD}")
+
+
+def build_panel_status(clean_train: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
+    """
+    Priority B1: Build full panel status dataset.
+    For every SKU-Region-Customer series, iterates over live months (from launch/first sale to EOL/2026-10).
+    Classifies every month cell as 'sold' (Units_Sold > 0), 'zero_order' (Units_Sold == 0),
+    or 'not_recorded' (no transaction recorded).
+    Writes outputs/panel_status.csv.
+    """
+    tr = clean_train[['Date', 'SKU_ID', 'Region', 'Customer_Name', 'Units_Sold']].copy()
+    spans = tr.groupby(['SKU_ID', 'Region', 'Customer_Name'])['Date'].agg(['min', 'max']).reset_index()
+    spans = spans.merge(sku_master[['SKU_ID', 'Launch_Date', 'EOL_Date']], on='SKU_ID', how='left')
+
+    all_months = pd.date_range('2019-01-01', '2026-10-01', freq='MS').strftime('%Y-%m').tolist()
+
+    records = []
+    for _, r in spans.iterrows():
+        s_date = str(r['Launch_Date'])[:7] if pd.notna(r['Launch_Date']) and str(r['Launch_Date']).strip() else r['min']
+        if s_date < '2019-01':
+            s_date = '2019-01'
+        if s_date > r['min']:
+            s_date = r['min']
+        e_date = str(r['EOL_Date'])[:7] if pd.notna(r['EOL_Date']) and str(r['EOL_Date']).strip() else '2026-10'
+        if e_date > '2026-10':
+            e_date = '2026-10'
+        for m in all_months:
+            if s_date <= m <= e_date:
+                records.append((m, r['SKU_ID'], r['Region'], r['Customer_Name']))
+
+    panel = pd.DataFrame(records, columns=['Date', 'SKU_ID', 'Region', 'Customer_Name'])
+    panel = panel.merge(tr, on=['Date', 'SKU_ID', 'Region', 'Customer_Name'], how='left')
+
+    u_num = pd.to_numeric(panel['Units_Sold'], errors='coerce')
+    is_null = u_num.isna().to_numpy()
+    is_sold = (u_num > 0).fillna(False).to_numpy()
+
+    panel['status'] = np.where(is_null, 'not_recorded', np.where(is_sold, 'sold', 'zero_order'))
+    panel.to_csv(OUT_PANEL_STATUS, index=False)
+    print(f"Panel status saved: {OUT_PANEL_STATUS} ({len(panel)} rows)")
+    return panel

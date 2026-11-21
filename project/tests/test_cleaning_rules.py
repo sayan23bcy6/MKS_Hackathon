@@ -330,18 +330,25 @@ class TestT11Units:
 
 class TestT12Price:
     def test_zero_price_with_units_flagged_in_audit(self):
-        """Zero price with units>0 should be filled from reference price (or NaN if no ref)."""
-        df = _make_train_row(Units_Sold='100', Unit_Price_USD='0.0')
+        """Zero price with units>0 should be filled from reference price."""
+        rows = [
+            {**_make_train_row(Date='2022-01', SKU_ID='BSS-001', Units_Sold='100', Unit_Price_USD='500.0').iloc[0].to_dict()},
+            {**_make_train_row(Date='2022-02', SKU_ID='BSS-001', Units_Sold='50', Unit_Price_USD='0.0').iloc[0].to_dict()},
+        ]
+        df = pd.DataFrame(rows)
         out = apply_t12_prices(df)
-        # With only one row, no reference price exists, so should be NaN or 0
-        # Main thing: pipeline does not crash
-        assert True
+        assert float(out.loc[out['Date'] == '2022-02', 'Unit_Price_USD'].iloc[0]) == 500.0
 
     def test_valid_price_unchanged(self):
-        df = _make_train_row(Units_Sold='100', Unit_Price_USD='500.0')
+        """Valid price within normal range is retained unchanged."""
+        rows = [
+            {**_make_train_row(Date='2022-01', SKU_ID='BSS-001', Units_Sold='100', Unit_Price_USD='500.0').iloc[0].to_dict()},
+            {**_make_train_row(Date='2022-02', SKU_ID='BSS-001', Units_Sold='50', Unit_Price_USD='500.0').iloc[0].to_dict()},
+        ]
+        df = pd.DataFrame(rows)
         out = apply_t12_prices(df)
-        # With only one row it IS the reference, so no change
-        assert float(out['Unit_Price_USD'].iloc[0]) == 500.0
+        assert float(out.loc[out['Date'] == '2022-01', 'Unit_Price_USD'].iloc[0]) == 500.0
+        assert float(out.loc[out['Date'] == '2022-02', 'Unit_Price_USD'].iloc[0]) == 500.0
 
 
 # --- T13: Revenue ---
@@ -369,12 +376,11 @@ class TestT13Revenue:
 # --- R5: Lifecycle ---
 
 class TestR5Lifecycle:
-    def test_no_violations_on_active_sku(self, minimal_sku_master, empty_stockouts):
+    def test_no_violations_on_active_sku(self, minimal_sku_master):
         df = _make_train_row(Date='2022-01', Units_Sold='100')
         df['Units_Sold'] = pd.array([100.0], dtype='Float64')
         out = apply_r5_lifecycle(df, minimal_sku_master)
-        # No violations expected
-        assert True
+        assert float(out['Units_Sold'].iloc[0]) == 100.0
 
     def test_eol_violation_flagged(self):
         sku_master = pd.DataFrame([{
@@ -586,15 +592,17 @@ class TestSchemaValidation:
         assert (p50_o <= p90_o).all()
 
     def test_hierarchy_reconciliation_structure(self):
-        """Verify hierarchy reconciliation output exists and has status PASS."""
+        """Verify hierarchy reconciliation output exists and has valid levels, deviations, and status."""
         from pipeline.config import OUT_HIERARCHY_RECON
         import pathlib
         if pathlib.Path(OUT_HIERARCHY_RECON).exists():
             df = pd.read_csv(OUT_HIERARCHY_RECON)
             assert 'Level' in df.columns
+            assert 'Raw_Deviation_Pct' in df.columns
             assert 'Deviation_Pct' in df.columns
             assert (df['Deviation_Pct'] <= 0.5).all()
-            assert (df['Status'] == 'PASS').all()
+            assert 'Status' in df.columns
+            assert set(df['Status'].unique()).issubset({'PASS', 'FAIL'})
 
     def test_features_yoy_growth_not_identical_to_lag12(self):
         """Fix F4: lag_12m_yoy must be the YoY ratio, distinct from lag_12m."""
@@ -710,7 +718,7 @@ class TestSchemaValidation:
         pred_path = os.path.join(os.path.dirname(__file__), '..', 'outputs', 'backtest_predictions.csv')
         if not os.path.exists(pred_path):
             pytest.skip("backtest_predictions.csv not generated yet")
-        df = pd.read_csv(pred_path)
+        df = pd.read_csv(pred_path, low_memory=False)
         assert len(df) > 0, "backtest_predictions.csv is empty"
         expected = {'origin', 'model', 'Date', 'SKU_ID', 'Region', 'Customer_Name', 'actual', 'p10', 'p50', 'p90'}
         assert expected.issubset(set(df.columns)), f"Missing columns: {expected - set(df.columns)}"
@@ -753,29 +761,24 @@ class TestSchemaValidation:
             assert diff == 0, "Scenario at delta 0 must equal baseline forecast"
 
     def test_calibration_offsets_independent_of_test_actuals(self):
-        """Priority 1d: Changing actuals inside test window does not change calibration offsets."""
-        from pipeline.models.lightgbm_model import enforce_quantile_ordering
-        # Prior origins residuals
-        prior_resids_1 = np.array([-15.0, -5.0, 0.0, 5.0, 15.0, 25.0])
-        q10_1 = float(np.quantile(prior_resids_1, 0.10))
-        q90_1 = float(np.quantile(prior_resids_1, 0.90))
+        """Priority A2 / 1d: get_calibration_offsets uses only residuals with Date <= current_origin."""
+        from pipeline.backtest import get_calibration_offsets
+        resids_history = [
+            ('2023-01', -10.0),
+            ('2023-05', 0.0),
+            ('2023-10', 10.0),
+            ('2024-01', 500.0),
+            ('2024-05', -999.0)
+        ]
+        q10, q90 = get_calibration_offsets(resids_history, '2023-10')
+        assert -10.0 <= q10 <= 0.0
+        assert 0.0 <= q90 <= 10.0
 
-        # Test window actuals: variant A vs variant B
-        p50 = np.array([50.0, 100.0, 150.0])
-        cal_p10_A = np.clip(p50 + q10_1, 0, None)
-        cal_p90_A = np.clip(p50 + q90_1, 0, None)
-
-        # Altering test window actuals
-        test_actuals_B = np.array([500.0, 1000.0, 1500.0])
-        # Calibration offsets for this origin still use prior_resids_1
-        q10_2 = float(np.quantile(prior_resids_1, 0.10))
-        q90_2 = float(np.quantile(prior_resids_1, 0.90))
-
-        cal_p10_B = np.clip(p50 + q10_2, 0, None)
-        cal_p90_B = np.clip(p50 + q90_2, 0, None)
-
-        assert np.array_equal(cal_p10_A, cal_p10_B)
-        assert np.array_equal(cal_p90_A, cal_p90_B)
+        # Perturbing future test actuals (> 2023-10) does not change offsets for current origin
+        perturbed = resids_history + [('2024-06', 99999.0), ('2024-07', -88888.0)]
+        q10_pert, q90_pert = get_calibration_offsets(perturbed, '2023-10')
+        assert q10 == q10_pert
+        assert q90 == q90_pert
 
     def test_null_actual_does_not_change_wape_or_bias(self):
         """Priority 2c: A NULL actual does not change WAPE or bias."""
@@ -793,13 +796,45 @@ class TestSchemaValidation:
         assert res_clean['Bias'] == res_null['Bias']
         assert res_null['n_excluded'] == 2
 
-    def test_ev059_no_post_forecast_double_counting(self):
-        """Priority 5b: EV-059 has no manual post-forecast multiplier; driven natively by model."""
+    def test_ev059_and_ev052_no_post_forecast_double_counting(self):
+        """Priority A6: EV-059 and EV-052 do not apply post-forecast multipliers."""
         from pipeline.config import EVENT_FORECAST_RULES
-        assert 'EV-059' in EVENT_FORECAST_RULES
-        rule = EVENT_FORECAST_RULES['EV-059']
-        assert rule.get('effect') == 'model_feature'
-        assert rule.get('factor') == 1.0
+        from pipeline.forecast import apply_event_adjustments
+        assert EVENT_FORECAST_RULES['EV-059'].get('effect') == 'model_feature'
+        assert EVENT_FORECAST_RULES['EV-052'].get('effect') == 'model_feature'
+
+        events_fixture = pd.DataFrame([
+            {'Event_ID': 'EV-052', 'Start_Date': '2027-01', 'End_Date': '2027-05',
+             'Scope_Customer': 'Helios Auto Parts', 'Scope_Region': 'India'},
+            {'Event_ID': 'EV-059', 'Start_Date': '2027-01', 'End_Date': '2027-12',
+             'Scope_Customer': 'Global', 'Scope_Region': 'Global'},
+        ])
+        df_forecast = pd.DataFrame([
+            {'Date': '2027-02', 'SKU_ID': 'BSS-001', 'Region': 'India',
+             'Customer_Name': 'Helios Auto Parts', 'Units_Sold_Forecast': 100}
+        ])
+        adjusted = apply_event_adjustments(df_forecast, events_fixture)
+        assert adjusted['Units_Sold_Forecast'].iloc[0] == 100
+
+    def test_hierarchy_reconciliation_structure_and_reconciled_flag(self):
+        """Priority A3: Reconciliation records raw deviations and reports reconciled boolean."""
+        from pipeline.forecast import compute_hierarchy_reconciliation
+        sub_fixture = pd.DataFrame([
+            {'Date': '2026-11', 'SKU_ID': 'BSS-001', 'Region': 'North America', 'Units_Sold_Forecast': 100},
+            {'Date': '2026-11', 'SKU_ID': 'BSS-002', 'Region': 'Europe', 'Units_Sold_Forecast': 200},
+        ])
+        sku_master_fixture = pd.DataFrame([
+            {'SKU_ID': 'BSS-001', 'Product_Family': 'Brake & Safety Systems', 'Business_Unit': 'Safety & Compliance'},
+            {'SKU_ID': 'BSS-002', 'Product_Family': 'Brake & Safety Systems', 'Business_Unit': 'Safety & Compliance'},
+        ])
+        clean_train_fixture = pd.DataFrame([
+            {'Date': '2026-10', 'Product_Family': 'Brake & Safety Systems', 'Region': 'North America', 'Units_Sold_Unconstrained': 100},
+            {'Date': '2026-10', 'Product_Family': 'Brake & Safety Systems', 'Region': 'Europe', 'Units_Sold_Unconstrained': 200},
+        ])
+        res = compute_hierarchy_reconciliation(sub_fixture, clean_train_fixture, sku_master_fixture)
+        assert 'total_forecast_units' in res
+        assert 'reconciled' in res
+        assert isinstance(res['reconciled'], bool)
 
     def test_new_launch_inheritance_fixture(self):
         """Priority 6c: A launch forecast before Launch_Date is zero, and inherited values match rule."""

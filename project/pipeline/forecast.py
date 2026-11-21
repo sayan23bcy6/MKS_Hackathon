@@ -166,6 +166,12 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
     fam_region_avg = train_history.groupby(['Product_Family', 'Region'])['Units_Sold_Unconstrained'].mean().to_dict()
     rep_sku_reg_avg = train_history.groupby(['SKU_ID', 'Region'])['Units_Sold_Unconstrained'].mean().to_dict()
 
+    # Build launch map to prevent pre-launch zeros from entering lag history (Priority A1)
+    launch_map = {}
+    for _, row in sku_master.iterrows():
+        if pd.notna(row.get('Launch_Date')) and str(row['Launch_Date']).strip():
+            launch_map[row['SKU_ID']] = str(row['Launch_Date'])[:7]
+
     # Pre-calculate first 6 months volume for launches and replaced SKUs
     sku_first_6m = {}
     for (s, r, c), grp in train_history.groupby(series_keys):
@@ -222,10 +228,12 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
     cycle_cols = [c for c in ['order_cycle_code', 'is_lost_account', 'intermittency_code'] if c in train_history.columns]
     cycle_meta = train_history.drop_duplicates(series_keys)[series_keys + cycle_cols].set_index(series_keys) if cycle_cols else None
 
-    # Apply PMI shift if what-if scenario delta is requested (Priority 3a)
+    # Apply PMI shift if what-if scenario delta is requested (Priority A4)
+    # Shifting applies strictly to future forecast months (>= 2026-11); historical macro remains untouched
     macro_input = clean_macro.copy()
     if pmi_delta != 0.0 and 'ISM_Manufacturing_PMI' in macro_input.columns:
-        macro_input['ISM_Manufacturing_PMI'] = macro_input['ISM_Manufacturing_PMI'] + pmi_delta
+        future_mask = (macro_input['Date'] >= '2026-11')
+        macro_input.loc[future_mask, 'ISM_Manufacturing_PMI'] = macro_input.loc[future_mask, 'ISM_Manufacturing_PMI'] + pmi_delta
 
     monthly_preds = []
 
@@ -265,7 +273,15 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
             history = recent_hist.get(key, [])
             n = len(history)
 
-            # Inherited history for new launches (Priority 6)
+            # Inherited history for new launches (Priority A1):
+            # Prepend inherited history until launch has enough of its own predictions/actuals
+            if key in initial_inherited_history:
+                inherited = initial_inherited_history[key]
+                if len(history) < 12 and len(inherited) > 0:
+                    needed = 12 - len(history)
+                    history = inherited[-needed:] + history
+                    n = len(history)
+
             if n == 0:
                 history = initial_inherited_history.get(key, [])
                 n = len(history)
@@ -334,13 +350,17 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
         monthly_preds.append(current_test)
 
         # Append predicted month to history for next recursive horizon
+        # Exclude pre-launch zeros: only append when current_month >= Launch_Date (Priority A1)
         append_df = current_test[series_keys].copy()
         append_df['Date'] = current_month
         append_df['Units_Sold_Unconstrained'] = current_test['Units_Sold_Forecast_p50']
         append_df['Product_Family'] = current_test['Product_Family']
         append_df['Sales_Channel'] = current_test['Sales_Channel']
         append_df['Business_Unit'] = current_test.get('Business_Unit', 'Default')
-        hist_subset = pd.concat([hist_subset, append_df], ignore_index=True)
+
+        is_launched = [current_month >= launch_map.get(s, '1900-01') for s in append_df['SKU_ID']]
+        if any(is_launched):
+            hist_subset = pd.concat([hist_subset, append_df[is_launched]], ignore_index=True)
 
     full_results = pd.concat(monthly_preds, ignore_index=True)
 
@@ -438,7 +458,7 @@ def compute_hierarchy_reconciliation(submission: pd.DataFrame,
         'Reconciled_Units': total_units,
         'Adjustment_Units': 0,
         'Deviation_Pct': 0.0,
-        'Status': 'PASS' if 0.0 <= tolerance_pct else 'FAIL'
+        'Status': 'PASS' if raw_tot_diff <= tolerance_pct else 'FAIL'
     })
 
     # Family level records
@@ -448,11 +468,10 @@ def compute_hierarchy_reconciliation(submission: pd.DataFrame,
         else:
             top_val = int(b_units)
         raw_diff = abs(b_units - top_val) / max(top_val, 1) * 100.0
-        # Reconcile via proportional consensus to preserve total volume
-        reconciled = int(b_units)
+        status = 'PASS' if raw_diff <= tolerance_pct else 'FAIL'
+        reconciled = int(top_val) if raw_diff > tolerance_pct else int(b_units)
         adj = reconciled - int(b_units)
-        post_diff = abs(reconciled - int(b_units)) / max(b_units, 1) * 100.0
-        status = 'PASS' if post_diff <= tolerance_pct else 'FAIL'
+        post_diff = abs(reconciled - int(top_val)) / max(top_val, 1) * 100.0 if raw_diff > tolerance_pct else 0.0
         recon_records.append({
             'Level': 'Product_Family', 'Group': fam,
             'Bottom_Up_Units': int(b_units),
@@ -471,10 +490,10 @@ def compute_hierarchy_reconciliation(submission: pd.DataFrame,
         else:
             top_val = int(b_units)
         raw_diff = abs(b_units - top_val) / max(top_val, 1) * 100.0
-        reconciled = int(b_units)
+        status = 'PASS' if raw_diff <= tolerance_pct else 'FAIL'
+        reconciled = int(top_val) if raw_diff > tolerance_pct else int(b_units)
         adj = reconciled - int(b_units)
-        post_diff = abs(reconciled - int(b_units)) / max(b_units, 1) * 100.0
-        status = 'PASS' if post_diff <= tolerance_pct else 'FAIL'
+        post_diff = abs(reconciled - int(top_val)) / max(top_val, 1) * 100.0 if raw_diff > tolerance_pct else 0.0
         recon_records.append({
             'Level': 'Region', 'Group': reg,
             'Bottom_Up_Units': int(b_units),

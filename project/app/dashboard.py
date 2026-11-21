@@ -101,6 +101,18 @@ def load_all_scenarios():
     return pd.read_csv(path) if path.exists() else pd.DataFrame()
 
 
+@st.cache_data
+def load_coverage_breakdown():
+    path = OUTPUTS_DIR / "coverage_breakdown.csv"
+    return pd.read_csv(path) if path.exists() else pd.DataFrame()
+
+
+@st.cache_data
+def load_panel_status():
+    path = OUTPUTS_DIR / "panel_status.csv"
+    return pd.read_csv(path) if path.exists() else pd.DataFrame()
+
+
 # Shared Filters
 def sidebar_filters(df_train: pd.DataFrame, df_forecast: pd.DataFrame) -> dict:
     st.sidebar.header("Global Filters")
@@ -169,7 +181,8 @@ def apply_filters(df: pd.DataFrame, filters: dict) -> pd.DataFrame:
 # 1. Executive Overview
 def view_executive_overview(df_train, df_forecast, df_intervals, filters):
     st.header("1. Executive Overview")
-    st.caption("Historical monthly demand and 19-month forward forecast on a consolidated timeline")
+    st.caption("Source: outputs/clean_train.parquet, outputs/forecast_submission.csv, outputs/forecast_intervals.csv")
+    st.caption("Historical monthly demand and 19-month forward forecast across units and revenue on a continuous timeline")
 
     df_t = apply_filters(df_train, filters)
     df_f = apply_filters(df_forecast, filters)
@@ -178,13 +191,27 @@ def view_executive_overview(df_train, df_forecast, df_intervals, filters):
         st.warning("No data found matching the selected filter criteria.")
         return
 
-    hist = df_t.groupby('Date').agg(Units=('Units_Sold_num', 'sum')).reset_index().sort_values('Date') if not df_t.empty else pd.DataFrame(columns=['Date', 'Units'])
+    # Price map for projected revenue calculation
+    sku_price_map = df_train.groupby('SKU_ID')['Unit_Price_USD'].median().to_dict() if not df_train.empty else {}
+    df_f_rev = df_f.copy()
+    df_f_rev['Est_Unit_Price'] = df_f_rev['SKU_ID'].map(sku_price_map).fillna(100.0)
+    df_f_rev['Est_Revenue'] = df_f_rev['Units_Sold_Forecast'] * df_f_rev['Est_Unit_Price']
+
+    metric_mode = st.radio("Display Metric", ["Units Sold", "Revenue (USD)"], horizontal=True)
+
+    if metric_mode == "Units Sold":
+        hist = df_t.groupby('Date').agg(Val=('Units_Sold_num', 'sum')).reset_index().sort_values('Date') if not df_t.empty else pd.DataFrame(columns=['Date', 'Val'])
+        fc = df_f.groupby('Date')['Units_Sold_Forecast'].sum().reset_index() if not df_f.empty else pd.DataFrame(columns=['Date', 'Val'])
+        fc.columns = ['Date', 'Val']
+        y_label = "Units"
+    else:
+        hist = df_t.groupby('Date').agg(Val=('Revenue_USD_num', 'sum')).reset_index().sort_values('Date') if not df_t.empty else pd.DataFrame(columns=['Date', 'Val'])
+        fc = df_f_rev.groupby('Date')['Est_Revenue'].sum().reset_index() if not df_f_rev.empty else pd.DataFrame(columns=['Date', 'Val'])
+        fc.columns = ['Date', 'Val']
+        y_label = "Revenue (USD)"
+
     hist['Type'] = 'History'
-
-    fc = df_f.groupby('Date')['Units_Sold_Forecast'].sum().reset_index() if not df_f.empty else pd.DataFrame(columns=['Date', 'Units'])
-    fc.columns = ['Date', 'Units']
     fc['Type'] = 'Forecast'
-
     combined = pd.concat([hist, fc], ignore_index=True).sort_values('Date')
 
     fig = go.Figure()
@@ -192,17 +219,17 @@ def view_executive_overview(df_train, df_forecast, df_intervals, filters):
     fc_pts = combined[combined['Type'] == 'Forecast']
 
     fig.add_trace(go.Scatter(
-        x=hist_pts['Date'], y=hist_pts['Units'],
-        mode='lines', name='Actual Shipments',
+        x=hist_pts['Date'], y=hist_pts['Val'],
+        mode='lines', name=f'Actual {metric_mode}',
         line=dict(color='#1f77b4', width=2)
     ))
     fig.add_trace(go.Scatter(
-        x=fc_pts['Date'], y=fc_pts['Units'],
-        mode='lines', name='Forecast (P50 Point Estimate)',
+        x=fc_pts['Date'], y=fc_pts['Val'],
+        mode='lines', name=f'Forecast (P50 {metric_mode})',
         line=dict(color='#ff7f0e', width=2, dash='dash')
     ))
 
-    if not df_intervals.empty:
+    if metric_mode == "Units Sold" and not df_intervals.empty:
         df_int_filtered = df_intervals[df_intervals['Region'].isin(filters['regions'])]
         if not df_int_filtered.empty:
             int_monthly = df_int_filtered.groupby('Date').agg(
@@ -223,26 +250,44 @@ def view_executive_overview(df_train, df_forecast, df_intervals, filters):
         text='Forecast Origin (2026-10)', showarrow=False,
         xanchor='left', font=dict(color='gray', size=11)
     )
-    fig.update_layout(title='Monthly Units Demand (History and 19-Month Forecast)', xaxis_title='Date', yaxis_title='Units', height=420)
+    fig.update_layout(title=f'Monthly {metric_mode} Timeline (History & 19-Month Forecast)', xaxis_title='Date', yaxis_title=y_label, height=420)
     st.plotly_chart(fig, use_container_width=True)
 
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric("Total Historical Volume", f"{int(hist_pts['Units'].sum()):,}")
+        st.metric(f"Historical Total ({metric_mode})", f"{int(hist_pts['Val'].sum()):,}")
     with col2:
-        st.metric("19-Month Forecast Total", f"{int(fc_pts['Units'].sum()):,}")
+        st.metric(f"19-Month Forecast Total", f"{int(fc_pts['Val'].sum()):,}")
     with col3:
-        last12 = hist_pts.tail(12)['Units'].sum()
-        st.metric("Trailing 12-Month Volume", f"{int(last12):,}")
+        last12 = hist_pts.tail(12)['Val'].sum()
+        st.metric(f"Trailing 12-Month Total", f"{int(last12):,}")
     with col4:
-        pct_growth = ((fc_pts['Units'].sum() / (last12 * (19 / 12))) - 1) * 100 if last12 > 0 else 0
-        st.metric("19-Month Forecast vs Trailing Run-Rate", f"{pct_growth:+.1f}%")
-        st.caption("Ratio of 19m forecast to annualized 12m trailing volume: FC / (T12 * 19/12) - 1")
+        pct_growth = ((fc_pts['Val'].sum() / (last12 * (19 / 12))) - 1) * 100 if last12 > 0 else 0
+        st.metric("Forecast vs Trailing Run-Rate", f"{pct_growth:+.1f}%")
+
+    st.subheader("Commercial Mix Breakdown (Forecast vs History)")
+    mix_col1, mix_col2, mix_col3 = st.columns(3)
+    with mix_col1:
+        if 'Product_Family' in df_t.columns:
+            fam_mix = df_t.groupby('Product_Family')['Units_Sold_num'].sum().reset_index()
+            fig_fam = px.bar(fam_mix, x='Product_Family', y='Units_Sold_num', title='Historical Volume by Family')
+            st.plotly_chart(fig_fam, use_container_width=True)
+    with mix_col2:
+        if 'Region' in df_f.columns:
+            reg_mix = df_f.groupby('Region')['Units_Sold_Forecast'].sum().reset_index()
+            fig_reg = px.bar(reg_mix, x='Region', y='Units_Sold_Forecast', title='Forecast Volume by Region')
+            st.plotly_chart(fig_reg, use_container_width=True)
+    with mix_col3:
+        if 'Sales_Channel' in df_t.columns:
+            ch_mix = df_t.groupby('Sales_Channel')['Units_Sold_num'].sum().reset_index()
+            fig_ch = px.pie(ch_mix, names='Sales_Channel', values='Units_Sold_num', title='Channel Distribution')
+            st.plotly_chart(fig_ch, use_container_width=True)
 
 
 # 2. Data Health and Audit
 def view_data_health(dq_report):
     st.header("2. Data Health and Audit Log")
+    st.caption("Source: outputs/data_quality_report.json, outputs/data_quality_report.md, outputs/audit_log.csv")
     st.caption("Verification of automated cleaning rules, data transformations, and decision tracking")
 
     if not dq_report:
@@ -279,6 +324,7 @@ def view_data_health(dq_report):
 # 3. Demand Explorer
 def view_demand_explorer(df_train, filters):
     st.header("3. Demand Explorer")
+    st.caption("Source: outputs/clean_train.parquet")
     st.caption("Multidimensional slice-and-dice across families, regions, and customers")
 
     df = apply_filters(df_train, filters)
@@ -293,16 +339,26 @@ def view_demand_explorer(df_train, filters):
                   title=f'Historical Demand by {group_col}', height=450)
     st.plotly_chart(fig, use_container_width=True)
 
-    st.subheader("Seasonality Profile")
-    df['Month_Num'] = df['Date'].str[5:7].astype(int)
-    seas = df.groupby('Month_Num')['Units_Sold_num'].mean().reset_index()
-    fig_seas = px.bar(seas, x='Month_Num', y='Units_Sold_num', title='Average Demand by Calendar Month')
-    st.plotly_chart(fig_seas, use_container_width=True)
+    col_s1, col_s2 = st.columns(2)
+    with col_s1:
+        st.subheader("Seasonality Profile")
+        df['Month_Num'] = df['Date'].str[5:7].astype(int)
+        seas = df.groupby('Month_Num')['Units_Sold_num'].mean().reset_index()
+        fig_seas = px.bar(seas, x='Month_Num', y='Units_Sold_num', title='Average Demand by Calendar Month')
+        st.plotly_chart(fig_seas, use_container_width=True)
+
+    with col_s2:
+        st.subheader("Zero-Demand Transaction Profile")
+        zero_df = df[df['Units_Sold_num'] == 0].groupby('Date')['SKU_ID'].count().reset_index()
+        if not zero_df.empty:
+            fig_zeros = px.bar(zero_df, x='Date', y='SKU_ID', labels={'SKU_ID': 'Zero Demand Rows'}, title='Zero-Demand Occurrences over Time')
+            st.plotly_chart(fig_zeros, use_container_width=True)
 
 
 # 4. Anomaly Monitor
 def view_anomaly_monitor(df_train, anomaly_df, filters):
     st.header("4. Anomaly Monitor")
+    st.caption("Source: outputs/anomaly_register.csv, outputs/clean_train.parquet")
     st.caption("Historical demand overlaid with structural breaks, market shocks, and high-volume events")
 
     df = apply_filters(df_train, filters)
@@ -320,7 +376,18 @@ def view_anomaly_monitor(df_train, anomaly_df, filters):
 
     with col2:
         monthly = df.groupby('Date')['Units_Sold_num'].sum().reset_index()
-        fig_line = px.line(monthly, x='Date', y='Units_Sold_num', title='Monthly Demand Trend')
+        fig_line = px.line(monthly, x='Date', y='Units_Sold_num', title='Monthly Demand Trend with Anomaly Overlay')
+
+        # Add anomaly markers
+        anom_dates = anomaly_df[anomaly_df['Date'].isin(monthly['Date'])].groupby('Date').first().reset_index()
+        anom_merged = anom_dates.merge(monthly, on='Date', how='inner')
+        if not anom_merged.empty:
+            fig_line.add_trace(go.Scatter(
+                x=anom_merged['Date'], y=anom_merged['Units_Sold_num'],
+                mode='markers', name='Flagged Event / Anomaly',
+                marker=dict(color='red', size=8, symbol='diamond'),
+                hovertext=anom_merged['reason']
+            ))
         st.plotly_chart(fig_line, use_container_width=True)
 
     st.subheader("Anomaly Register Records")
@@ -331,7 +398,8 @@ def view_anomaly_monitor(df_train, anomaly_df, filters):
 # 5. Forecast and Accuracy
 def view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, filters):
     st.header("5. Forecast and Model Accuracy")
-    st.caption("Rolling-origin backtest metrics across 19-month horizons, model comparisons, and prediction intervals")
+    st.caption("Source: outputs/backtest_metrics.csv, outputs/coverage_breakdown.csv, outputs/backtest_predictions.csv")
+    st.caption("Rolling-origin backtest metrics across 19-month horizons, model comparisons, empirical coverage, and prediction intervals")
 
     if backtest_df.empty:
         st.warning("Backtest metrics not found.")
@@ -339,19 +407,36 @@ def view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, fil
 
     st.subheader("Rolling-Origin Backtest Performance Summary")
     overall = backtest_df[backtest_df['breakdown'] == 'overall']
-    st.dataframe(overall[['origin', 'model', 'WAPE', 'Bias', 'n_obs']], use_container_width=True, hide_index=True)
+    display_ov = [c for c in ['origin', 'model', 'WAPE', 'Bias', 'coverage_raw', 'coverage_calibrated', 'n_obs'] if c in overall.columns]
+    st.dataframe(overall[display_ov], use_container_width=True, hide_index=True)
 
-    st.subheader("Forecast Error Degradation Across Horizon (Months 1-19)")
-    horizons = backtest_df[(backtest_df['breakdown'] == 'horizon') & (backtest_df['model'] == 'lightgbm_p50')].sort_values('horizon_month')
-    if not horizons.empty:
-        fig_hor = px.line(horizons, x='horizon_month', y='WAPE', color='origin', title='WAPE by Horizon Month across Evaluation Origins')
-        st.plotly_chart(fig_hor, use_container_width=True)
+    # Coverage breakdown table (Priority C1)
+    cov_df = load_coverage_breakdown()
+    if not cov_df.empty:
+        st.subheader("Empirical Interval Coverage Breakdown (P10 - P90)")
+        st.caption("Raw quantile coverage vs out-of-sample calibrated coverage by origin, horizon, and family")
+        st.dataframe(cov_df, use_container_width=True, hide_index=True)
 
-    st.subheader("Model Performance by Product Family")
-    fam_metrics = backtest_df[(backtest_df['breakdown'] == 'family') & (backtest_df['model'] == 'lightgbm_p50')]
-    if not fam_metrics.empty:
-        fig_fam = px.bar(fam_metrics, x='group', y='WAPE', color='origin', barmode='group', title='WAPE by Product Family')
-        st.plotly_chart(fig_fam, use_container_width=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Forecast Error Degradation Across Horizon")
+        horizons = backtest_df[(backtest_df['breakdown'] == 'horizon') & (backtest_df['model'] == 'lightgbm_p50')].sort_values('horizon_month')
+        if not horizons.empty:
+            fig_hor = px.line(horizons, x='horizon_month', y='WAPE', color='origin', title='WAPE by Horizon Month')
+            st.plotly_chart(fig_hor, use_container_width=True)
+
+    with col2:
+        st.subheader("Forecast Bias by Product Family")
+        fam_bias = backtest_df[(backtest_df['breakdown'] == 'family') & (backtest_df['model'] == 'lightgbm_p50')]
+        if not fam_bias.empty:
+            fig_bias = px.bar(fam_bias, x='group', y='Bias', color='origin', barmode='group', title='Mean Bias (Pred - Actual) by Family')
+            st.plotly_chart(fig_bias, use_container_width=True)
+
+    reg_metrics = backtest_df[(backtest_df['breakdown'] == 'region') & (backtest_df['model'] == 'lightgbm_p50')]
+    if not reg_metrics.empty:
+        st.subheader("Model Accuracy (WAPE) by Region")
+        fig_reg = px.bar(reg_metrics, x='group', y='WAPE', color='origin', barmode='group', title='WAPE by Geographic Region')
+        st.plotly_chart(fig_reg, use_container_width=True)
 
 
 # 6. Macro Lead/Lag Heatmap (Opt 1)
