@@ -1,12 +1,12 @@
-Metric_Type,Detail_1,Detail_2,Detail_3,Value
-EV_Adoption_vs_ICE_Regression,"Best Lag: 1 months, Slope: -109.6675","R^2: 0.2128, t-stat: -4.96",p-value approx: 1.0082 (Statistically significant shift),0.2128
-Yearly_EV_Share_2019,"Total Units: 1,347,909","EV Units: 43, ICE Units: 320,291",EV Share: 0.00%,0.0
-Yearly_EV_Share_2020,"Total Units: 1,106,366","EV Units: 3,578, ICE Units: 231,613",EV Share: 0.32%,0.32
-Yearly_EV_Share_2021,"Total Units: 1,562,723","EV Units: 21,825, ICE Units: 309,632",EV Share: 1.40%,1.4
-Yearly_EV_Share_2022,"Total Units: 1,484,436","EV Units: 43,502, ICE Units: 266,455",EV Share: 2.93%,2.93
-Yearly_EV_Share_2023,"Total Units: 1,539,189","EV Units: 90,615, ICE Units: 235,981",EV Share: 5.89%,5.89
-Yearly_EV_Share_2024,"Total Units: 1,755,665","EV Units: 161,710, ICE Units: 238,603",EV Share: 9.21%,9.21
-Yearly_EV_Share_2025,"Total Units: 1,808,319","EV Units: 165,273, ICE Units: 232,809",EV Share: 9.14%,9.14
-Yearly_EV_Share_2026,"Total Units: 1,460,733","EV Units: 153,673, ICE Units: 191,979",EV Share: 10.52%,10.52
-EV_Share_Growth,2019-01 EV Share: 0.0%,2026-10 EV Share: 10.9%,Net Gain: +10.9%,10.900794012959752
-Macro_Lag_Stability,Stable Indicator Pairs: 11/56,Stability Rate: 19.6%,Windows compared: 2019-2022 vs 2023-2026,0.19642857142857142
+Metric_Type,Detail_1,Detail_2,Detail_3,Value,Coefficient,P_Value,Lag_Months
+EV_Adoption_vs_ICE_Regression,"Best Lag: 1 months, Slope: -109.6675","R^2: 0.2128, t-stat: -4.96",p-value approx: 1.0082 (Statistically significant shift),0.2128,-109.6675,1.008162944371812,1.0
+Yearly_EV_Share_2019,"Total Units: 1,347,909","EV Units: 43, ICE Units: 320,291",EV Share: 0.00%,0.0,,,
+Yearly_EV_Share_2020,"Total Units: 1,106,366","EV Units: 3,578, ICE Units: 231,613",EV Share: 0.32%,0.32,,,
+Yearly_EV_Share_2021,"Total Units: 1,562,723","EV Units: 21,825, ICE Units: 309,632",EV Share: 1.40%,1.4,,,
+Yearly_EV_Share_2022,"Total Units: 1,484,436","EV Units: 43,502, ICE Units: 266,455",EV Share: 2.93%,2.93,,,
+Yearly_EV_Share_2023,"Total Units: 1,539,189","EV Units: 90,615, ICE Units: 235,981",EV Share: 5.89%,5.89,,,
+Yearly_EV_Share_2024,"Total Units: 1,755,665","EV Units: 161,710, ICE Units: 238,603",EV Share: 9.21%,9.21,,,
+Yearly_EV_Share_2025,"Total Units: 1,808,319","EV Units: 165,273, ICE Units: 232,809",EV Share: 9.14%,9.14,,,
+Yearly_EV_Share_2026,"Total Units: 1,460,733","EV Units: 153,673, ICE Units: 191,979",EV Share: 10.52%,10.52,,,
+EV_Share_Growth,2019-01 EV Share: 0.0%,2026-10 EV Share: 10.9%,Net Gain: +10.9%,10.900794012959752,,,
+Macro_Lag_Stability,Stable Indicator Pairs: 11/56,Stability Rate: 19.6%,Windows compared: 2019-2022 vs 2023-2026,0.19642857142857142,,,

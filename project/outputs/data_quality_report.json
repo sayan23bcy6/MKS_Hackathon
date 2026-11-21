@@ -8,18 +8,24 @@
       "description": "Mixed date formats in Date column converted to YYYY-MM",
       "raw_rows": 248248,
       "formats_fixed": 9967,
-      "rule": "T1"
+      "rule": "T1",
+      "before_count": 248248,
+      "after_count": 0
     },
     "T2_year_month_mismatch": {
       "description": "Year/Month disagree with Date column (Date treated as authoritative)",
       "count": 246,
-      "rule": "T2"
+      "rule": "T2",
+      "before_count": 246,
+      "after_count": 246
     },
     "T3_typo_year": {
       "description": "Impossible future dates (e.g. 2062 transposed to 2026)",
       "found": 30,
       "corrected": 30,
-      "rule": "T3"
+      "rule": "T3",
+      "before_count": 30,
+      "after_count": 30
     },
     "T4_duplicate_record_ids": {
       "description": "Duplicate Record_IDs resolved by keeping latest Load_Timestamp",
@@ -27,7 +33,9 @@
       "rows_dropped": 3682,
       "rows_after": 244566,
       "date_sku_region_dups_after": 0,
-      "rule": "T4"
+      "rule": "T4",
+      "before_count": 248248,
+      "after_count": 244566
     },
     "T5_region": {
       "description": "Region labels normalized and unresolvable blanks assigned to 'Unassigned'",
@@ -35,35 +43,47 @@
       "blank_resolved": 245,
       "unassigned_count": 697,
       "normalised": 5912,
-      "rule": "T5"
+      "rule": "T5",
+      "before_count": 942,
+      "after_count": 5912
     },
     "T6_sales_channel": {
       "description": "Sales channel label variants normalized to standard set",
       "normalised": 3524,
-      "rule": "T6"
+      "rule": "T6",
+      "before_count": 0,
+      "after_count": 3524
     },
     "T7_product_family": {
       "description": "Missing product family inferred deterministically from SKU prefix",
       "blank_count": 1228,
       "filled": 1228,
-      "rule": "T7"
+      "rule": "T7",
+      "before_count": 1228,
+      "after_count": 1228
     },
     "T8_sku_id": {
       "description": "SKU_ID format variations normalized to standard PREFIX-NNN",
       "bad_before": 3683,
       "normalised": 3683,
-      "rule": "T8"
+      "rule": "T8",
+      "before_count": 0,
+      "after_count": 3683
     },
     "T9_sku_description": {
       "description": "Missing SKU descriptions populated from sku_master reference",
       "blank_count": 982,
       "filled": 982,
-      "rule": "T9"
+      "rule": "T9",
+      "before_count": 982,
+      "after_count": 982
     },
     "T10_customer_name": {
       "description": "Customer name casing and whitespace variants unified",
       "normalised": 2455,
-      "rule": "T10"
+      "rule": "T10",
+      "before_count": 0,
+      "after_count": 2455
     },
     "T11_units_sold": {
       "description": "Units_Sold formatting, negative reversal resolution, and stockout alignment",
@@ -75,7 +95,9 @@
       "large_values_gt5000": 31,
       "zero_demand_rows": 35403,
       "null_demand_rows": 3460,
-      "rule": "T11"
+      "rule": "T11",
+      "before_count": 0,
+      "after_count": 0
     },
     "T12_unit_price": {
       "description": "Unit_Price_USD zeros, scale errors, and currency shifts repaired with annual median reference",
@@ -83,27 +105,35 @@
       "scale_100x_band": 0,
       "scale_85x_band": 0,
       "scale_5_20x_band": 0,
-      "rule": "T12"
+      "rule": "T12",
+      "before_count": 0,
+      "after_count": 0
     },
     "T13_revenue": {
       "description": "Revenue_USD recalculated as Units_Sold * Unit_Price_USD",
       "blank_count": 380,
       "discrepancy_before": 18529,
       "recomputed": 18529,
-      "rule": "T13"
+      "rule": "T13",
+      "before_count": 380,
+      "after_count": 18529
     },
     "R5_lifecycle": {
       "description": "Lifecycle validation: sales outside launch/EOL boundaries zeroed",
       "eol_violations": 0,
       "launch_violations": 15,
-      "rule": "R5"
+      "rule": "R5",
+      "before_count": 0,
+      "after_count": 0
     },
     "T4b_date_sku_region": {
       "description": "Deduplication of duplicate load records across differing sales channels",
       "rows_before": 244488,
       "channels_differed": 167,
       "rows_after": 244321,
-      "rule": "T4b"
+      "rule": "T4b",
+      "before_count": 244488,
+      "after_count": 244321
     }
   },
   "macro_issues": {

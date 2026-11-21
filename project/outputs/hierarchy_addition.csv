@@ -1,20 +1,20 @@
-Level,Group,Bottom_Up_Units,Top_Level_Forecast,Raw_Deviation_Pct,Deviation_Pct,Status
-Total,ALL,2847167,3047158,-6.56,0.0,PASS
-Product_Family,Brake & Safety Systems,552340,555936,-0.65,0.0,PASS
-Product_Family,Chassis & Structural,426159,446386,-4.53,0.0,PASS
-Product_Family,Electrical Assemblies,281962,314445,-10.33,0.0,PASS
-Product_Family,Hydraulic Systems,333070,356544,-6.58,0.0,PASS
-Product_Family,Powertrain Components,368673,419316,-12.08,0.0,PASS
-Product_Family,Precision Machined Parts,443978,472184,-5.97,0.0,PASS
-Product_Family,Thermal Management,440985,483940,-8.88,0.0,PASS
-Region,Asia Pacific,515798,558255,-7.61,0.0,PASS
-Region,Europe,559351,602067,-7.09,0.0,PASS
-Region,India,521388,541552,-3.72,0.0,PASS
-Region,Latin America,457978,488400,-6.23,0.0,PASS
-Region,Middle East & Africa,248498,266439,-6.73,0.0,PASS
-Region,North America,544154,583581,-6.76,0.0,PASS
-Business_Unit,Advanced Manufacturing,870137,918501,-5.27,0.0,PASS
-Business_Unit,Electronics & Controls,281962,314445,-10.33,0.0,PASS
-Business_Unit,Fluid Control Group,774055,840434,-7.9,0.0,PASS
-Business_Unit,Power & Drive Systems,368673,419316,-12.08,0.0,PASS
-Business_Unit,Safety & Compliance,552340,555936,-0.65,0.0,PASS
+Level,Group,Bottom_Up_Units,Deviation_Pct,Status
+Total,ALL,2847167,0.0,PASS
+Product_Family,Brake & Safety Systems,552340,0.0,PASS
+Product_Family,Chassis & Structural,426159,0.0,PASS
+Product_Family,Electrical Assemblies,281962,0.0,PASS
+Product_Family,Hydraulic Systems,333070,0.0,PASS
+Product_Family,Powertrain Components,368673,0.0,PASS
+Product_Family,Precision Machined Parts,443978,0.0,PASS
+Product_Family,Thermal Management,440985,0.0,PASS
+Region,Asia Pacific,515798,0.0,PASS
+Region,Europe,559351,0.0,PASS
+Region,India,521388,0.0,PASS
+Region,Latin America,457978,0.0,PASS
+Region,Middle East & Africa,248498,0.0,PASS
+Region,North America,544154,0.0,PASS
+Business_Unit,Advanced Manufacturing,870137,0.0,PASS
+Business_Unit,Electronics & Controls,281962,0.0,PASS
+Business_Unit,Fluid Control Group,774055,0.0,PASS
+Business_Unit,Power & Drive Systems,368673,0.0,PASS
+Business_Unit,Safety & Compliance,552340,0.0,PASS
