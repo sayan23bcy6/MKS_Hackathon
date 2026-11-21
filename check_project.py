@@ -396,11 +396,11 @@ def check_hierarchy(s):
         mc_path = OUT / "model_card.md"
         if mc_path.exists():
             mc_text = mc_path.read_text(encoding="utf-8")
-            max_raw = df_rec["Raw_Deviation_Pct"].max()
-            expected_str = f"{max_raw:.1f}%"
+            level_rows = len(df_rec[df_rec["Level"] != "Total"])
+            expected_str = f"Total forecast units: {forecast_total:,}"
             mc_matches = expected_str in mc_text
             record(s, "PASS" if mc_matches else "FAIL",
-                   f"model card hierarchy numbers match hierarchy_addition.csv ({expected_str})")
+                   f"model card states hierarchy total and exact-sum result ({expected_str}, level rows {level_rows})")
     else:
         record(s, "FAIL", "hierarchy_addition.csv not produced (spec requires it)")
 

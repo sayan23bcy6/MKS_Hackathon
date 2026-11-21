@@ -139,7 +139,7 @@ def add_lifecycle_features(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.Dat
     df['months_since_launch'] = (date_dt.dt.year - launch_dt.dt.year) * 12 + (date_dt.dt.month - launch_dt.dt.month)
     df['months_to_eol'] = (eol_dt.dt.year - date_dt.dt.year) * 12 + (eol_dt.dt.month - date_dt.dt.month)
     df['flag_launch'] = (df['months_since_launch'] >= 0).astype(int)
-    df['flag_eol'] = (df['months_to_eol'] >= 0).astype(int)
+    df['flag_eol'] = (eol_dt.notna() & (date_dt >= eol_dt)).astype(int)
 
     df['is_replacement_sku'] = df['SKU_ID'].map(lambda s: 1 if replaces_map.get(s) else 0)
     df['has_replacement'] = df['SKU_ID'].map(
