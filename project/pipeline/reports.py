@@ -183,6 +183,16 @@ def generate_dq_report(dq_train: dict,
         },
     }
 
+    for issue in report["train_issues"].values():
+        before_count = issue.get("raw_rows", issue.get("rows_before",
+                        issue.get("found", issue.get("blank_count",
+                        issue.get("count", 0)))))
+        after_count = issue.get("rows_after", issue.get("corrected",
+                       issue.get("normalised", issue.get("filled",
+                       issue.get("recomputed", issue.get("count", 0))))))
+        issue["before_count"] = before_count
+        issue["after_count"] = after_count
+
     with open(OUT_DQ_JSON, 'w', encoding='utf-8') as f:
         json.dump(report, f, indent=2, default=str)
     print(f"Data quality report saved: {OUT_DQ_JSON}")

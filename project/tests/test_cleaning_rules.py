@@ -10,6 +10,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import pytest
 import pandas as pd
 import numpy as np
+import json
 
 from pipeline.clean_train import (
     apply_t1_date_parsing,
@@ -1315,5 +1316,101 @@ def test_originality_methodology_heading():
     path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'docs', 'methodology.md')
     text = open(path, encoding='utf-8').read()
     assert '## 7.1 Originality and Innovation' in text
+
+
+def test_dq_report_before_after_counts():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'data_quality_report.json')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    with open(path, encoding='utf-8') as fh:
+        report = json.load(fh)
+    train_issues = report['train_issues']
+    assert train_issues
+    for issue_name, issue in train_issues.items():
+        assert 'before_count' in issue, f"{issue_name} missing before_count"
+        assert 'after_count' in issue, f"{issue_name} missing after_count"
+
+
+def test_anomaly_register_columns():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'anomaly_register.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    for column in ['type', 'reason', 'evidence', 'action']:
+        assert column in frame.columns
+        assert frame[column].notna().all()
+        assert frame[column].astype(str).str.strip().ne('').all()
+
+
+def test_anomaly_type_is_error_or_real_event():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'anomaly_register.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    assert 'Classification' in frame.columns
+    assert set(frame['Classification'].str.lower().unique()).issubset({'error', 'real event'})
+
+
+def test_events_treatment_column():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'clean_events.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    assert 'Treatment' in frame.columns
+    assert set(frame['Treatment'].str.lower().dropna().unique()).issubset({'feature', 'adjustment', 'excluded'})
+
+
+def test_macro_lag_columns():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'macro_lag_analysis.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    assert {'Product_Family', 'MacroIndicator', 'Lag_Months', 'Correlation'} <= set(frame.columns)
+
+
+def test_feature_flags_present():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'features.parquet')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_parquet(path)
+    assert 'flag_launch' in frame.columns
+    assert 'flag_eol' in frame.columns
+
+
+def test_backtest_has_baselines_and_lightgbm():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'backtest_metrics.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    assert {'naive_seasonal', 'moving_average', 'lightgbm_p50'} <= set(frame['model'].dropna().unique())
+
+
+def test_model_card_names_lightgbm():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'model_card.md')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    text = open(path, encoding='utf-8').read()
+    assert 'LightGBM' in text
+    assert 'P10' in text
+    assert 'P50' in text
+    assert 'P90' in text
+
+
+def test_coverage_values_in_range():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'coverage_breakdown.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    for column in ['coverage_raw', 'coverage_calibrated']:
+        assert column in frame.columns
+        values = pd.to_numeric(frame[column], errors='coerce').dropna()
+        assert ((values >= 0) & (values <= 1)).all()
+
+
+def test_presentation_outline_sections():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'docs', 'presentation_outline.md')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    text = open(path, encoding='utf-8').read()
+    assert 'Problem' in text
+    assert 'Approach' in text
+
+
+def test_methodology_names_ai_tools():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'docs', 'methodology.md')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    text = open(path, encoding='utf-8').read()
+    assert 'Responsible AI Use Declaration' in text
+    assert 'AI Coding Assistants' in text
 
 

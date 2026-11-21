@@ -13,7 +13,8 @@ from pipeline.config import (
 ANOMALY_COLS = [
     "Date", "SKU_ID", "Region", "Customer_Name",
     "anomaly_type", "field", "value", "baseline",
-    "action", "reason", "event_reference"
+    "action", "reason", "event_reference",
+    "type", "evidence", "Classification",
 ]
 
 
@@ -24,6 +25,10 @@ class AnomalyRegister:
     def add(self, date, sku_id, region, customer,
             anomaly_type, field, value, baseline,
             action, reason, event_ref=""):
+        classification = "error" if anomaly_type in {
+            "sign_reversal", "price_scaling_correction"
+        } else "real event"
+        evidence = f"{field}: value={value}, baseline={baseline}"
         self._records.append({
             "Date": str(date), "SKU_ID": str(sku_id), "Region": str(region),
             "Customer_Name": str(customer),
@@ -31,6 +36,9 @@ class AnomalyRegister:
             "value": value, "baseline": baseline,
             "action": str(action), "reason": str(reason),
             "event_reference": str(event_ref),
+            "type": str(anomaly_type),
+            "evidence": evidence,
+            "Classification": classification,
         })
 
     def as_dataframe(self) -> pd.DataFrame:

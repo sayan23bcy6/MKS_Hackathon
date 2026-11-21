@@ -2,6 +2,10 @@
 
 A structured guide for presenting and defending the Celeris Automobili demand forecasting solution.
 
+## Approach
+
+The solution combines deterministic cleaning, unconstrained demand reconstruction, LightGBM quantile forecasting, rolling-origin backtesting and hierarchy validation.
+
 ---
 
 ## Slide 1: Executive Title and Problem Statement

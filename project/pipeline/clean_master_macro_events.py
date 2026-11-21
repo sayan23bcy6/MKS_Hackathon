@@ -310,6 +310,20 @@ def clean_events(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         'Marketing': 'demand_boost_feature',
     }
     df['Data_Impact'] = df['Event_Type'].map(impact_types).fillna('informational')
+    treatment_map = {
+        'Holiday': 'feature',
+        'Price Change': 'feature',
+        'Announcement': 'feature',
+        'Supply Constraint': 'excluded',
+        'Disruption': 'excluded',
+        'System': 'excluded',
+        'Market Entry': 'feature',
+        'Customer Event': 'feature',
+        'Logistics': 'excluded',
+        'Corporate': 'excluded',
+        'Marketing': 'feature',
+    }
+    df['Treatment'] = df['Event_Type'].map(treatment_map).fillna('excluded')
     dq['E4_impact_annotations'] = df['Event_Type'].value_counts().to_dict()
 
     # Rule 7: Check for duplicate Event_IDs
