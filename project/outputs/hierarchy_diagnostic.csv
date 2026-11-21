@@ -1,0 +1,20 @@
+Level,Group,Forecast_Units,Trend_Units,Gap_Pct
+Total,ALL,2847167,3047158,-6.56
+Product_Family,Brake & Safety Systems,552340,555936,-0.65
+Product_Family,Chassis & Structural,426159,446386,-4.53
+Product_Family,Electrical Assemblies,281962,314445,-10.33
+Product_Family,Hydraulic Systems,333070,356544,-6.58
+Product_Family,Powertrain Components,368673,419316,-12.08
+Product_Family,Precision Machined Parts,443978,472184,-5.97
+Product_Family,Thermal Management,440985,483940,-8.88
+Region,Asia Pacific,515798,558255,-7.61
+Region,Europe,559351,602067,-7.09
+Region,India,521388,541552,-3.72
+Region,Latin America,457978,488400,-6.23
+Region,Middle East & Africa,248498,266439,-6.73
+Region,North America,544154,583581,-6.76
+Business_Unit,Advanced Manufacturing,870137,918501,-5.27
+Business_Unit,Electronics & Controls,281962,314445,-10.33
+Business_Unit,Fluid Control Group,774055,840434,-7.9
+Business_Unit,Power & Drive Systems,368673,419316,-12.08
+Business_Unit,Safety & Compliance,552340,555936,-0.65
