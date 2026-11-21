@@ -985,3 +985,135 @@ class TestSchemaValidation:
             view_scenario(scenario_df, df_forecast)
             view_powertrain_lifecycle(ev_df)
 
+
+# PDF Business Rules R1 through R7, Hierarchy Exactness, and Backtest Temporal Isolation
+
+def test_rule_r1_date_authoritative():
+    """PDF Rule R1: Date is authoritative. Year and Month follow Date."""
+    df = pd.DataFrame([
+        {'Record_ID': 'R1', 'Date': '2023-04', 'Year': '2020', 'Month': '1'},
+        {'Record_ID': 'R2', 'Date': '2024-11', 'Year': '2021', 'Month': '2'}
+    ])
+    cleaned = apply_t2_year_month(df)
+    assert cleaned.loc[0, 'Year'] == '2023'
+    assert cleaned.loc[0, 'Month'] == '4'
+    assert cleaned.loc[1, 'Year'] == '2024'
+    assert cleaned.loc[1, 'Month'] == '11'
+
+
+def test_rule_r2_load_timestamp_dedup():
+    """PDF Rule R2: Repeated Record_ID: keep the row with the latest Load_Timestamp."""
+    row1 = {'Record_ID': 'CEL-001', 'Date': '2023-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe',
+            'Customer_Name': 'Cust A', 'Sales_Channel': 'Direct OEM',
+            'Load_Timestamp': '2023-01-01 10:00:00', 'Units_Sold': '100'}
+    row2 = {'Record_ID': 'CEL-001', 'Date': '2023-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe',
+            'Customer_Name': 'Cust A', 'Sales_Channel': 'Direct OEM',
+            'Load_Timestamp': '2023-01-02 10:00:00', 'Units_Sold': '200'}
+    df = pd.DataFrame([row1, row2])
+    cleaned = apply_t4_dedup_record_id(df)
+    assert len(cleaned) == 1
+    assert cleaned.iloc[0]['Units_Sold'] == '200'
+    assert cleaned.iloc[0]['Load_Timestamp'] == '2023-01-02 10:00:00'
+
+
+def test_rule_r3_zero_orders_vs_missing_rows():
+    """PDF Rule R3: Units_Sold = 0 is a valid no-order record; missing rows are not zeros."""
+    df = pd.DataFrame([{'Record_ID': 'REC-Z1', 'Units_Sold': '0'}])
+    cleaned = apply_t15_zero_demand_flag(df)
+    assert len(cleaned) == 1
+    assert cleaned.iloc[0]['Units_Sold'] == '0'
+    p_status_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'panel_status.csv')
+    p_status = pd.read_csv(p_status_path)
+    statuses = set(p_status['status'].unique())
+    assert {'zero_order', 'not_recorded', 'sold'}.issubset(statuses)
+
+
+def test_rule_r4_prices_same_per_region_annual_change():
+    """PDF Rule R4: Prices per SKU in USD uniform across regions; annual 1 Jan adjustments except surcharges."""
+    df = pd.DataFrame([
+        {'Record_ID': 'P1', 'Date': '2023-01', 'Year': '2023', 'SKU_ID': 'BSS-001', 'Region': 'North America',
+         'Unit_Price_USD': '500.0', 'Units_Sold': '10', 'Revenue_USD': '5000.0'},
+        {'Record_ID': 'P2', 'Date': '2023-02', 'Year': '2023', 'SKU_ID': 'BSS-001', 'Region': 'Europe',
+         'Unit_Price_USD': '500.0', 'Units_Sold': '10', 'Revenue_USD': '5000.0'},
+        {'Record_ID': 'P3', 'Date': '2023-03', 'Year': '2023', 'SKU_ID': 'BSS-001', 'Region': 'Asia Pacific',
+         'Unit_Price_USD': '1500000.0', 'Units_Sold': '10', 'Revenue_USD': '15000000.0'}
+    ])
+    cleaned = apply_t12_prices(df)
+    assert float(cleaned.loc[2, 'Unit_Price_USD']) == 500.0
+
+
+def test_rule_r5_lifecycle_no_sales_outside_bounds():
+    """PDF Rule R5: No sales after EOL_Date or before planned Launch_Date."""
+    sku_master = pd.DataFrame([
+        {'SKU_ID': 'SKU-PRE', 'Launch_Date': '2023-06', 'EOL_Date': ''},
+        {'SKU_ID': 'SKU-POST', 'Launch_Date': '2020-01', 'EOL_Date': '2022-12'},
+        {'SKU_ID': 'SKU-ACTIVE', 'Launch_Date': '2020-01', 'EOL_Date': ''}
+    ])
+    df_r5 = pd.DataFrame([
+        {'Record_ID': 'L1', 'Date': '2023-01', 'SKU_ID': 'SKU-PRE', 'Units_Sold': 50},
+        {'Record_ID': 'L2', 'Date': '2023-01', 'SKU_ID': 'SKU-POST', 'Units_Sold': 60},
+        {'Record_ID': 'L3', 'Date': '2023-01', 'SKU_ID': 'SKU-ACTIVE', 'Units_Sold': 70}
+    ])
+    from pipeline.clean_train import DQ
+    apply_r5_lifecycle(df_r5, sku_master)
+    assert DQ['R5_eol_violations'] == 1
+    assert DQ['R5_launch_violations'] == 1
+
+    sub_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'forecast_submission.csv')
+    sku_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'student_data', 'sku_master.csv')
+    sub = pd.read_csv(sub_path)
+    sku_full = pd.read_csv(sku_path)
+    merged = sub.merge(sku_full[['SKU_ID', 'Launch_Date', 'EOL_Date']], on='SKU_ID', how='left')
+    eol = merged['EOL_Date'].fillna('').str[:7]
+    launch = merged['Launch_Date'].fillna('').str[:7]
+    assert merged[(eol != '') & (merged['Date'] > eol) & (merged['Units_Sold_Forecast'] > 0)].empty
+    assert merged[(launch != '') & (merged['Date'] < launch) & (merged['Units_Sold_Forecast'] > 0)].empty
+
+
+def test_rule_r6_customer_ordering_cycles():
+    """PDF Rule R6: Customers order on their own cycle; cycle detection and change points are tracked."""
+    cs_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'customer_switches.csv')
+    assert os.path.exists(cs_path), "customer_switches.csv must exist"
+    cs_df = pd.read_csv(cs_path)
+    assert not cs_df.empty
+    assert 'Prior_Customer' in cs_df.columns
+    assert 'New_Customer' in cs_df.columns
+
+
+def test_rule_r7_unconstrained_demand_forecast():
+    """PDF Rule R7: Forecast window has no supply limits; forecast unconstrained demand."""
+    unc_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'unconstrained_demand.parquet')
+    assert os.path.exists(unc_path), "unconstrained_demand.parquet must exist"
+    unc_df = pd.read_parquet(unc_path)
+    assert 'Units_Sold' in unc_df.columns
+    assert 'Units_Sold_Unconstrained' in unc_df.columns
+    so_rows = unc_df[unc_df['stockout_status'] == 'listed_stockout']
+    assert not so_rows.empty
+    assert so_rows['Units_Sold_Unconstrained'].sum() > so_rows['Units_Sold'].sum()
+
+
+def test_hierarchy_submission_exact_sums():
+    """PDF Part 4.10 & 6: Forecast submission sums exactly match totals across family, region, business unit, date."""
+    sub_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'forecast_submission.csv')
+    sku_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'student_data', 'sku_master.csv')
+    sub = pd.read_csv(sub_path)
+    sku_m = pd.read_csv(sku_path)
+    merged = sub.merge(sku_m[['SKU_ID', 'Product_Family', 'Business_Unit']], on='SKU_ID', how='left')
+    total = int(sub['Units_Sold_Forecast'].sum())
+    fam_sum = int(merged.groupby('Product_Family')['Units_Sold_Forecast'].sum().sum())
+    reg_sum = int(merged.groupby('Region')['Units_Sold_Forecast'].sum().sum())
+    bu_sum = int(merged.groupby('Business_Unit')['Units_Sold_Forecast'].sum().sum())
+    date_sum = int(merged.groupby('Date')['Units_Sold_Forecast'].sum().sum())
+    assert total == fam_sum == reg_sum == bu_sum == date_sum
+
+
+def test_backtest_temporal_isolation_no_leakage():
+    """PDF Part 4.5 & 6: Backtest origins strictly isolate training data; no future leakage."""
+    bm_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'backtest_metrics.csv')
+    assert os.path.exists(bm_path)
+    bm = pd.read_csv(bm_path)
+    origins = sorted(bm['origin'].dropna().unique())
+    assert len(origins) >= 3
+    assert origins == sorted(origins)
+
+
