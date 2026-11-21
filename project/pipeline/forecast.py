@@ -465,9 +465,8 @@ def compute_hierarchy_reconciliation(submission: pd.DataFrame,
     if out_path is not None:
         pd.DataFrame(recon_records).to_csv(out_path, index=False)
         diagnostic_path = Path(str(out_path)).parent / 'hierarchy_diagnostic.csv'
-        with open(diagnostic_path, 'w', newline='', encoding='utf-8') as fh:
-            fh.write('# diagnostic, not a PDF requirement\n')
-            pd.DataFrame(diagnostic_records).to_csv(fh, index=False)
+        # diagnostic, not a PDF requirement
+        pd.DataFrame(diagnostic_records).to_csv(diagnostic_path, index=False)
 
     return {'adds_up': bool(adds_up), 'total_forecast_units': total_units}
 

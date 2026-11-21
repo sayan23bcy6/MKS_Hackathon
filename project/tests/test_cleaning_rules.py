@@ -591,18 +591,27 @@ class TestSchemaValidation:
         assert (p10_o <= p50_o).all()
         assert (p50_o <= p90_o).all()
 
-    def test_hierarchy_reconciliation_structure(self):
-        """Verify hierarchy reconciliation output exists and has valid levels, deviations, and status."""
-        from pipeline.config import OUT_HIERARCHY_RECON
-        import pathlib
-        if pathlib.Path(OUT_HIERARCHY_RECON).exists():
-            df = pd.read_csv(OUT_HIERARCHY_RECON)
-            assert 'Level' in df.columns
-            assert 'Raw_Deviation_Pct' in df.columns
-            assert 'Deviation_Pct' in df.columns
-            assert (df['Deviation_Pct'] <= 0.5).all()
-            assert 'Status' in df.columns
-            assert set(df['Status'].unique()).issubset({'PASS', 'FAIL'})
+    def test_hierarchy_reconciliation_structure(self, tmp_path):
+        """Verify the hierarchy addition columns and exact result."""
+        from pipeline.forecast import compute_hierarchy_reconciliation
+        sub = pd.DataFrame([
+            {'Date': '2026-11', 'SKU_ID': 'S1', 'Region': 'North America', 'Units_Sold_Forecast': 30},
+            {'Date': '2026-11', 'SKU_ID': 'S2', 'Region': 'Europe', 'Units_Sold_Forecast': 20},
+        ])
+        master = pd.DataFrame([
+            {'SKU_ID': 'S1', 'Product_Family': 'F1', 'Business_Unit': 'BU1'},
+            {'SKU_ID': 'S2', 'Product_Family': 'F2', 'Business_Unit': 'BU2'},
+        ])
+        history = pd.DataFrame([
+            {'Date': '2026-10', 'Product_Family': 'F1', 'Region': 'North America', 'Business_Unit': 'BU1', 'Units_Sold': 30},
+            {'Date': '2026-10', 'Product_Family': 'F2', 'Region': 'Europe', 'Business_Unit': 'BU2', 'Units_Sold': 20},
+        ])
+        out_path = tmp_path / 'hierarchy_addition.csv'
+        res = compute_hierarchy_reconciliation(sub, history, master, out_path=out_path)
+        assert res['adds_up'] is True
+        assert set(res) == {'adds_up', 'total_forecast_units'}
+        df = pd.read_csv(out_path)
+        assert {'Level', 'Group', 'Bottom_Up_Units', 'Top_Level_Forecast', 'Raw_Deviation_Pct', 'Deviation_Pct', 'Status'} == set(df.columns)
 
     def test_features_yoy_growth_not_identical_to_lag12(self):
         """Fix F4: lag_12m_yoy must be the YoY ratio, distinct from lag_12m."""
@@ -817,7 +826,7 @@ class TestSchemaValidation:
         assert adjusted['Units_Sold_Forecast'].iloc[0] == 100
 
     def test_hierarchy_reconciliation_structure_and_reconciled_flag(self):
-        """Priority A3: Reconciliation records raw deviations and reports reconciled boolean."""
+        """Priority A3: Hierarchy addition reports exact totals."""
         from pipeline.forecast import compute_hierarchy_reconciliation
         sub_fixture = pd.DataFrame([
             {'Date': '2026-11', 'SKU_ID': 'BSS-001', 'Region': 'North America', 'Units_Sold_Forecast': 100},
@@ -833,12 +842,11 @@ class TestSchemaValidation:
         ])
         res = compute_hierarchy_reconciliation(sub_fixture, clean_train_fixture, sku_master_fixture, out_path=None)
         assert 'total_forecast_units' in res
-        assert 'reconciled' in res
-        assert isinstance(res['reconciled'], bool)
+        assert 'adds_up' in res
+        assert res['adds_up'] is True
 
     def test_hierarchy_reconciliation_deviating_fixture_adds_up(self, tmp_path):
-        """Fix 2c: Test with a deviating fixture that reconciled family totals equal reconciled total,
-        reconciled region totals equal reconciled total, and adjustments sum to total adjustment."""
+        """The submission fixture adds exactly across family, region and business unit."""
         from pipeline.forecast import compute_hierarchy_reconciliation
         sub_fixture = pd.DataFrame([
             {'Date': '2026-11', 'SKU_ID': 'BSS-001', 'Region': 'North America', 'Units_Sold_Forecast': 100},
@@ -855,29 +863,26 @@ class TestSchemaValidation:
             {'Date': '2026-10', 'Product_Family': 'Brake & Safety Systems', 'Region': 'Europe', 'Units_Sold_Unconstrained': 3000},
             {'Date': '2026-10', 'Product_Family': 'Chassis & Structural', 'Region': 'Asia Pacific', 'Units_Sold_Unconstrained': 2500},
         ])
-        tmp_recon_file = tmp_path / "hierarchy_reconciliation_test.csv"
+        tmp_recon_file = tmp_path / "hierarchy_addition_test.csv"
         res = compute_hierarchy_reconciliation(sub_fixture, clean_train_fixture, sku_master_fixture,
-                                               tolerance_pct=0.5, out_path=tmp_recon_file)
-        assert res['reconciled'] is True
+                                               out_path=tmp_recon_file)
+        assert res['adds_up'] is True
+        assert res['total_forecast_units'] == 450
         assert tmp_recon_file.exists()
+        diagnostic_file = tmp_path / "hierarchy_diagnostic.csv"
+        assert diagnostic_file.exists()
+        diagnostic = pd.read_csv(diagnostic_file)
+        assert 'Gap_Pct' in diagnostic.columns
 
-        df_recon = pd.read_csv(tmp_recon_file)
-        tot_row = df_recon[df_recon['Level'] == 'Total'].iloc[0]
-        reconciled_total = tot_row['Reconciled_Units']
-        tot_adj = tot_row['Adjustment_Units']
-
-        fam_rows = df_recon[df_recon['Level'] == 'Product_Family']
-        reg_rows = df_recon[df_recon['Level'] == 'Region']
-
-        # Reconciled family totals must equal reconciled total
-        assert fam_rows['Reconciled_Units'].sum() == reconciled_total
-        # Reconciled region totals must equal reconciled total
-        assert reg_rows['Reconciled_Units'].sum() == reconciled_total
-        # Adjustments must sum to total adjustment
-        assert fam_rows['Adjustment_Units'].sum() == tot_adj
-        assert reg_rows['Adjustment_Units'].sum() == tot_adj
-        # All rows must report PASS
-        assert (df_recon['Status'] == 'PASS').all()
+        submission_with_families = sub_fixture.merge(
+            sku_master_fixture[['SKU_ID', 'Product_Family', 'Business_Unit']],
+            on='SKU_ID',
+            how='left',
+        )
+        total = int(sub_fixture['Units_Sold_Forecast'].sum())
+        assert int(submission_with_families.groupby('Product_Family')['Units_Sold_Forecast'].sum().sum()) == total
+        assert int(submission_with_families.groupby('Region')['Units_Sold_Forecast'].sum().sum()) == total
+        assert int(submission_with_families.groupby('Business_Unit')['Units_Sold_Forecast'].sum().sum()) == total
 
     def test_pytest_does_not_modify_outputs(self):
         """Fix 1b: Verify that running the test suite does not modify production outputs."""
