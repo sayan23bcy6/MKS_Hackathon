@@ -1088,6 +1088,16 @@ def test_dashboard_views_return_content():
         st.dataframe.reset_mock()
         call()
         assert st.plotly_chart.call_count + st.dataframe.call_count > 0, f"{name} returned no chart or table"
+        chart_objects = [args[0] for args, _ in st.plotly_chart.call_args_list]
+        table_objects = [args[0] for args, _ in st.dataframe.call_args_list]
+        has_non_empty = any(
+            getattr(obj, 'data', None) not in (None, [])
+            for obj in chart_objects
+        ) or any(
+            isinstance(obj, pd.DataFrame) and not obj.empty
+            for obj in table_objects
+        )
+        assert has_non_empty, f"{name} passed no non-empty chart or table object"
 
 
 # PDF Business Rules R1 through R7, Hierarchy Exactness, and Backtest Temporal Isolation
@@ -1481,6 +1491,13 @@ def test_methodology_names_ai_tools():
     text = open(path, encoding='utf-8').read()
     assert 'Responsible AI Use Declaration' in text
     assert 'AI Coding Assistants' in text
+
+
+def test_test_names_are_unique():
+    with open(os.path.abspath(__file__), encoding='utf-8') as fh:
+        names = re.findall(r'def (test_[a-zA-Z0-9_]+)', fh.read())
+    duplicates = sorted({name for name in names if names.count(name) > 1})
+    assert not duplicates, f"Duplicate test names: {duplicates}"
 
 
 def test_each_issue_type_has_audit_entries():
