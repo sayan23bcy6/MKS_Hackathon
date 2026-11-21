@@ -213,7 +213,10 @@ def verify_master_vs_transactions(clean_train: pd.DataFrame, sku_master: pd.Data
         'Decision_Rule': 'Enforce Rule S1 & R8: mapped PMP-004 to Advanced Manufacturing to maintain 1:1 family-BU hierarchy',
     })
 
-    return pd.DataFrame(records)
+    contradictions = pd.DataFrame(records)
+    if not contradictions.empty:
+        contradictions['decision'] = contradictions['Decision_Rule']
+    return contradictions
 
 
 # Aliases for backward compatibility

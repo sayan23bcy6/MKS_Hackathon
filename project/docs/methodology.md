@@ -2,7 +2,7 @@
 
 ## 1. Problem Definition and Scope
 
-Celeris Automobili manufactures engineered automotive systems across seven product families, delivering to twelve major commercial customers across six global operating regions. The core objective is forecasting true unconstrained demand (underlying customer order volume, independent of temporary plant disruptions or inventory stockouts) across 58,219 SKU-Region-Customer combinations for the 19-month horizon from 2026-11 through 2028-05.
+Celeris Automobili manufactures engineered automotive systems across seven product families, delivering to twelve major commercial customers across six global operating regions. The core objective is forecasting true unconstrained demand (underlying customer order volume, independent of temporary plant disruptions or inventory stockouts) across 58,219 forecast rows for the 19-month horizon from 2026-11 through 2028-05.
 
 The source data exhibits real-world data quality issues across transactional history (`train.csv`), macroeconomic time series (`macro_indicators.csv`), product master definitions (`sku_master.csv`), and the operational calendar (`events_calendar.csv`). Our methodology establishes an explainable, rule-based data transformation pipeline coupled with gradient boosted quantile regression, honest rolling-origin backtesting, recursive multi-step forecasting, and top-down reconciliation.
 
@@ -21,8 +21,8 @@ All data repairs are rule-governed, deterministic, and logged in `outputs/audit_
 | T3 | Year typographical transposition (e.g., 2062) | Replaced with 2026 | Resolves input year digit transposition confirmed by surrounding transaction timestamps. |
 | T4 | Duplicate Record IDs (identical load records) | Deduplicated by retaining latest `Load_Timestamp` | Resolves database re-ingestion duplication per Rule R2. |
 | T4b | 167 series-month rows with differing channels | Deduplicated strictly on `Date, SKU_ID, Region, Customer_Name` by retaining latest `Load_Timestamp` (Record_ID tie-break) | Ensures exactly one authoritative observation per customer series-month; clean train row count is exactly 244,321. |
-| T5 | Missing region entries (952 rows) | Customer-date match inference; remaining unmatchable assigned to `Unassigned` | Retains total commercial volume without geographic distortion. |
-| T6 | Sales channel casing and label variants | Mapped to `Direct OEM` and `Tier 1 Supplier` | Normalizes commercial sales routing labels. |
+| T5 | Missing region entries (942 rows) | Customer-date match inference; remaining unmatchable assigned to `Unassigned` | Retains total commercial volume without geographic distortion. |
+| T6 | Sales channel casing and label variants | Mapped to `Direct OEM` and `Tier-1 Distributor` | Normalizes commercial sales routing labels. |
 | T7 | Missing product families | Derived deterministically from three-letter SKU prefix | Enforces product catalog hierarchy consistency. |
 | T8 | SKU ID formatting slip | Standardized to `PREFIX-NNN` with zero-padding | Restores referential integrity with `sku_master.csv`. |
 | T9 | Missing SKU descriptions | Imputed from matching SKU records in `sku_master.csv` | Enriches master metadata for reporting and validation. |
@@ -139,13 +139,7 @@ To avoid feature vector freeze and lag leakage across the 19-month horizon:
 1. **Operational Adjustments**: Applied customer-specific shutdowns (EV-062 Orion Driveline NA zeroing in 2027-07 to 2027-08) and capacity expansions (EV-052 Helios Auto Parts India, factor 1.0828).
 2. **New Launch History Inheritance**: New SKUs with designated replacement relationships (`Replaces_SKU`) inherit historical demand patterns from the predecessor SKU prior to launch. Unmatched new launches adopt product family average demand profiles. Demand prior to the official `Launch_Date` is strictly zeroed.
 3. **Lifecycle Bounds**: Zeroed all forecast volume outside active SKU launch and EOL windows.
-4. **Hierarchy Reconciliation Framework**: Forecasts are generated bottom-up across SKU-Region-Customer series and verified against independent top-level historical trend and seasonality projections.
-   - **Target Consensus**: When total bottom-up volume deviates beyond the tolerance threshold (0.5%), the top-level projection is adopted as the consensus target (`Reconciled_Total`), with total adjustment $A_{\text{total}} = \text{Reconciled\_Total} - \text{Bottom\_Up\_Total}$.
-   - **Proportional Consensus Scaling**: Bottom-up units across Product Families, Geographic Regions, and Business Units are scaled proportionally based on their bottom-up volume weights:
-     $$R_i = \lfloor w_i \times \text{Reconciled\_Total} \rfloor$$
-     Integer remainders are allocated systematically to groups with the largest fractional parts to ensure exact integer balance:
-     $$\sum_{i} R_i = \text{Reconciled\_Total}, \quad \sum_{i} A_i = A_{\text{total}}$$
-   - **Status Criteria**: Status reports exact hierarchy addition. The PDF-facing file in `outputs/hierarchy_addition.csv` contains only exact-sum levels and units. Trend projections and gaps are separated into `outputs/hierarchy_diagnostic.csv` and do not affect status.
+4. **Hierarchy Addition**: Exact bottom-up sums are reported across family, region, business unit and total. Trend projections are in `outputs/hierarchy_diagnostic.csv` as diagnostic only and do not change any status or the submission.
 
 ---
 
@@ -175,6 +169,34 @@ Backtest evaluations in `outputs/backtest_metrics.csv` compute two primary accur
    - **Units**: Physical units per series-month (count of automotive components).
    - **Sign Convention**: Following standard industrial inventory and supply chain convention, $\text{mean}(y_{\text{pred}} - y_{\text{true}})$ is signed such that a **negative value indicates under-forecasting** (the model projected fewer units than actual demand), while a **positive value indicates over-forecasting**.
 
+### Bias finding
+
+The bias formula is $\text{bias} = \text{mean(predicted - actual)}$. A negative value means under-forecasting.
+
+Measured LightGBM P50 and seasonal naive bias by rolling origin, with `breakdown = overall` in `outputs/backtest_metrics.csv`:
+
+| Origin | LightGBM P50 bias | Seasonal naive bias |
+|---|---:|---:|
+| 2023-10 | -14.76 | -4.53 |
+| 2024-10 | -8.40 | -2.45 |
+| 2025-03 | -9.39 | -0.87 |
+
+Using matched rows in `outputs/backtest_predictions.csv` and `outputs/clean_train.parquet`, LightGBM P50 mean bias against `Units_Sold_Unconstrained` and against shipped `Units_Sold` was:
+
+| Origin | Bias vs Units_Sold_Unconstrained | Bias vs Units_Sold |
+|---|---:|---:|
+| 2023-10 | -14.755922 | -7.283128 |
+| 2024-10 | -8.399352 | -0.787794 |
+| 2025-03 | -9.388353 | -1.850973 |
+
+The comparison shows that changing the measured target substantially reduces the negative bias, especially at 2024-10 and 2025-03, but the shipped-target comparison does not explain the full negative bias in the unconstrained backtest.
+
+### EV shift and lag stability findings
+
+From `outputs/ev_shift_analysis.csv`, the EV_Adoption_Index coefficient against ICE volume is -109.6675 at lag 1 month. The output p-value is 0.0000032684215054787183, so the coefficient is statistically significant at 5%. This result can be described as a statistically significant relationship in the latest output; the methodology does not convert it into an unsupported causal shift claim.
+
+The EV-coded share of volume is 0.00% in 2019 and 10.52% in 2026. From `outputs/lag_stability.csv`, at least one best lag moved between the 2019-2022 and 2023-2026 windows for Brake & Safety Systems, Chassis & Structural, Electrical Assemblies, Hydraulic Systems, Powertrain Components, Precision Machined Parts and Thermal Management.
+
 ### Investigation of Systematic Under-Forecasting (Priority A5)
 Across all three evaluation origins, LightGBM P50 exhibits systematic negative bias (-8.40 to -14.76 units/month overall), while outperforming all baseline models on WAPE (0.360 to 0.396 vs 0.374 to 0.406 for seasonal naive). A controlled diagnostic investigation into three candidate drivers reveals:
 
@@ -201,7 +223,7 @@ Across all three evaluation origins, LightGBM P50 exhibits systematic negative b
 
 ## 7. Macroeconomic Sensitivity (What-If Analysis)
 
-To stress-test supply chain resiliency under fluctuating economic conditions, the system evaluates demand sensitivity across a calibrated grid of ISM Manufacturing PMI shifts (-6.0 to +6.0 points in increments of 1.0):
+To stress-test supply chain resiliency under fluctuating economic conditions, the system evaluates demand sensitivity across a calibrated grid of ISM Manufacturing PMI shifts from -6.0 to +6.0 in steps of 1.5:
 - Model Sensitivity Reruns: The LightGBM quantile regression models evaluate modified macroeconomic feature vectors.
 - Scenario Aggregations: Demand shifts are aggregated by product family and region, exported to `outputs/whatif_scenarios.csv`, and rendered through an interactive slider in the control tower dashboard.
 
@@ -217,20 +239,20 @@ The solution's choices are documented with their reasons: unconstrained demand r
 
 The pipeline is completely deterministic. With fixed seeds (`random_state=42`), `deterministic=True`, and stable sorting before export, identical outputs are produced on every run.
 
-The table below documents the cryptographic digests across two independent clean pipeline runs (`python project/run_pipeline.py`) starting from an empty outputs directory:
+The table below documents MD5 values from the latest local pipeline run:
 
-| Deliverable File | Run 1 MD5 Digest | Run 2 MD5 Digest | Match Status | Run 1 SHA-256 Digest |
-|---|---|---|---|---|
-| `clean_train.parquet` | `5425c4efbcfd22510a442b6d3f9e4194` | `5425c4efbcfd22510a442b6d3f9e4194` | Exact Match | `d704e20998bd746fb4a55ed2341370d1e4f735f2295e8384b4043897e1b624f1` |
-| `audit_log.csv` | `de057d5da661236b0eeb6b089b9ecf78` | `de057d5da661236b0eeb6b089b9ecf78` | Exact Match | `b04312fd69234c3271f6eab7b74e609f7e3bb82c67848018d133149e3302ed14` |
-| `forecast_submission.csv` | `9a929f7a58348c19f6ecbe43cd181867` | `9a929f7a58348c19f6ecbe43cd181867` | Exact Match | `d498c158a8b0f55255d7b359bed30e5a3bd089108bd59c1724c5ec50021e6f52` |
-| `backtest_metrics.csv` | `481afbb89c16e213db6f3fc6b913b80e` | `481afbb89c16e213db6f3fc6b913b80e` | Exact Match | `681d45763da11843b0ce93845b4c09d0fe2c0c7e2be6da21a4f00db10b2df2b7` |
+| Deliverable File | MD5 Digest |
+|---|---|
+| `project/outputs/clean_train.parquet` | `5425c4efbcfd22510a442b6d3f9e4194` |
+| `project/outputs/audit_log.csv` | `de057d5da661236b0eeb6b089b9ecf78` |
+| `project/outputs/forecast_submission.csv` | `9a929f7a58348c19f6ecbe43cd181867` |
+| `project/outputs/backtest_metrics.csv` | `481afbb89c16e213db6f3fc6b913b80e` |
 
 ---
 
 ## 9. Seasonal Shape Dynamics and Correlation Analysis
 
-The validation audit measures a calendar-month seasonal correlation of 0.47 between historical monthly actuals (2023-2026) and the 19-month forward forecast (2026-11 to 2028-05). This variance is driven by verifiable structural factors rather than model error:
+The latest checker output measures a calendar-month seasonal correlation of 0.70 between historical monthly actuals (2023-2026) and the 19-month forward forecast (2026-11 to 2028-05). This variance is driven by verifiable structural factors rather than model error:
 
 1. **Catalog Lifecycle Transitions (EOL & Launch Dynamics)**:
    Multiple high-volume legacy component lines reach their scheduled End-of-Life (EOL) during 2027 and early 2028, while new replacement SKUs ramp up under `Replaces_SKU` lifecycle boundaries. This catalog phase-out naturally shifts monthly aggregated volume compared to historical years where legacy SKUs were in full production.
