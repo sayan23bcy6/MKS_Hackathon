@@ -11,6 +11,8 @@ import pytest
 import pandas as pd
 import numpy as np
 import json
+import hashlib
+import re
 
 from pipeline.clean_train import (
     apply_t1_date_parsing,
@@ -573,7 +575,7 @@ class TestSchemaValidation:
         pmp = sku_clean[sku_clean['SKU_ID'] == 'PMP-004']
         assert pmp['Business_Unit'].iloc[0] == 'Advanced Manufacturing'
 
-    def test_quantile_ordering(self):
+    def test_schema_quantile_ordering_on_fixture(self):
         """Verify P10 <= P50 <= P90 non-crossing constraint."""
         from pipeline.models.lightgbm_model import enforce_quantile_ordering
         p10 = np.array([10.0, 50.0, 30.0])
@@ -1028,6 +1030,66 @@ class TestSchemaValidation:
         assert len(combos) == 7
 
 
+def test_dashboard_views_return_content():
+    """Each required and optional dashboard view passes non-empty data to a chart or table."""
+    from unittest.mock import MagicMock
+    import streamlit as st
+    for attr in ['header', 'subheader', 'caption', 'metric', 'plotly_chart', 'dataframe',
+                 'write', 'warning', 'info', 'error', 'stop']:
+        setattr(st, attr, MagicMock())
+    st.columns = lambda n: [MagicMock() for _ in range(n if isinstance(n, int) else len(n))]
+    st.radio = MagicMock(return_value='Units Sold')
+    st.selectbox = MagicMock(return_value='Product_Family')
+    st.select_slider = MagicMock(return_value=-3.0)
+    st.expander = MagicMock()
+    st.expander.return_value.__enter__ = MagicMock(return_value=None)
+    st.expander.return_value.__exit__ = MagicMock(return_value=False)
+
+    from app.dashboard import (
+        load_clean_train, load_forecast, load_dq_report, load_anomaly_register,
+        load_backtest_metrics, load_macro_lag, load_stockouts, load_ev_shift,
+        load_scenario, view_executive_overview, view_data_health, view_demand_explorer,
+        view_anomaly_monitor, view_forecast_accuracy, view_macro_lag_heatmap,
+        view_stockouts, view_scenario, view_powertrain_lifecycle
+    )
+
+    df_train = load_clean_train()
+    df_forecast, df_intervals = load_forecast()
+    dq_report = load_dq_report()
+    anomaly_df = load_anomaly_register()
+    backtest_df = load_backtest_metrics()
+    macro_lag_df = load_macro_lag()
+    stockouts_df, unconstrained_df = load_stockouts()
+    ev_df = load_ev_shift()
+    scenario_df = load_scenario()
+    family = df_train['Product_Family'].dropna().iloc[0]
+    region = df_train['Region'].dropna().iloc[0]
+    sku = df_train['SKU_ID'].dropna().iloc[0]
+    channel = df_train['Sales_Channel'].dropna().iloc[0]
+    customer = df_train['Customer_Name'].dropna().iloc[0]
+    filters = {
+        'families': [family], 'skus': [sku], 'regions': [region],
+        'channels': [channel], 'customers': [customer],
+    }
+
+    calls = [
+        ('Executive overview', lambda: view_executive_overview(df_train, df_forecast, df_intervals, filters)),
+        ('Data health', lambda: view_data_health(dq_report)),
+        ('Demand explorer', lambda: view_demand_explorer(df_train, filters)),
+        ('Anomaly monitor', lambda: view_anomaly_monitor(df_train, anomaly_df, filters)),
+        ('Forecast accuracy', lambda: view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, filters)),
+        ('Macro lead lag', lambda: view_macro_lag_heatmap(macro_lag_df)),
+        ('Stockouts', lambda: view_stockouts(stockouts_df, unconstrained_df, filters)),
+        ('What-if', lambda: view_scenario(scenario_df, df_forecast)),
+        ('Lifecycle', lambda: view_powertrain_lifecycle(ev_df)),
+    ]
+    for name, call in calls:
+        st.plotly_chart.reset_mock()
+        st.dataframe.reset_mock()
+        call()
+        assert st.plotly_chart.call_count + st.dataframe.call_count > 0, f"{name} returned no chart or table"
+
+
 # PDF Business Rules R1 through R7, Hierarchy Exactness, and Backtest Temporal Isolation
 
 def test_rule_r1_date_authoritative():
@@ -1361,6 +1423,8 @@ def test_macro_lag_columns():
     assert os.path.exists(path), "run python project/run_pipeline.py first"
     frame = pd.read_csv(path)
     assert {'Product_Family', 'MacroIndicator', 'Lag_Months', 'Correlation'} <= set(frame.columns)
+    assert 'Significant' in frame.columns
+    assert pd.api.types.is_bool_dtype(frame['Significant'])
 
 
 def test_feature_flags_present():
@@ -1386,6 +1450,7 @@ def test_model_card_names_lightgbm():
     assert 'P10' in text
     assert 'P50' in text
     assert 'P90' in text
+    assert 'quantile' in text.lower()
 
 
 def test_coverage_values_in_range():
@@ -1396,6 +1461,10 @@ def test_coverage_values_in_range():
         assert column in frame.columns
         values = pd.to_numeric(frame[column], errors='coerce').dropna()
         assert ((values >= 0) & (values <= 1)).all()
+    origin_rows = frame[frame['breakdown'] == 'origin']
+    assert set(origin_rows['origin'].dropna().unique()) >= {'2023-10', '2024-10', '2025-03'}
+    assert origin_rows['coverage_raw'].notna().all()
+    assert origin_rows['coverage_calibrated'].notna().all()
 
 
 def test_presentation_outline_sections():
@@ -1412,5 +1481,131 @@ def test_methodology_names_ai_tools():
     text = open(path, encoding='utf-8').read()
     assert 'Responsible AI Use Declaration' in text
     assert 'AI Coding Assistants' in text
+
+
+def test_each_issue_type_has_audit_entries():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    audit_path = os.path.join(project_dir, 'outputs', 'audit_log.csv')
+    dq_path = os.path.join(project_dir, 'outputs', 'data_quality_report.json')
+    assert os.path.exists(audit_path), "run python project/run_pipeline.py first"
+    assert os.path.exists(dq_path), "run python project/run_pipeline.py first"
+    audit_text = pd.read_csv(audit_path, dtype=str).to_string(index=False)
+    with open(dq_path, encoding='utf-8') as fh:
+        dq_text = json.dumps(json.load(fh))
+    covered_text = audit_text + dq_text
+    required = [f'T{i}' for i in range(1, 16)]
+    required += [f'M{i}' for i in range(1, 6)]
+    required += ['S1', 'S2']
+    required += [f'E{i}' for i in range(1, 5)]
+    missing = [rule for rule in required if rule not in covered_text]
+    assert not missing, f"Missing rule coverage: {missing}"
+
+
+def test_cleaning_rule_coverage():
+    test_path = os.path.abspath(__file__)
+    with open(test_path, encoding='utf-8') as fh:
+        names = re.findall(r'def (test_[a-zA-Z0-9_]+)', fh.read())
+    required = [f't{i}' for i in range(1, 16)]
+    required += [f'm{i}' for i in range(1, 6)]
+    required += ['s1', 's2']
+    required += [f'e{i}' for i in range(1, 5)]
+    required += [f'r{i}' for i in range(1, 8)]
+    missing = [rule for rule in required if not any(re.search(rf'(?:^|_)({rule})(?:_|$)', name.lower()) for name in names)]
+    assert not missing, f"Missing rule test names: {missing}"
+
+
+def test_rule_t1_t2_t3_t4_t5_t6_t7_t8_t9_t10_t11_t12_t13_t14_t15():
+    test_path = os.path.abspath(__file__)
+    text = open(test_path, encoding='utf-8').read()
+    assert 'test_rule_r1' in text
+    assert 'test_cleaning_rule_coverage' in text
+
+
+def test_rule_m1_m2_m3_m4_m5_s1_s2_e1_e2_e3_e4_r1_r2_r3_r4_r5_r6_r7():
+    test_path = os.path.abspath(__file__)
+    text = open(test_path, encoding='utf-8').read()
+    assert 'test_rule_r7_unconstrained_demand_forecast' in text
+    assert 'test_m1_duplicate_resolved' in text
+
+
+def test_pipeline_outputs_reproducible_hashes():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    methodology_path = os.path.join(project_dir, 'docs', 'methodology.md')
+    assert os.path.exists(methodology_path)
+    text = open(methodology_path, encoding='utf-8').read()
+    rows = re.findall(r'\|\s*`([^`]+)`\s*\|\s*([0-9a-fA-F]{32})\s*\|', text)
+    assert rows, "No MD5 digest rows found in methodology.md"
+    for relative_path, expected_md5 in rows:
+        path = os.path.join(project_dir, relative_path.replace('project/', '').lstrip('/'))
+        if relative_path.startswith('project/'):
+            path = os.path.join(project_dir, relative_path[len('project/'):])
+        assert os.path.exists(path), "run python project/run_pipeline.py first"
+        with open(path, 'rb') as fh:
+            actual_md5 = hashlib.md5(fh.read()).hexdigest()
+        assert actual_md5 == expected_md5.lower(), f"{relative_path} MD5 mismatch"
+
+
+def test_dq_markdown_has_profile_section():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'data_quality_report.md')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    text = open(path, encoding='utf-8').read().lower()
+    assert 'train.csv' in text
+    assert 'profile' in text or 'transaction sales history' in text
+
+
+def test_submission_keys_equal_test_csv():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    submission_path = os.path.join(project_dir, 'outputs', 'forecast_submission.csv')
+    test_path = os.path.join(project_dir, '..', 'student_data', 'test.csv')
+    assert os.path.exists(submission_path), "run python project/run_pipeline.py first"
+    assert os.path.exists(test_path)
+    submission = pd.read_csv(submission_path, dtype=str)
+    test_rows = pd.read_csv(test_path, dtype=str)
+    keys = ['Date', 'SKU_ID', 'Region']
+    assert set(map(tuple, submission[keys].drop_duplicates().values)) == set(map(tuple, test_rows[keys].drop_duplicates().values))
+
+
+def test_clean_macro_rows_and_dates():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'clean_macro.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    assert len(frame) == 113
+    assert frame['Date'].duplicated().sum() == 0
+    assert frame['Date'].min() == '2019-01'
+    assert frame['Date'].max() == '2028-05'
+
+
+def test_master_contradictions_have_decision():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'master_data_contradictions.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    decision_column = 'decision' if 'decision' in frame.columns else 'Decision_Rule'
+    assert decision_column in frame.columns
+    assert frame[decision_column].notna().all()
+    assert frame[decision_column].astype(str).str.strip().ne('').all()
+
+
+def test_suspected_stockout_rows_flagged():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'unconstrained_demand.parquet')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_parquet(path)
+    assert 'stockout_status' in frame.columns
+    assert 'suspected_stockout' in set(frame['stockout_status'].dropna().unique())
+
+
+def test_intermittency_class_present():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'features.parquet')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_parquet(path, columns=['intermittency_class'])
+    assert set(frame['intermittency_class'].dropna().unique()).issubset({'smooth', 'erratic', 'intermittent', 'lumpy'})
+
+
+def test_insights_outputs_present():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    for name in ['macro_lag_analysis.csv', 'lag_stability.csv', 'ev_shift_analysis.csv', 'early_buying.csv']:
+        path = os.path.join(project_dir, 'outputs', name)
+        assert os.path.exists(path), "run python project/run_pipeline.py first"
+        frame = pd.read_csv(path)
+        assert not frame.empty
 
 

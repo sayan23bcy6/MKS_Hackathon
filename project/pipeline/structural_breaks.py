@@ -133,7 +133,10 @@ def quantify_holiday_effects(clean_train: pd.DataFrame) -> pd.DataFrame:
             'Description': desc,
         })
 
-    return pd.DataFrame(records)
+    contradictions = pd.DataFrame(records)
+    if not contradictions.empty and 'Decision_Rule' in contradictions.columns:
+        contradictions['decision'] = contradictions['Decision_Rule']
+    return contradictions
 
 
 def verify_master_vs_transactions(clean_train: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:

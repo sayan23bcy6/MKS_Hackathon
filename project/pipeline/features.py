@@ -315,11 +315,18 @@ def compute_macro_lag_analysis(clean_train: pd.DataFrame,
                 if len(aligned) < 6:
                     continue
                 corr = aligned.iloc[:, 0].corr(aligned.iloc[:, 1])
+                n = len(aligned)
+                if abs(corr) < 0.999:
+                    t_stat = corr * np.sqrt((n - 2) / max(1e-6, 1 - corr**2))
+                    significant = bool(abs(t_stat) > 1.96)
+                else:
+                    significant = bool(n >= 12)
                 results.append({
                     'Product_Family': family,
                     'MacroIndicator': col,
                     'Lag_Months': lag,
                     'Correlation': round(corr, 4),
+                    'Significant': significant,
                 })
 
     return pd.DataFrame(results)

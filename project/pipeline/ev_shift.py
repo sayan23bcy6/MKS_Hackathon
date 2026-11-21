@@ -4,6 +4,7 @@ ev_shift.py - Expert analysis of macroeconomic lag stability and the automotive 
 
 import pandas as pd
 import numpy as np
+from scipy.stats import t as student_t
 from pipeline.config import OUT_EV_SHIFT, OUT_MACRO_LAG, OUT_LAG_STABILITY
 
 
@@ -146,13 +147,14 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
             se_slope = np.sqrt(np.sum(residuals**2) / (n - 2) / max(1e-6, np.sum((x - x_mean)**2)))
             t_stat = slope / max(1e-6, se_slope)
 
+            p_value = float(2 * student_t.sf(abs(t_stat), df=max(n - 2, 1)))
             ev_reg_results.append({
                 'Lag_Months': lag,
                 'Slope_Coefficient': round(float(slope), 4),
                 'Intercept': round(float(intercept), 2),
                 'R_Squared': round(float(r_squared), 4),
                 'T_Statistic': round(float(t_stat), 2),
-                'P_Value_Approx': float(2 * (1 - min(0.9999, abs(t_stat) / 10))),
+                'P_Value_Approx': p_value,
             })
 
     ev_reg_df = pd.DataFrame(ev_reg_results)
@@ -165,7 +167,7 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
         'Metric_Type': 'EV_Adoption_vs_ICE_Regression',
         'Detail_1': f"Best Lag: {int(best_reg['Lag_Months'])} months, Slope: {best_reg['Slope_Coefficient']:.4f}",
         'Detail_2': f"R^2: {best_reg['R_Squared']:.4f}, t-stat: {best_reg['T_Statistic']:.2f}",
-        'Detail_3': f"p-value approx: {best_reg['P_Value_Approx']:.4f} (Statistically significant shift)",
+        'Detail_3': f"p-value approx: {best_reg['P_Value_Approx']:.4f} (" + ("Statistically significant at 5%" if best_reg['P_Value_Approx'] < 0.05 else "Not statistically significant at 5%") + ")",
         'Value': float(best_reg['R_Squared']),
         'Coefficient': float(best_reg['Slope_Coefficient']),
         'P_Value': float(best_reg['P_Value_Approx']),
