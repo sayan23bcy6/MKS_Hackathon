@@ -1,5 +1,5 @@
 Metric_Type,Detail_1,Detail_2,Detail_3,Value,Coefficient,P_Value,Lag_Months
-EV_Adoption_vs_ICE_Regression,"Best Lag: 1 months, Slope: -109.6675","R^2: 0.2128, t-stat: -4.96",p-value approx: 1.0082 (Statistically significant shift),0.2128,-109.6675,1.008162944371812,1.0
+EV_Adoption_vs_ICE_Regression,"Best Lag: 1 months, Slope: -109.6675","R^2: 0.2128, t-stat: -4.96",p-value approx: 0.0000 (Statistically significant at 5%),0.2128,-109.6675,3.2684215054787183e-06,1.0
 Yearly_EV_Share_2019,"Total Units: 1,347,909","EV Units: 43, ICE Units: 320,291",EV Share: 0.00%,0.0,,,
 Yearly_EV_Share_2020,"Total Units: 1,106,366","EV Units: 3,578, ICE Units: 231,613",EV Share: 0.32%,0.32,,,
 Yearly_EV_Share_2021,"Total Units: 1,562,723","EV Units: 21,825, ICE Units: 309,632",EV Share: 1.40%,1.4,,,
