@@ -207,6 +207,12 @@ To stress-test supply chain resiliency under fluctuating economic conditions, th
 
 ---
 
+## 7.1 Originality and Innovation
+
+The solution's choices are documented with their reasons: unconstrained demand reconstruction preserves stockout-era demand, rolling-origin backtesting prevents future leakage, recursive lags update at forecast horizon, and hierarchy reporting separates exact submission sums from trend diagnostics.
+
+---
+
 ## 8. Reproducibility and Deliverable Hashes
 
 The pipeline is completely deterministic. With fixed seeds (`random_state=42`), `deterministic=True`, and stable sorting before export, identical outputs are produced on every run.

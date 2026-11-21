@@ -1230,3 +1230,100 @@ def test_backtest_has_three_origins():
     assert bm['origin'].dropna().nunique() >= 3
 
 
+def test_structural_breaks_detects_level_shift():
+    """A known sustained level shift is detected by the structural-break function."""
+    from pipeline.structural_breaks import detect_structural_breaks
+    dates = pd.period_range('2020-01', periods=36, freq='M').strftime('%Y-%m')
+    rows = []
+    for date in dates:
+        value = 10.0 if date < '2021-07' else 100.0
+        rows.append({'Date': date, 'SKU_ID': 'S1', 'Product_Family': 'Family A',
+                     'Region': 'North America', 'Units_Sold': value})
+    fixture = pd.DataFrame(rows)
+    breaks = detect_structural_breaks(fixture, pd.DataFrame())
+    assert not breaks.empty
+    assert breaks['Break_Date'].notna().all()
+
+
+def test_early_buying_uplift():
+    """Nov-Dec 2022 demand has uplift against the historical Nov-Dec baseline."""
+    from pipeline.structural_breaks import quantify_early_buying
+    rows = []
+    for month in pd.period_range('2019-11', periods=38, freq='M').strftime('%Y-%m'):
+        if month in ('2022-11', '2022-12'):
+            value = 200.0
+        elif month.endswith('-11') or month.endswith('-12'):
+            value = 100.0
+        else:
+            value = 50.0
+        rows.append({'Date': month, 'SKU_ID': 'S1', 'Product_Family': 'Family A',
+                     'Region': 'North America', 'Units_Sold': value})
+    uplift = quantify_early_buying(pd.DataFrame(rows))
+    assert not uplift.empty
+    assert uplift.iloc[0]['Prebuy_Uplift_Units'] > 0
+
+
+def test_holiday_effect_by_region():
+    """Holiday-month demand is quantified for a region."""
+    from pipeline.structural_breaks import quantify_holiday_effects
+    rows = []
+    for month in pd.period_range('2022-01', periods=24, freq='M').strftime('%Y-%m'):
+        value = 200.0 if month.endswith('-02') else 100.0
+        rows.append({'Date': month, 'SKU_ID': 'S1', 'Product_Family': 'Family A',
+                     'Region': 'Asia Pacific', 'Units_Sold': value})
+    effects = quantify_holiday_effects(pd.DataFrame(rows))
+    assert not effects.empty
+    assert {'Asia Pacific', 'Lunar New Year'} <= set(effects[['Region', 'Holiday_Name']].stack())
+
+
+def test_lag_stability_columns():
+    """Lag stability output has two windows and a moved flag."""
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'lag_stability.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    assert 'Best_Lag_2019_2022' in frame.columns
+    assert 'Best_Lag_2023_2026' in frame.columns
+    assert 'Lag_Moved' in frame.columns or 'Is_Lag_Stable' in frame.columns
+
+
+def test_ev_shift_columns():
+    """EV shift output contains coefficient, p-value and lag columns."""
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'ev_shift_analysis.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    assert {'Coefficient', 'P_Value', 'Lag_Months'} <= set(frame.columns)
+
+
+def test_intermittent_methods_non_negative():
+    """Croston, SBA and TSB return non-negative forecasts on an intermittent series."""
+    from pipeline.models.croston import croston_method, sba_method, tsb_method
+    series = pd.Series([0, 0, 5, 0, 0, 8, 0, 0, 3])
+    forecasts = [croston_method(series), sba_method(series), tsb_method(series)]
+    assert all(np.isfinite(value) and value >= 0 for value in forecasts)
+
+
+def test_coverage_breakdown_raw_and_calibrated():
+    """Coverage breakdown reports raw and calibrated coverage columns."""
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'coverage_breakdown.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    assert 'coverage_raw' in frame.columns
+    assert 'coverage_calibrated' in frame.columns
+
+
+def test_quantile_ordering():
+    """P10, P50 and P90 interval rows remain ordered on every forecast row."""
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'forecast_intervals.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    assert (frame['Units_Sold_Forecast_p10'] <= frame['Units_Sold_Forecast_p50']).all()
+    assert (frame['Units_Sold_Forecast_p50'] <= frame['Units_Sold_Forecast_p90']).all()
+
+
+def test_originality_methodology_heading():
+    """The methodology documents originality and innovation choices."""
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'docs', 'methodology.md')
+    text = open(path, encoding='utf-8').read()
+    assert '## 7.1 Originality and Innovation' in text
+
+

@@ -104,6 +104,7 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
                     'Corr_2023_2026': round(best_corr2, 4),
                     'Lag_Shift_Months': lag_shift,
                     'Is_Lag_Stable': (lag_shift == 0),
+                    'Lag_Moved': bool(lag_shift != 0),
                 })
 
     stability_df = pd.DataFrame(stability_records)
@@ -166,6 +167,9 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
         'Detail_2': f"R^2: {best_reg['R_Squared']:.4f}, t-stat: {best_reg['T_Statistic']:.2f}",
         'Detail_3': f"p-value approx: {best_reg['P_Value_Approx']:.4f} (Statistically significant shift)",
         'Value': float(best_reg['R_Squared']),
+        'Coefficient': float(best_reg['Slope_Coefficient']),
+        'P_Value': float(best_reg['P_Value_Approx']),
+        'Lag_Months': int(best_reg['Lag_Months']),
     })
 
     # Add yearly EV share progression
