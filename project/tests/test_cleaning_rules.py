@@ -1550,7 +1550,7 @@ def test_pipeline_outputs_reproducible_hashes():
     methodology_path = os.path.join(project_dir, 'docs', 'methodology.md')
     assert os.path.exists(methodology_path)
     text = open(methodology_path, encoding='utf-8').read()
-    rows = re.findall(r'\|\s*`([^`]+)`\s*\|\s*([0-9a-fA-F]{32})\s*\|', text)
+    rows = re.findall(r'\|\s*`?([^`|\r\n]+?)`?\s*\|\s*([0-9a-fA-F]{32})\s*\|', text)
     assert rows, "No MD5 digest rows found in methodology.md"
     for relative_path, expected_md5 in rows:
         path = os.path.join(project_dir, relative_path.replace('project/', '').lstrip('/'))

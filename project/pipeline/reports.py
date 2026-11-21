@@ -114,6 +114,17 @@ def generate_dq_report(dq_train: dict,
                 "recomputed": dq_train.get('T13_recomputed', 0),
                 "rule": "T13",
             },
+            "T14_real_market_shocks": {
+                "description": "Real market shocks preserved without artificial outlier clipping",
+                "count": dq_train.get('T14_real_events', 0),
+                "rule": "T14",
+            },
+            "T15_zero_demand_vs_missing": {
+                "description": "Zero demand distinguished from missing panel observations",
+                "zero_demand_rows": dq_train.get('T15_zero_demand_rows', 0),
+                "null_demand_rows": dq_train.get('T15_null_demand_rows', 0),
+                "rule": "T15",
+            },
             "R5_lifecycle": {
                 "description": "Lifecycle validation: sales outside launch/EOL boundaries zeroed",
                 "eol_violations": dq_train.get('R5_eol_violations', 0),
