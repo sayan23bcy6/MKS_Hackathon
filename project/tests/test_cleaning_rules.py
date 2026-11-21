@@ -492,86 +492,77 @@ class TestSchemaValidation:
     def test_forecast_submission_columns(self):
         """forecast_submission.csv must have exactly: Date, SKU_ID, Region, Units_Sold_Forecast."""
         from pipeline.config import OUT_FORECAST_SUB
-        import pathlib
-        if pathlib.Path(OUT_FORECAST_SUB).exists():
-            sub = pd.read_csv(OUT_FORECAST_SUB)
-            assert list(sub.columns) == ['Date', 'SKU_ID', 'Region', 'Units_Sold_Forecast']
-            assert sub['Units_Sold_Forecast'].min() >= 0
-            assert sub['Units_Sold_Forecast'].isna().sum() == 0
+        assert os.path.exists(OUT_FORECAST_SUB), "run python project/run_pipeline.py first"
+        sub = pd.read_csv(OUT_FORECAST_SUB)
+        assert list(sub.columns) == ['Date', 'SKU_ID', 'Region', 'Units_Sold_Forecast']
+        assert sub['Units_Sold_Forecast'].min() >= 0
+        assert sub['Units_Sold_Forecast'].isna().sum() == 0
 
     def test_audit_log_has_required_columns(self):
         from pipeline.config import OUT_AUDIT_LOG, AUDIT_COLS
-        import pathlib
-        if pathlib.Path(OUT_AUDIT_LOG).exists():
-            log = pd.read_csv(OUT_AUDIT_LOG)
-            for col in AUDIT_COLS:
-                assert col in log.columns, f"Audit log missing column: {col}"
+        assert os.path.exists(OUT_AUDIT_LOG), "run python project/run_pipeline.py first"
+        log = pd.read_csv(OUT_AUDIT_LOG)
+        for col in AUDIT_COLS:
+            assert col in log.columns, f"Audit log missing column: {col}"
 
     def test_clean_train_no_null_date_sku_region(self):
         from pipeline.config import OUT_TRAIN_CLEAN
-        import pathlib
-        if pathlib.Path(OUT_TRAIN_CLEAN).exists():
-            df = pd.read_parquet(OUT_TRAIN_CLEAN)
-            assert df['Date'].isna().sum() == 0
-            assert df['SKU_ID'].isna().sum() == 0
+        assert os.path.exists(OUT_TRAIN_CLEAN), "run python project/run_pipeline.py first"
+        df = pd.read_parquet(OUT_TRAIN_CLEAN)
+        assert df['Date'].isna().sum() == 0
+        assert df['SKU_ID'].isna().sum() == 0
 
     def test_clean_train_date_format(self):
         from pipeline.config import OUT_TRAIN_CLEAN
-        import pathlib, re
-        if pathlib.Path(OUT_TRAIN_CLEAN).exists():
-            df = pd.read_parquet(OUT_TRAIN_CLEAN)
-            bad = df['Date'].apply(lambda d: not bool(re.match(r'^\d{4}-\d{2}$', str(d))))
-            assert bad.sum() == 0, f"{bad.sum()} dates are not YYYY-MM format"
+        import re
+        assert os.path.exists(OUT_TRAIN_CLEAN), "run python project/run_pipeline.py first"
+        df = pd.read_parquet(OUT_TRAIN_CLEAN)
+        bad = df['Date'].apply(lambda d: not bool(re.match(r'^\d{4}-\d{2}$', str(d))))
+        assert bad.sum() == 0, f"{bad.sum()} dates are not YYYY-MM format"
 
     def test_clean_train_no_dates_after_202610(self):
         from pipeline.config import OUT_TRAIN_CLEAN
-        import pathlib
-        if pathlib.Path(OUT_TRAIN_CLEAN).exists():
-            df = pd.read_parquet(OUT_TRAIN_CLEAN)
-            bad = df['Date'] > '2026-10'
-            assert bad.sum() == 0, f"{bad.sum()} train dates after 2026-10"
+        assert os.path.exists(OUT_TRAIN_CLEAN), "run python project/run_pipeline.py first"
+        df = pd.read_parquet(OUT_TRAIN_CLEAN)
+        bad = df['Date'] > '2026-10'
+        assert bad.sum() == 0, f"{bad.sum()} train dates after 2026-10"
 
     def test_clean_train_no_dup_record_id(self):
         from pipeline.config import OUT_TRAIN_CLEAN
-        import pathlib
-        if pathlib.Path(OUT_TRAIN_CLEAN).exists():
-            df = pd.read_parquet(OUT_TRAIN_CLEAN)
-            assert df['Record_ID'].duplicated().sum() == 0
+        assert os.path.exists(OUT_TRAIN_CLEAN), "run python project/run_pipeline.py first"
+        df = pd.read_parquet(OUT_TRAIN_CLEAN)
+        assert df['Record_ID'].duplicated().sum() == 0
 
     def test_clean_train_regions_canonical(self):
         from pipeline.config import OUT_TRAIN_CLEAN
-        import pathlib
-        if pathlib.Path(OUT_TRAIN_CLEAN).exists():
-            df = pd.read_parquet(OUT_TRAIN_CLEAN)
-            allowed = CANONICAL_REGIONS
-            bad = ~df['Region'].isin(allowed)
-            assert bad.sum() == 0, f"{bad.sum()} non-canonical regions: {df.loc[bad,'Region'].unique()}"
-            assert 'Unassigned' in allowed
-            assert not (df['Region'] == 'Unknown').any()
+        assert os.path.exists(OUT_TRAIN_CLEAN), "run python project/run_pipeline.py first"
+        df = pd.read_parquet(OUT_TRAIN_CLEAN)
+        allowed = CANONICAL_REGIONS
+        bad = ~df['Region'].isin(allowed)
+        assert bad.sum() == 0, f"{bad.sum()} non-canonical regions: {df.loc[bad,'Region'].unique()}"
+        assert 'Unassigned' in allowed
+        assert not (df['Region'] == 'Unknown').any()
 
     def test_clean_train_channels_canonical(self):
         from pipeline.config import OUT_TRAIN_CLEAN
-        import pathlib
-        if pathlib.Path(OUT_TRAIN_CLEAN).exists():
-            df = pd.read_parquet(OUT_TRAIN_CLEAN)
-            bad = ~df['Sales_Channel'].isin(CANONICAL_CHANNELS)
-            assert bad.sum() == 0
+        assert os.path.exists(OUT_TRAIN_CLEAN), "run python project/run_pipeline.py first"
+        df = pd.read_parquet(OUT_TRAIN_CLEAN)
+        bad = ~df['Sales_Channel'].isin(CANONICAL_CHANNELS)
+        assert bad.sum() == 0
 
     def test_clean_train_units_non_negative(self):
         from pipeline.config import OUT_TRAIN_CLEAN
-        import pathlib
-        if pathlib.Path(OUT_TRAIN_CLEAN).exists():
-            df = pd.read_parquet(OUT_TRAIN_CLEAN)
-            us = pd.to_numeric(df['Units_Sold'], errors='coerce')
-            bad = (us < 0) & us.notna()
-            assert bad.sum() == 0
+        assert os.path.exists(OUT_TRAIN_CLEAN), "run python project/run_pipeline.py first"
+        df = pd.read_parquet(OUT_TRAIN_CLEAN)
+        us = pd.to_numeric(df['Units_Sold'], errors='coerce')
+        bad = (us < 0) & us.notna()
+        assert bad.sum() == 0
 
     def test_forecast_row_count(self):
         from pipeline.config import OUT_FORECAST_SUB
-        import pathlib
-        if pathlib.Path(OUT_FORECAST_SUB).exists():
-            sub = pd.read_csv(OUT_FORECAST_SUB)
-            assert len(sub) == 58219, f"Expected 58219 rows, got {len(sub)}"
+        assert os.path.exists(OUT_FORECAST_SUB), "run python project/run_pipeline.py first"
+        sub = pd.read_csv(OUT_FORECAST_SUB)
+        assert len(sub) == 58219, f"Expected 58219 rows, got {len(sub)}"
 
     def test_pmp004_bu_resolution(self):
         """Rule S1: PMP-004 BU conflict resolved to Advanced Manufacturing."""
@@ -935,8 +926,7 @@ class TestSchemaValidation:
         import subprocess, sys
         from pathlib import Path
         out_dir = Path(__file__).resolve().parent.parent / "outputs"
-        if not out_dir.exists():
-            return
+        assert out_dir.exists(), "run python project/run_pipeline.py first"
 
         initial_mtimes = {p: p.stat().st_mtime_ns for p in out_dir.glob("*") if p.is_file()}
 
@@ -950,10 +940,9 @@ class TestSchemaValidation:
 
         modified_files = []
         for p, orig_mtime in initial_mtimes.items():
-            if p.exists():
-                curr_mtime = p.stat().st_mtime_ns
-                if curr_mtime != orig_mtime:
-                    modified_files.append((p.name, orig_mtime, curr_mtime))
+            curr_mtime = p.stat().st_mtime_ns
+            if curr_mtime != orig_mtime:
+                modified_files.append((p.name, orig_mtime, curr_mtime))
 
         assert not modified_files, f"Production files in outputs/ were modified during test execution: {modified_files}"
 
