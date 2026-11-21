@@ -1,12 +1,2 @@
 __pycache__/
 .pytest_cache/
-*.pyc
-*.pyo
-*.pyd
-outputs/backtest_predictions.csv
-outputs/check_report.txt
-outputs/*.tmp
-.env
-*.egg-info/
-dist/
-build/

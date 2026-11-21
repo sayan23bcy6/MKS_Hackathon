@@ -1,0 +1,203 @@
+Celeris project check, 2026-11-22 00:18
+Folder: D:\Work\GitHub\MKS_Hackathon
+
+SUMMARY  PASS=49  WARN=0  FAIL=0  ERROR=0  INFO=18
+
+== 0 environment
+  [INFO] run at 2026-11-22 00:18
+
+  [INFO] python 3.10.0 on Windows
+
+  [INFO] pandas 2.2.3, numpy 2.1.2
+
+  [PASS] lightgbm 4.7.0 installed
+
+  [INFO] git commit 58bae55
+
+  [INFO] forecast_submission.csv: md5 9a929f7a5834, 1,847 KB
+
+  [INFO] clean_train.parquet: md5 5425c4efbcfd, 6,026 KB
+
+  [INFO] audit_log.csv: md5 de057d5da661, 12,272 KB
+
+  [INFO] backtest_metrics.csv: md5 481afbb89c16, 32 KB
+
+== 1 reproducibility
+  [INFO] not rerun; use --rerun to test reproducibility (takes a few minutes)
+
+== 2 submission format
+  [PASS] columns: ['Date', 'SKU_ID', 'Region', 'Units_Sold_Forecast']
+
+  [PASS] rows: 58,219 (test.csv has 58,219)
+
+  [PASS] blank cells: 0
+
+  [PASS] negative forecasts: 0
+
+  [PASS] non-integer forecasts: 0
+
+  [PASS] duplicate Date-SKU-Region rows: 0
+
+  [PASS] keys not in test.csv: 0; test rows without a forecast: 0
+
+  [PASS] forecast column dtype: int64
+
+== 3 leakage and features
+  [PASS] duplicate series-month rows in features: 0
+
+  [PASS] lag_1m equals last month's target on 237,229 rows; mismatches: 0
+
+  [PASS] lag_1m equal to the current month's target: 8.1%
+
+  [PASS] lag_12m_yoy identical to lag_12m on 17.2% of rows
+
+  [PASS] duplicate feature columns: 0
+
+  [PASS] backtest origins evaluated: 3 (spec needs at least 3)
+
+== 4 forecast shape
+  [PASS] first 3 forecast months average 156,172 units, 1.09 times the last 12 history months
+
+  [PASS] variation of monthly forecast totals (coefficient of variation): 0.048
+
+  [PASS] seasonal shape match, history 2023+ vs forecast (calendar-month correlation): 0.70
+
+  [PASS] SKU-region series with a constant forecast over the horizon: 0.0%
+
+  [INFO] last 12 months of history:
+        2025-11                      145,649
+        2025-12                      120,524
+        2026-01                      127,327
+        2026-02                      123,400
+        2026-03                      145,289
+        2026-04                      153,854
+        2026-05                      157,018
+        2026-06                      143,124
+        2026-07                      147,549
+        2026-08                      133,842
+        2026-09                      164,975
+        2026-10                      164,355
+
+  [INFO] forecast by month:
+        2026-11                      164623
+        2026-12                      151097
+        2027-01                      152797
+        2027-02                      145702
+        2027-03                      161512
+        2027-04                      154710
+        2027-05                      156680
+        2027-06                      150186
+        2027-07                      147479
+        2027-08                      139578
+        2027-09                      156881
+        2027-10                      151416
+        2027-11                      152485
+        2027-12                      143992
+        2028-01                      139888
+        2028-02                      139216
+        2028-03                      148968
+        2028-04                      143833
+        2028-05                      146124
+
+== 5 holdout accuracy
+  [INFO] seasonal naive on 2025-11 to 2026-10 (actuals): WAPE 0.483, bias +0.042, rows 35,946
+
+  [INFO] seasonal naive WAPE by family:
+        Brake & Safety Systems       0.518
+        Chassis & Structural         0.465
+        Electrical Assemblies        0.527
+        Hydraulic Systems            0.492
+        Powertrain Components        0.438
+        Precision Machined Parts     0.480
+        Thermal Management           0.463
+
+  [INFO] pipeline backtest, overall:
+          lightgbm_p50       WAPE 0.396  bias -14.76  n 55,724
+          naive_seasonal     WAPE 0.406  bias -4.53  n 55,724
+          moving_average     WAPE 0.429  bias -5.07  n 55,724
+          croston_sba_tsb    WAPE 0.443  bias -0.53  n 55,724
+          lightgbm_p50       WAPE 0.360  bias -8.40  n 56,643
+          naive_seasonal     WAPE 0.388  bias -2.45  n 56,643
+          moving_average     WAPE 0.430  bias -1.83  n 56,643
+          croston_sba_tsb    WAPE 0.438  bias +1.51  n 56,643
+          lightgbm_p50       WAPE 0.361  bias -9.39  n 56,862
+          naive_seasonal     WAPE 0.374  bias -0.87  n 56,862
+          moving_average     WAPE 0.441  bias +1.92  n 56,862
+          croston_sba_tsb    WAPE 0.436  bias +3.57  n 56,862
+
+  [PASS] LightGBM beats seasonal naive across all backtest origins
+
+== 6 interval coverage
+  [PASS] P10-P90 empirical coverage on backtest (diagnostic, not a PDF requirement): 72.6% (target about 80%)
+
+== 7 prices and revenue
+  [PASS] zero price on rows with units > 0: 0
+
+  [INFO] zero price on any row: 0 (no-order rows are included here)
+
+  [PASS] revenue that is not units x price (over $1): 0
+
+  [PASS] non-zero prices outside 0.5x to 2.0x the SKU-year median: 0
+
+  [PASS] SKU price changes outside 1 January and the 2022 surcharge window: 0
+
+== 8 lifecycle rules
+  [PASS] forecast rows above zero after EOL: 0
+
+  [PASS] forecast rows above zero before launch: 0
+
+  [PASS] history rows with sales after EOL: 0
+
+== 9 hierarchy totals
+  [PASS] total 2,847,167; family 2,847,167; region 2,847,167; month 2,847,167
+
+  [PASS] hierarchy_addition.csv present
+
+  [PASS] hierarchy exact sums: total=2,847,167, family=2,847,167, region=2,847,167, business_unit=2,847,167
+
+  [PASS] model card states hierarchy total and exact-sum result (Total forecast units: 2,847,167, level rows 18)
+
+== 10 dashboard
+  [PASS] dashboard.py compiles
+
+  [PASS] dashboard reads outputs only
+
+  [PASS] filters with an empty option list (cannot be used): 0
+
+  [INFO] tab labels: 1. Executive Overview | 2. Data Health & Audit | 3. Demand Explorer | 4. Anomaly Monitor | 5. Forecast & Accuracy | Opt 1: Macro Lead/Lag | Opt 2: Stockouts & Lost Demand | Opt 3: What-If Scenario | Opt 4: Lifecycle & Powertrain
+
+  [PASS] optional views: 4 (spec requires exactly 4)
+
+  [PASS] required views: 5 (spec requires 5)
+
+== 11 writing and code hygiene
+  [PASS] no emoji or decorative symbol
+
+  [PASS] no unresolved, TBD or to-be-investigated wording
+
+  [PASS] no bare except
+
+  [PASS] no broad except Exception
+
+  [PASS] no banner line
+
+== 12 deliverables and tests
+  [PASS] all required deliverable files exist
+
+  [PASS] dashboard URL found in README
+
+  [INFO] pytest skipped (--no-tests)
+
+== 13 spec compliance
+  [INFO] spec requirements matrix: 49 items (49 done, 0 partial, 0 not met)
+
+  [PASS] all 49 spec requirements documented and verified complete
+
+  [PASS] all outputs referenced in spec compliance matrix exist on disk
+
+  [PASS] all outputs referenced in spec compliance matrix are tracked in git
+
+  [PASS] test suite verified: 102 unit tests found in test_cleaning_rules.py
+
+== 14 pdf compliance
+  [PASS] all 77 PDF specification rows verified with valid files, outputs, and unit tests
