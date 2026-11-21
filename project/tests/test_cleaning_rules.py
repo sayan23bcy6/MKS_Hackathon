@@ -743,7 +743,7 @@ class TestSchemaValidation:
                     content = f.read()
                     assert 'Helios Mobility' not in content, f"Found 'Helios Mobility' in {fname}"
 
-    def test_new_launch_history_inheritance_rule(self):
+    def test_launch_replaces_sku_mapping(self):
         """Priority 4b: New launches with Replaces_SKU inherit replaced catalog history."""
         from pipeline.config import RAW_SKU_MASTER
         sku_master = pd.read_csv(RAW_SKU_MASTER)
@@ -752,6 +752,52 @@ class TestSchemaValidation:
         pmp20 = replaces[replaces['SKU_ID'] == 'PMP-020']
         assert not pmp20.empty
         assert pmp20.iloc[0]['Replaces_SKU'] == 'PMP-003'
+
+    def test_launch_inherits_history(self):
+        """A launch SKU inherits the replaced SKU's last value scaled by the family-region ratio."""
+        from pipeline.forecast import generate_recursive_forecast
+
+        class ConstantModel:
+            def __init__(self):
+                self.seen_lag_1m = None
+            def predict(self, frame):
+                self.seen_lag_1m = frame['lag_1m'].copy()
+                return np.full(len(frame), 40.0)
+
+        history_rows = []
+        for month in pd.period_range('2026-01', periods=12, freq='M').strftime('%Y-%m'):
+            history_rows.append({
+                'Date': month, 'SKU_ID': 'OLD-001', 'Region': 'North America',
+                'Customer_Name': 'Customer A', 'Units_Sold_Unconstrained': 100.0,
+                'Units_Sold': 100.0,
+                'Product_Family': 'Family A', 'Sales_Channel': 'Direct OEM',
+                'Business_Unit': 'BU A',
+            })
+        train_history = pd.DataFrame(history_rows)
+        test_df = pd.DataFrame([
+            {'Date': '2027-03', 'SKU_ID': 'NEW-001', 'Region': 'North America',
+             'Customer_Name': 'Customer A', 'Product_Family': 'Family A',
+             'Sales_Channel': 'Direct OEM', 'Business_Unit': 'BU A'},
+        ])
+        sku_master = pd.DataFrame([
+            {'SKU_ID': 'OLD-001', 'Product_Family': 'Family A', 'Business_Unit': 'BU A',
+             'Launch_Date': '2020-01', 'EOL_Date': '', 'Replaces_SKU': ''},
+            {'SKU_ID': 'NEW-001', 'Product_Family': 'Family A', 'Business_Unit': 'BU A',
+             'Launch_Date': '2027-03', 'EOL_Date': '', 'Replaces_SKU': 'OLD-001'},
+        ])
+        macro = pd.DataFrame({'Date': ['2027-03']})
+        events = pd.DataFrame(columns=['Event_ID', 'Start_Date', 'End_Date', 'Scope_Customer', 'Scope_Region'])
+        p10_model = ConstantModel()
+        p50_model = ConstantModel()
+        p90_model = ConstantModel()
+        models = {'p10': p10_model, 'p50': p50_model, 'p90': p90_model}
+
+        forecast, _ = generate_recursive_forecast(
+            test_df, train_history, macro, events, sku_master, models, save_outputs=False
+        )
+        launch_row = forecast[forecast['SKU_ID'] == 'NEW-001'].iloc[0]
+        assert np.isclose(p50_model.seen_lag_1m.iloc[0], 100.0, rtol=1e-3)
+        assert launch_row['Units_Sold_Forecast'] > 0
 
     def test_whatif_zero_shift_equals_baseline(self):
         """Priority 3: Scenario at delta 0 equals baseline forecast."""
