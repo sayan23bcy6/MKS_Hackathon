@@ -1,393 +1,785 @@
-Product_Family,MacroIndicator,Lag_Months,Correlation,Significant
-Brake & Safety Systems,ISM_Manufacturing_PMI,0,0.1396,False
-Brake & Safety Systems,ISM_Manufacturing_PMI,1,0.1372,False
-Brake & Safety Systems,ISM_Manufacturing_PMI,2,0.1089,False
-Brake & Safety Systems,ISM_Manufacturing_PMI,3,0.0564,False
-Brake & Safety Systems,ISM_Manufacturing_PMI,4,0.0281,False
-Brake & Safety Systems,ISM_Manufacturing_PMI,5,-0.0135,False
-Brake & Safety Systems,ISM_Manufacturing_PMI,6,-0.037,False
-Brake & Safety Systems,Auto_Production_YoY_Pct,0,0.5333,True
-Brake & Safety Systems,Auto_Production_YoY_Pct,1,0.5527,True
-Brake & Safety Systems,Auto_Production_YoY_Pct,2,0.534,True
-Brake & Safety Systems,Auto_Production_YoY_Pct,3,0.4856,True
-Brake & Safety Systems,Auto_Production_YoY_Pct,4,0.3667,True
-Brake & Safety Systems,Auto_Production_YoY_Pct,5,0.2403,True
-Brake & Safety Systems,Auto_Production_YoY_Pct,6,0.1645,False
-Brake & Safety Systems,Vehicle_Inventory_Days,0,-0.1246,False
-Brake & Safety Systems,Vehicle_Inventory_Days,1,-0.1784,False
-Brake & Safety Systems,Vehicle_Inventory_Days,2,-0.2093,True
-Brake & Safety Systems,Vehicle_Inventory_Days,3,-0.2208,True
-Brake & Safety Systems,Vehicle_Inventory_Days,4,-0.2061,True
-Brake & Safety Systems,Vehicle_Inventory_Days,5,-0.1836,False
-Brake & Safety Systems,Vehicle_Inventory_Days,6,-0.1578,False
-Brake & Safety Systems,Raw_Material_Cost_Index,0,0.1163,False
-Brake & Safety Systems,Raw_Material_Cost_Index,1,0.1058,False
-Brake & Safety Systems,Raw_Material_Cost_Index,2,0.0762,False
-Brake & Safety Systems,Raw_Material_Cost_Index,3,0.0377,False
-Brake & Safety Systems,Raw_Material_Cost_Index,4,0.0214,False
-Brake & Safety Systems,Raw_Material_Cost_Index,5,0.0199,False
-Brake & Safety Systems,Raw_Material_Cost_Index,6,-0.0039,False
-Brake & Safety Systems,New_Vehicle_Orders_Index,0,0.4943,True
-Brake & Safety Systems,New_Vehicle_Orders_Index,1,0.4801,True
-Brake & Safety Systems,New_Vehicle_Orders_Index,2,0.4015,True
-Brake & Safety Systems,New_Vehicle_Orders_Index,3,0.3151,True
-Brake & Safety Systems,New_Vehicle_Orders_Index,4,0.2315,True
-Brake & Safety Systems,New_Vehicle_Orders_Index,5,0.1696,False
-Brake & Safety Systems,New_Vehicle_Orders_Index,6,0.0986,False
-Brake & Safety Systems,Industrial_Util_Rate_Pct,0,0.4137,True
-Brake & Safety Systems,Industrial_Util_Rate_Pct,1,0.3457,True
-Brake & Safety Systems,Industrial_Util_Rate_Pct,2,0.2735,True
-Brake & Safety Systems,Industrial_Util_Rate_Pct,3,0.1883,False
-Brake & Safety Systems,Industrial_Util_Rate_Pct,4,0.1393,False
-Brake & Safety Systems,Industrial_Util_Rate_Pct,5,0.0943,False
-Brake & Safety Systems,Industrial_Util_Rate_Pct,6,0.058,False
-Brake & Safety Systems,Fuel_Price_Index,0,0.2425,True
-Brake & Safety Systems,Fuel_Price_Index,1,0.2405,True
-Brake & Safety Systems,Fuel_Price_Index,2,0.2133,True
-Brake & Safety Systems,Fuel_Price_Index,3,0.1696,False
-Brake & Safety Systems,Fuel_Price_Index,4,0.1419,False
-Brake & Safety Systems,Fuel_Price_Index,5,0.1221,False
-Brake & Safety Systems,Fuel_Price_Index,6,0.1115,False
-Brake & Safety Systems,EV_Adoption_Index,0,0.6178,True
-Brake & Safety Systems,EV_Adoption_Index,1,0.6316,True
-Brake & Safety Systems,EV_Adoption_Index,2,0.6252,True
-Brake & Safety Systems,EV_Adoption_Index,3,0.6211,True
-Brake & Safety Systems,EV_Adoption_Index,4,0.6196,True
-Brake & Safety Systems,EV_Adoption_Index,5,0.6197,True
-Brake & Safety Systems,EV_Adoption_Index,6,0.6097,True
-Chassis & Structural,ISM_Manufacturing_PMI,0,0.0484,False
-Chassis & Structural,ISM_Manufacturing_PMI,1,0.0554,False
-Chassis & Structural,ISM_Manufacturing_PMI,2,0.0259,False
-Chassis & Structural,ISM_Manufacturing_PMI,3,-0.0073,False
-Chassis & Structural,ISM_Manufacturing_PMI,4,-0.0476,False
-Chassis & Structural,ISM_Manufacturing_PMI,5,-0.0895,False
-Chassis & Structural,ISM_Manufacturing_PMI,6,-0.1764,False
-Chassis & Structural,Auto_Production_YoY_Pct,0,0.5517,True
-Chassis & Structural,Auto_Production_YoY_Pct,1,0.588,True
-Chassis & Structural,Auto_Production_YoY_Pct,2,0.5629,True
-Chassis & Structural,Auto_Production_YoY_Pct,3,0.4947,True
-Chassis & Structural,Auto_Production_YoY_Pct,4,0.4289,True
-Chassis & Structural,Auto_Production_YoY_Pct,5,0.3506,True
-Chassis & Structural,Auto_Production_YoY_Pct,6,0.2328,True
-Chassis & Structural,Vehicle_Inventory_Days,0,0.0207,False
-Chassis & Structural,Vehicle_Inventory_Days,1,0.0051,False
-Chassis & Structural,Vehicle_Inventory_Days,2,-0.0206,False
-Chassis & Structural,Vehicle_Inventory_Days,3,-0.031,False
-Chassis & Structural,Vehicle_Inventory_Days,4,-0.0293,False
-Chassis & Structural,Vehicle_Inventory_Days,5,-0.0196,False
-Chassis & Structural,Vehicle_Inventory_Days,6,0.002,False
-Chassis & Structural,Raw_Material_Cost_Index,0,-0.073,False
-Chassis & Structural,Raw_Material_Cost_Index,1,-0.0859,False
-Chassis & Structural,Raw_Material_Cost_Index,2,-0.1061,False
-Chassis & Structural,Raw_Material_Cost_Index,3,-0.119,False
-Chassis & Structural,Raw_Material_Cost_Index,4,-0.1216,False
-Chassis & Structural,Raw_Material_Cost_Index,5,-0.1163,False
-Chassis & Structural,Raw_Material_Cost_Index,6,-0.1236,False
-Chassis & Structural,New_Vehicle_Orders_Index,0,0.4195,True
-Chassis & Structural,New_Vehicle_Orders_Index,1,0.4235,True
-Chassis & Structural,New_Vehicle_Orders_Index,2,0.3689,True
-Chassis & Structural,New_Vehicle_Orders_Index,3,0.287,True
-Chassis & Structural,New_Vehicle_Orders_Index,4,0.2084,True
-Chassis & Structural,New_Vehicle_Orders_Index,5,0.1284,False
-Chassis & Structural,New_Vehicle_Orders_Index,6,0.042,False
-Chassis & Structural,Industrial_Util_Rate_Pct,0,0.4481,True
-Chassis & Structural,Industrial_Util_Rate_Pct,1,0.4134,True
-Chassis & Structural,Industrial_Util_Rate_Pct,2,0.3471,True
-Chassis & Structural,Industrial_Util_Rate_Pct,3,0.2927,True
-Chassis & Structural,Industrial_Util_Rate_Pct,4,0.2334,True
-Chassis & Structural,Industrial_Util_Rate_Pct,5,0.1618,False
-Chassis & Structural,Industrial_Util_Rate_Pct,6,0.1116,False
-Chassis & Structural,Fuel_Price_Index,0,0.0956,False
-Chassis & Structural,Fuel_Price_Index,1,0.0906,False
-Chassis & Structural,Fuel_Price_Index,2,0.0855,False
-Chassis & Structural,Fuel_Price_Index,3,0.0911,False
-Chassis & Structural,Fuel_Price_Index,4,0.0945,False
-Chassis & Structural,Fuel_Price_Index,5,0.101,False
-Chassis & Structural,Fuel_Price_Index,6,0.1167,False
-Chassis & Structural,EV_Adoption_Index,0,0.6453,True
-Chassis & Structural,EV_Adoption_Index,1,0.6417,True
-Chassis & Structural,EV_Adoption_Index,2,0.6431,True
-Chassis & Structural,EV_Adoption_Index,3,0.6479,True
-Chassis & Structural,EV_Adoption_Index,4,0.6541,True
-Chassis & Structural,EV_Adoption_Index,5,0.6533,True
-Chassis & Structural,EV_Adoption_Index,6,0.6476,True
-Electrical Assemblies,ISM_Manufacturing_PMI,0,-0.0696,False
-Electrical Assemblies,ISM_Manufacturing_PMI,1,-0.062,False
-Electrical Assemblies,ISM_Manufacturing_PMI,2,-0.0691,False
-Electrical Assemblies,ISM_Manufacturing_PMI,3,-0.106,False
-Electrical Assemblies,ISM_Manufacturing_PMI,4,-0.1467,False
-Electrical Assemblies,ISM_Manufacturing_PMI,5,-0.1884,False
-Electrical Assemblies,ISM_Manufacturing_PMI,6,-0.2287,True
-Electrical Assemblies,Auto_Production_YoY_Pct,0,0.5266,True
-Electrical Assemblies,Auto_Production_YoY_Pct,1,0.532,True
-Electrical Assemblies,Auto_Production_YoY_Pct,2,0.4993,True
-Electrical Assemblies,Auto_Production_YoY_Pct,3,0.4434,True
-Electrical Assemblies,Auto_Production_YoY_Pct,4,0.3682,True
-Electrical Assemblies,Auto_Production_YoY_Pct,5,0.2911,True
-Electrical Assemblies,Auto_Production_YoY_Pct,6,0.2149,True
-Electrical Assemblies,Vehicle_Inventory_Days,0,0.1465,False
-Electrical Assemblies,Vehicle_Inventory_Days,1,0.1334,False
-Electrical Assemblies,Vehicle_Inventory_Days,2,0.1251,False
-Electrical Assemblies,Vehicle_Inventory_Days,3,0.1061,False
-Electrical Assemblies,Vehicle_Inventory_Days,4,0.0952,False
-Electrical Assemblies,Vehicle_Inventory_Days,5,0.0837,False
-Electrical Assemblies,Vehicle_Inventory_Days,6,0.0868,False
-Electrical Assemblies,Raw_Material_Cost_Index,0,-0.148,False
-Electrical Assemblies,Raw_Material_Cost_Index,1,-0.1442,False
-Electrical Assemblies,Raw_Material_Cost_Index,2,-0.144,False
-Electrical Assemblies,Raw_Material_Cost_Index,3,-0.1325,False
-Electrical Assemblies,Raw_Material_Cost_Index,4,-0.1318,False
-Electrical Assemblies,Raw_Material_Cost_Index,5,-0.1175,False
-Electrical Assemblies,Raw_Material_Cost_Index,6,-0.1044,False
-Electrical Assemblies,New_Vehicle_Orders_Index,0,0.3367,True
-Electrical Assemblies,New_Vehicle_Orders_Index,1,0.3608,True
-Electrical Assemblies,New_Vehicle_Orders_Index,2,0.3394,True
-Electrical Assemblies,New_Vehicle_Orders_Index,3,0.2979,True
-Electrical Assemblies,New_Vehicle_Orders_Index,4,0.2462,True
-Electrical Assemblies,New_Vehicle_Orders_Index,5,0.1771,False
-Electrical Assemblies,New_Vehicle_Orders_Index,6,0.1155,False
-Electrical Assemblies,Industrial_Util_Rate_Pct,0,0.514,True
-Electrical Assemblies,Industrial_Util_Rate_Pct,1,0.4932,True
-Electrical Assemblies,Industrial_Util_Rate_Pct,2,0.4492,True
-Electrical Assemblies,Industrial_Util_Rate_Pct,3,0.4005,True
-Electrical Assemblies,Industrial_Util_Rate_Pct,4,0.3397,True
-Electrical Assemblies,Industrial_Util_Rate_Pct,5,0.281,True
-Electrical Assemblies,Industrial_Util_Rate_Pct,6,0.2362,True
-Electrical Assemblies,Fuel_Price_Index,0,0.0979,False
-Electrical Assemblies,Fuel_Price_Index,1,0.1335,False
-Electrical Assemblies,Fuel_Price_Index,2,0.1596,False
-Electrical Assemblies,Fuel_Price_Index,3,0.1892,False
-Electrical Assemblies,Fuel_Price_Index,4,0.2163,True
-Electrical Assemblies,Fuel_Price_Index,5,0.2294,True
-Electrical Assemblies,Fuel_Price_Index,6,0.2423,True
-Electrical Assemblies,EV_Adoption_Index,0,0.748,True
-Electrical Assemblies,EV_Adoption_Index,1,0.7482,True
-Electrical Assemblies,EV_Adoption_Index,2,0.7484,True
-Electrical Assemblies,EV_Adoption_Index,3,0.7572,True
-Electrical Assemblies,EV_Adoption_Index,4,0.7625,True
-Electrical Assemblies,EV_Adoption_Index,5,0.7634,True
-Electrical Assemblies,EV_Adoption_Index,6,0.7634,True
-Hydraulic Systems,ISM_Manufacturing_PMI,0,0.4335,True
-Hydraulic Systems,ISM_Manufacturing_PMI,1,0.4749,True
-Hydraulic Systems,ISM_Manufacturing_PMI,2,0.4889,True
-Hydraulic Systems,ISM_Manufacturing_PMI,3,0.4574,True
-Hydraulic Systems,ISM_Manufacturing_PMI,4,0.4238,True
-Hydraulic Systems,ISM_Manufacturing_PMI,5,0.3835,True
-Hydraulic Systems,ISM_Manufacturing_PMI,6,0.3288,True
-Hydraulic Systems,Auto_Production_YoY_Pct,0,0.4379,True
-Hydraulic Systems,Auto_Production_YoY_Pct,1,0.4466,True
-Hydraulic Systems,Auto_Production_YoY_Pct,2,0.4231,True
-Hydraulic Systems,Auto_Production_YoY_Pct,3,0.3639,True
-Hydraulic Systems,Auto_Production_YoY_Pct,4,0.2763,True
-Hydraulic Systems,Auto_Production_YoY_Pct,5,0.1841,False
-Hydraulic Systems,Auto_Production_YoY_Pct,6,0.0858,False
-Hydraulic Systems,Vehicle_Inventory_Days,0,-0.3968,True
-Hydraulic Systems,Vehicle_Inventory_Days,1,-0.4127,True
-Hydraulic Systems,Vehicle_Inventory_Days,2,-0.4262,True
-Hydraulic Systems,Vehicle_Inventory_Days,3,-0.427,True
-Hydraulic Systems,Vehicle_Inventory_Days,4,-0.4088,True
-Hydraulic Systems,Vehicle_Inventory_Days,5,-0.3672,True
-Hydraulic Systems,Vehicle_Inventory_Days,6,-0.3061,True
-Hydraulic Systems,Raw_Material_Cost_Index,0,0.3959,True
-Hydraulic Systems,Raw_Material_Cost_Index,1,0.4142,True
-Hydraulic Systems,Raw_Material_Cost_Index,2,0.3973,True
-Hydraulic Systems,Raw_Material_Cost_Index,3,0.3843,True
-Hydraulic Systems,Raw_Material_Cost_Index,4,0.3601,True
-Hydraulic Systems,Raw_Material_Cost_Index,5,0.3345,True
-Hydraulic Systems,Raw_Material_Cost_Index,6,0.3354,True
-Hydraulic Systems,New_Vehicle_Orders_Index,0,0.6688,True
-Hydraulic Systems,New_Vehicle_Orders_Index,1,0.6972,True
-Hydraulic Systems,New_Vehicle_Orders_Index,2,0.6613,True
-Hydraulic Systems,New_Vehicle_Orders_Index,3,0.5844,True
-Hydraulic Systems,New_Vehicle_Orders_Index,4,0.5073,True
-Hydraulic Systems,New_Vehicle_Orders_Index,5,0.3992,True
-Hydraulic Systems,New_Vehicle_Orders_Index,6,0.331,True
-Hydraulic Systems,Industrial_Util_Rate_Pct,0,0.5909,True
-Hydraulic Systems,Industrial_Util_Rate_Pct,1,0.5265,True
-Hydraulic Systems,Industrial_Util_Rate_Pct,2,0.4282,True
-Hydraulic Systems,Industrial_Util_Rate_Pct,3,0.3174,True
-Hydraulic Systems,Industrial_Util_Rate_Pct,4,0.1994,False
-Hydraulic Systems,Industrial_Util_Rate_Pct,5,0.0662,False
-Hydraulic Systems,Industrial_Util_Rate_Pct,6,0.0223,False
-Hydraulic Systems,Fuel_Price_Index,0,0.4359,True
-Hydraulic Systems,Fuel_Price_Index,1,0.3835,True
-Hydraulic Systems,Fuel_Price_Index,2,0.3273,True
-Hydraulic Systems,Fuel_Price_Index,3,0.2684,True
-Hydraulic Systems,Fuel_Price_Index,4,0.193,False
-Hydraulic Systems,Fuel_Price_Index,5,0.1189,False
-Hydraulic Systems,Fuel_Price_Index,6,0.0684,False
-Hydraulic Systems,EV_Adoption_Index,0,0.51,True
-Hydraulic Systems,EV_Adoption_Index,1,0.4996,True
-Hydraulic Systems,EV_Adoption_Index,2,0.4901,True
-Hydraulic Systems,EV_Adoption_Index,3,0.4943,True
-Hydraulic Systems,EV_Adoption_Index,4,0.4881,True
-Hydraulic Systems,EV_Adoption_Index,5,0.484,True
-Hydraulic Systems,EV_Adoption_Index,6,0.4746,True
-Powertrain Components,ISM_Manufacturing_PMI,0,0.1456,False
-Powertrain Components,ISM_Manufacturing_PMI,1,0.2223,True
-Powertrain Components,ISM_Manufacturing_PMI,2,0.2608,True
-Powertrain Components,ISM_Manufacturing_PMI,3,0.2782,True
-Powertrain Components,ISM_Manufacturing_PMI,4,0.2876,True
-Powertrain Components,ISM_Manufacturing_PMI,5,0.2642,True
-Powertrain Components,ISM_Manufacturing_PMI,6,0.2496,True
-Powertrain Components,Auto_Production_YoY_Pct,0,0.4452,True
-Powertrain Components,Auto_Production_YoY_Pct,1,0.544,True
-Powertrain Components,Auto_Production_YoY_Pct,2,0.5754,True
-Powertrain Components,Auto_Production_YoY_Pct,3,0.5914,True
-Powertrain Components,Auto_Production_YoY_Pct,4,0.5704,True
-Powertrain Components,Auto_Production_YoY_Pct,5,0.473,True
-Powertrain Components,Auto_Production_YoY_Pct,6,0.3643,True
-Powertrain Components,Vehicle_Inventory_Days,0,-0.1559,False
-Powertrain Components,Vehicle_Inventory_Days,1,-0.1995,False
-Powertrain Components,Vehicle_Inventory_Days,2,-0.233,True
-Powertrain Components,Vehicle_Inventory_Days,3,-0.2825,True
-Powertrain Components,Vehicle_Inventory_Days,4,-0.3111,True
-Powertrain Components,Vehicle_Inventory_Days,5,-0.326,True
-Powertrain Components,Vehicle_Inventory_Days,6,-0.3218,True
-Powertrain Components,Raw_Material_Cost_Index,0,0.2619,True
-Powertrain Components,Raw_Material_Cost_Index,1,0.2788,True
-Powertrain Components,Raw_Material_Cost_Index,2,0.2671,True
-Powertrain Components,Raw_Material_Cost_Index,3,0.2813,True
-Powertrain Components,Raw_Material_Cost_Index,4,0.2943,True
-Powertrain Components,Raw_Material_Cost_Index,5,0.2982,True
-Powertrain Components,Raw_Material_Cost_Index,6,0.2978,True
-Powertrain Components,New_Vehicle_Orders_Index,0,0.548,True
-Powertrain Components,New_Vehicle_Orders_Index,1,0.6181,True
-Powertrain Components,New_Vehicle_Orders_Index,2,0.6271,True
-Powertrain Components,New_Vehicle_Orders_Index,3,0.6334,True
-Powertrain Components,New_Vehicle_Orders_Index,4,0.5993,True
-Powertrain Components,New_Vehicle_Orders_Index,5,0.5334,True
-Powertrain Components,New_Vehicle_Orders_Index,6,0.4558,True
-Powertrain Components,Industrial_Util_Rate_Pct,0,0.7284,True
-Powertrain Components,Industrial_Util_Rate_Pct,1,0.6997,True
-Powertrain Components,Industrial_Util_Rate_Pct,2,0.6601,True
-Powertrain Components,Industrial_Util_Rate_Pct,3,0.5984,True
-Powertrain Components,Industrial_Util_Rate_Pct,4,0.5078,True
-Powertrain Components,Industrial_Util_Rate_Pct,5,0.3997,True
-Powertrain Components,Industrial_Util_Rate_Pct,6,0.2953,True
-Powertrain Components,Fuel_Price_Index,0,0.4216,True
-Powertrain Components,Fuel_Price_Index,1,0.4144,True
-Powertrain Components,Fuel_Price_Index,2,0.4026,True
-Powertrain Components,Fuel_Price_Index,3,0.3776,True
-Powertrain Components,Fuel_Price_Index,4,0.3357,True
-Powertrain Components,Fuel_Price_Index,5,0.3116,True
-Powertrain Components,Fuel_Price_Index,6,0.2893,True
-Powertrain Components,EV_Adoption_Index,0,0.5018,True
-Powertrain Components,EV_Adoption_Index,1,0.4903,True
-Powertrain Components,EV_Adoption_Index,2,0.4828,True
-Powertrain Components,EV_Adoption_Index,3,0.4951,True
-Powertrain Components,EV_Adoption_Index,4,0.4976,True
-Powertrain Components,EV_Adoption_Index,5,0.5072,True
-Powertrain Components,EV_Adoption_Index,6,0.5071,True
-Precision Machined Parts,ISM_Manufacturing_PMI,0,0.2142,True
-Precision Machined Parts,ISM_Manufacturing_PMI,1,0.2757,True
-Precision Machined Parts,ISM_Manufacturing_PMI,2,0.2932,True
-Precision Machined Parts,ISM_Manufacturing_PMI,3,0.2748,True
-Precision Machined Parts,ISM_Manufacturing_PMI,4,0.2447,True
-Precision Machined Parts,ISM_Manufacturing_PMI,5,0.2036,False
-Precision Machined Parts,ISM_Manufacturing_PMI,6,0.1736,False
-Precision Machined Parts,Auto_Production_YoY_Pct,0,0.5308,True
-Precision Machined Parts,Auto_Production_YoY_Pct,1,0.5642,True
-Precision Machined Parts,Auto_Production_YoY_Pct,2,0.5417,True
-Precision Machined Parts,Auto_Production_YoY_Pct,3,0.4872,True
-Precision Machined Parts,Auto_Production_YoY_Pct,4,0.4145,True
-Precision Machined Parts,Auto_Production_YoY_Pct,5,0.3008,True
-Precision Machined Parts,Auto_Production_YoY_Pct,6,0.2409,True
-Precision Machined Parts,Vehicle_Inventory_Days,0,-0.1807,False
-Precision Machined Parts,Vehicle_Inventory_Days,1,-0.2267,True
-Precision Machined Parts,Vehicle_Inventory_Days,2,-0.2581,True
-Precision Machined Parts,Vehicle_Inventory_Days,3,-0.2988,True
-Precision Machined Parts,Vehicle_Inventory_Days,4,-0.307,True
-Precision Machined Parts,Vehicle_Inventory_Days,5,-0.2917,True
-Precision Machined Parts,Vehicle_Inventory_Days,6,-0.2641,True
-Precision Machined Parts,Raw_Material_Cost_Index,0,0.193,False
-Precision Machined Parts,Raw_Material_Cost_Index,1,0.2118,True
-Precision Machined Parts,Raw_Material_Cost_Index,2,0.2231,True
-Precision Machined Parts,Raw_Material_Cost_Index,3,0.2483,True
-Precision Machined Parts,Raw_Material_Cost_Index,4,0.2579,True
-Precision Machined Parts,Raw_Material_Cost_Index,5,0.27,True
-Precision Machined Parts,Raw_Material_Cost_Index,6,0.2783,True
-Precision Machined Parts,New_Vehicle_Orders_Index,0,0.5821,True
-Precision Machined Parts,New_Vehicle_Orders_Index,1,0.6345,True
-Precision Machined Parts,New_Vehicle_Orders_Index,2,0.6132,True
-Precision Machined Parts,New_Vehicle_Orders_Index,3,0.5732,True
-Precision Machined Parts,New_Vehicle_Orders_Index,4,0.5048,True
-Precision Machined Parts,New_Vehicle_Orders_Index,5,0.4226,True
-Precision Machined Parts,New_Vehicle_Orders_Index,6,0.3538,True
-Precision Machined Parts,Industrial_Util_Rate_Pct,0,0.7305,True
-Precision Machined Parts,Industrial_Util_Rate_Pct,1,0.6973,True
-Precision Machined Parts,Industrial_Util_Rate_Pct,2,0.63,True
-Precision Machined Parts,Industrial_Util_Rate_Pct,3,0.5351,True
-Precision Machined Parts,Industrial_Util_Rate_Pct,4,0.4279,True
-Precision Machined Parts,Industrial_Util_Rate_Pct,5,0.3157,True
-Precision Machined Parts,Industrial_Util_Rate_Pct,6,0.2384,True
-Precision Machined Parts,Fuel_Price_Index,0,0.3714,True
-Precision Machined Parts,Fuel_Price_Index,1,0.3588,True
-Precision Machined Parts,Fuel_Price_Index,2,0.3416,True
-Precision Machined Parts,Fuel_Price_Index,3,0.3217,True
-Precision Machined Parts,Fuel_Price_Index,4,0.2986,True
-Precision Machined Parts,Fuel_Price_Index,5,0.2804,True
-Precision Machined Parts,Fuel_Price_Index,6,0.2659,True
-Precision Machined Parts,EV_Adoption_Index,0,0.5954,True
-Precision Machined Parts,EV_Adoption_Index,1,0.5896,True
-Precision Machined Parts,EV_Adoption_Index,2,0.5863,True
-Precision Machined Parts,EV_Adoption_Index,3,0.6018,True
-Precision Machined Parts,EV_Adoption_Index,4,0.6056,True
-Precision Machined Parts,EV_Adoption_Index,5,0.614,True
-Precision Machined Parts,EV_Adoption_Index,6,0.6187,True
-Thermal Management,ISM_Manufacturing_PMI,0,0.3089,True
-Thermal Management,ISM_Manufacturing_PMI,1,0.3289,True
-Thermal Management,ISM_Manufacturing_PMI,2,0.3195,True
-Thermal Management,ISM_Manufacturing_PMI,3,0.2697,True
-Thermal Management,ISM_Manufacturing_PMI,4,0.2241,True
-Thermal Management,ISM_Manufacturing_PMI,5,0.1491,False
-Thermal Management,ISM_Manufacturing_PMI,6,0.1059,False
-Thermal Management,Auto_Production_YoY_Pct,0,0.5586,True
-Thermal Management,Auto_Production_YoY_Pct,1,0.6063,True
-Thermal Management,Auto_Production_YoY_Pct,2,0.5548,True
-Thermal Management,Auto_Production_YoY_Pct,3,0.4432,True
-Thermal Management,Auto_Production_YoY_Pct,4,0.3275,True
-Thermal Management,Auto_Production_YoY_Pct,5,0.1958,False
-Thermal Management,Auto_Production_YoY_Pct,6,0.0787,False
-Thermal Management,Vehicle_Inventory_Days,0,-0.0691,False
-Thermal Management,Vehicle_Inventory_Days,1,-0.0861,False
-Thermal Management,Vehicle_Inventory_Days,2,-0.0836,False
-Thermal Management,Vehicle_Inventory_Days,3,-0.0843,False
-Thermal Management,Vehicle_Inventory_Days,4,-0.0672,False
-Thermal Management,Vehicle_Inventory_Days,5,-0.0629,False
-Thermal Management,Vehicle_Inventory_Days,6,-0.0191,False
-Thermal Management,Raw_Material_Cost_Index,0,0.1133,False
-Thermal Management,Raw_Material_Cost_Index,1,0.0823,False
-Thermal Management,Raw_Material_Cost_Index,2,0.0321,False
-Thermal Management,Raw_Material_Cost_Index,3,-0.0004,False
-Thermal Management,Raw_Material_Cost_Index,4,-0.0342,False
-Thermal Management,Raw_Material_Cost_Index,5,-0.0621,False
-Thermal Management,Raw_Material_Cost_Index,6,-0.066,False
-Thermal Management,New_Vehicle_Orders_Index,0,0.5135,True
-Thermal Management,New_Vehicle_Orders_Index,1,0.5052,True
-Thermal Management,New_Vehicle_Orders_Index,2,0.4371,True
-Thermal Management,New_Vehicle_Orders_Index,3,0.3529,True
-Thermal Management,New_Vehicle_Orders_Index,4,0.2608,True
-Thermal Management,New_Vehicle_Orders_Index,5,0.1702,False
-Thermal Management,New_Vehicle_Orders_Index,6,0.0788,False
-Thermal Management,Industrial_Util_Rate_Pct,0,0.4389,True
-Thermal Management,Industrial_Util_Rate_Pct,1,0.3892,True
-Thermal Management,Industrial_Util_Rate_Pct,2,0.3094,True
-Thermal Management,Industrial_Util_Rate_Pct,3,0.2047,True
-Thermal Management,Industrial_Util_Rate_Pct,4,0.114,False
-Thermal Management,Industrial_Util_Rate_Pct,5,0.0088,False
-Thermal Management,Industrial_Util_Rate_Pct,6,-0.0323,False
-Thermal Management,Fuel_Price_Index,0,0.1337,False
-Thermal Management,Fuel_Price_Index,1,0.0939,False
-Thermal Management,Fuel_Price_Index,2,0.0502,False
-Thermal Management,Fuel_Price_Index,3,0.0096,False
-Thermal Management,Fuel_Price_Index,4,-0.0354,False
-Thermal Management,Fuel_Price_Index,5,-0.0764,False
-Thermal Management,Fuel_Price_Index,6,-0.0959,False
-Thermal Management,EV_Adoption_Index,0,0.3613,True
-Thermal Management,EV_Adoption_Index,1,0.3534,True
-Thermal Management,EV_Adoption_Index,2,0.3481,True
-Thermal Management,EV_Adoption_Index,3,0.3653,True
-Thermal Management,EV_Adoption_Index,4,0.3762,True
-Thermal Management,EV_Adoption_Index,5,0.3971,True
-Thermal Management,EV_Adoption_Index,6,0.399,True
+Product_Family,MacroIndicator,Lag_Months,Correlation,Significant,Analysis_Type
+Brake & Safety Systems,ISM_Manufacturing_PMI,0,0.1587,False,Levels
+Brake & Safety Systems,ISM_Manufacturing_PMI,0,0.2708,True,Changes
+Brake & Safety Systems,ISM_Manufacturing_PMI,1,0.1577,False,Levels
+Brake & Safety Systems,ISM_Manufacturing_PMI,1,0.2113,True,Changes
+Brake & Safety Systems,ISM_Manufacturing_PMI,2,0.1161,False,Levels
+Brake & Safety Systems,ISM_Manufacturing_PMI,2,0.1653,False,Changes
+Brake & Safety Systems,ISM_Manufacturing_PMI,3,0.0431,False,Levels
+Brake & Safety Systems,ISM_Manufacturing_PMI,3,-0.1072,False,Changes
+Brake & Safety Systems,ISM_Manufacturing_PMI,4,-0.0093,False,Levels
+Brake & Safety Systems,ISM_Manufacturing_PMI,4,0.038,False,Changes
+Brake & Safety Systems,ISM_Manufacturing_PMI,5,-0.0684,False,Levels
+Brake & Safety Systems,ISM_Manufacturing_PMI,5,-0.1085,False,Changes
+Brake & Safety Systems,ISM_Manufacturing_PMI,6,-0.1019,False,Levels
+Brake & Safety Systems,ISM_Manufacturing_PMI,6,-0.0016,False,Changes
+Brake & Safety Systems,Auto_Production_YoY_Pct,0,0.6582,True,Levels
+Brake & Safety Systems,Auto_Production_YoY_Pct,0,0.2165,True,Changes
+Brake & Safety Systems,Auto_Production_YoY_Pct,1,0.6817,True,Levels
+Brake & Safety Systems,Auto_Production_YoY_Pct,1,0.2758,True,Changes
+Brake & Safety Systems,Auto_Production_YoY_Pct,2,0.6128,True,Levels
+Brake & Safety Systems,Auto_Production_YoY_Pct,2,0.1203,False,Changes
+Brake & Safety Systems,Auto_Production_YoY_Pct,3,0.5004,True,Levels
+Brake & Safety Systems,Auto_Production_YoY_Pct,3,-0.0249,False,Changes
+Brake & Safety Systems,Auto_Production_YoY_Pct,4,0.3952,True,Levels
+Brake & Safety Systems,Auto_Production_YoY_Pct,4,0.0028,False,Changes
+Brake & Safety Systems,Auto_Production_YoY_Pct,5,0.2883,True,Levels
+Brake & Safety Systems,Auto_Production_YoY_Pct,5,-0.048,False,Changes
+Brake & Safety Systems,Auto_Production_YoY_Pct,6,0.197,False,Levels
+Brake & Safety Systems,Auto_Production_YoY_Pct,6,-0.1011,False,Changes
+Brake & Safety Systems,Vehicle_Inventory_Days,0,-0.2181,True,Levels
+Brake & Safety Systems,Vehicle_Inventory_Days,0,0.1559,False,Changes
+Brake & Safety Systems,Vehicle_Inventory_Days,1,-0.2451,True,Levels
+Brake & Safety Systems,Vehicle_Inventory_Days,1,-0.1277,False,Changes
+Brake & Safety Systems,Vehicle_Inventory_Days,2,-0.2589,True,Levels
+Brake & Safety Systems,Vehicle_Inventory_Days,2,-0.1543,False,Changes
+Brake & Safety Systems,Vehicle_Inventory_Days,3,-0.2561,True,Levels
+Brake & Safety Systems,Vehicle_Inventory_Days,3,-0.2048,True,Changes
+Brake & Safety Systems,Vehicle_Inventory_Days,4,-0.229,True,Levels
+Brake & Safety Systems,Vehicle_Inventory_Days,4,-0.0093,False,Changes
+Brake & Safety Systems,Vehicle_Inventory_Days,5,-0.2052,False,Levels
+Brake & Safety Systems,Vehicle_Inventory_Days,5,-0.1021,False,Changes
+Brake & Safety Systems,Vehicle_Inventory_Days,6,-0.1612,False,Levels
+Brake & Safety Systems,Vehicle_Inventory_Days,6,0.0569,False,Changes
+Brake & Safety Systems,Raw_Material_Cost_Index,0,0.1295,False,Levels
+Brake & Safety Systems,Raw_Material_Cost_Index,0,-0.1032,False,Changes
+Brake & Safety Systems,Raw_Material_Cost_Index,1,0.1195,False,Levels
+Brake & Safety Systems,Raw_Material_Cost_Index,1,0.0865,False,Changes
+Brake & Safety Systems,Raw_Material_Cost_Index,2,0.0941,False,Levels
+Brake & Safety Systems,Raw_Material_Cost_Index,2,-0.0569,False,Changes
+Brake & Safety Systems,Raw_Material_Cost_Index,3,0.0764,False,Levels
+Brake & Safety Systems,Raw_Material_Cost_Index,3,-0.0461,False,Changes
+Brake & Safety Systems,Raw_Material_Cost_Index,4,0.0654,False,Levels
+Brake & Safety Systems,Raw_Material_Cost_Index,4,-0.1119,False,Changes
+Brake & Safety Systems,Raw_Material_Cost_Index,5,0.0701,False,Levels
+Brake & Safety Systems,Raw_Material_Cost_Index,5,0.0528,False,Changes
+Brake & Safety Systems,Raw_Material_Cost_Index,6,0.0549,False,Levels
+Brake & Safety Systems,Raw_Material_Cost_Index,6,-0.0678,False,Changes
+Brake & Safety Systems,New_Vehicle_Orders_Index,0,0.5668,True,Levels
+Brake & Safety Systems,New_Vehicle_Orders_Index,0,0.2205,True,Changes
+Brake & Safety Systems,New_Vehicle_Orders_Index,1,0.5525,True,Levels
+Brake & Safety Systems,New_Vehicle_Orders_Index,1,0.2884,True,Changes
+Brake & Safety Systems,New_Vehicle_Orders_Index,2,0.463,True,Levels
+Brake & Safety Systems,New_Vehicle_Orders_Index,2,0.06,False,Changes
+Brake & Safety Systems,New_Vehicle_Orders_Index,3,0.3541,True,Levels
+Brake & Safety Systems,New_Vehicle_Orders_Index,3,-0.066,False,Changes
+Brake & Safety Systems,New_Vehicle_Orders_Index,4,0.2574,True,Levels
+Brake & Safety Systems,New_Vehicle_Orders_Index,4,-0.0503,False,Changes
+Brake & Safety Systems,New_Vehicle_Orders_Index,5,0.1724,False,Levels
+Brake & Safety Systems,New_Vehicle_Orders_Index,5,-0.0473,False,Changes
+Brake & Safety Systems,New_Vehicle_Orders_Index,6,0.0942,False,Levels
+Brake & Safety Systems,New_Vehicle_Orders_Index,6,-0.133,False,Changes
+Brake & Safety Systems,Industrial_Util_Rate_Pct,0,0.52,True,Levels
+Brake & Safety Systems,Industrial_Util_Rate_Pct,0,0.3008,True,Changes
+Brake & Safety Systems,Industrial_Util_Rate_Pct,1,0.4574,True,Levels
+Brake & Safety Systems,Industrial_Util_Rate_Pct,1,0.1458,False,Changes
+Brake & Safety Systems,Industrial_Util_Rate_Pct,2,0.3502,True,Levels
+Brake & Safety Systems,Industrial_Util_Rate_Pct,2,-0.028,False,Changes
+Brake & Safety Systems,Industrial_Util_Rate_Pct,3,0.2465,True,Levels
+Brake & Safety Systems,Industrial_Util_Rate_Pct,3,-0.1081,False,Changes
+Brake & Safety Systems,Industrial_Util_Rate_Pct,4,0.1676,False,Levels
+Brake & Safety Systems,Industrial_Util_Rate_Pct,4,-0.0174,False,Changes
+Brake & Safety Systems,Industrial_Util_Rate_Pct,5,0.0919,False,Levels
+Brake & Safety Systems,Industrial_Util_Rate_Pct,5,-0.0676,False,Changes
+Brake & Safety Systems,Industrial_Util_Rate_Pct,6,0.0473,False,Levels
+Brake & Safety Systems,Industrial_Util_Rate_Pct,6,-0.0896,False,Changes
+Brake & Safety Systems,Fuel_Price_Index,0,0.2369,True,Levels
+Brake & Safety Systems,Fuel_Price_Index,0,0.0776,False,Changes
+Brake & Safety Systems,Fuel_Price_Index,1,0.2147,True,Levels
+Brake & Safety Systems,Fuel_Price_Index,1,0.0774,False,Changes
+Brake & Safety Systems,Fuel_Price_Index,2,0.1884,False,Levels
+Brake & Safety Systems,Fuel_Price_Index,2,-0.032,False,Changes
+Brake & Safety Systems,Fuel_Price_Index,3,0.1703,False,Levels
+Brake & Safety Systems,Fuel_Price_Index,3,-0.0296,False,Changes
+Brake & Safety Systems,Fuel_Price_Index,4,0.1637,False,Levels
+Brake & Safety Systems,Fuel_Price_Index,4,-0.0531,False,Changes
+Brake & Safety Systems,Fuel_Price_Index,5,0.1685,False,Levels
+Brake & Safety Systems,Fuel_Price_Index,5,-0.1541,False,Changes
+Brake & Safety Systems,Fuel_Price_Index,6,0.1888,False,Levels
+Brake & Safety Systems,Fuel_Price_Index,6,0.0046,False,Changes
+Brake & Safety Systems,EV_Adoption_Index,0,0.7177,True,Levels
+Brake & Safety Systems,EV_Adoption_Index,0,-0.0309,False,Changes
+Brake & Safety Systems,EV_Adoption_Index,1,0.7093,True,Levels
+Brake & Safety Systems,EV_Adoption_Index,1,0.1127,False,Changes
+Brake & Safety Systems,EV_Adoption_Index,2,0.7015,True,Levels
+Brake & Safety Systems,EV_Adoption_Index,2,-0.0191,False,Changes
+Brake & Safety Systems,EV_Adoption_Index,3,0.6966,True,Levels
+Brake & Safety Systems,EV_Adoption_Index,3,0.1138,False,Changes
+Brake & Safety Systems,EV_Adoption_Index,4,0.6929,True,Levels
+Brake & Safety Systems,EV_Adoption_Index,4,0.0129,False,Changes
+Brake & Safety Systems,EV_Adoption_Index,5,0.6935,True,Levels
+Brake & Safety Systems,EV_Adoption_Index,5,0.0754,False,Changes
+Brake & Safety Systems,EV_Adoption_Index,6,0.6819,True,Levels
+Brake & Safety Systems,EV_Adoption_Index,6,-0.1032,False,Changes
+Chassis & Structural,ISM_Manufacturing_PMI,0,0.0568,False,Levels
+Chassis & Structural,ISM_Manufacturing_PMI,0,0.2294,True,Changes
+Chassis & Structural,ISM_Manufacturing_PMI,1,0.0715,False,Levels
+Chassis & Structural,ISM_Manufacturing_PMI,1,0.3008,True,Changes
+Chassis & Structural,ISM_Manufacturing_PMI,2,0.0375,False,Levels
+Chassis & Structural,ISM_Manufacturing_PMI,2,0.0769,False,Changes
+Chassis & Structural,ISM_Manufacturing_PMI,3,-0.0092,False,Levels
+Chassis & Structural,ISM_Manufacturing_PMI,3,-0.0181,False,Changes
+Chassis & Structural,ISM_Manufacturing_PMI,4,-0.051,False,Levels
+Chassis & Structural,ISM_Manufacturing_PMI,4,0.0563,False,Changes
+Chassis & Structural,ISM_Manufacturing_PMI,5,-0.0979,False,Levels
+Chassis & Structural,ISM_Manufacturing_PMI,5,-0.0031,False,Changes
+Chassis & Structural,ISM_Manufacturing_PMI,6,-0.1406,False,Levels
+Chassis & Structural,ISM_Manufacturing_PMI,6,-0.056,False,Changes
+Chassis & Structural,Auto_Production_YoY_Pct,0,0.5972,True,Levels
+Chassis & Structural,Auto_Production_YoY_Pct,0,0.233,True,Changes
+Chassis & Structural,Auto_Production_YoY_Pct,1,0.6499,True,Levels
+Chassis & Structural,Auto_Production_YoY_Pct,1,0.2746,True,Changes
+Chassis & Structural,Auto_Production_YoY_Pct,2,0.6243,True,Levels
+Chassis & Structural,Auto_Production_YoY_Pct,2,0.1542,False,Changes
+Chassis & Structural,Auto_Production_YoY_Pct,3,0.5534,True,Levels
+Chassis & Structural,Auto_Production_YoY_Pct,3,0.0036,False,Changes
+Chassis & Structural,Auto_Production_YoY_Pct,4,0.4827,True,Levels
+Chassis & Structural,Auto_Production_YoY_Pct,4,0.0863,False,Changes
+Chassis & Structural,Auto_Production_YoY_Pct,5,0.3885,True,Levels
+Chassis & Structural,Auto_Production_YoY_Pct,5,0.0247,False,Changes
+Chassis & Structural,Auto_Production_YoY_Pct,6,0.2874,True,Levels
+Chassis & Structural,Auto_Production_YoY_Pct,6,-0.0693,False,Changes
+Chassis & Structural,Vehicle_Inventory_Days,0,0.0578,False,Levels
+Chassis & Structural,Vehicle_Inventory_Days,0,0.2228,True,Changes
+Chassis & Structural,Vehicle_Inventory_Days,1,0.0309,False,Levels
+Chassis & Structural,Vehicle_Inventory_Days,1,-0.0925,False,Changes
+Chassis & Structural,Vehicle_Inventory_Days,2,0.0075,False,Levels
+Chassis & Structural,Vehicle_Inventory_Days,2,-0.1392,False,Changes
+Chassis & Structural,Vehicle_Inventory_Days,3,-0.0086,False,Levels
+Chassis & Structural,Vehicle_Inventory_Days,3,-0.1236,False,Changes
+Chassis & Structural,Vehicle_Inventory_Days,4,-0.012,False,Levels
+Chassis & Structural,Vehicle_Inventory_Days,4,-0.0514,False,Changes
+Chassis & Structural,Vehicle_Inventory_Days,5,-0.0044,False,Levels
+Chassis & Structural,Vehicle_Inventory_Days,5,-0.0863,False,Changes
+Chassis & Structural,Vehicle_Inventory_Days,6,0.0134,False,Levels
+Chassis & Structural,Vehicle_Inventory_Days,6,0.0353,False,Changes
+Chassis & Structural,Raw_Material_Cost_Index,0,-0.0105,False,Levels
+Chassis & Structural,Raw_Material_Cost_Index,0,-0.0321,False,Changes
+Chassis & Structural,Raw_Material_Cost_Index,1,-0.0299,False,Levels
+Chassis & Structural,Raw_Material_Cost_Index,1,0.1013,False,Changes
+Chassis & Structural,Raw_Material_Cost_Index,2,-0.0622,False,Levels
+Chassis & Structural,Raw_Material_Cost_Index,2,-0.0608,False,Changes
+Chassis & Structural,Raw_Material_Cost_Index,3,-0.0844,False,Levels
+Chassis & Structural,Raw_Material_Cost_Index,3,-0.1229,False,Changes
+Chassis & Structural,Raw_Material_Cost_Index,4,-0.0925,False,Levels
+Chassis & Structural,Raw_Material_Cost_Index,4,-0.0516,False,Changes
+Chassis & Structural,Raw_Material_Cost_Index,5,-0.1035,False,Levels
+Chassis & Structural,Raw_Material_Cost_Index,5,0.0071,False,Changes
+Chassis & Structural,Raw_Material_Cost_Index,6,-0.123,False,Levels
+Chassis & Structural,Raw_Material_Cost_Index,6,-0.1089,False,Changes
+Chassis & Structural,New_Vehicle_Orders_Index,0,0.5111,True,Levels
+Chassis & Structural,New_Vehicle_Orders_Index,0,0.2933,True,Changes
+Chassis & Structural,New_Vehicle_Orders_Index,1,0.5194,True,Levels
+Chassis & Structural,New_Vehicle_Orders_Index,1,0.348,True,Changes
+Chassis & Structural,New_Vehicle_Orders_Index,2,0.4516,True,Levels
+Chassis & Structural,New_Vehicle_Orders_Index,2,0.0307,False,Changes
+Chassis & Structural,New_Vehicle_Orders_Index,3,0.3751,True,Levels
+Chassis & Structural,New_Vehicle_Orders_Index,3,0.0138,False,Changes
+Chassis & Structural,New_Vehicle_Orders_Index,4,0.2926,True,Levels
+Chassis & Structural,New_Vehicle_Orders_Index,4,0.0084,False,Changes
+Chassis & Structural,New_Vehicle_Orders_Index,5,0.2053,False,Levels
+Chassis & Structural,New_Vehicle_Orders_Index,5,-0.0166,False,Changes
+Chassis & Structural,New_Vehicle_Orders_Index,6,0.1184,False,Levels
+Chassis & Structural,New_Vehicle_Orders_Index,6,-0.0844,False,Changes
+Chassis & Structural,Industrial_Util_Rate_Pct,0,0.5558,True,Levels
+Chassis & Structural,Industrial_Util_Rate_Pct,0,0.42,True,Changes
+Chassis & Structural,Industrial_Util_Rate_Pct,1,0.4975,True,Levels
+Chassis & Structural,Industrial_Util_Rate_Pct,1,0.0889,False,Changes
+Chassis & Structural,Industrial_Util_Rate_Pct,2,0.4125,True,Levels
+Chassis & Structural,Industrial_Util_Rate_Pct,2,-0.0535,False,Changes
+Chassis & Structural,Industrial_Util_Rate_Pct,3,0.3354,True,Levels
+Chassis & Structural,Industrial_Util_Rate_Pct,3,-0.012,False,Changes
+Chassis & Structural,Industrial_Util_Rate_Pct,4,0.26,True,Levels
+Chassis & Structural,Industrial_Util_Rate_Pct,4,0.0102,False,Changes
+Chassis & Structural,Industrial_Util_Rate_Pct,5,0.1884,False,Levels
+Chassis & Structural,Industrial_Util_Rate_Pct,5,-0.0774,False,Changes
+Chassis & Structural,Industrial_Util_Rate_Pct,6,0.1424,False,Levels
+Chassis & Structural,Industrial_Util_Rate_Pct,6,-0.0625,False,Changes
+Chassis & Structural,Fuel_Price_Index,0,0.1467,False,Levels
+Chassis & Structural,Fuel_Price_Index,0,0.2017,True,Changes
+Chassis & Structural,Fuel_Price_Index,1,0.1461,False,Levels
+Chassis & Structural,Fuel_Price_Index,1,0.1232,False,Changes
+Chassis & Structural,Fuel_Price_Index,2,0.1403,False,Levels
+Chassis & Structural,Fuel_Price_Index,2,0.0391,False,Changes
+Chassis & Structural,Fuel_Price_Index,3,0.1367,False,Levels
+Chassis & Structural,Fuel_Price_Index,3,0.1123,False,Changes
+Chassis & Structural,Fuel_Price_Index,4,0.1267,False,Levels
+Chassis & Structural,Fuel_Price_Index,4,-0.0713,False,Changes
+Chassis & Structural,Fuel_Price_Index,5,0.1223,False,Levels
+Chassis & Structural,Fuel_Price_Index,5,-0.0769,False,Changes
+Chassis & Structural,Fuel_Price_Index,6,0.125,False,Levels
+Chassis & Structural,Fuel_Price_Index,6,0.0539,False,Changes
+Chassis & Structural,EV_Adoption_Index,0,0.7073,True,Levels
+Chassis & Structural,EV_Adoption_Index,0,-0.0274,False,Changes
+Chassis & Structural,EV_Adoption_Index,1,0.7044,True,Levels
+Chassis & Structural,EV_Adoption_Index,1,0.0793,False,Changes
+Chassis & Structural,EV_Adoption_Index,2,0.706,True,Levels
+Chassis & Structural,EV_Adoption_Index,2,0.0539,False,Changes
+Chassis & Structural,EV_Adoption_Index,3,0.7151,True,Levels
+Chassis & Structural,EV_Adoption_Index,3,-0.0059,False,Changes
+Chassis & Structural,EV_Adoption_Index,4,0.726,True,Levels
+Chassis & Structural,EV_Adoption_Index,4,0.0374,False,Changes
+Chassis & Structural,EV_Adoption_Index,5,0.7287,True,Levels
+Chassis & Structural,EV_Adoption_Index,5,0.0531,False,Changes
+Chassis & Structural,EV_Adoption_Index,6,0.7268,True,Levels
+Chassis & Structural,EV_Adoption_Index,6,-0.017,False,Changes
+Electrical Assemblies,ISM_Manufacturing_PMI,0,-0.1077,False,Levels
+Electrical Assemblies,ISM_Manufacturing_PMI,0,0.224,True,Changes
+Electrical Assemblies,ISM_Manufacturing_PMI,1,-0.1019,False,Levels
+Electrical Assemblies,ISM_Manufacturing_PMI,1,0.1702,False,Changes
+Electrical Assemblies,ISM_Manufacturing_PMI,2,-0.1154,False,Levels
+Electrical Assemblies,ISM_Manufacturing_PMI,2,0.2078,True,Changes
+Electrical Assemblies,ISM_Manufacturing_PMI,3,-0.1531,False,Levels
+Electrical Assemblies,ISM_Manufacturing_PMI,3,0.0519,False,Changes
+Electrical Assemblies,ISM_Manufacturing_PMI,4,-0.1942,False,Levels
+Electrical Assemblies,ISM_Manufacturing_PMI,4,0.0976,False,Changes
+Electrical Assemblies,ISM_Manufacturing_PMI,5,-0.2444,True,Levels
+Electrical Assemblies,ISM_Manufacturing_PMI,5,-0.0882,False,Changes
+Electrical Assemblies,ISM_Manufacturing_PMI,6,-0.2819,True,Levels
+Electrical Assemblies,ISM_Manufacturing_PMI,6,-0.0206,False,Changes
+Electrical Assemblies,Auto_Production_YoY_Pct,0,0.5379,True,Levels
+Electrical Assemblies,Auto_Production_YoY_Pct,0,0.2151,True,Changes
+Electrical Assemblies,Auto_Production_YoY_Pct,1,0.5649,True,Levels
+Electrical Assemblies,Auto_Production_YoY_Pct,1,0.2382,True,Changes
+Electrical Assemblies,Auto_Production_YoY_Pct,2,0.5426,True,Levels
+Electrical Assemblies,Auto_Production_YoY_Pct,2,0.177,False,Changes
+Electrical Assemblies,Auto_Production_YoY_Pct,3,0.4828,True,Levels
+Electrical Assemblies,Auto_Production_YoY_Pct,3,0.0987,False,Changes
+Electrical Assemblies,Auto_Production_YoY_Pct,4,0.4043,True,Levels
+Electrical Assemblies,Auto_Production_YoY_Pct,4,0.0465,False,Changes
+Electrical Assemblies,Auto_Production_YoY_Pct,5,0.3164,True,Levels
+Electrical Assemblies,Auto_Production_YoY_Pct,5,-0.0197,False,Changes
+Electrical Assemblies,Auto_Production_YoY_Pct,6,0.2321,True,Levels
+Electrical Assemblies,Auto_Production_YoY_Pct,6,-0.0858,False,Changes
+Electrical Assemblies,Vehicle_Inventory_Days,0,0.1597,False,Levels
+Electrical Assemblies,Vehicle_Inventory_Days,0,0.2146,True,Changes
+Electrical Assemblies,Vehicle_Inventory_Days,1,0.1409,False,Levels
+Electrical Assemblies,Vehicle_Inventory_Days,1,-0.0437,False,Changes
+Electrical Assemblies,Vehicle_Inventory_Days,2,0.1217,False,Levels
+Electrical Assemblies,Vehicle_Inventory_Days,2,-0.0081,False,Changes
+Electrical Assemblies,Vehicle_Inventory_Days,3,0.0943,False,Levels
+Electrical Assemblies,Vehicle_Inventory_Days,3,-0.0785,False,Changes
+Electrical Assemblies,Vehicle_Inventory_Days,4,0.0761,False,Levels
+Electrical Assemblies,Vehicle_Inventory_Days,4,-0.0562,False,Changes
+Electrical Assemblies,Vehicle_Inventory_Days,5,0.0646,False,Levels
+Electrical Assemblies,Vehicle_Inventory_Days,5,-0.1401,False,Changes
+Electrical Assemblies,Vehicle_Inventory_Days,6,0.0628,False,Levels
+Electrical Assemblies,Vehicle_Inventory_Days,6,0.0262,False,Changes
+Electrical Assemblies,Raw_Material_Cost_Index,0,-0.1632,False,Levels
+Electrical Assemblies,Raw_Material_Cost_Index,0,-0.0658,False,Changes
+Electrical Assemblies,Raw_Material_Cost_Index,1,-0.156,False,Levels
+Electrical Assemblies,Raw_Material_Cost_Index,1,0.0626,False,Changes
+Electrical Assemblies,Raw_Material_Cost_Index,2,-0.155,False,Levels
+Electrical Assemblies,Raw_Material_Cost_Index,2,-0.1194,False,Changes
+Electrical Assemblies,Raw_Material_Cost_Index,3,-0.139,False,Levels
+Electrical Assemblies,Raw_Material_Cost_Index,3,-0.037,False,Changes
+Electrical Assemblies,Raw_Material_Cost_Index,4,-0.1237,False,Levels
+Electrical Assemblies,Raw_Material_Cost_Index,4,-0.0855,False,Changes
+Electrical Assemblies,Raw_Material_Cost_Index,5,-0.1066,False,Levels
+Electrical Assemblies,Raw_Material_Cost_Index,5,-0.0104,False,Changes
+Electrical Assemblies,Raw_Material_Cost_Index,6,-0.0931,False,Levels
+Electrical Assemblies,Raw_Material_Cost_Index,6,-0.0839,False,Changes
+Electrical Assemblies,New_Vehicle_Orders_Index,0,0.3598,True,Levels
+Electrical Assemblies,New_Vehicle_Orders_Index,0,0.2202,True,Changes
+Electrical Assemblies,New_Vehicle_Orders_Index,1,0.3783,True,Levels
+Electrical Assemblies,New_Vehicle_Orders_Index,1,0.2368,True,Changes
+Electrical Assemblies,New_Vehicle_Orders_Index,2,0.3585,True,Levels
+Electrical Assemblies,New_Vehicle_Orders_Index,2,0.1253,False,Changes
+Electrical Assemblies,New_Vehicle_Orders_Index,3,0.3189,True,Levels
+Electrical Assemblies,New_Vehicle_Orders_Index,3,0.1406,False,Changes
+Electrical Assemblies,New_Vehicle_Orders_Index,4,0.2547,True,Levels
+Electrical Assemblies,New_Vehicle_Orders_Index,4,0.0603,False,Changes
+Electrical Assemblies,New_Vehicle_Orders_Index,5,0.1795,False,Levels
+Electrical Assemblies,New_Vehicle_Orders_Index,5,-0.0363,False,Changes
+Electrical Assemblies,New_Vehicle_Orders_Index,6,0.1078,False,Levels
+Electrical Assemblies,New_Vehicle_Orders_Index,6,-0.1352,False,Changes
+Electrical Assemblies,Industrial_Util_Rate_Pct,0,0.5731,True,Levels
+Electrical Assemblies,Industrial_Util_Rate_Pct,0,0.3377,True,Changes
+Electrical Assemblies,Industrial_Util_Rate_Pct,1,0.5454,True,Levels
+Electrical Assemblies,Industrial_Util_Rate_Pct,1,0.0589,False,Changes
+Electrical Assemblies,Industrial_Util_Rate_Pct,2,0.5047,True,Levels
+Electrical Assemblies,Industrial_Util_Rate_Pct,2,0.1058,False,Changes
+Electrical Assemblies,Industrial_Util_Rate_Pct,3,0.442,True,Levels
+Electrical Assemblies,Industrial_Util_Rate_Pct,3,0.0667,False,Changes
+Electrical Assemblies,Industrial_Util_Rate_Pct,4,0.3698,True,Levels
+Electrical Assemblies,Industrial_Util_Rate_Pct,4,-0.0327,False,Changes
+Electrical Assemblies,Industrial_Util_Rate_Pct,5,0.3061,True,Levels
+Electrical Assemblies,Industrial_Util_Rate_Pct,5,-0.0592,False,Changes
+Electrical Assemblies,Industrial_Util_Rate_Pct,6,0.257,True,Levels
+Electrical Assemblies,Industrial_Util_Rate_Pct,6,-0.0825,False,Changes
+Electrical Assemblies,Fuel_Price_Index,0,0.1396,False,Levels
+Electrical Assemblies,Fuel_Price_Index,0,0.1495,False,Changes
+Electrical Assemblies,Fuel_Price_Index,1,0.167,False,Levels
+Electrical Assemblies,Fuel_Price_Index,1,0.0661,False,Changes
+Electrical Assemblies,Fuel_Price_Index,2,0.1958,False,Levels
+Electrical Assemblies,Fuel_Price_Index,2,0.0952,False,Changes
+Electrical Assemblies,Fuel_Price_Index,3,0.2233,True,Levels
+Electrical Assemblies,Fuel_Price_Index,3,0.1121,False,Changes
+Electrical Assemblies,Fuel_Price_Index,4,0.2449,True,Levels
+Electrical Assemblies,Fuel_Price_Index,4,0.0504,False,Changes
+Electrical Assemblies,Fuel_Price_Index,5,0.262,True,Levels
+Electrical Assemblies,Fuel_Price_Index,5,-0.0071,False,Changes
+Electrical Assemblies,Fuel_Price_Index,6,0.2795,True,Levels
+Electrical Assemblies,Fuel_Price_Index,6,0.0459,False,Changes
+Electrical Assemblies,EV_Adoption_Index,0,0.8163,True,Levels
+Electrical Assemblies,EV_Adoption_Index,0,0.0168,False,Changes
+Electrical Assemblies,EV_Adoption_Index,1,0.8156,True,Levels
+Electrical Assemblies,EV_Adoption_Index,1,0.0825,False,Changes
+Electrical Assemblies,EV_Adoption_Index,2,0.8171,True,Levels
+Electrical Assemblies,EV_Adoption_Index,2,-0.019,False,Changes
+Electrical Assemblies,EV_Adoption_Index,3,0.8272,True,Levels
+Electrical Assemblies,EV_Adoption_Index,3,0.1123,False,Changes
+Electrical Assemblies,EV_Adoption_Index,4,0.8331,True,Levels
+Electrical Assemblies,EV_Adoption_Index,4,-0.0061,False,Changes
+Electrical Assemblies,EV_Adoption_Index,5,0.8358,True,Levels
+Electrical Assemblies,EV_Adoption_Index,5,0.0967,False,Changes
+Electrical Assemblies,EV_Adoption_Index,6,0.8363,True,Levels
+Electrical Assemblies,EV_Adoption_Index,6,-0.0761,False,Changes
+Hydraulic Systems,ISM_Manufacturing_PMI,0,0.3887,True,Levels
+Hydraulic Systems,ISM_Manufacturing_PMI,0,0.2209,True,Changes
+Hydraulic Systems,ISM_Manufacturing_PMI,1,0.4543,True,Levels
+Hydraulic Systems,ISM_Manufacturing_PMI,1,0.1883,False,Changes
+Hydraulic Systems,ISM_Manufacturing_PMI,2,0.4816,True,Levels
+Hydraulic Systems,ISM_Manufacturing_PMI,2,0.2362,True,Changes
+Hydraulic Systems,ISM_Manufacturing_PMI,3,0.4583,True,Levels
+Hydraulic Systems,ISM_Manufacturing_PMI,3,-0.0032,False,Changes
+Hydraulic Systems,ISM_Manufacturing_PMI,4,0.4396,True,Levels
+Hydraulic Systems,ISM_Manufacturing_PMI,4,0.1337,False,Changes
+Hydraulic Systems,ISM_Manufacturing_PMI,5,0.3948,True,Levels
+Hydraulic Systems,ISM_Manufacturing_PMI,5,-0.0151,False,Changes
+Hydraulic Systems,ISM_Manufacturing_PMI,6,0.3567,True,Levels
+Hydraulic Systems,ISM_Manufacturing_PMI,6,0.0723,False,Changes
+Hydraulic Systems,Auto_Production_YoY_Pct,0,0.45,True,Levels
+Hydraulic Systems,Auto_Production_YoY_Pct,0,0.1807,False,Changes
+Hydraulic Systems,Auto_Production_YoY_Pct,1,0.4829,True,Levels
+Hydraulic Systems,Auto_Production_YoY_Pct,1,0.1498,False,Changes
+Hydraulic Systems,Auto_Production_YoY_Pct,2,0.4632,True,Levels
+Hydraulic Systems,Auto_Production_YoY_Pct,2,0.0397,False,Changes
+Hydraulic Systems,Auto_Production_YoY_Pct,3,0.4282,True,Levels
+Hydraulic Systems,Auto_Production_YoY_Pct,3,0.0262,False,Changes
+Hydraulic Systems,Auto_Production_YoY_Pct,4,0.3846,True,Levels
+Hydraulic Systems,Auto_Production_YoY_Pct,4,0.0681,False,Changes
+Hydraulic Systems,Auto_Production_YoY_Pct,5,0.3176,True,Levels
+Hydraulic Systems,Auto_Production_YoY_Pct,5,0.0441,False,Changes
+Hydraulic Systems,Auto_Production_YoY_Pct,6,0.2353,True,Levels
+Hydraulic Systems,Auto_Production_YoY_Pct,6,-0.0773,False,Changes
+Hydraulic Systems,Vehicle_Inventory_Days,0,-0.3555,True,Levels
+Hydraulic Systems,Vehicle_Inventory_Days,0,0.1296,False,Changes
+Hydraulic Systems,Vehicle_Inventory_Days,1,-0.3786,True,Levels
+Hydraulic Systems,Vehicle_Inventory_Days,1,-0.0912,False,Changes
+Hydraulic Systems,Vehicle_Inventory_Days,2,-0.3913,True,Levels
+Hydraulic Systems,Vehicle_Inventory_Days,2,-0.0559,False,Changes
+Hydraulic Systems,Vehicle_Inventory_Days,3,-0.4055,True,Levels
+Hydraulic Systems,Vehicle_Inventory_Days,3,-0.1578,False,Changes
+Hydraulic Systems,Vehicle_Inventory_Days,4,-0.3922,True,Levels
+Hydraulic Systems,Vehicle_Inventory_Days,4,-0.0785,False,Changes
+Hydraulic Systems,Vehicle_Inventory_Days,5,-0.3704,True,Levels
+Hydraulic Systems,Vehicle_Inventory_Days,5,-0.1648,False,Changes
+Hydraulic Systems,Vehicle_Inventory_Days,6,-0.3247,True,Levels
+Hydraulic Systems,Vehicle_Inventory_Days,6,0.0907,False,Changes
+Hydraulic Systems,Raw_Material_Cost_Index,0,0.4216,True,Levels
+Hydraulic Systems,Raw_Material_Cost_Index,0,-0.0213,False,Changes
+Hydraulic Systems,Raw_Material_Cost_Index,1,0.4414,True,Levels
+Hydraulic Systems,Raw_Material_Cost_Index,1,0.1615,False,Changes
+Hydraulic Systems,Raw_Material_Cost_Index,2,0.4331,True,Levels
+Hydraulic Systems,Raw_Material_Cost_Index,2,-0.0824,False,Changes
+Hydraulic Systems,Raw_Material_Cost_Index,3,0.442,True,Levels
+Hydraulic Systems,Raw_Material_Cost_Index,3,0.0899,False,Changes
+Hydraulic Systems,Raw_Material_Cost_Index,4,0.4307,True,Levels
+Hydraulic Systems,Raw_Material_Cost_Index,4,0.0828,False,Changes
+Hydraulic Systems,Raw_Material_Cost_Index,5,0.4047,True,Levels
+Hydraulic Systems,Raw_Material_Cost_Index,5,0.0504,False,Changes
+Hydraulic Systems,Raw_Material_Cost_Index,6,0.3657,True,Levels
+Hydraulic Systems,Raw_Material_Cost_Index,6,-0.0193,False,Changes
+Hydraulic Systems,New_Vehicle_Orders_Index,0,0.7234,True,Levels
+Hydraulic Systems,New_Vehicle_Orders_Index,0,0.2049,True,Changes
+Hydraulic Systems,New_Vehicle_Orders_Index,1,0.7757,True,Levels
+Hydraulic Systems,New_Vehicle_Orders_Index,1,0.281,True,Changes
+Hydraulic Systems,New_Vehicle_Orders_Index,2,0.7525,True,Levels
+Hydraulic Systems,New_Vehicle_Orders_Index,2,0.1095,False,Changes
+Hydraulic Systems,New_Vehicle_Orders_Index,3,0.7001,True,Levels
+Hydraulic Systems,New_Vehicle_Orders_Index,3,0.0428,False,Changes
+Hydraulic Systems,New_Vehicle_Orders_Index,4,0.6337,True,Levels
+Hydraulic Systems,New_Vehicle_Orders_Index,4,0.0775,False,Changes
+Hydraulic Systems,New_Vehicle_Orders_Index,5,0.5466,True,Levels
+Hydraulic Systems,New_Vehicle_Orders_Index,5,-0.0165,False,Changes
+Hydraulic Systems,New_Vehicle_Orders_Index,6,0.4622,True,Levels
+Hydraulic Systems,New_Vehicle_Orders_Index,6,-0.0108,False,Changes
+Hydraulic Systems,Industrial_Util_Rate_Pct,0,0.724,True,Levels
+Hydraulic Systems,Industrial_Util_Rate_Pct,0,0.3438,True,Changes
+Hydraulic Systems,Industrial_Util_Rate_Pct,1,0.6662,True,Levels
+Hydraulic Systems,Industrial_Util_Rate_Pct,1,0.0908,False,Changes
+Hydraulic Systems,Industrial_Util_Rate_Pct,2,0.5768,True,Levels
+Hydraulic Systems,Industrial_Util_Rate_Pct,2,0.0642,False,Changes
+Hydraulic Systems,Industrial_Util_Rate_Pct,3,0.4594,True,Levels
+Hydraulic Systems,Industrial_Util_Rate_Pct,3,0.0144,False,Changes
+Hydraulic Systems,Industrial_Util_Rate_Pct,4,0.3399,True,Levels
+Hydraulic Systems,Industrial_Util_Rate_Pct,4,0.0358,False,Changes
+Hydraulic Systems,Industrial_Util_Rate_Pct,5,0.2077,True,Levels
+Hydraulic Systems,Industrial_Util_Rate_Pct,5,-0.1143,False,Changes
+Hydraulic Systems,Industrial_Util_Rate_Pct,6,0.1124,False,Levels
+Hydraulic Systems,Industrial_Util_Rate_Pct,6,0.0162,False,Changes
+Hydraulic Systems,Fuel_Price_Index,0,0.4494,True,Levels
+Hydraulic Systems,Fuel_Price_Index,0,0.2011,False,Changes
+Hydraulic Systems,Fuel_Price_Index,1,0.4125,True,Levels
+Hydraulic Systems,Fuel_Price_Index,1,0.053,False,Changes
+Hydraulic Systems,Fuel_Price_Index,2,0.372,True,Levels
+Hydraulic Systems,Fuel_Price_Index,2,0.0741,False,Changes
+Hydraulic Systems,Fuel_Price_Index,3,0.3276,True,Levels
+Hydraulic Systems,Fuel_Price_Index,3,0.0496,False,Changes
+Hydraulic Systems,Fuel_Price_Index,4,0.2757,True,Levels
+Hydraulic Systems,Fuel_Price_Index,4,-0.0298,False,Changes
+Hydraulic Systems,Fuel_Price_Index,5,0.2302,True,Levels
+Hydraulic Systems,Fuel_Price_Index,5,-0.0504,False,Changes
+Hydraulic Systems,Fuel_Price_Index,6,0.1898,False,Levels
+Hydraulic Systems,Fuel_Price_Index,6,0.0515,False,Changes
+Hydraulic Systems,EV_Adoption_Index,0,0.5962,True,Levels
+Hydraulic Systems,EV_Adoption_Index,0,-0.0022,False,Changes
+Hydraulic Systems,EV_Adoption_Index,1,0.5879,True,Levels
+Hydraulic Systems,EV_Adoption_Index,1,0.1087,False,Changes
+Hydraulic Systems,EV_Adoption_Index,2,0.5808,True,Levels
+Hydraulic Systems,EV_Adoption_Index,2,-0.0649,False,Changes
+Hydraulic Systems,EV_Adoption_Index,3,0.5877,True,Levels
+Hydraulic Systems,EV_Adoption_Index,3,0.1119,False,Changes
+Hydraulic Systems,EV_Adoption_Index,4,0.5844,True,Levels
+Hydraulic Systems,EV_Adoption_Index,4,-0.0197,False,Changes
+Hydraulic Systems,EV_Adoption_Index,5,0.5839,True,Levels
+Hydraulic Systems,EV_Adoption_Index,5,0.092,False,Changes
+Hydraulic Systems,EV_Adoption_Index,6,0.577,True,Levels
+Hydraulic Systems,EV_Adoption_Index,6,-0.0393,False,Changes
+Powertrain Components,ISM_Manufacturing_PMI,0,0.1783,False,Levels
+Powertrain Components,ISM_Manufacturing_PMI,0,0.2176,True,Changes
+Powertrain Components,ISM_Manufacturing_PMI,1,0.2487,True,Levels
+Powertrain Components,ISM_Manufacturing_PMI,1,0.1922,False,Changes
+Powertrain Components,ISM_Manufacturing_PMI,2,0.2772,True,Levels
+Powertrain Components,ISM_Manufacturing_PMI,2,0.0583,False,Changes
+Powertrain Components,ISM_Manufacturing_PMI,3,0.2899,True,Levels
+Powertrain Components,ISM_Manufacturing_PMI,3,0.0375,False,Changes
+Powertrain Components,ISM_Manufacturing_PMI,4,0.2982,True,Levels
+Powertrain Components,ISM_Manufacturing_PMI,4,0.1755,False,Changes
+Powertrain Components,ISM_Manufacturing_PMI,5,0.2699,True,Levels
+Powertrain Components,ISM_Manufacturing_PMI,5,0.0318,False,Changes
+Powertrain Components,ISM_Manufacturing_PMI,6,0.2391,True,Levels
+Powertrain Components,ISM_Manufacturing_PMI,6,0.0326,False,Changes
+Powertrain Components,Auto_Production_YoY_Pct,0,0.5056,True,Levels
+Powertrain Components,Auto_Production_YoY_Pct,0,0.1645,False,Changes
+Powertrain Components,Auto_Production_YoY_Pct,1,0.6094,True,Levels
+Powertrain Components,Auto_Production_YoY_Pct,1,0.1721,False,Changes
+Powertrain Components,Auto_Production_YoY_Pct,2,0.6485,True,Levels
+Powertrain Components,Auto_Production_YoY_Pct,2,0.0418,False,Changes
+Powertrain Components,Auto_Production_YoY_Pct,3,0.672,True,Levels
+Powertrain Components,Auto_Production_YoY_Pct,3,0.1435,False,Changes
+Powertrain Components,Auto_Production_YoY_Pct,4,0.6423,True,Levels
+Powertrain Components,Auto_Production_YoY_Pct,4,0.2398,True,Changes
+Powertrain Components,Auto_Production_YoY_Pct,5,0.5264,True,Levels
+Powertrain Components,Auto_Production_YoY_Pct,5,0.0578,False,Changes
+Powertrain Components,Auto_Production_YoY_Pct,6,0.388,True,Levels
+Powertrain Components,Auto_Production_YoY_Pct,6,-0.0613,False,Changes
+Powertrain Components,Vehicle_Inventory_Days,0,-0.1555,False,Levels
+Powertrain Components,Vehicle_Inventory_Days,0,0.2079,True,Changes
+Powertrain Components,Vehicle_Inventory_Days,1,-0.2017,True,Levels
+Powertrain Components,Vehicle_Inventory_Days,1,-0.1333,False,Changes
+Powertrain Components,Vehicle_Inventory_Days,2,-0.2319,True,Levels
+Powertrain Components,Vehicle_Inventory_Days,2,0.0111,False,Changes
+Powertrain Components,Vehicle_Inventory_Days,3,-0.2797,True,Levels
+Powertrain Components,Vehicle_Inventory_Days,3,-0.0988,False,Changes
+Powertrain Components,Vehicle_Inventory_Days,4,-0.3059,True,Levels
+Powertrain Components,Vehicle_Inventory_Days,4,-0.0572,False,Changes
+Powertrain Components,Vehicle_Inventory_Days,5,-0.3306,True,Levels
+Powertrain Components,Vehicle_Inventory_Days,5,-0.1198,False,Changes
+Powertrain Components,Vehicle_Inventory_Days,6,-0.334,True,Levels
+Powertrain Components,Vehicle_Inventory_Days,6,0.0039,False,Changes
+Powertrain Components,Raw_Material_Cost_Index,0,0.2893,True,Levels
+Powertrain Components,Raw_Material_Cost_Index,0,0.0452,False,Changes
+Powertrain Components,Raw_Material_Cost_Index,1,0.3066,True,Levels
+Powertrain Components,Raw_Material_Cost_Index,1,0.139,False,Changes
+Powertrain Components,Raw_Material_Cost_Index,2,0.298,True,Levels
+Powertrain Components,Raw_Material_Cost_Index,2,-0.0798,False,Changes
+Powertrain Components,Raw_Material_Cost_Index,3,0.3118,True,Levels
+Powertrain Components,Raw_Material_Cost_Index,3,0.1427,False,Changes
+Powertrain Components,Raw_Material_Cost_Index,4,0.2938,True,Levels
+Powertrain Components,Raw_Material_Cost_Index,4,-0.0774,False,Changes
+Powertrain Components,Raw_Material_Cost_Index,5,0.29,True,Levels
+Powertrain Components,Raw_Material_Cost_Index,5,-0.0551,False,Changes
+Powertrain Components,Raw_Material_Cost_Index,6,0.2872,True,Levels
+Powertrain Components,Raw_Material_Cost_Index,6,0.0608,False,Changes
+Powertrain Components,New_Vehicle_Orders_Index,0,0.6109,True,Levels
+Powertrain Components,New_Vehicle_Orders_Index,0,0.2632,True,Changes
+Powertrain Components,New_Vehicle_Orders_Index,1,0.6777,True,Levels
+Powertrain Components,New_Vehicle_Orders_Index,1,0.2596,True,Changes
+Powertrain Components,New_Vehicle_Orders_Index,2,0.6691,True,Levels
+Powertrain Components,New_Vehicle_Orders_Index,2,-0.0044,False,Changes
+Powertrain Components,New_Vehicle_Orders_Index,3,0.6642,True,Levels
+Powertrain Components,New_Vehicle_Orders_Index,3,0.094,False,Changes
+Powertrain Components,New_Vehicle_Orders_Index,4,0.6278,True,Levels
+Powertrain Components,New_Vehicle_Orders_Index,4,0.1557,False,Changes
+Powertrain Components,New_Vehicle_Orders_Index,5,0.5503,True,Levels
+Powertrain Components,New_Vehicle_Orders_Index,5,0.0736,False,Changes
+Powertrain Components,New_Vehicle_Orders_Index,6,0.4486,True,Levels
+Powertrain Components,New_Vehicle_Orders_Index,6,-0.0211,False,Changes
+Powertrain Components,Industrial_Util_Rate_Pct,0,0.7618,True,Levels
+Powertrain Components,Industrial_Util_Rate_Pct,0,0.4291,True,Changes
+Powertrain Components,Industrial_Util_Rate_Pct,1,0.7173,True,Levels
+Powertrain Components,Industrial_Util_Rate_Pct,1,0.0105,False,Changes
+Powertrain Components,Industrial_Util_Rate_Pct,2,0.6634,True,Levels
+Powertrain Components,Industrial_Util_Rate_Pct,2,0.0445,False,Changes
+Powertrain Components,Industrial_Util_Rate_Pct,3,0.5862,True,Levels
+Powertrain Components,Industrial_Util_Rate_Pct,3,0.0695,False,Changes
+Powertrain Components,Industrial_Util_Rate_Pct,4,0.4897,True,Levels
+Powertrain Components,Industrial_Util_Rate_Pct,4,0.0711,False,Changes
+Powertrain Components,Industrial_Util_Rate_Pct,5,0.3686,True,Levels
+Powertrain Components,Industrial_Util_Rate_Pct,5,-0.0141,False,Changes
+Powertrain Components,Industrial_Util_Rate_Pct,6,0.2575,True,Levels
+Powertrain Components,Industrial_Util_Rate_Pct,6,-0.0148,False,Changes
+Powertrain Components,Fuel_Price_Index,0,0.4285,True,Levels
+Powertrain Components,Fuel_Price_Index,0,0.2126,True,Changes
+Powertrain Components,Fuel_Price_Index,1,0.4303,True,Levels
+Powertrain Components,Fuel_Price_Index,1,0.0514,False,Changes
+Powertrain Components,Fuel_Price_Index,2,0.4301,True,Levels
+Powertrain Components,Fuel_Price_Index,2,0.1332,False,Changes
+Powertrain Components,Fuel_Price_Index,3,0.421,True,Levels
+Powertrain Components,Fuel_Price_Index,3,0.1439,False,Changes
+Powertrain Components,Fuel_Price_Index,4,0.3893,True,Levels
+Powertrain Components,Fuel_Price_Index,4,-0.0204,False,Changes
+Powertrain Components,Fuel_Price_Index,5,0.3665,True,Levels
+Powertrain Components,Fuel_Price_Index,5,0.0299,False,Changes
+Powertrain Components,Fuel_Price_Index,6,0.3347,True,Levels
+Powertrain Components,Fuel_Price_Index,6,0.0508,False,Changes
+Powertrain Components,EV_Adoption_Index,0,0.5095,True,Levels
+Powertrain Components,EV_Adoption_Index,0,0.0005,False,Changes
+Powertrain Components,EV_Adoption_Index,1,0.4978,True,Levels
+Powertrain Components,EV_Adoption_Index,1,0.0584,False,Changes
+Powertrain Components,EV_Adoption_Index,2,0.4898,True,Levels
+Powertrain Components,EV_Adoption_Index,2,-0.0567,False,Changes
+Powertrain Components,EV_Adoption_Index,3,0.5051,True,Levels
+Powertrain Components,EV_Adoption_Index,3,0.0895,False,Changes
+Powertrain Components,EV_Adoption_Index,4,0.5086,True,Levels
+Powertrain Components,EV_Adoption_Index,4,0.0093,False,Changes
+Powertrain Components,EV_Adoption_Index,5,0.5208,True,Levels
+Powertrain Components,EV_Adoption_Index,5,0.0483,False,Changes
+Powertrain Components,EV_Adoption_Index,6,0.5227,True,Levels
+Powertrain Components,EV_Adoption_Index,6,0.002,False,Changes
+Precision Machined Parts,ISM_Manufacturing_PMI,0,0.2209,True,Levels
+Precision Machined Parts,ISM_Manufacturing_PMI,0,0.2668,True,Changes
+Precision Machined Parts,ISM_Manufacturing_PMI,1,0.2864,True,Levels
+Precision Machined Parts,ISM_Manufacturing_PMI,1,0.2725,True,Changes
+Precision Machined Parts,ISM_Manufacturing_PMI,2,0.3018,True,Levels
+Precision Machined Parts,ISM_Manufacturing_PMI,2,0.2145,True,Changes
+Precision Machined Parts,ISM_Manufacturing_PMI,3,0.2763,True,Levels
+Precision Machined Parts,ISM_Manufacturing_PMI,3,0.0847,False,Changes
+Precision Machined Parts,ISM_Manufacturing_PMI,4,0.2396,True,Levels
+Precision Machined Parts,ISM_Manufacturing_PMI,4,0.0563,False,Changes
+Precision Machined Parts,ISM_Manufacturing_PMI,5,0.1937,False,Levels
+Precision Machined Parts,ISM_Manufacturing_PMI,5,-0.0484,False,Changes
+Precision Machined Parts,ISM_Manufacturing_PMI,6,0.1599,False,Levels
+Precision Machined Parts,ISM_Manufacturing_PMI,6,0.0044,False,Changes
+Precision Machined Parts,Auto_Production_YoY_Pct,0,0.6081,True,Levels
+Precision Machined Parts,Auto_Production_YoY_Pct,0,0.3044,True,Changes
+Precision Machined Parts,Auto_Production_YoY_Pct,1,0.6476,True,Levels
+Precision Machined Parts,Auto_Production_YoY_Pct,1,0.1929,False,Changes
+Precision Machined Parts,Auto_Production_YoY_Pct,2,0.625,True,Levels
+Precision Machined Parts,Auto_Production_YoY_Pct,2,0.1092,False,Changes
+Precision Machined Parts,Auto_Production_YoY_Pct,3,0.5685,True,Levels
+Precision Machined Parts,Auto_Production_YoY_Pct,3,0.1303,False,Changes
+Precision Machined Parts,Auto_Production_YoY_Pct,4,0.4714,True,Levels
+Precision Machined Parts,Auto_Production_YoY_Pct,4,0.1399,False,Changes
+Precision Machined Parts,Auto_Production_YoY_Pct,5,0.3319,True,Levels
+Precision Machined Parts,Auto_Production_YoY_Pct,5,-0.0561,False,Changes
+Precision Machined Parts,Auto_Production_YoY_Pct,6,0.2093,True,Levels
+Precision Machined Parts,Auto_Production_YoY_Pct,6,-0.1668,False,Changes
+Precision Machined Parts,Vehicle_Inventory_Days,0,-0.1703,False,Levels
+Precision Machined Parts,Vehicle_Inventory_Days,0,0.1891,False,Changes
+Precision Machined Parts,Vehicle_Inventory_Days,1,-0.2229,True,Levels
+Precision Machined Parts,Vehicle_Inventory_Days,1,-0.138,False,Changes
+Precision Machined Parts,Vehicle_Inventory_Days,2,-0.2624,True,Levels
+Precision Machined Parts,Vehicle_Inventory_Days,2,-0.0436,False,Changes
+Precision Machined Parts,Vehicle_Inventory_Days,3,-0.3114,True,Levels
+Precision Machined Parts,Vehicle_Inventory_Days,3,-0.2168,True,Changes
+Precision Machined Parts,Vehicle_Inventory_Days,4,-0.3263,True,Levels
+Precision Machined Parts,Vehicle_Inventory_Days,4,-0.1832,False,Changes
+Precision Machined Parts,Vehicle_Inventory_Days,5,-0.3238,True,Levels
+Precision Machined Parts,Vehicle_Inventory_Days,5,-0.2046,False,Changes
+Precision Machined Parts,Vehicle_Inventory_Days,6,-0.2972,True,Levels
+Precision Machined Parts,Vehicle_Inventory_Days,6,0.098,False,Changes
+Precision Machined Parts,Raw_Material_Cost_Index,0,0.1943,False,Levels
+Precision Machined Parts,Raw_Material_Cost_Index,0,-0.0441,False,Changes
+Precision Machined Parts,Raw_Material_Cost_Index,1,0.2145,True,Levels
+Precision Machined Parts,Raw_Material_Cost_Index,1,0.0559,False,Changes
+Precision Machined Parts,Raw_Material_Cost_Index,2,0.2251,True,Levels
+Precision Machined Parts,Raw_Material_Cost_Index,2,-0.0383,False,Changes
+Precision Machined Parts,Raw_Material_Cost_Index,3,0.249,True,Levels
+Precision Machined Parts,Raw_Material_Cost_Index,3,0.0827,False,Changes
+Precision Machined Parts,Raw_Material_Cost_Index,4,0.2533,True,Levels
+Precision Machined Parts,Raw_Material_Cost_Index,4,-0.0648,False,Changes
+Precision Machined Parts,Raw_Material_Cost_Index,5,0.266,True,Levels
+Precision Machined Parts,Raw_Material_Cost_Index,5,-0.0081,False,Changes
+Precision Machined Parts,Raw_Material_Cost_Index,6,0.2746,True,Levels
+Precision Machined Parts,Raw_Material_Cost_Index,6,0.0464,False,Changes
+Precision Machined Parts,New_Vehicle_Orders_Index,0,0.6265,True,Levels
+Precision Machined Parts,New_Vehicle_Orders_Index,0,0.2952,True,Changes
+Precision Machined Parts,New_Vehicle_Orders_Index,1,0.6735,True,Levels
+Precision Machined Parts,New_Vehicle_Orders_Index,1,0.3278,True,Changes
+Precision Machined Parts,New_Vehicle_Orders_Index,2,0.64,True,Levels
+Precision Machined Parts,New_Vehicle_Orders_Index,2,0.0796,False,Changes
+Precision Machined Parts,New_Vehicle_Orders_Index,3,0.5902,True,Levels
+Precision Machined Parts,New_Vehicle_Orders_Index,3,0.1091,False,Changes
+Precision Machined Parts,New_Vehicle_Orders_Index,4,0.5089,True,Levels
+Precision Machined Parts,New_Vehicle_Orders_Index,4,0.0478,False,Changes
+Precision Machined Parts,New_Vehicle_Orders_Index,5,0.4171,True,Levels
+Precision Machined Parts,New_Vehicle_Orders_Index,5,-0.0568,False,Changes
+Precision Machined Parts,New_Vehicle_Orders_Index,6,0.3362,True,Levels
+Precision Machined Parts,New_Vehicle_Orders_Index,6,-0.0896,False,Changes
+Precision Machined Parts,Industrial_Util_Rate_Pct,0,0.772,True,Levels
+Precision Machined Parts,Industrial_Util_Rate_Pct,0,0.4418,True,Changes
+Precision Machined Parts,Industrial_Util_Rate_Pct,1,0.729,True,Levels
+Precision Machined Parts,Industrial_Util_Rate_Pct,1,0.0908,False,Changes
+Precision Machined Parts,Industrial_Util_Rate_Pct,2,0.657,True,Levels
+Precision Machined Parts,Industrial_Util_Rate_Pct,2,0.1199,False,Changes
+Precision Machined Parts,Industrial_Util_Rate_Pct,3,0.5464,True,Levels
+Precision Machined Parts,Industrial_Util_Rate_Pct,3,0.0606,False,Changes
+Precision Machined Parts,Industrial_Util_Rate_Pct,4,0.4218,True,Levels
+Precision Machined Parts,Industrial_Util_Rate_Pct,4,-0.042,False,Changes
+Precision Machined Parts,Industrial_Util_Rate_Pct,5,0.3057,True,Levels
+Precision Machined Parts,Industrial_Util_Rate_Pct,5,-0.1134,False,Changes
+Precision Machined Parts,Industrial_Util_Rate_Pct,6,0.2232,True,Levels
+Precision Machined Parts,Industrial_Util_Rate_Pct,6,0.0162,False,Changes
+Precision Machined Parts,Fuel_Price_Index,0,0.4317,True,Levels
+Precision Machined Parts,Fuel_Price_Index,0,0.2022,True,Changes
+Precision Machined Parts,Fuel_Price_Index,1,0.4187,True,Levels
+Precision Machined Parts,Fuel_Price_Index,1,0.1136,False,Changes
+Precision Machined Parts,Fuel_Price_Index,2,0.3975,True,Levels
+Precision Machined Parts,Fuel_Price_Index,2,0.1285,False,Changes
+Precision Machined Parts,Fuel_Price_Index,3,0.371,True,Levels
+Precision Machined Parts,Fuel_Price_Index,3,0.0692,False,Changes
+Precision Machined Parts,Fuel_Price_Index,4,0.3358,True,Levels
+Precision Machined Parts,Fuel_Price_Index,4,-0.0374,False,Changes
+Precision Machined Parts,Fuel_Price_Index,5,0.3098,True,Levels
+Precision Machined Parts,Fuel_Price_Index,5,-0.0497,False,Changes
+Precision Machined Parts,Fuel_Price_Index,6,0.2896,True,Levels
+Precision Machined Parts,Fuel_Price_Index,6,-0.0203,False,Changes
+Precision Machined Parts,EV_Adoption_Index,0,0.5885,True,Levels
+Precision Machined Parts,EV_Adoption_Index,0,0.0192,False,Changes
+Precision Machined Parts,EV_Adoption_Index,1,0.5814,True,Levels
+Precision Machined Parts,EV_Adoption_Index,1,0.0989,False,Changes
+Precision Machined Parts,EV_Adoption_Index,2,0.5782,True,Levels
+Precision Machined Parts,EV_Adoption_Index,2,0.0024,False,Changes
+Precision Machined Parts,EV_Adoption_Index,3,0.5955,True,Levels
+Precision Machined Parts,EV_Adoption_Index,3,0.1341,False,Changes
+Precision Machined Parts,EV_Adoption_Index,4,0.6001,True,Levels
+Precision Machined Parts,EV_Adoption_Index,4,0.0288,False,Changes
+Precision Machined Parts,EV_Adoption_Index,5,0.6103,True,Levels
+Precision Machined Parts,EV_Adoption_Index,5,0.1246,False,Changes
+Precision Machined Parts,EV_Adoption_Index,6,0.6158,True,Levels
+Precision Machined Parts,EV_Adoption_Index,6,-0.0467,False,Changes
+Thermal Management,ISM_Manufacturing_PMI,0,0.4085,True,Levels
+Thermal Management,ISM_Manufacturing_PMI,0,0.2947,True,Changes
+Thermal Management,ISM_Manufacturing_PMI,1,0.4222,True,Levels
+Thermal Management,ISM_Manufacturing_PMI,1,0.1873,False,Changes
+Thermal Management,ISM_Manufacturing_PMI,2,0.3915,True,Levels
+Thermal Management,ISM_Manufacturing_PMI,2,0.1716,False,Changes
+Thermal Management,ISM_Manufacturing_PMI,3,0.3186,True,Levels
+Thermal Management,ISM_Manufacturing_PMI,3,-0.0104,False,Changes
+Thermal Management,ISM_Manufacturing_PMI,4,0.2497,True,Levels
+Thermal Management,ISM_Manufacturing_PMI,4,0.1265,False,Changes
+Thermal Management,ISM_Manufacturing_PMI,5,0.1527,False,Levels
+Thermal Management,ISM_Manufacturing_PMI,5,-0.1061,False,Changes
+Thermal Management,ISM_Manufacturing_PMI,6,0.0832,False,Levels
+Thermal Management,ISM_Manufacturing_PMI,6,0.0005,False,Changes
+Thermal Management,Auto_Production_YoY_Pct,0,0.6384,True,Levels
+Thermal Management,Auto_Production_YoY_Pct,0,0.2503,True,Changes
+Thermal Management,Auto_Production_YoY_Pct,1,0.6974,True,Levels
+Thermal Management,Auto_Production_YoY_Pct,1,0.2919,True,Changes
+Thermal Management,Auto_Production_YoY_Pct,2,0.6418,True,Levels
+Thermal Management,Auto_Production_YoY_Pct,2,0.183,False,Changes
+Thermal Management,Auto_Production_YoY_Pct,3,0.5185,True,Levels
+Thermal Management,Auto_Production_YoY_Pct,3,0.0053,False,Changes
+Thermal Management,Auto_Production_YoY_Pct,4,0.3913,True,Levels
+Thermal Management,Auto_Production_YoY_Pct,4,0.0813,False,Changes
+Thermal Management,Auto_Production_YoY_Pct,5,0.2349,True,Levels
+Thermal Management,Auto_Production_YoY_Pct,5,-0.0726,False,Changes
+Thermal Management,Auto_Production_YoY_Pct,6,0.1019,False,Levels
+Thermal Management,Auto_Production_YoY_Pct,6,-0.1663,False,Changes
+Thermal Management,Vehicle_Inventory_Days,0,-0.1014,False,Levels
+Thermal Management,Vehicle_Inventory_Days,0,0.2269,True,Changes
+Thermal Management,Vehicle_Inventory_Days,1,-0.1164,False,Levels
+Thermal Management,Vehicle_Inventory_Days,1,-0.1552,False,Changes
+Thermal Management,Vehicle_Inventory_Days,2,-0.1123,False,Levels
+Thermal Management,Vehicle_Inventory_Days,2,-0.0437,False,Changes
+Thermal Management,Vehicle_Inventory_Days,3,-0.1209,False,Levels
+Thermal Management,Vehicle_Inventory_Days,3,-0.1332,False,Changes
+Thermal Management,Vehicle_Inventory_Days,4,-0.1046,False,Levels
+Thermal Management,Vehicle_Inventory_Days,4,-0.0162,False,Changes
+Thermal Management,Vehicle_Inventory_Days,5,-0.0938,False,Levels
+Thermal Management,Vehicle_Inventory_Days,5,-0.1963,False,Changes
+Thermal Management,Vehicle_Inventory_Days,6,-0.0417,False,Levels
+Thermal Management,Vehicle_Inventory_Days,6,0.1153,False,Changes
+Thermal Management,Raw_Material_Cost_Index,0,0.1629,False,Levels
+Thermal Management,Raw_Material_Cost_Index,0,-0.0117,False,Changes
+Thermal Management,Raw_Material_Cost_Index,1,0.1212,False,Levels
+Thermal Management,Raw_Material_Cost_Index,1,0.1424,False,Changes
+Thermal Management,Raw_Material_Cost_Index,2,0.0538,False,Levels
+Thermal Management,Raw_Material_Cost_Index,2,-0.0792,False,Changes
+Thermal Management,Raw_Material_Cost_Index,3,0.0123,False,Levels
+Thermal Management,Raw_Material_Cost_Index,3,0.0052,False,Changes
+Thermal Management,Raw_Material_Cost_Index,4,-0.035,False,Levels
+Thermal Management,Raw_Material_Cost_Index,4,-0.1034,False,Changes
+Thermal Management,Raw_Material_Cost_Index,5,-0.0616,False,Levels
+Thermal Management,Raw_Material_Cost_Index,5,-0.039,False,Changes
+Thermal Management,Raw_Material_Cost_Index,6,-0.0939,False,Levels
+Thermal Management,Raw_Material_Cost_Index,6,-0.1365,False,Changes
+Thermal Management,New_Vehicle_Orders_Index,0,0.6157,True,Levels
+Thermal Management,New_Vehicle_Orders_Index,0,0.2664,True,Changes
+Thermal Management,New_Vehicle_Orders_Index,1,0.5989,True,Levels
+Thermal Management,New_Vehicle_Orders_Index,1,0.2536,True,Changes
+Thermal Management,New_Vehicle_Orders_Index,2,0.5057,True,Levels
+Thermal Management,New_Vehicle_Orders_Index,2,0.0519,False,Changes
+Thermal Management,New_Vehicle_Orders_Index,3,0.4026,True,Levels
+Thermal Management,New_Vehicle_Orders_Index,3,0.0317,False,Changes
+Thermal Management,New_Vehicle_Orders_Index,4,0.2855,True,Levels
+Thermal Management,New_Vehicle_Orders_Index,4,0.0353,False,Changes
+Thermal Management,New_Vehicle_Orders_Index,5,0.1602,False,Levels
+Thermal Management,New_Vehicle_Orders_Index,5,-0.0732,False,Changes
+Thermal Management,New_Vehicle_Orders_Index,6,0.0482,False,Levels
+Thermal Management,New_Vehicle_Orders_Index,6,-0.154,False,Changes
+Thermal Management,Industrial_Util_Rate_Pct,0,0.4723,True,Levels
+Thermal Management,Industrial_Util_Rate_Pct,0,0.3449,True,Changes
+Thermal Management,Industrial_Util_Rate_Pct,1,0.3929,True,Levels
+Thermal Management,Industrial_Util_Rate_Pct,1,0.0719,False,Changes
+Thermal Management,Industrial_Util_Rate_Pct,2,0.2839,True,Levels
+Thermal Management,Industrial_Util_Rate_Pct,2,-0.01,False,Changes
+Thermal Management,Industrial_Util_Rate_Pct,3,0.1657,False,Levels
+Thermal Management,Industrial_Util_Rate_Pct,3,-0.003,False,Changes
+Thermal Management,Industrial_Util_Rate_Pct,4,0.0481,False,Levels
+Thermal Management,Industrial_Util_Rate_Pct,4,0.019,False,Changes
+Thermal Management,Industrial_Util_Rate_Pct,5,-0.0809,False,Levels
+Thermal Management,Industrial_Util_Rate_Pct,5,-0.1834,False,Changes
+Thermal Management,Industrial_Util_Rate_Pct,6,-0.1415,False,Levels
+Thermal Management,Industrial_Util_Rate_Pct,6,-0.0353,False,Changes
+Thermal Management,Fuel_Price_Index,0,0.1148,False,Levels
+Thermal Management,Fuel_Price_Index,0,0.1657,False,Changes
+Thermal Management,Fuel_Price_Index,1,0.0626,False,Levels
+Thermal Management,Fuel_Price_Index,1,0.0628,False,Changes
+Thermal Management,Fuel_Price_Index,2,0.0062,False,Levels
+Thermal Management,Fuel_Price_Index,2,0.0468,False,Changes
+Thermal Management,Fuel_Price_Index,3,-0.0439,False,Levels
+Thermal Management,Fuel_Price_Index,3,-0.0135,False,Changes
+Thermal Management,Fuel_Price_Index,4,-0.0917,False,Levels
+Thermal Management,Fuel_Price_Index,4,-0.0522,False,Changes
+Thermal Management,Fuel_Price_Index,5,-0.126,False,Levels
+Thermal Management,Fuel_Price_Index,5,-0.1942,False,Changes
+Thermal Management,Fuel_Price_Index,6,-0.1375,False,Levels
+Thermal Management,Fuel_Price_Index,6,-0.0445,False,Changes
+Thermal Management,EV_Adoption_Index,0,0.3667,True,Levels
+Thermal Management,EV_Adoption_Index,0,-0.0366,False,Changes
+Thermal Management,EV_Adoption_Index,1,0.356,True,Levels
+Thermal Management,EV_Adoption_Index,1,0.0991,False,Changes
+Thermal Management,EV_Adoption_Index,2,0.3497,True,Levels
+Thermal Management,EV_Adoption_Index,2,-0.0484,False,Changes
+Thermal Management,EV_Adoption_Index,3,0.3724,True,Levels
+Thermal Management,EV_Adoption_Index,3,0.0291,False,Changes
+Thermal Management,EV_Adoption_Index,4,0.3877,True,Levels
+Thermal Management,EV_Adoption_Index,4,-0.0046,False,Changes
+Thermal Management,EV_Adoption_Index,5,0.4157,True,Levels
+Thermal Management,EV_Adoption_Index,5,0.1091,False,Changes
+Thermal Management,EV_Adoption_Index,6,0.4198,True,Levels
+Thermal Management,EV_Adoption_Index,6,-0.0778,False,Changes

@@ -36,12 +36,16 @@ def generate_dq_report(dq_train: dict,
                 "description": "Year/Month disagree with Date column (Date treated as authoritative)",
                 "count": dq_train.get('T2_year_month_mismatch', 0),
                 "rule": "T2",
+                "before_count": dq_train.get('T2_before_count', dq_train.get('T2_year_month_mismatch', 0)),
+                "after_count": dq_train.get('T2_after_count', 0),
             },
             "T3_typo_year": {
                 "description": "Impossible future dates (e.g. 2062 transposed to 2026)",
                 "found": dq_train.get('T3_found', 0),
                 "corrected": dq_train.get('T3_corrected', 0),
                 "rule": "T3",
+                "before_count": dq_train.get('T3_before_count', dq_train.get('T3_found', 0)),
+                "after_count": dq_train.get('T3_after_count', 0),
             },
             "T4_duplicate_record_ids": {
                 "description": "Duplicate Record_IDs resolved by keeping latest Load_Timestamp",
@@ -98,6 +102,8 @@ def generate_dq_report(dq_train: dict,
                 "zero_demand_rows": dq_train.get('T15_zero_demand_rows', 0),
                 "null_demand_rows": dq_train.get('T15_null_demand_rows', 0),
                 "rule": "T11",
+                "before_count": dq_train.get('T11_blank', 0) + dq_train.get('T11_dash', 0) + dq_train.get('T11_comma', 0) + dq_train.get('T11_negative', 0),
+                "after_count": 0,
             },
             "T12_unit_price": {
                 "description": "Unit_Price_USD zeros, scale errors, and currency shifts repaired with annual median reference",
@@ -106,6 +112,8 @@ def generate_dq_report(dq_train: dict,
                 "scale_85x_band": dq_train.get('T12_scale_85x', 0),
                 "scale_5_20x_band": dq_train.get('T12_scale_5_20x', 0),
                 "rule": "T12",
+                "before_count": dq_train.get('T12_before_count', dq_train.get('T12_repaired_prices', 0)),
+                "after_count": dq_train.get('T12_after_count', 0),
             },
             "T13_revenue": {
                 "description": "Revenue_USD recalculated as Units_Sold * Unit_Price_USD",
@@ -113,23 +121,31 @@ def generate_dq_report(dq_train: dict,
                 "discrepancy_before": dq_train.get('T13_discrepancy_before', 0),
                 "recomputed": dq_train.get('T13_recomputed', 0),
                 "rule": "T13",
+                "before_count": dq_train.get('T13_discrepancy_before', 0),
+                "after_count": dq_train.get('T13_after_count', 0),
             },
             "T14_real_market_shocks": {
                 "description": "Real market shocks preserved without artificial outlier clipping",
                 "count": dq_train.get('T14_real_events', 0),
                 "rule": "T14",
+                "before_count": dq_train.get('T14_real_events', 0),
+                "after_count": dq_train.get('T14_real_events', 0),
             },
             "T15_zero_demand_vs_missing": {
                 "description": "Zero demand distinguished from missing panel observations",
                 "zero_demand_rows": dq_train.get('T15_zero_demand_rows', 0),
                 "null_demand_rows": dq_train.get('T15_null_demand_rows', 0),
                 "rule": "T15",
+                "before_count": dq_train.get('T15_before_count', 0),
+                "after_count": dq_train.get('T15_after_count', 0),
             },
             "R5_lifecycle": {
                 "description": "Lifecycle validation: sales outside launch/EOL boundaries zeroed",
                 "eol_violations": dq_train.get('R5_eol_violations', 0),
                 "launch_violations": dq_train.get('R5_launch_violations', 0),
                 "rule": "R5",
+                "before_count": dq_train.get('R5_eol_violations', 0) + dq_train.get('R5_launch_violations', 0),
+                "after_count": 0,
             },
             "T4b_date_sku_region": {
                 "description": "Deduplication of duplicate load records across differing sales channels",
@@ -156,16 +172,16 @@ def generate_dq_report(dq_train: dict,
                 "reason": "Preserves total company sales volume and transaction count without guessing geographic origins.",
             },
             "high_volume_orders": {
-                "rule_id": "T11",
-                "count": dq_train.get('T11_large_values', 0),
-                "decision": "Retained genuine large orders (>5000 units) in historical training data after validating non-corrupt status.",
-                "reason": "Reflects genuine commercial customer bulk procurement rather than data transmission errors.",
+                "rule_id": "A3",
+                "count": dq_train.get('A3_replaced_rows', 0),
+                "decision": "Replaced suspected entry errors above 20 times the SKU-year median.",
+                "reason": "Uses the SKU-year median and records each replacement in the audit log.",
             },
             "macro_2022_06_duplicate": {
                 "rule_id": "M1",
                 "count": dq_macro.get('M1_dup_months', 0),
                 "decision": dq_macro.get('M1_resolution', 'Selected observation with minimum Euclidean distance to adjacent months.'),
-                "reason": "Preserves continuity with May 2022 and July 2022 macroeconomic indicators.",
+                "reason": "Row B 52.7 is compared with interpolation 52.85 from May 2022 53.5 and July 2022 52.2.",
             },
             "macro_2023_05_pmi_decimal": {
                 "rule_id": "M3",
@@ -194,15 +210,45 @@ def generate_dq_report(dq_train: dict,
         },
     }
 
+    rule_ids = [
+        *[f"T{i}" for i in range(1, 16)],
+        "R5", "R9", "A2", "A3",
+        "S1", "S2",
+        *[f"M{i}" for i in range(1, 6)],
+        *[f"E{i}" for i in range(1, 5)],
+    ]
+    rule_counts = {}
+    for rule_id in rule_ids:
+        matching = [
+            entry for entry in audit_log.to_dict("records")
+            if str(entry.get("rule_id", "")) == rule_id
+        ]
+        issue = next(
+            (
+                value for value in report["train_issues"].values()
+                if value.get("rule") == rule_id
+            ),
+            None,
+        )
+        before_count = issue.get("before_count", 0) if issue else 0
+        after_count = issue.get("after_count", 0) if issue else 0
+        rule_counts[rule_id] = {
+            "rule": rule_id,
+            "before_count": before_count,
+            "after_count": after_count,
+            "audit_entries": len(matching),
+        }
+    report["rules"] = rule_counts
+
     for issue in report["train_issues"].values():
-        before_count = issue.get("raw_rows", issue.get("rows_before",
-                        issue.get("found", issue.get("blank_count",
-                        issue.get("count", 0)))))
-        after_count = issue.get("rows_after", issue.get("corrected",
-                       issue.get("normalised", issue.get("filled",
-                       issue.get("recomputed", issue.get("count", 0))))))
-        issue["before_count"] = before_count
-        issue["after_count"] = after_count
+        if "before_count" not in issue:
+            issue["before_count"] = issue.get("raw_rows", issue.get("rows_before",
+                                      issue.get("found", issue.get("blank_count",
+                                      issue.get("count", 0)))))
+        if "after_count" not in issue:
+            issue["after_count"] = issue.get("rows_after", issue.get("corrected",
+                                   issue.get("normalised", issue.get("filled",
+                                   issue.get("recomputed", issue.get("count", 0))))))
 
     with open(OUT_DQ_JSON, 'w', encoding='utf-8') as f:
         json.dump(report, f, indent=2, default=str)

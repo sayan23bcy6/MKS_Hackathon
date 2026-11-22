@@ -1097,7 +1097,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-02,BSS-002,Middle East & Africa,Falcon Gulf Motors,28.0,sold
 2024-03,BSS-002,Middle East & Africa,Falcon Gulf Motors,11.0,sold
 2024-04,BSS-002,Middle East & Africa,Falcon Gulf Motors,15.0,sold
-2024-05,BSS-002,Middle East & Africa,Falcon Gulf Motors,2700.0,sold
+2024-05,BSS-002,Middle East & Africa,Falcon Gulf Motors,58.0,sold
 2024-06,BSS-002,Middle East & Africa,Falcon Gulf Motors,18.0,sold
 2024-07,BSS-002,Middle East & Africa,Falcon Gulf Motors,28.0,sold
 2024-08,BSS-002,Middle East & Africa,Falcon Gulf Motors,15.0,sold
@@ -1391,7 +1391,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-02,BSS-003,Asia Pacific,Meridian Assembly,180.0,sold
 2025-03,BSS-003,Asia Pacific,Meridian Assembly,293.0,sold
 2025-04,BSS-003,Asia Pacific,Meridian Assembly,305.0,sold
-2025-05,BSS-003,Asia Pacific,Meridian Assembly,2440.0,sold
+2025-05,BSS-003,Asia Pacific,Meridian Assembly,111.0,sold
 2025-06,BSS-003,Asia Pacific,Meridian Assembly,223.0,sold
 2025-07,BSS-003,Asia Pacific,Meridian Assembly,281.0,sold
 2025-08,BSS-003,Asia Pacific,Meridian Assembly,182.0,sold
@@ -2174,7 +2174,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2019-11,BSS-004,Europe,Crestline Manufacturing,163.0,sold
 2019-12,BSS-004,Europe,Crestline Manufacturing,187.0,sold
 2020-01,BSS-004,Europe,Crestline Manufacturing,155.0,sold
-2020-02,BSS-004,Europe,Crestline Manufacturing,15100.0,sold
+2020-02,BSS-004,Europe,Crestline Manufacturing,85.0,sold
 2020-03,BSS-004,Europe,Crestline Manufacturing,148.0,sold
 2020-04,BSS-004,Europe,Crestline Manufacturing,35.0,sold
 2020-05,BSS-004,Europe,Crestline Manufacturing,73.0,sold
@@ -3046,7 +3046,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-01,BSS-005,India,Quantum Drive Systems,56.0,sold
 2022-02,BSS-005,India,Quantum Drive Systems,29.0,sold
 2022-03,BSS-005,India,Quantum Drive Systems,34.0,sold
-2022-04,BSS-005,India,Quantum Drive Systems,4700.0,sold
+2022-04,BSS-005,India,Quantum Drive Systems,42.0,sold
 2022-05,BSS-005,India,Quantum Drive Systems,30.0,sold
 2022-06,BSS-005,India,Quantum Drive Systems,36.0,sold
 2022-07,BSS-005,India,Quantum Drive Systems,28.0,sold
@@ -7747,7 +7747,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-10,BSS-014,Europe,Helios Auto Parts,142.0,sold
 2020-11,BSS-014,Europe,Helios Auto Parts,0.0,zero_order
 2020-12,BSS-014,Europe,Helios Auto Parts,0.0,zero_order
-2021-01,BSS-014,Europe,Helios Auto Parts,2040.0,sold
+2021-01,BSS-014,Europe,Helios Auto Parts,54.0,sold
 2021-02,BSS-014,Europe,Helios Auto Parts,0.0,zero_order
 2021-03,BSS-014,Europe,Helios Auto Parts,0.0,zero_order
 2021-04,BSS-014,Europe,Helios Auto Parts,,not_recorded
@@ -13304,7 +13304,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-01,BSS-025,India,Apex Tier One,32.0,sold
 2022-02,BSS-025,India,Apex Tier One,42.0,sold
 2022-03,BSS-025,India,Apex Tier One,44.0,sold
-2022-04,BSS-025,India,Apex Tier One,1000.0,sold
+2022-04,BSS-025,India,Apex Tier One,38.0,sold
 2022-05,BSS-025,India,Apex Tier One,53.0,sold
 2022-06,BSS-025,India,Apex Tier One,99.0,sold
 2022-07,BSS-025,India,Apex Tier One,71.0,sold
@@ -16771,7 +16771,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-11,BSS-031,Middle East & Africa,Falcon Gulf Motors,16.0,sold
 2025-12,BSS-031,Middle East & Africa,Falcon Gulf Motors,31.0,sold
 2026-01,BSS-031,Middle East & Africa,Falcon Gulf Motors,34.0,sold
-2026-02,BSS-031,Middle East & Africa,Falcon Gulf Motors,2800.0,sold
+2026-02,BSS-031,Middle East & Africa,Falcon Gulf Motors,60.0,sold
 2026-03,BSS-031,Middle East & Africa,Falcon Gulf Motors,16.0,sold
 2026-04,BSS-031,Middle East & Africa,Falcon Gulf Motors,28.0,sold
 2026-05,BSS-031,Middle East & Africa,Falcon Gulf Motors,22.0,sold
@@ -19263,7 +19263,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-07,BSS-036,Asia Pacific,Quantum Drive Systems,68.0,sold
 2025-08,BSS-036,Asia Pacific,Quantum Drive Systems,104.0,sold
 2025-09,BSS-036,Asia Pacific,Quantum Drive Systems,66.0,sold
-2025-10,BSS-036,Asia Pacific,Quantum Drive Systems,6700.0,sold
+2025-10,BSS-036,Asia Pacific,Quantum Drive Systems,70.0,sold
 2025-11,BSS-036,Asia Pacific,Quantum Drive Systems,105.0,sold
 2025-12,BSS-036,Asia Pacific,Quantum Drive Systems,44.0,sold
 2026-01,BSS-036,Asia Pacific,Quantum Drive Systems,90.0,sold
@@ -21704,7 +21704,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-05,BSS-041,Asia Pacific,Quantum Drive Systems,36.0,sold
 2024-06,BSS-041,Asia Pacific,Quantum Drive Systems,24.0,sold
 2024-07,BSS-041,Asia Pacific,Quantum Drive Systems,49.0,sold
-2024-08,BSS-041,Asia Pacific,Quantum Drive Systems,6000.0,sold
+2024-08,BSS-041,Asia Pacific,Quantum Drive Systems,48.0,sold
 2024-09,BSS-041,Asia Pacific,Quantum Drive Systems,62.0,sold
 2024-10,BSS-041,Asia Pacific,Quantum Drive Systems,67.0,sold
 2024-11,BSS-041,Asia Pacific,Quantum Drive Systems,48.0,sold
@@ -24097,7 +24097,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-06,BSS-046,Europe,Quantum Drive Systems,86.0,sold
 2024-07,BSS-046,Europe,Quantum Drive Systems,77.0,sold
 2024-08,BSS-046,Europe,Quantum Drive Systems,71.0,sold
-2024-09,BSS-046,Europe,Quantum Drive Systems,1190.0,sold
+2024-09,BSS-046,Europe,Quantum Drive Systems,56.0,sold
 2024-10,BSS-046,Europe,Quantum Drive Systems,127.0,sold
 2024-11,BSS-046,Europe,Quantum Drive Systems,116.0,sold
 2024-12,BSS-046,Europe,Quantum Drive Systems,57.0,sold
@@ -24729,7 +24729,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-04,BSS-047,Latin America,Crestline Manufacturing,327.0,sold
 2022-05,BSS-047,Latin America,Crestline Manufacturing,0.0,zero_order
 2022-06,BSS-047,Latin America,Crestline Manufacturing,0.0,zero_order
-2022-07,BSS-047,Latin America,Crestline Manufacturing,4890.0,sold
+2022-07,BSS-047,Latin America,Crestline Manufacturing,47.0,sold
 2022-08,BSS-047,Latin America,Crestline Manufacturing,0.0,zero_order
 2022-09,BSS-047,Latin America,Crestline Manufacturing,0.0,zero_order
 2022-10,BSS-047,Latin America,Crestline Manufacturing,277.0,sold
@@ -24912,7 +24912,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2021-11,BSS-047,North America,Crestline Manufacturing,48.0,sold
 2021-12,BSS-047,North America,Crestline Manufacturing,26.0,sold
 2022-01,BSS-047,North America,Crestline Manufacturing,35.0,sold
-2022-02,BSS-047,North America,Crestline Manufacturing,2900.0,sold
+2022-02,BSS-047,North America,Crestline Manufacturing,47.0,sold
 2022-03,BSS-047,North America,Crestline Manufacturing,44.0,sold
 2022-04,BSS-047,North America,Crestline Manufacturing,31.0,sold
 2022-05,BSS-047,North America,Crestline Manufacturing,42.0,sold
@@ -28965,7 +28965,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-04,BSS-055,Middle East & Africa,Falcon Gulf Motors,23.0,sold
 2024-05,BSS-055,Middle East & Africa,Falcon Gulf Motors,30.0,sold
 2024-06,BSS-055,Middle East & Africa,Falcon Gulf Motors,20.0,sold
-2024-07,BSS-055,Middle East & Africa,Falcon Gulf Motors,2200.0,sold
+2024-07,BSS-055,Middle East & Africa,Falcon Gulf Motors,52.0,sold
 2024-08,BSS-055,Middle East & Africa,Falcon Gulf Motors,23.0,sold
 2024-09,BSS-055,Middle East & Africa,Falcon Gulf Motors,38.0,sold
 2024-10,BSS-055,Middle East & Africa,Falcon Gulf Motors,28.0,sold
@@ -29203,7 +29203,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-06,BSS-056,Asia Pacific,Nexon Motor Group,63.0,sold
 2025-07,BSS-056,Asia Pacific,Nexon Motor Group,42.0,sold
 2025-08,BSS-056,Asia Pacific,Nexon Motor Group,387.0,sold
-2025-09,BSS-056,Asia Pacific,Nexon Motor Group,5700.0,sold
+2025-09,BSS-056,Asia Pacific,Nexon Motor Group,65.0,sold
 2025-10,BSS-056,Asia Pacific,Nexon Motor Group,69.0,sold
 2025-11,BSS-056,Asia Pacific,Nexon Motor Group,68.0,sold
 2025-12,BSS-056,Asia Pacific,Nexon Motor Group,42.0,sold
@@ -29485,7 +29485,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-06,BSS-056,Latin America,Helios Auto Parts,65.0,sold
 2025-07,BSS-056,Latin America,Helios Auto Parts,,not_recorded
 2025-08,BSS-056,Latin America,Helios Auto Parts,56.0,sold
-2025-09,BSS-056,Latin America,Helios Auto Parts,9400.0,sold
+2025-09,BSS-056,Latin America,Helios Auto Parts,65.0,sold
 2025-10,BSS-056,Latin America,Helios Auto Parts,51.0,sold
 2025-11,BSS-056,Latin America,Helios Auto Parts,50.0,sold
 2025-12,BSS-056,Latin America,Helios Auto Parts,75.0,sold
@@ -36909,7 +36909,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-04,BSS-072,Latin America,Vantara Auto,42.0,sold
 2025-05,BSS-072,Latin America,Vantara Auto,80.0,sold
 2025-06,BSS-072,Latin America,Vantara Auto,0.0,zero_order
-2025-07,BSS-072,Latin America,Vantara Auto,16300.0,sold
+2025-07,BSS-072,Latin America,Vantara Auto,44.0,sold
 2025-08,BSS-072,Latin America,Vantara Auto,51.0,sold
 2025-09,BSS-072,Latin America,Vantara Auto,35.0,sold
 2025-10,BSS-072,Latin America,Vantara Auto,81.0,sold
@@ -38805,7 +38805,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2026-08,BSS-075,Unassigned,Vantara Auto,,not_recorded
 2026-09,BSS-075,Unassigned,Vantara Auto,,not_recorded
 2026-10,BSS-075,Unassigned,Vantara Auto,,not_recorded
-2019-01,BSS-076,Asia Pacific,Solaris Automotive,9600.0,sold
+2019-01,BSS-076,Asia Pacific,Solaris Automotive,49.0,sold
 2019-02,BSS-076,Asia Pacific,Solaris Automotive,54.0,sold
 2019-03,BSS-076,Asia Pacific,Solaris Automotive,101.0,sold
 2019-04,BSS-076,Asia Pacific,Solaris Automotive,65.0,sold
@@ -39173,7 +39173,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-12,BSS-076,Latin America,Vantara Auto,27.0,sold
 2026-01,BSS-076,Latin America,Vantara Auto,47.0,sold
 2026-02,BSS-076,Latin America,Vantara Auto,45.0,sold
-2026-03,BSS-076,Latin America,Vantara Auto,4400.0,sold
+2026-03,BSS-076,Latin America,Vantara Auto,48.0,sold
 2026-04,BSS-076,Latin America,Vantara Auto,55.0,sold
 2026-05,BSS-076,Latin America,Vantara Auto,51.0,sold
 2026-06,BSS-076,Latin America,Vantara Auto,53.0,sold
@@ -40524,7 +40524,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2021-01,BSS-078,India,Orion Driveline,37.0,sold
 2021-02,BSS-078,India,Orion Driveline,68.0,sold
 2021-03,BSS-078,India,Orion Driveline,247.0,sold
-2021-04,BSS-078,India,Orion Driveline,6700.0,sold
+2021-04,BSS-078,India,Orion Driveline,43.0,sold
 2021-05,BSS-078,India,Orion Driveline,85.0,sold
 2021-06,BSS-078,India,Orion Driveline,0.0,zero_order
 2021-07,BSS-078,India,Orion Driveline,108.0,sold
@@ -40933,7 +40933,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2023-10,BSS-079,Asia Pacific,Solaris Automotive,49.0,sold
 2023-11,BSS-079,Asia Pacific,Solaris Automotive,57.0,sold
 2023-12,BSS-079,Asia Pacific,Solaris Automotive,51.0,sold
-2024-01,BSS-079,Asia Pacific,Solaris Automotive,6100.0,sold
+2024-01,BSS-079,Asia Pacific,Solaris Automotive,60.0,sold
 2024-02,BSS-079,Asia Pacific,Solaris Automotive,40.0,sold
 2024-03,BSS-079,Asia Pacific,Solaris Automotive,68.0,sold
 2024-04,BSS-079,Asia Pacific,Solaris Automotive,34.0,sold
@@ -41656,7 +41656,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2021-05,BSS-080,Latin America,Nexon Motor Group,91.0,sold
 2021-06,BSS-080,Latin America,Nexon Motor Group,71.0,sold
 2021-07,BSS-080,Latin America,Nexon Motor Group,138.0,sold
-2021-08,BSS-080,Latin America,Nexon Motor Group,10200.0,sold
+2021-08,BSS-080,Latin America,Nexon Motor Group,84.0,sold
 2021-09,BSS-080,Latin America,Nexon Motor Group,112.0,sold
 2021-10,BSS-080,Latin America,Nexon Motor Group,124.0,sold
 2021-11,BSS-080,Latin America,Nexon Motor Group,69.0,sold
@@ -42518,7 +42518,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-09,BSS-081,North America,Nexon Motor Group,56.0,sold
 2022-10,BSS-081,North America,Nexon Motor Group,99.0,sold
 2022-11,BSS-081,North America,Nexon Motor Group,68.0,sold
-2022-12,BSS-081,North America,Nexon Motor Group,5200.0,sold
+2022-12,BSS-081,North America,Nexon Motor Group,56.0,sold
 2023-01,BSS-081,North America,Nexon Motor Group,58.0,sold
 2023-02,BSS-081,North America,Nexon Motor Group,27.0,sold
 2023-03,BSS-081,North America,Nexon Motor Group,97.0,sold
@@ -46202,7 +46202,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-03,CSS-003,Latin America,Crestline Manufacturing,0.0,zero_order
 2024-04,CSS-003,Latin America,Crestline Manufacturing,64.0,sold
 2024-05,CSS-003,Latin America,Crestline Manufacturing,0.0,zero_order
-2024-06,CSS-003,Latin America,Crestline Manufacturing,1290.0,sold
+2024-06,CSS-003,Latin America,Crestline Manufacturing,49.0,sold
 2024-07,CSS-003,Latin America,Crestline Manufacturing,0.0,zero_order
 2024-08,CSS-003,Latin America,Crestline Manufacturing,75.0,sold
 2024-09,CSS-003,Latin America,Crestline Manufacturing,0.0,zero_order
@@ -53430,7 +53430,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2023-09,CSS-017,Europe,Meridian Assembly,58.0,sold
 2023-10,CSS-017,Europe,Meridian Assembly,0.0,zero_order
 2023-11,CSS-017,Europe,Meridian Assembly,159.0,sold
-2023-12,CSS-017,Europe,Meridian Assembly,7100.0,sold
+2023-12,CSS-017,Europe,Meridian Assembly,51.0,sold
 2024-01,CSS-017,Europe,Meridian Assembly,0.0,zero_order
 2024-02,CSS-017,Europe,Meridian Assembly,83.0,sold
 2024-03,CSS-017,Europe,Meridian Assembly,70.0,sold
@@ -55676,7 +55676,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-11,CSS-021,Latin America,Helios Auto Parts,74.0,sold
 2022-12,CSS-021,Latin America,Helios Auto Parts,77.0,sold
 2023-01,CSS-021,Latin America,Helios Auto Parts,30.0,sold
-2023-02,CSS-021,Latin America,Helios Auto Parts,10200.0,sold
+2023-02,CSS-021,Latin America,Helios Auto Parts,42.0,sold
 2023-03,CSS-021,Latin America,Helios Auto Parts,73.0,sold
 2023-04,CSS-021,Latin America,Helios Auto Parts,61.0,sold
 2023-05,CSS-021,Latin America,Helios Auto Parts,93.0,sold
@@ -56077,7 +56077,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-12,CSS-022,Asia Pacific,Meridian Assembly,95.0,sold
 2025-01,CSS-022,Asia Pacific,Meridian Assembly,35.0,sold
 2025-02,CSS-022,Asia Pacific,Meridian Assembly,0.0,zero_order
-2025-03,CSS-022,Asia Pacific,Meridian Assembly,5100.0,sold
+2025-03,CSS-022,Asia Pacific,Meridian Assembly,40.0,sold
 2025-04,CSS-022,Asia Pacific,Meridian Assembly,41.0,sold
 2025-05,CSS-022,Asia Pacific,Meridian Assembly,0.0,zero_order
 2025-06,CSS-022,Asia Pacific,Meridian Assembly,73.0,sold
@@ -57421,7 +57421,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-02,CSS-025,India,Solaris Automotive,27.0,sold
 2025-03,CSS-025,India,Solaris Automotive,44.0,sold
 2025-04,CSS-025,India,Solaris Automotive,36.0,sold
-2025-05,CSS-025,India,Solaris Automotive,6400.0,sold
+2025-05,CSS-025,India,Solaris Automotive,40.0,sold
 2025-06,CSS-025,India,Solaris Automotive,30.0,sold
 2025-07,CSS-025,India,Solaris Automotive,38.0,sold
 2025-08,CSS-025,India,Solaris Automotive,50.0,sold
@@ -59531,7 +59531,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-11,CSS-030,Europe,Quantum Drive Systems,101.0,sold
 2024-12,CSS-030,Europe,Quantum Drive Systems,54.0,sold
 2025-01,CSS-030,Europe,Quantum Drive Systems,0.0,zero_order
-2025-02,CSS-030,Europe,Quantum Drive Systems,10000.0,sold
+2025-02,CSS-030,Europe,Quantum Drive Systems,60.0,sold
 2025-03,CSS-030,Europe,Quantum Drive Systems,67.0,sold
 2025-04,CSS-030,Europe,Quantum Drive Systems,0.0,zero_order
 2025-05,CSS-030,Europe,Quantum Drive Systems,149.0,sold
@@ -61422,7 +61422,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2023-02,CSS-034,Latin America,Meridian Assembly,35.0,sold
 2023-03,CSS-034,Latin America,Meridian Assembly,55.0,sold
 2023-04,CSS-034,Latin America,Meridian Assembly,62.0,sold
-2023-05,CSS-034,Latin America,Meridian Assembly,6000.0,sold
+2023-05,CSS-034,Latin America,Meridian Assembly,30.0,sold
 2023-06,CSS-034,Latin America,Meridian Assembly,66.0,sold
 2023-07,CSS-034,Latin America,Meridian Assembly,63.0,sold
 2023-08,CSS-034,Latin America,Meridian Assembly,25.0,sold
@@ -65009,7 +65009,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-09,CSS-041,North America,Meridian Assembly,58.0,sold
 2020-10,CSS-041,North America,Meridian Assembly,0.0,zero_order
 2020-11,CSS-041,North America,Meridian Assembly,185.0,sold
-2020-12,CSS-041,North America,Meridian Assembly,4900.0,sold
+2020-12,CSS-041,North America,Meridian Assembly,37.0,sold
 2021-01,CSS-041,North America,Meridian Assembly,0.0,zero_order
 2021-02,CSS-041,North America,Meridian Assembly,158.0,sold
 2021-03,CSS-041,North America,Meridian Assembly,82.0,sold
@@ -65798,7 +65798,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-09,CSS-043,India,Nexon Motor Group,30.0,sold
 2020-10,CSS-043,India,Nexon Motor Group,70.0,sold
 2020-11,CSS-043,India,Nexon Motor Group,77.0,sold
-2020-12,CSS-043,India,Nexon Motor Group,8800.0,sold
+2020-12,CSS-043,India,Nexon Motor Group,24.0,sold
 2021-01,CSS-043,India,Nexon Motor Group,72.0,sold
 2021-02,CSS-043,India,Nexon Motor Group,72.0,sold
 2021-03,CSS-043,India,Nexon Motor Group,96.0,sold
@@ -66317,7 +66317,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-10,CSS-044,Europe,Apex Tier One,52.0,sold
 2024-11,CSS-044,Europe,Apex Tier One,0.0,zero_order
 2024-12,CSS-044,Europe,Apex Tier One,0.0,zero_order
-2025-01,CSS-044,Europe,Apex Tier One,1120.0,sold
+2025-01,CSS-044,Europe,Apex Tier One,24.0,sold
 2025-02,CSS-044,Europe,Apex Tier One,0.0,zero_order
 2025-03,CSS-044,Europe,Apex Tier One,0.0,zero_order
 2025-04,CSS-044,Europe,Apex Tier One,92.0,sold
@@ -73280,7 +73280,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2023-03,CSS-056,Asia Pacific,Apex Tier One,196.0,sold
 2023-04,CSS-056,Asia Pacific,Apex Tier One,92.0,sold
 2023-05,CSS-056,Asia Pacific,Apex Tier One,0.0,zero_order
-2023-06,CSS-056,Asia Pacific,Apex Tier One,2250.0,sold
+2023-06,CSS-056,Asia Pacific,Apex Tier One,38.0,sold
 2023-07,CSS-056,Asia Pacific,Apex Tier One,62.0,sold
 2023-08,CSS-056,Asia Pacific,Apex Tier One,14.0,sold
 2023-09,CSS-056,Asia Pacific,Apex Tier One,181.0,sold
@@ -73798,7 +73798,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-06,CSS-057,Asia Pacific,Orion Driveline,63.0,sold
 2025-07,CSS-057,Asia Pacific,Orion Driveline,0.0,zero_order
 2025-08,CSS-057,Asia Pacific,Orion Driveline,0.0,zero_order
-2025-09,CSS-057,Asia Pacific,Orion Driveline,504.0,sold
+2025-09,CSS-057,Asia Pacific,Orion Driveline,21.0,sold
 2025-10,CSS-057,Asia Pacific,Orion Driveline,0.0,zero_order
 2025-11,CSS-057,Asia Pacific,Orion Driveline,0.0,zero_order
 2025-12,CSS-057,Asia Pacific,Orion Driveline,93.0,sold
@@ -81158,7 +81158,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-01,CSS-072,Europe,Meridian Assembly,108.0,sold
 2024-02,CSS-072,Europe,Meridian Assembly,91.0,sold
 2024-03,CSS-072,Europe,Meridian Assembly,124.0,sold
-2024-04,CSS-072,Europe,Meridian Assembly,1410.0,sold
+2024-04,CSS-072,Europe,Meridian Assembly,64.0,sold
 2024-05,CSS-072,Europe,Meridian Assembly,96.0,sold
 2024-06,CSS-072,Europe,Meridian Assembly,76.0,sold
 2024-07,CSS-072,Europe,Meridian Assembly,97.0,sold
@@ -87901,7 +87901,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-06,CSS-085,North America,Crestline Manufacturing,29.0,sold
 2024-07,CSS-085,North America,Crestline Manufacturing,22.0,sold
 2024-08,CSS-085,North America,Crestline Manufacturing,22.0,sold
-2024-09,CSS-085,North America,Crestline Manufacturing,3000.0,sold
+2024-09,CSS-085,North America,Crestline Manufacturing,35.0,sold
 2024-10,CSS-085,North America,Crestline Manufacturing,35.0,sold
 2024-11,CSS-085,North America,Crestline Manufacturing,42.0,sold
 2024-12,CSS-085,North America,Crestline Manufacturing,25.0,sold
@@ -89571,7 +89571,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-08,ELA-001,Latin America,Solaris Automotive,22.0,sold
 2022-09,ELA-001,Latin America,Solaris Automotive,33.0,sold
 2022-10,ELA-001,Latin America,Solaris Automotive,19.0,sold
-2022-11,ELA-001,Latin America,Solaris Automotive,680.0,sold
+2022-11,ELA-001,Latin America,Solaris Automotive,15.0,sold
 2022-12,ELA-001,Latin America,Solaris Automotive,0.0,zero_order
 2023-01,ELA-001,Latin America,Solaris Automotive,27.0,sold
 2023-02,ELA-001,Latin America,Solaris Automotive,29.0,sold
@@ -91389,7 +91389,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-04,ELA-004,Asia Pacific,Quantum Drive Systems,22.0,sold
 2025-05,ELA-004,Asia Pacific,Quantum Drive Systems,42.0,sold
 2025-06,ELA-004,Asia Pacific,Quantum Drive Systems,38.0,sold
-2025-07,ELA-004,Asia Pacific,Quantum Drive Systems,4400.0,sold
+2025-07,ELA-004,Asia Pacific,Quantum Drive Systems,42.0,sold
 2025-08,ELA-004,Asia Pacific,Quantum Drive Systems,47.0,sold
 2025-09,ELA-004,Asia Pacific,Quantum Drive Systems,42.0,sold
 2025-10,ELA-004,Asia Pacific,Quantum Drive Systems,36.0,sold
@@ -92392,7 +92392,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-07,ELA-006,Asia Pacific,Orion Driveline,49.0,sold
 2024-08,ELA-006,Asia Pacific,Orion Driveline,44.0,sold
 2024-09,ELA-006,Asia Pacific,Orion Driveline,48.0,sold
-2024-10,ELA-006,Asia Pacific,Orion Driveline,4400.0,sold
+2024-10,ELA-006,Asia Pacific,Orion Driveline,38.0,sold
 2024-11,ELA-006,Asia Pacific,Orion Driveline,9.0,sold
 2024-12,ELA-006,Asia Pacific,Orion Driveline,25.0,sold
 2025-01,ELA-006,Asia Pacific,Orion Driveline,36.0,sold
@@ -94255,7 +94255,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-07,ELA-009,Asia Pacific,Quantum Drive Systems,62.0,sold
 2020-08,ELA-009,Asia Pacific,Quantum Drive Systems,0.0,zero_order
 2020-09,ELA-009,Asia Pacific,Quantum Drive Systems,0.0,zero_order
-2020-10,ELA-009,Asia Pacific,Quantum Drive Systems,830.0,sold
+2020-10,ELA-009,Asia Pacific,Quantum Drive Systems,29.0,sold
 2020-11,ELA-009,Asia Pacific,Quantum Drive Systems,0.0,zero_order
 2020-12,ELA-009,Asia Pacific,Quantum Drive Systems,0.0,zero_order
 2021-01,ELA-009,Asia Pacific,Quantum Drive Systems,148.0,sold
@@ -96266,7 +96266,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2023-08,ELA-012,Europe,Orion Driveline,4.0,sold
 2023-09,ELA-012,Europe,Orion Driveline,6.0,sold
 2023-10,ELA-012,Europe,Orion Driveline,8.0,sold
-2023-11,ELA-012,Europe,Orion Driveline,300.0,sold
+2023-11,ELA-012,Europe,Orion Driveline,6.0,sold
 2023-12,ELA-012,Europe,Orion Driveline,11.0,sold
 2024-01,ELA-012,Europe,Orion Driveline,6.0,sold
 2024-02,ELA-012,Europe,Orion Driveline,6.0,sold
@@ -96584,7 +96584,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2026-08,ELA-012,Middle East & Africa,Atlas Mideast Components,3.0,sold
 2026-09,ELA-012,Middle East & Africa,Atlas Mideast Components,6.0,sold
 2026-10,ELA-012,Middle East & Africa,Atlas Mideast Components,13.0,sold
-2019-01,ELA-012,North America,Crestline Manufacturing,190.0,sold
+2019-01,ELA-012,North America,Crestline Manufacturing,7.0,sold
 2019-02,ELA-012,North America,Crestline Manufacturing,8.0,sold
 2019-03,ELA-012,North America,Crestline Manufacturing,10.0,sold
 2019-04,ELA-012,North America,Crestline Manufacturing,8.0,sold
@@ -98148,7 +98148,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2019-10,ELA-018,India,Quantum Drive Systems,11.0,sold
 2019-11,ELA-018,India,Quantum Drive Systems,23.0,sold
 2019-12,ELA-018,India,Quantum Drive Systems,10.0,sold
-2020-01,ELA-018,India,Quantum Drive Systems,3100.0,sold
+2020-01,ELA-018,India,Quantum Drive Systems,20.0,sold
 2020-02,ELA-018,India,Quantum Drive Systems,18.0,sold
 2020-03,ELA-018,India,Quantum Drive Systems,33.0,sold
 2020-04,ELA-018,India,Quantum Drive Systems,2.0,sold
@@ -103113,7 +103113,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2026-01,ELA-028,Latin America,Orion Driveline,41.0,sold
 2026-02,ELA-028,Latin America,Orion Driveline,61.0,sold
 2026-03,ELA-028,Latin America,Orion Driveline,84.0,sold
-2026-04,ELA-028,Latin America,Orion Driveline,6900.0,sold
+2026-04,ELA-028,Latin America,Orion Driveline,30.0,sold
 2026-05,ELA-028,Latin America,Orion Driveline,27.0,sold
 2026-06,ELA-028,Latin America,Orion Driveline,55.0,sold
 2026-07,ELA-028,Latin America,Orion Driveline,61.0,sold
@@ -105306,7 +105306,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-04,ELA-033,Middle East & Africa,Falcon Gulf Motors,51.0,sold
 2024-05,ELA-033,Middle East & Africa,Falcon Gulf Motors,17.0,sold
 2024-06,ELA-033,Middle East & Africa,Falcon Gulf Motors,0.0,zero_order
-2024-07,ELA-033,Middle East & Africa,Falcon Gulf Motors,4500.0,sold
+2024-07,ELA-033,Middle East & Africa,Falcon Gulf Motors,56.0,sold
 2024-08,ELA-033,Middle East & Africa,Falcon Gulf Motors,21.0,sold
 2024-09,ELA-033,Middle East & Africa,Falcon Gulf Motors,0.0,zero_order
 2024-10,ELA-033,Middle East & Africa,Falcon Gulf Motors,47.0,sold
@@ -107608,7 +107608,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-04,ELA-037,Asia Pacific,Meridian Assembly,88.0,sold
 2020-05,ELA-037,Asia Pacific,Meridian Assembly,46.0,sold
 2020-06,ELA-037,Asia Pacific,Meridian Assembly,0.0,zero_order
-2020-07,ELA-037,Asia Pacific,Meridian Assembly,440.0,sold
+2020-07,ELA-037,Asia Pacific,Meridian Assembly,19.0,sold
 2020-08,ELA-037,Asia Pacific,Meridian Assembly,27.0,sold
 2020-09,ELA-037,Asia Pacific,Meridian Assembly,0.0,zero_order
 2020-10,ELA-037,Asia Pacific,Meridian Assembly,,not_recorded
@@ -114640,7 +114640,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-11,ELA-051,Europe,Crestline Manufacturing,36.0,sold
 2020-12,ELA-051,Europe,Crestline Manufacturing,,not_recorded
 2021-01,ELA-051,Europe,Crestline Manufacturing,30.0,sold
-2021-02,ELA-051,Europe,Crestline Manufacturing,400.0,sold
+2021-02,ELA-051,Europe,Crestline Manufacturing,18.0,sold
 2021-03,ELA-051,Europe,Crestline Manufacturing,38.0,sold
 2021-04,ELA-051,Europe,Crestline Manufacturing,26.0,sold
 2021-05,ELA-051,Europe,Crestline Manufacturing,34.0,sold
@@ -119920,7 +119920,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2026-08,ELA-061,Middle East & Africa,Falcon Gulf Motors,17.0,sold
 2026-09,ELA-061,Middle East & Africa,Falcon Gulf Motors,8.0,sold
 2026-10,ELA-061,Middle East & Africa,Falcon Gulf Motors,15.0,sold
-2019-01,ELA-062,Asia Pacific,Solaris Automotive,790.0,sold
+2019-01,ELA-062,Asia Pacific,Solaris Automotive,39.0,sold
 2019-02,ELA-062,Asia Pacific,Solaris Automotive,33.0,sold
 2019-03,ELA-062,Asia Pacific,Solaris Automotive,49.0,sold
 2019-04,ELA-062,Asia Pacific,Solaris Automotive,50.0,sold
@@ -120340,7 +120340,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-06,ELA-062,North America,Solaris Automotive,106.0,sold
 2022-07,ELA-062,North America,Solaris Automotive,0.0,zero_order
 2022-08,ELA-062,North America,Solaris Automotive,0.0,zero_order
-2022-09,ELA-062,North America,Solaris Automotive,912.0,sold
+2022-09,ELA-062,North America,Solaris Automotive,28.0,sold
 2022-10,ELA-062,North America,Solaris Automotive,0.0,zero_order
 2022-11,ELA-062,North America,Solaris Automotive,0.0,zero_order
 2022-12,ELA-062,North America,Solaris Automotive,179.0,sold
@@ -121048,7 +121048,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-06,ELA-064,Europe,Helios Auto Parts,33.0,sold
 2024-07,ELA-064,Europe,Helios Auto Parts,59.0,sold
 2024-08,ELA-064,Europe,Helios Auto Parts,0.0,zero_order
-2024-09,ELA-064,Europe,Helios Auto Parts,790.0,sold
+2024-09,ELA-064,Europe,Helios Auto Parts,29.0,sold
 2024-10,ELA-064,Europe,Helios Auto Parts,57.0,sold
 2024-11,ELA-064,Europe,Helios Auto Parts,54.0,sold
 2024-12,ELA-064,Europe,Helios Auto Parts,35.0,sold
@@ -124633,7 +124633,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-03,ELA-074,Middle East & Africa,Falcon Gulf Motors,6.0,sold
 2024-04,ELA-074,Middle East & Africa,Falcon Gulf Motors,16.0,sold
 2024-05,ELA-074,Middle East & Africa,Falcon Gulf Motors,5.0,sold
-2024-06,ELA-074,Middle East & Africa,Falcon Gulf Motors,1300.0,sold
+2024-06,ELA-074,Middle East & Africa,Falcon Gulf Motors,16.0,sold
 2024-07,ELA-074,Middle East & Africa,Falcon Gulf Motors,13.0,sold
 2024-08,ELA-074,Middle East & Africa,Falcon Gulf Motors,6.0,sold
 2024-09,ELA-074,Middle East & Africa,Falcon Gulf Motors,20.0,sold
@@ -127006,7 +127006,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-12,ELA-080,Asia Pacific,Nexon Motor Group,26.0,sold
 2025-01,ELA-080,Asia Pacific,Nexon Motor Group,0.0,zero_order
 2025-02,ELA-080,Asia Pacific,Nexon Motor Group,55.0,sold
-2025-03,ELA-080,Asia Pacific,Nexon Motor Group,3800.0,sold
+2025-03,ELA-080,Asia Pacific,Nexon Motor Group,43.0,sold
 2025-04,ELA-080,Asia Pacific,Nexon Motor Group,0.0,zero_order
 2025-05,ELA-080,Asia Pacific,Nexon Motor Group,47.0,sold
 2025-06,ELA-080,Asia Pacific,Nexon Motor Group,36.0,sold
@@ -127391,7 +127391,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-01,ELA-081,India,Apex Tier One,41.0,sold
 2025-02,ELA-081,India,Apex Tier One,21.0,sold
 2025-03,ELA-081,India,Apex Tier One,43.0,sold
-2025-04,ELA-081,India,Apex Tier One,4100.0,sold
+2025-04,ELA-081,India,Apex Tier One,19.0,sold
 2025-05,ELA-081,India,Apex Tier One,28.0,sold
 2025-06,ELA-081,India,Apex Tier One,,not_recorded
 2025-07,ELA-081,India,Apex Tier One,53.0,sold
@@ -129216,7 +129216,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-08,ELA-085,Europe,Orion Driveline,13.0,sold
 2022-09,ELA-085,Europe,Orion Driveline,21.0,sold
 2022-10,ELA-085,Europe,Orion Driveline,20.0,sold
-2022-11,ELA-085,Europe,Orion Driveline,2500.0,sold
+2022-11,ELA-085,Europe,Orion Driveline,20.0,sold
 2022-12,ELA-085,Europe,Orion Driveline,12.0,sold
 2023-01,ELA-085,Europe,Orion Driveline,27.0,sold
 2023-02,ELA-085,Europe,Orion Driveline,13.0,sold
@@ -129523,7 +129523,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-09,ELA-085,Middle East & Africa,Atlas Mideast Components,17.0,sold
 2024-10,ELA-085,Middle East & Africa,Atlas Mideast Components,36.0,sold
 2024-11,ELA-085,Middle East & Africa,Atlas Mideast Components,36.0,sold
-2024-12,ELA-085,Middle East & Africa,Atlas Mideast Components,2500.0,sold
+2024-12,ELA-085,Middle East & Africa,Atlas Mideast Components,24.0,sold
 2025-01,ELA-085,Middle East & Africa,Atlas Mideast Components,27.0,sold
 2025-02,ELA-085,Middle East & Africa,Atlas Mideast Components,16.0,sold
 2025-03,ELA-085,Middle East & Africa,Atlas Mideast Components,19.0,sold
@@ -130420,7 +130420,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2021-02,ELA-087,Asia Pacific,Quantum Drive Systems,26.0,sold
 2021-03,ELA-087,Asia Pacific,Quantum Drive Systems,22.0,sold
 2021-04,ELA-087,Asia Pacific,Quantum Drive Systems,0.0,zero_order
-2021-05,ELA-087,Asia Pacific,Quantum Drive Systems,6200.0,sold
+2021-05,ELA-087,Asia Pacific,Quantum Drive Systems,24.0,sold
 2021-06,ELA-087,Asia Pacific,Quantum Drive Systems,19.0,sold
 2021-07,ELA-087,Asia Pacific,Quantum Drive Systems,0.0,zero_order
 2021-08,ELA-087,Asia Pacific,Quantum Drive Systems,43.0,sold
@@ -134774,7 +134774,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2023-08,HYD-006,Europe,Quantum Drive Systems,0.0,zero_order
 2023-09,HYD-006,Europe,Quantum Drive Systems,117.0,sold
 2023-10,HYD-006,Europe,Quantum Drive Systems,0.0,zero_order
-2023-11,HYD-006,Europe,Quantum Drive Systems,1630.0,sold
+2023-11,HYD-006,Europe,Quantum Drive Systems,42.0,sold
 2023-12,HYD-006,Europe,Quantum Drive Systems,0.0,zero_order
 2024-01,HYD-006,Europe,Quantum Drive Systems,73.0,sold
 2024-02,HYD-006,Europe,Quantum Drive Systems,0.0,zero_order
@@ -136125,7 +136125,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2026-07,HYD-008,Europe,Quantum Drive Systems,29.0,sold
 2026-08,HYD-008,Europe,Quantum Drive Systems,0.0,zero_order
 2026-09,HYD-008,Europe,Quantum Drive Systems,97.0,sold
-2026-10,HYD-008,Europe,Quantum Drive Systems,620.0,sold
+2026-10,HYD-008,Europe,Quantum Drive Systems,26.0,sold
 2019-01,HYD-008,India,Solaris Automotive,12.0,sold
 2019-02,HYD-008,India,Solaris Automotive,35.0,sold
 2019-03,HYD-008,India,Solaris Automotive,27.0,sold
@@ -141985,7 +141985,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2021-05,HYD-017,Latin America,Vantara Auto,12.0,sold
 2021-06,HYD-017,Latin America,Vantara Auto,26.0,sold
 2021-07,HYD-017,Latin America,Vantara Auto,26.0,sold
-2021-08,HYD-017,Latin America,Vantara Auto,2500.0,sold
+2021-08,HYD-017,Latin America,Vantara Auto,61.0,sold
 2021-09,HYD-017,Latin America,Vantara Auto,18.0,sold
 2021-10,HYD-017,Latin America,Vantara Auto,19.0,sold
 2021-11,HYD-017,Latin America,Vantara Auto,31.0,sold
@@ -144562,7 +144562,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-01,HYD-022,India,Crestline Manufacturing,40.0,sold
 2025-02,HYD-022,India,Crestline Manufacturing,76.0,sold
 2025-03,HYD-022,India,Crestline Manufacturing,32.0,sold
-2025-04,HYD-022,India,Crestline Manufacturing,4600.0,sold
+2025-04,HYD-022,India,Crestline Manufacturing,37.0,sold
 2025-05,HYD-022,India,Crestline Manufacturing,48.0,sold
 2025-06,HYD-022,India,Crestline Manufacturing,59.0,sold
 2025-07,HYD-022,India,Crestline Manufacturing,36.0,sold
@@ -147888,7 +147888,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-05,HYD-029,Europe,Orion Driveline,90.0,sold
 2020-06,HYD-029,Europe,Orion Driveline,0.0,zero_order
 2020-07,HYD-029,Europe,Orion Driveline,0.0,zero_order
-2020-08,HYD-029,Europe,Orion Driveline,870.0,sold
+2020-08,HYD-029,Europe,Orion Driveline,34.0,sold
 2020-09,HYD-029,Europe,Orion Driveline,0.0,zero_order
 2020-10,HYD-029,Europe,Orion Driveline,0.0,zero_order
 2020-11,HYD-029,Europe,Orion Driveline,143.0,sold
@@ -154378,7 +154378,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-05,HYD-042,Latin America,Apex Tier One,58.0,sold
 2024-06,HYD-042,Latin America,Apex Tier One,58.0,sold
 2024-07,HYD-042,Latin America,Apex Tier One,38.0,sold
-2024-08,HYD-042,Latin America,Apex Tier One,870.0,sold
+2024-08,HYD-042,Latin America,Apex Tier One,41.0,sold
 2024-09,HYD-042,Latin America,Apex Tier One,57.0,sold
 2024-10,HYD-042,Latin America,Apex Tier One,41.0,sold
 2024-11,HYD-042,Latin America,Apex Tier One,100.0,sold
@@ -156554,7 +156554,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-07,HYD-046,India,Solaris Automotive,32.0,sold
 2025-08,HYD-046,India,Solaris Automotive,42.0,sold
 2025-09,HYD-046,India,Solaris Automotive,63.0,sold
-2025-10,HYD-046,India,Solaris Automotive,3800.0,sold
+2025-10,HYD-046,India,Solaris Automotive,37.0,sold
 2025-11,HYD-046,India,Solaris Automotive,31.0,sold
 2025-12,HYD-046,India,Solaris Automotive,0.0,zero_order
 2026-01,HYD-046,India,Solaris Automotive,56.0,sold
@@ -161900,7 +161900,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-12,HYD-056,Latin America,Apex Tier One,31.0,sold
 2021-01,HYD-056,Latin America,Apex Tier One,36.0,sold
 2021-02,HYD-056,Latin America,Apex Tier One,27.0,sold
-2021-03,HYD-056,Latin America,Apex Tier One,3000.0,sold
+2021-03,HYD-056,Latin America,Apex Tier One,42.0,sold
 2021-04,HYD-056,Latin America,Apex Tier One,55.0,sold
 2021-05,HYD-056,Latin America,Apex Tier One,38.0,sold
 2021-06,HYD-056,Latin America,Apex Tier One,23.0,sold
@@ -162176,7 +162176,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-06,HYD-057,Europe,Apex Tier One,53.0,sold
 2020-07,HYD-057,Europe,Apex Tier One,26.0,sold
 2020-08,HYD-057,Europe,Apex Tier One,17.0,sold
-2020-09,HYD-057,Europe,Apex Tier One,5000.0,sold
+2020-09,HYD-057,Europe,Apex Tier One,28.0,sold
 2020-10,HYD-057,Europe,Apex Tier One,50.0,sold
 2020-11,HYD-057,Europe,Apex Tier One,50.0,sold
 2020-12,HYD-057,Europe,Apex Tier One,38.0,sold
@@ -162384,7 +162384,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-02,HYD-057,North America,Crestline Manufacturing,0.0,zero_order
 2022-03,HYD-057,North America,Crestline Manufacturing,286.0,sold
 2022-04,HYD-057,North America,Crestline Manufacturing,0.0,zero_order
-2022-05,HYD-057,North America,Crestline Manufacturing,2380.0,sold
+2022-05,HYD-057,North America,Crestline Manufacturing,36.0,sold
 2022-06,HYD-057,North America,Crestline Manufacturing,0.0,zero_order
 2022-07,HYD-057,North America,Crestline Manufacturing,129.0,sold
 2022-08,HYD-057,North America,Crestline Manufacturing,0.0,zero_order
@@ -164547,7 +164547,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-03,HYD-061,Europe,Nexon Motor Group,,not_recorded
 2022-04,HYD-061,Europe,Nexon Motor Group,73.0,sold
 2022-05,HYD-061,Europe,Nexon Motor Group,85.0,sold
-2022-06,HYD-061,Europe,Nexon Motor Group,8400.0,sold
+2022-06,HYD-061,Europe,Nexon Motor Group,36.0,sold
 2022-07,HYD-061,Europe,Nexon Motor Group,38.0,sold
 2022-08,HYD-061,Europe,Nexon Motor Group,33.0,sold
 2022-09,HYD-061,Europe,Nexon Motor Group,72.0,sold
@@ -168937,7 +168937,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-08,HYD-071,Asia Pacific,Vantara Auto,75.0,sold
 2024-09,HYD-071,Asia Pacific,Vantara Auto,77.0,sold
 2024-10,HYD-071,Asia Pacific,Vantara Auto,79.0,sold
-2024-11,HYD-071,Asia Pacific,Vantara Auto,800.0,sold
+2024-11,HYD-071,Asia Pacific,Vantara Auto,26.0,sold
 2024-12,HYD-071,Asia Pacific,Vantara Auto,0.0,zero_order
 2025-01,HYD-071,Asia Pacific,Vantara Auto,108.0,sold
 2025-02,HYD-071,Asia Pacific,Vantara Auto,26.0,sold
@@ -170353,7 +170353,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-02,HYD-074,Europe,Meridian Assembly,69.0,sold
 2025-03,HYD-074,Europe,Meridian Assembly,43.0,sold
 2025-04,HYD-074,Europe,Meridian Assembly,65.0,sold
-2025-05,HYD-074,Europe,Meridian Assembly,1900.0,sold
+2025-05,HYD-074,Europe,Meridian Assembly,38.0,sold
 2025-06,HYD-074,Europe,Meridian Assembly,33.0,sold
 2025-07,HYD-074,Europe,Meridian Assembly,34.0,sold
 2025-08,HYD-074,Europe,Meridian Assembly,13.0,sold
@@ -173396,7 +173396,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-03,HYD-078,North America,Vantara Auto,22.0,sold
 2020-04,HYD-078,North America,Vantara Auto,8.0,sold
 2020-05,HYD-078,North America,Vantara Auto,10.0,sold
-2020-06,HYD-078,North America,Vantara Auto,800.0,sold
+2020-06,HYD-078,North America,Vantara Auto,28.0,sold
 2020-07,HYD-078,North America,Vantara Auto,11.0,sold
 2020-08,HYD-078,North America,Vantara Auto,17.0,sold
 2020-09,HYD-078,North America,Vantara Auto,29.0,sold
@@ -174155,7 +174155,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-11,HYD-080,India,Nexon Motor Group,0.0,zero_order
 2020-12,HYD-080,India,Nexon Motor Group,109.0,sold
 2021-01,HYD-080,India,Nexon Motor Group,0.0,zero_order
-2021-02,HYD-080,India,Nexon Motor Group,1090.0,sold
+2021-02,HYD-080,India,Nexon Motor Group,42.0,sold
 2021-03,HYD-080,India,Nexon Motor Group,0.0,zero_order
 2021-04,HYD-080,India,Nexon Motor Group,86.0,sold
 2021-05,HYD-080,India,Nexon Motor Group,0.0,zero_order
@@ -175872,7 +175872,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-12,HYD-083,India,Helios Auto Parts,53.0,sold
 2023-01,HYD-083,India,Helios Auto Parts,0.0,zero_order
 2023-02,HYD-083,India,Helios Auto Parts,84.0,sold
-2023-03,HYD-083,India,Helios Auto Parts,2100.0,sold
+2023-03,HYD-083,India,Helios Auto Parts,45.0,sold
 2023-04,HYD-083,India,Helios Auto Parts,0.0,zero_order
 2023-05,HYD-083,India,Helios Auto Parts,65.0,sold
 2023-06,HYD-083,India,Helios Auto Parts,31.0,sold
@@ -178427,7 +178427,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-09,HYD-088,India,Vantara Auto,45.0,sold
 2020-10,HYD-088,India,Vantara Auto,0.0,zero_order
 2020-11,HYD-088,India,Vantara Auto,0.0,zero_order
-2020-12,HYD-088,India,Vantara Auto,9000.0,sold
+2020-12,HYD-088,India,Vantara Auto,50.0,sold
 2021-01,HYD-088,India,Vantara Auto,0.0,zero_order
 2021-02,HYD-088,India,Vantara Auto,0.0,zero_order
 2021-03,HYD-088,India,Vantara Auto,51.0,sold
@@ -190279,7 +190279,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2026-02,PMP-018,Europe,Orion Driveline,45.0,sold
 2026-03,PMP-018,Europe,Orion Driveline,25.0,sold
 2026-04,PMP-018,Europe,Orion Driveline,34.0,sold
-2026-05,PMP-018,Europe,Orion Driveline,5100.0,sold
+2026-05,PMP-018,Europe,Orion Driveline,45.0,sold
 2026-06,PMP-018,Europe,Orion Driveline,31.0,sold
 2026-07,PMP-018,Europe,Orion Driveline,,not_recorded
 2026-08,PMP-018,Europe,Orion Driveline,41.0,sold
@@ -191353,7 +191353,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-01,PMP-022,India,Helios Auto Parts,40.0,sold
 2025-02,PMP-022,India,Helios Auto Parts,58.0,sold
 2025-03,PMP-022,India,Helios Auto Parts,31.0,sold
-2025-04,PMP-022,India,Helios Auto Parts,5100.0,sold
+2025-04,PMP-022,India,Helios Auto Parts,31.0,sold
 2025-05,PMP-022,India,Helios Auto Parts,67.0,sold
 2025-06,PMP-022,India,Helios Auto Parts,0.0,zero_order
 2025-07,PMP-022,India,Helios Auto Parts,57.0,sold
@@ -193138,7 +193138,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-12,PMP-025,Middle East & Africa,Falcon Gulf Motors,97.0,sold
 2025-01,PMP-025,Middle East & Africa,Falcon Gulf Motors,75.0,sold
 2025-02,PMP-025,Middle East & Africa,Falcon Gulf Motors,52.0,sold
-2025-03,PMP-025,Middle East & Africa,Falcon Gulf Motors,1700.0,sold
+2025-03,PMP-025,Middle East & Africa,Falcon Gulf Motors,66.0,sold
 2025-04,PMP-025,Middle East & Africa,Falcon Gulf Motors,48.0,sold
 2025-05,PMP-025,Middle East & Africa,Falcon Gulf Motors,36.0,sold
 2025-06,PMP-025,Middle East & Africa,Falcon Gulf Motors,37.0,sold
@@ -198174,7 +198174,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2023-10,PMP-035,Latin America,Solaris Automotive,23.0,sold
 2023-11,PMP-035,Latin America,Solaris Automotive,0.0,zero_order
 2023-12,PMP-035,Latin America,Solaris Automotive,37.0,sold
-2024-01,PMP-035,Latin America,Solaris Automotive,4400.0,sold
+2024-01,PMP-035,Latin America,Solaris Automotive,46.0,sold
 2024-02,PMP-035,Latin America,Solaris Automotive,0.0,zero_order
 2024-03,PMP-035,Latin America,Solaris Automotive,,not_recorded
 2024-04,PMP-035,Latin America,Solaris Automotive,29.0,sold
@@ -198337,7 +198337,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2021-09,PMP-035,North America,Solaris Automotive,45.0,sold
 2021-10,PMP-035,North America,Solaris Automotive,107.0,sold
 2021-11,PMP-035,North America,Solaris Automotive,79.0,sold
-2021-12,PMP-035,North America,Solaris Automotive,7400.0,sold
+2021-12,PMP-035,North America,Solaris Automotive,43.0,sold
 2022-01,PMP-035,North America,Solaris Automotive,88.0,sold
 2022-02,PMP-035,North America,Solaris Automotive,70.0,sold
 2022-03,PMP-035,North America,Solaris Automotive,69.0,sold
@@ -207971,7 +207971,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-05,PMP-053,Europe,Vantara Auto,0.0,zero_order
 2024-06,PMP-053,Europe,Vantara Auto,174.0,sold
 2024-07,PMP-053,Europe,Vantara Auto,0.0,zero_order
-2024-08,PMP-053,Europe,Vantara Auto,1710.0,sold
+2024-08,PMP-053,Europe,Vantara Auto,49.0,sold
 2024-09,PMP-053,Europe,Vantara Auto,0.0,zero_order
 2024-10,PMP-053,Europe,Vantara Auto,139.0,sold
 2024-11,PMP-053,Europe,Vantara Auto,0.0,zero_order
@@ -209764,7 +209764,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-12,PMP-056,Latin America,Helios Auto Parts,50.0,sold
 2025-01,PMP-056,Latin America,Helios Auto Parts,26.0,sold
 2025-02,PMP-056,Latin America,Helios Auto Parts,43.0,sold
-2025-03,PMP-056,Latin America,Helios Auto Parts,6300.0,sold
+2025-03,PMP-056,Latin America,Helios Auto Parts,70.0,sold
 2025-04,PMP-056,Latin America,Helios Auto Parts,,not_recorded
 2025-05,PMP-056,Latin America,Helios Auto Parts,52.0,sold
 2025-06,PMP-056,Latin America,Helios Auto Parts,49.0,sold
@@ -213937,7 +213937,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-07,PMP-063,Latin America,Helios Auto Parts,91.0,sold
 2024-08,PMP-063,Latin America,Helios Auto Parts,75.0,sold
 2024-09,PMP-063,Latin America,Helios Auto Parts,,not_recorded
-2024-10,PMP-063,Latin America,Helios Auto Parts,1170.0,sold
+2024-10,PMP-063,Latin America,Helios Auto Parts,47.0,sold
 2024-11,PMP-063,Latin America,Helios Auto Parts,71.0,sold
 2024-12,PMP-063,Latin America,Helios Auto Parts,62.0,sold
 2025-01,PMP-063,Latin America,Helios Auto Parts,47.0,sold
@@ -217798,7 +217798,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-04,PMP-071,Latin America,Solaris Automotive,67.0,sold
 2024-05,PMP-071,Latin America,Solaris Automotive,121.0,sold
 2024-06,PMP-071,Latin America,Solaris Automotive,104.0,sold
-2024-07,PMP-071,Latin America,Solaris Automotive,1450.0,sold
+2024-07,PMP-071,Latin America,Solaris Automotive,62.0,sold
 2024-08,PMP-071,Latin America,Solaris Automotive,132.0,sold
 2024-09,PMP-071,Latin America,Solaris Automotive,94.0,sold
 2024-10,PMP-071,Latin America,Solaris Automotive,107.0,sold
@@ -239334,7 +239334,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-12,PTC-019,India,Orion Driveline,0.0,zero_order
 2025-01,PTC-019,India,Orion Driveline,87.0,sold
 2025-02,PTC-019,India,Orion Driveline,0.0,zero_order
-2025-03,PTC-019,India,Orion Driveline,920.0,sold
+2025-03,PTC-019,India,Orion Driveline,34.0,sold
 2025-04,PTC-019,India,Orion Driveline,0.0,zero_order
 2025-05,PTC-019,India,Orion Driveline,74.0,sold
 2025-06,PTC-019,India,Orion Driveline,0.0,zero_order
@@ -242702,7 +242702,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2023-08,PTC-024,Middle East & Africa,Atlas Mideast Components,46.0,sold
 2023-09,PTC-024,Middle East & Africa,Atlas Mideast Components,18.0,sold
 2023-10,PTC-024,Middle East & Africa,Atlas Mideast Components,0.0,zero_order
-2023-11,PTC-024,Middle East & Africa,Atlas Mideast Components,3400.0,sold
+2023-11,PTC-024,Middle East & Africa,Atlas Mideast Components,35.0,sold
 2023-12,PTC-024,Middle East & Africa,Atlas Mideast Components,16.0,sold
 2024-01,PTC-024,Middle East & Africa,Atlas Mideast Components,0.0,zero_order
 2024-02,PTC-024,Middle East & Africa,Atlas Mideast Components,9.0,sold
@@ -256161,7 +256161,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-01,PTC-054,Latin America,Nexon Motor Group,39.0,sold
 2024-02,PTC-054,Latin America,Nexon Motor Group,49.0,sold
 2024-03,PTC-054,Latin America,Nexon Motor Group,46.0,sold
-2024-04,PTC-054,Latin America,Nexon Motor Group,3500.0,sold
+2024-04,PTC-054,Latin America,Nexon Motor Group,46.0,sold
 2024-05,PTC-054,Latin America,Nexon Motor Group,54.0,sold
 2024-06,PTC-054,Latin America,Nexon Motor Group,36.0,sold
 2024-07,PTC-054,Latin America,Nexon Motor Group,78.0,sold
@@ -256865,7 +256865,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-01,PTC-055,North America,Meridian Assembly,33.0,sold
 2020-02,PTC-055,North America,Meridian Assembly,47.0,sold
 2020-03,PTC-055,North America,Meridian Assembly,78.0,sold
-2020-04,PTC-055,North America,Meridian Assembly,900.0,sold
+2020-04,PTC-055,North America,Meridian Assembly,39.0,sold
 2020-05,PTC-055,North America,Meridian Assembly,21.0,sold
 2020-06,PTC-055,North America,Meridian Assembly,33.0,sold
 2020-07,PTC-055,North America,Meridian Assembly,40.0,sold
@@ -264203,7 +264203,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2026-06,PTC-069,Latin America,Vantara Auto,31.0,sold
 2026-07,PTC-069,Latin America,Vantara Auto,0.0,zero_order
 2026-08,PTC-069,Latin America,Vantara Auto,66.0,sold
-2026-09,PTC-069,Latin America,Vantara Auto,4800.0,sold
+2026-09,PTC-069,Latin America,Vantara Auto,30.0,sold
 2026-10,PTC-069,Latin America,Vantara Auto,0.0,zero_order
 2023-08,PTC-069,Middle East & Africa,Kestrel Mobility,2.0,sold
 2023-09,PTC-069,Middle East & Africa,Kestrel Mobility,2.0,sold
@@ -265818,7 +265818,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2021-09,PTC-074,Latin America,Orion Driveline,57.0,sold
 2021-10,PTC-074,Latin America,Orion Driveline,41.0,sold
 2021-11,PTC-074,Latin America,Orion Driveline,17.0,sold
-2021-12,PTC-074,Latin America,Orion Driveline,3500.0,sold
+2021-12,PTC-074,Latin America,Orion Driveline,57.0,sold
 2022-01,PTC-074,Latin America,Orion Driveline,28.0,sold
 2022-02,PTC-074,Latin America,Orion Driveline,42.0,sold
 2022-03,PTC-074,Latin America,Orion Driveline,38.0,sold
@@ -267895,7 +267895,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-06,PTC-078,India,Meridian Assembly,76.0,sold
 2022-07,PTC-078,India,Meridian Assembly,,not_recorded
 2022-08,PTC-078,India,Meridian Assembly,0.0,zero_order
-2022-09,PTC-078,India,Meridian Assembly,1360.0,sold
+2022-09,PTC-078,India,Meridian Assembly,62.0,sold
 2022-10,PTC-078,India,Meridian Assembly,67.0,sold
 2022-11,PTC-078,India,Meridian Assembly,0.0,zero_order
 2022-12,PTC-078,India,Meridian Assembly,102.0,sold
@@ -268021,7 +268021,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-02,PTC-078,Latin America,Solaris Automotive,101.0,sold
 2025-03,PTC-078,Latin America,Solaris Automotive,0.0,zero_order
 2025-04,PTC-078,Latin America,Solaris Automotive,0.0,zero_order
-2025-05,PTC-078,Latin America,Solaris Automotive,9200.0,sold
+2025-05,PTC-078,Latin America,Solaris Automotive,43.0,sold
 2025-06,PTC-078,Latin America,Solaris Automotive,0.0,zero_order
 2025-07,PTC-078,Latin America,Solaris Automotive,0.0,zero_order
 2025-08,PTC-078,Latin America,Solaris Automotive,104.0,sold
@@ -268924,7 +268924,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-01,PTC-080,Latin America,Solaris Automotive,33.0,sold
 2022-02,PTC-080,Latin America,Solaris Automotive,37.0,sold
 2022-03,PTC-080,Latin America,Solaris Automotive,41.0,sold
-2022-04,PTC-080,Latin America,Solaris Automotive,4400.0,sold
+2022-04,PTC-080,Latin America,Solaris Automotive,38.0,sold
 2022-05,PTC-080,Latin America,Solaris Automotive,30.0,sold
 2022-06,PTC-080,Latin America,Solaris Automotive,47.0,sold
 2022-07,PTC-080,Latin America,Solaris Automotive,29.0,sold
@@ -270976,7 +270976,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2019-05,PTC-084,Latin America,Quantum Drive Systems,26.0,sold
 2019-06,PTC-084,Latin America,Quantum Drive Systems,36.0,sold
 2019-07,PTC-084,Latin America,Quantum Drive Systems,30.0,sold
-2019-08,PTC-084,Latin America,Quantum Drive Systems,4500.0,sold
+2019-08,PTC-084,Latin America,Quantum Drive Systems,36.0,sold
 2019-09,PTC-084,Latin America,Quantum Drive Systems,56.0,sold
 2019-10,PTC-084,Latin America,Quantum Drive Systems,42.0,sold
 2019-11,PTC-084,Latin America,Quantum Drive Systems,25.0,sold
@@ -271546,7 +271546,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2019-11,PTC-085,North America,Orion Driveline,44.0,sold
 2019-12,PTC-085,North America,Orion Driveline,38.0,sold
 2020-01,PTC-085,North America,Orion Driveline,36.0,sold
-2020-02,PTC-085,North America,Orion Driveline,380.0,sold
+2020-02,PTC-085,North America,Orion Driveline,15.0,sold
 2020-03,PTC-085,North America,Orion Driveline,32.0,sold
 2020-04,PTC-085,North America,Orion Driveline,9.0,sold
 2020-05,PTC-085,North America,Orion Driveline,13.0,sold
@@ -282228,7 +282228,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-07,THM-020,India,Orion Driveline,84.0,sold
 2024-08,THM-020,India,Orion Driveline,77.0,sold
 2024-09,THM-020,India,Orion Driveline,82.0,sold
-2024-10,THM-020,India,Orion Driveline,1270.0,sold
+2024-10,THM-020,India,Orion Driveline,62.0,sold
 2024-11,THM-020,India,Orion Driveline,128.0,sold
 2024-12,THM-020,India,Orion Driveline,74.0,sold
 2025-01,THM-020,India,Orion Driveline,,not_recorded
@@ -285709,7 +285709,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-10,THM-026,India,Orion Driveline,92.0,sold
 2024-11,THM-026,India,Orion Driveline,96.0,sold
 2024-12,THM-026,India,Orion Driveline,105.0,sold
-2025-01,THM-026,India,Orion Driveline,13800.0,sold
+2025-01,THM-026,India,Orion Driveline,98.0,sold
 2025-02,THM-026,India,Orion Driveline,131.0,sold
 2025-03,THM-026,India,Orion Driveline,97.0,sold
 2025-04,THM-026,India,Orion Driveline,109.0,sold
@@ -289385,7 +289385,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2025-08,THM-032,Asia Pacific,Apex Tier One,79.0,sold
 2025-09,THM-032,Asia Pacific,Apex Tier One,81.0,sold
 2025-10,THM-032,Asia Pacific,Apex Tier One,64.0,sold
-2025-11,THM-032,Asia Pacific,Apex Tier One,10700.0,sold
+2025-11,THM-032,Asia Pacific,Apex Tier One,96.0,sold
 2025-12,THM-032,Asia Pacific,Apex Tier One,0.0,zero_order
 2026-01,THM-032,Asia Pacific,Apex Tier One,115.0,sold
 2026-02,THM-032,Asia Pacific,Apex Tier One,44.0,sold
@@ -300280,7 +300280,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-11,THM-050,Europe,Crestline Manufacturing,20.0,sold
 2024-12,THM-050,Europe,Crestline Manufacturing,24.0,sold
 2025-01,THM-050,Europe,Crestline Manufacturing,12.0,sold
-2025-02,THM-050,Europe,Crestline Manufacturing,1600.0,sold
+2025-02,THM-050,Europe,Crestline Manufacturing,63.0,sold
 2025-03,THM-050,Europe,Crestline Manufacturing,47.0,sold
 2025-04,THM-050,Europe,Crestline Manufacturing,24.0,sold
 2025-05,THM-050,Europe,Crestline Manufacturing,34.0,sold
@@ -302907,7 +302907,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2019-04,THM-056,Europe,Helios Auto Parts,89.0,sold
 2019-05,THM-056,Europe,Helios Auto Parts,93.0,sold
 2019-06,THM-056,Europe,Helios Auto Parts,45.0,sold
-2019-07,THM-056,Europe,Helios Auto Parts,8200.0,sold
+2019-07,THM-056,Europe,Helios Auto Parts,50.0,sold
 2019-08,THM-056,Europe,Helios Auto Parts,0.0,zero_order
 2019-09,THM-056,Europe,Helios Auto Parts,94.0,sold
 2019-10,THM-056,Europe,Helios Auto Parts,63.0,sold
@@ -303347,7 +303347,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-06,THM-057,Europe,Crestline Manufacturing,77.0,sold
 2024-07,THM-057,Europe,Crestline Manufacturing,126.0,sold
 2024-08,THM-057,Europe,Crestline Manufacturing,0.0,zero_order
-2024-09,THM-057,Europe,Crestline Manufacturing,1370.0,sold
+2024-09,THM-057,Europe,Crestline Manufacturing,54.0,sold
 2024-10,THM-057,Europe,Crestline Manufacturing,660.0,sold
 2024-11,THM-057,Europe,Crestline Manufacturing,106.0,sold
 2024-12,THM-057,Europe,Crestline Manufacturing,84.0,sold
@@ -310181,7 +310181,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2024-11,THM-073,Middle East & Africa,Falcon Gulf Motors,33.0,sold
 2024-12,THM-073,Middle East & Africa,Falcon Gulf Motors,34.0,sold
 2025-01,THM-073,Middle East & Africa,Falcon Gulf Motors,44.0,sold
-2025-02,THM-073,Middle East & Africa,Falcon Gulf Motors,1300.0,sold
+2025-02,THM-073,Middle East & Africa,Falcon Gulf Motors,54.0,sold
 2025-03,THM-073,Middle East & Africa,Falcon Gulf Motors,20.0,sold
 2025-04,THM-073,Middle East & Africa,Falcon Gulf Motors,29.0,sold
 2025-05,THM-073,Middle East & Africa,Falcon Gulf Motors,29.0,sold
@@ -310756,7 +310756,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-06,THM-074,North America,Orion Driveline,0.0,zero_order
 2022-07,THM-074,North America,Orion Driveline,156.0,sold
 2022-08,THM-074,North America,Orion Driveline,0.0,zero_order
-2022-09,THM-074,North America,Orion Driveline,2170.0,sold
+2022-09,THM-074,North America,Orion Driveline,84.0,sold
 2022-10,THM-074,North America,Orion Driveline,0.0,zero_order
 2022-11,THM-074,North America,Orion Driveline,138.0,sold
 2022-12,THM-074,North America,Orion Driveline,0.0,zero_order
@@ -311330,7 +311330,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2023-04,THM-075,Latin America,Vantara Auto,,not_recorded
 2023-05,THM-075,Latin America,Vantara Auto,,not_recorded
 2023-06,THM-075,Latin America,Vantara Auto,0.0,zero_order
-2023-07,THM-075,Latin America,Vantara Auto,1750.0,sold
+2023-07,THM-075,Latin America,Vantara Auto,67.0,sold
 2023-08,THM-075,Latin America,Vantara Auto,97.0,sold
 2023-09,THM-075,Latin America,Vantara Auto,65.0,sold
 2023-10,THM-075,Latin America,Vantara Auto,55.0,sold
@@ -311881,7 +311881,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2022-03,THM-076,India,Solaris Automotive,55.0,sold
 2022-04,THM-076,India,Solaris Automotive,0.0,zero_order
 2022-05,THM-076,India,Solaris Automotive,149.0,sold
-2022-06,THM-076,India,Solaris Automotive,7100.0,sold
+2022-06,THM-076,India,Solaris Automotive,66.0,sold
 2022-07,THM-076,India,Solaris Automotive,0.0,zero_order
 2022-08,THM-076,India,Solaris Automotive,39.0,sold
 2022-09,THM-076,India,Solaris Automotive,59.0,sold
@@ -313602,7 +313602,7 @@ Date,SKU_ID,Region,Customer_Name,Units_Sold,status
 2020-05,THM-079,North America,Solaris Automotive,4.0,sold
 2020-06,THM-079,North America,Solaris Automotive,10.0,sold
 2020-07,THM-079,North America,Solaris Automotive,0.0,zero_order
-2020-08,THM-079,North America,Solaris Automotive,160.0,sold
+2020-08,THM-079,North America,Solaris Automotive,6.0,sold
 2020-09,THM-079,North America,Solaris Automotive,22.0,sold
 2020-10,THM-079,North America,Solaris Automotive,18.0,sold
 2020-11,THM-079,North America,Solaris Automotive,20.0,sold

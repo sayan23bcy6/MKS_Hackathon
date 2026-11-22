@@ -16,25 +16,25 @@
 ## Validation & Backtesting
 - **Strategy**: Honest multi-origin rolling backtests across 3 cutoff points (2023-10, 2024-10, 2025-03) with 19-month recursive horizons.
 - **No Leakage**: Features, cycles, and intermittency recomputed strictly on data up to each origin. Recursive lag propagation used for months 2-19.
-- **P10-P90 Coverage**: Raw coverage 66.2%; Calibrated coverage 72.6% across 171,317 out-of-sample predictions.
+- **P10-P90 Coverage**: Raw coverage 65.7%; Calibrated coverage 72.1% across 171,317 out-of-sample predictions.
 
 ### Benchmark Comparisons by Origin
-  - Origin 2023-10: LightGBM WAPE 0.396 vs Seasonal Naive 0.406 (Beats naive)
-  - Origin 2024-10: LightGBM WAPE 0.360 vs Seasonal Naive 0.388 (Beats naive)
-  - Origin 2025-03: LightGBM WAPE 0.361 vs Seasonal Naive 0.374 (Beats naive)
+  - Origin 2023-10: LightGBM WAPE 0.372 vs Seasonal Naive 0.358 (Loses to naive)
+  - Origin 2024-10: LightGBM WAPE 0.330 vs Seasonal Naive 0.334 (Beats naive)
+  - Origin 2025-03: LightGBM WAPE 0.333 vs Seasonal Naive 0.328 (Loses to naive)
 
 ### Backtest Summary by Family
-  - Brake & Safety Systems: Best model is `lightgbm_p50` (Mean WAPE: 0.357)
-  - Chassis & Structural: Best model is `lightgbm_p50` (Mean WAPE: 0.378)
-  - Electrical Assemblies: Best model is `lightgbm_p50` (Mean WAPE: 0.401)
-  - Hydraulic Systems: Best model is `naive_seasonal` (Mean WAPE: 0.391)
-  - Powertrain Components: Best model is `lightgbm_p50` (Mean WAPE: 0.375)
-  - Precision Machined Parts: Best model is `lightgbm_p50` (Mean WAPE: 0.370)
-  - Thermal Management: Best model is `lightgbm_p50` (Mean WAPE: 0.351)
+  - Brake & Safety Systems: Best model is `naive_seasonal` (Mean WAPE: 0.296)
+  - Chassis & Structural: Best model is `naive_seasonal` (Mean WAPE: 0.338)
+  - Electrical Assemblies: Best model is `lightgbm_p50` (Mean WAPE: 0.365)
+  - Hydraulic Systems: Best model is `naive_seasonal` (Mean WAPE: 0.348)
+  - Powertrain Components: Best model is `naive_seasonal` (Mean WAPE: 0.337)
+  - Precision Machined Parts: Best model is `lightgbm_p50` (Mean WAPE: 0.350)
+  - Thermal Management: Best model is `lightgbm_p50` (Mean WAPE: 0.328)
 
 ## Operational Controls
 - Quantile non-crossing enforcement: P10 <= P50 <= P90.
 - Lifecycle boundary zeroing: Strictly zero forecast demand prior to Launch_Date or after EOL_Date.
 - New launch history inheritance: Replaces_SKU first 6 months scaled by relative ratio, or family-region ratio before data exists.
-- Hierarchy addition: Total forecast units: 2,847,167; adds_up: true; level rows checked: 18. Trend gap values are in hierarchy_diagnostic.csv and are diagnostic only.
+- Hierarchy addition: Total forecast units: 2,812,116; adds_up: true; level rows checked: 18. Trend gap values are in hierarchy_diagnostic.csv and are diagnostic only.
 - Deterministic training: random_state=42, deterministic=True, force_row_wise=True.
