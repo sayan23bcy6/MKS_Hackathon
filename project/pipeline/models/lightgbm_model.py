@@ -104,7 +104,7 @@ def train_single_quantile(train_df: pd.DataFrame,
     if best_iter is None or best_iter <= 0:
         best_iter = 150
 
-    # Refit on full historical dataset if provided (Fix F1)
+    # Refit on the full historical dataset if provided
     if full_df is not None and len(full_df) > 0:
         full_valid = full_df[full_df[TARGET_COL].notna()].copy()
         X_full = full_valid[features].fillna(-1)

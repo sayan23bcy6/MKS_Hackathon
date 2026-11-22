@@ -16,6 +16,8 @@ streamlit run project/app/dashboard.py
 
 The application will be accessible at `http://localhost:8501`.
 
+The public dashboard URL is not considered deployment-verified until it responds with HTTP 200.
+
 ## Deployment to Streamlit Community Cloud (Steps to Follow)
 
 To deploy the dashboard to Streamlit Community Cloud:
@@ -35,14 +37,14 @@ The dashboard and deployment depend on the following outputs tracked in version 
 | `clean_events.csv` | < 0.1 MB | Scoped corporate and market events calendar |
 | `audit_log.csv` | ~12.5 MB | Complete deterministic audit log of every corrected record |
 | `data_quality_report.json` | < 0.1 MB | Machine-readable data health and rule counts |
-| `data_quality_report.md` | < 0.1 MB | Comprehensive human-readable data governance report |
+| `data_quality_report.md` | < 0.1 MB | Human-readable data governance report |
 | `anomaly_register.csv` | ~0.3 MB | Documented market disruptions and operational shocks |
 | `unconstrained_demand.parquet` | ~6.0 MB | True unconstrained demand with stockouts added back |
 | `inventory_stockouts.csv` | ~0.5 MB | Historical stockout transactions and fill rate metrics |
 | `features.parquet` | ~13.0 MB | Feature store including lags, rolling statistics, and macro factors |
 | `forecast_submission.csv` | ~1.8 MB | 19-month forward commercial forecast submission |
 | `forecast_intervals.csv` | ~2.1 MB | Quantile forecast intervals P10, P50, and P90 |
-| `hierarchy_reconciliation.csv` | < 0.1 MB | Proportional consensus reconciliation across families and regions |
+| `hierarchy_addition.csv` | < 0.1 MB | Exact bottom-up hierarchy addition across families, regions and business units |
 | `model_card.md` | < 0.1 MB | Model architecture, calibration, and governance card |
 | `backtest_metrics.csv` | < 0.1 MB | Rolling-origin backtest slices across 3 evaluation cutoffs |
 | `coverage_breakdown.csv` | < 0.1 MB | P10-P90 interval empirical coverage by origin and family |

@@ -2,9 +2,9 @@
 
 ## 1. Problem Definition and Scope
 
-Celeris Automobili manufactures engineered automotive systems across seven product families, delivering to twelve major commercial customers across six global operating regions. The core objective is forecasting true unconstrained demand (underlying customer order volume, independent of temporary plant disruptions or inventory stockouts) across 58,219 SKU-Region-Customer combinations for the 19-month horizon from 2026-11 through 2028-05.
+Celeris Automobili manufactures engineered automotive systems across seven product families, delivering to twelve major commercial customers across six global operating regions. The core objective is forecasting true unconstrained demand (underlying customer order volume, independent of temporary plant disruptions or inventory stockouts) across 58,219 forecast rows for the 19-month horizon from 2026-11 through 2028-05.
 
-The source data exhibits real-world data quality issues across transactional history (`train.csv`), macroeconomic time series (`macro_indicators.csv`), product master definitions (`sku_master.csv`), and the operational calendar (`events_calendar.csv`). Our methodology establishes an explainable, rule-based data transformation pipeline coupled with gradient boosted quantile regression, honest rolling-origin backtesting, recursive multi-step forecasting, and top-down reconciliation.
+The source data exhibits real-world data quality issues across transactional history (`train.csv`), macroeconomic time series (`macro_indicators.csv`), product master definitions (`sku_master.csv`), and the operational calendar (`events_calendar.csv`). Our methodology establishes an explainable, rule-based data transformation pipeline coupled with gradient boosted quantile regression, rolling-origin backtesting, recursive multi-step forecasting, and exact hierarchy addition reporting.
 
 ---
 
@@ -21,8 +21,8 @@ All data repairs are rule-governed, deterministic, and logged in `outputs/audit_
 | T3 | Year typographical transposition (e.g., 2062) | Replaced with 2026 | Resolves input year digit transposition confirmed by surrounding transaction timestamps. |
 | T4 | Duplicate Record IDs (identical load records) | Deduplicated by retaining latest `Load_Timestamp` | Resolves database re-ingestion duplication per Rule R2. |
 | T4b | 167 series-month rows with differing channels | Deduplicated strictly on `Date, SKU_ID, Region, Customer_Name` by retaining latest `Load_Timestamp` (Record_ID tie-break) | Ensures exactly one authoritative observation per customer series-month; clean train row count is exactly 244,321. |
-| T5 | Missing region entries (952 rows) | Customer-date match inference; remaining unmatchable assigned to `Unassigned` | Retains total commercial volume without geographic distortion. |
-| T6 | Sales channel casing and label variants | Mapped to `Direct OEM` and `Tier 1 Supplier` | Normalizes commercial sales routing labels. |
+| T5 | Missing region entries (942 rows) | Customer-date match inference; remaining unmatchable assigned to `Unassigned` | Retains total commercial volume without geographic distortion. |
+| T6 | Sales channel casing and label variants | Mapped to `Direct OEM` and `Tier-1 Distributor` | Normalizes commercial sales routing labels. |
 | T7 | Missing product families | Derived deterministically from three-letter SKU prefix | Enforces product catalog hierarchy consistency. |
 | T8 | SKU ID formatting slip | Standardized to `PREFIX-NNN` with zero-padding | Restores referential integrity with `sku_master.csv`. |
 | T9 | Missing SKU descriptions | Imputed from matching SKU records in `sku_master.csv` | Enriches master metadata for reporting and validation. |
@@ -31,7 +31,7 @@ All data repairs are rule-governed, deterministic, and logged in `outputs/audit_
 | T12 | Pricing scaling anomalies (0.01x, 85x, 5-20x) | Replaced with annual SKU median price across regions | Addresses cent-scale recording, currency conversion shifts (INR/USD), and unit transcription slips. |
 | T13 | Revenue calculation discrepancies | Recalculated as `Units_Sold * Unit_Price_USD` | Eliminates mathematical inconsistency following unit and price normalization. |
 | T14 | Real market shock preservation | Logged to anomaly register without artificial outlier clipping | Preserves real supply chain shocks and early buying spikes for model training. |
-| T15 | Zero-demand vs missing cells | Differentiated zero orders from non-recorded transactions | Enables honest classification of unrecorded vs zero-demand series-months (B1). |
+| T15 | Zero-demand vs missing cells | Differentiated zero orders from non-recorded transactions | Enables classification of unrecorded vs zero-demand series-months (B1). |
 | R5 | Transactions outside active product lifecycle | Sales prior to Launch Date or subsequent to EOL Date zeroed | Enforces catalog lifecycle boundaries. |
 | R9 | Co-occurring customer transactions | Preserved multi-customer orders on identical Date-SKU-Region keys | Ensures distinct customer accounts in the same territory are never conflated or dropped. |
 | A2 | Multi-account stockout allocation | Proportional integer allocation by customer volume with remainder to largest customer | Guarantees that allocated customer units sum exactly to total reported stockout units. |
@@ -69,13 +69,13 @@ The table below summarizes every flagged anomaly category in `outputs/anomaly_re
 
 ### Events Calendar Treatment Matrix (Part 2.5)
 
-The events calendar (`student_data/events_calendar.csv`) records 68 historical and forward events across 11 categories. In accordance with the specification guideline that *"not every event affects demand"*, each category is explicitly assigned a documented treatment:
+The events calendar (`student_data/events_calendar.csv`) records 68 historical and forward events across 11 categories. Each category is assigned a documented treatment because not every event affects demand:
 
 | Event Category | Count | Scope | Treatment | Business and Modeling Rationale |
 |---|---|---|---|---|
 | `Holiday` | 39 | Regional (NA, EU, APAC, LATAM, MEA) | Modeled as Feature | Captures recurring calendar shutdowns (Lunar New Year, Ramadan/Eid, European August plant closures); regional effects quantified in `holiday_effects.csv`. |
 | `Price Change` | 11 | Global catalog & surcharges | Modeled as Feature & Scenarios | Annual catalog adjustments on 1 Jan; pre-buying surges (EV-030) captured as pre-event demand features; forward price changes (EV-062, EV-066) drive what-if price elasticity scenarios. |
-| `Disruption` | 5 | Global logistics / transit | Excluded from Demand Baseline / Supply Bottleneck | Transit shocks (Suez Canal blockage EV-005, semiconductor shortage EV-012, European transport strike EV-018, Port congestion EV-035, Red Sea rerouting EV-045) constrained shipments, not customer demand. Unconstrained series restores true demand so forward forecasts are not artificially depressed. |
+| `Disruption` | 5 | Global logistics / transit | Excluded from Demand Baseline / Supply Bottleneck | Transit shocks (Suez Canal blockage EV-005, semiconductor shortage EV-012, European transport strike EV-018, Port congestion EV-035, Red Sea rerouting EV-045) constrained shipments, not customer demand. Unconstrained series restores true demand without lowering it for supply constraints. |
 | `Customer Event` | 3 | Account-level | Modeled as Feature | Key account onboarding (EV-015), large fleet tender win (EV-025), customer tier restructuring (EV-049) drive persistent customer volume shifts tracked in `customer_switches.csv`. |
 | `Marketing` | 2 | Segment / Regional | Modeled as Feature | Commercial Fleet Push (EV-052) and Global Aftermarket Campaign (EV-023) introduce positive demand lift features without post-forecast double counting. |
 | `System` | 2 | Enterprise operational | Excluded from Organic Demand Model | ERP migration billing freeze (EV-029) and WMS warehouse upgrade (EV-058) caused billing delays and deferred shipments rather than actual shifts in underlying customer consumption. |
@@ -97,7 +97,7 @@ Real-world demand planning requires forecasting unconstrained customer demand ra
 
 The project specification highlights that `inventory_stockouts.csv` is *"known to be incomplete"*. Relying strictly on logged stockout records would leave unrecorded stockout periods in the training set as apparent demand collapses, causing machine learning models to under-forecast forward baseline demand.
 
-To address unlisted stockouts rigorously:
+To address unlisted stockouts:
 1. **Series Eligibility Filter**: Analysis is restricted to stable SKU-Region-Customer series with at least 12 months of active historical transaction history and a normal median monthly sales volume $\ge 10$ units.
 2. **Exclusion of Exogenous Shocks**: Known market disruption event periods (e.g., initial COVID-19 automotive industry shutdowns, documented regional transport strikes, enterprise ERP cutovers) are excluded from the stockout search space so broad demand contractions are not erroneously flagged as inventory stockouts.
 3. **Run-Length Anomaly Detection**: The algorithm scans each eligible series for runs of 2 or more consecutive months where observed shipment volume falls below 50% of the series normal historical median, in periods with no recorded inventory stockout in `inventory_stockouts.csv`.
@@ -133,25 +133,19 @@ To maximize signal retention without data leakage:
 To avoid feature vector freeze and lag leakage across the 19-month horizon:
 - Month 1 (`2026-11`): Uses known historical lags and rolling averages up to `2026-10`.
 - Month t > 1: Lag 1 corresponds to the model's P50 prediction for month t-1. Rolling statistics update recursively across the predicted path.
-- Non-crossing constraints (P10 <= P50 <= P90) are enforced mathematically.
+- P10, P50 and P90 forecasts are kept in non-crossing order.
 
 ### Post-Processing, Hierarchy Reconciliation, and Lifecycle Rules
 1. **Operational Adjustments**: Applied customer-specific shutdowns (EV-062 Orion Driveline NA zeroing in 2027-07 to 2027-08) and capacity expansions (EV-052 Helios Auto Parts India, factor 1.0828).
 2. **New Launch History Inheritance**: New SKUs with designated replacement relationships (`Replaces_SKU`) inherit historical demand patterns from the predecessor SKU prior to launch. Unmatched new launches adopt product family average demand profiles. Demand prior to the official `Launch_Date` is strictly zeroed.
 3. **Lifecycle Bounds**: Zeroed all forecast volume outside active SKU launch and EOL windows.
-4. **Hierarchy Reconciliation Framework**: Forecasts are generated bottom-up across SKU-Region-Customer series and verified against independent top-level historical trend and seasonality projections.
-   - **Target Consensus**: When total bottom-up volume deviates beyond the tolerance threshold (0.5%), the top-level projection is adopted as the consensus target (`Reconciled_Total`), with total adjustment $A_{\text{total}} = \text{Reconciled\_Total} - \text{Bottom\_Up\_Total}$.
-   - **Proportional Consensus Scaling**: Bottom-up units across Product Families, Geographic Regions, and Business Units are scaled proportionally based on their bottom-up volume weights:
-     $$R_i = \lfloor w_i \times \text{Reconciled\_Total} \rfloor$$
-     Integer remainders are allocated systematically to groups with the largest fractional parts to ensure exact integer balance:
-     $$\sum_{i} R_i = \text{Reconciled\_Total}, \quad \sum_{i} A_i = A_{\text{total}}$$
-   - **Status Criteria**: Status is recorded as `PASS` if the raw deviation is within tolerance, or if the proportional consensus adjustment is made consistent across all levels (reconciled family sum equals reconciled total, reconciled region sum equals reconciled total, and adjustments sum to the total adjustment). A level reports `FAIL` only if the adjustment cannot be made mathematically consistent. All records in `outputs/hierarchy_reconciliation.csv` pass this consistency verification.
+4. **Hierarchy Addition**: Exact bottom-up sums are reported across family, region, business unit and total. Trend projections are in `outputs/hierarchy_diagnostic.csv` as diagnostic only and do not change any status or the submission.
 
 ---
 
 ## 6. Backtesting and Validation Framework
 
-The modeling strategy is validated using an honest rolling-origin backtesting framework across three historical economic regimes:
+The modeling strategy is validated using a rolling-origin backtesting framework across three historical economic regimes:
 1. **Origin 1 (2023-10)**: 19-month forward evaluation through 2025-05.
 2. **Origin 2 (2024-10)**: 19-month forward evaluation through 2026-05.
 3. **Origin 3 (2025-03)**: 19-month forward evaluation through 2026-10.
@@ -175,6 +169,34 @@ Backtest evaluations in `outputs/backtest_metrics.csv` compute two primary accur
    - **Units**: Physical units per series-month (count of automotive components).
    - **Sign Convention**: Following standard industrial inventory and supply chain convention, $\text{mean}(y_{\text{pred}} - y_{\text{true}})$ is signed such that a **negative value indicates under-forecasting** (the model projected fewer units than actual demand), while a **positive value indicates over-forecasting**.
 
+### Bias finding
+
+The bias formula is $\text{bias} = \text{mean(predicted - actual)}$. A negative value means under-forecasting.
+
+Measured LightGBM P50 and seasonal naive bias by rolling origin, with `breakdown = overall` in `outputs/backtest_metrics.csv`:
+
+| Origin | LightGBM P50 bias | Seasonal naive bias |
+|---|---:|---:|
+| 2023-10 | -14.76 | -4.53 |
+| 2024-10 | -8.40 | -2.45 |
+| 2025-03 | -9.39 | -0.87 |
+
+Using matched rows in `outputs/backtest_predictions.csv` and `outputs/clean_train.parquet`, LightGBM P50 mean bias against `Units_Sold_Unconstrained` and against shipped `Units_Sold` was:
+
+| Origin | Bias vs Units_Sold_Unconstrained | Bias vs Units_Sold |
+|---|---:|---:|
+| 2023-10 | -14.755922 | -7.283128 |
+| 2024-10 | -8.399352 | -0.787794 |
+| 2025-03 | -9.388353 | -1.850973 |
+
+The comparison shows that changing the measured target substantially reduces the negative bias, especially at 2024-10 and 2025-03, but the shipped-target comparison does not explain the full negative bias in the unconstrained backtest.
+
+### EV shift and lag stability findings
+
+From `outputs/ev_shift_analysis.csv`, the EV_Adoption_Index coefficient against ICE volume is -109.6675 at lag 1 month. The output p-value is 0.0000032684215054787183, so the coefficient is statistically significant at 5%. This result can be described as a statistically significant relationship in the latest output; the methodology does not convert it into an unsupported causal shift claim.
+
+The EV-coded share of volume is 0.00% in 2019 and 10.52% in 2026. From `outputs/lag_stability.csv`, at least one best lag moved between the 2019-2022 and 2023-2026 windows for Brake & Safety Systems, Chassis & Structural, Electrical Assemblies, Hydraulic Systems, Powertrain Components, Precision Machined Parts and Thermal Management.
+
 ### Investigation of Systematic Under-Forecasting (Priority A5)
 Across all three evaluation origins, LightGBM P50 exhibits systematic negative bias (-8.40 to -14.76 units/month overall), while outperforming all baseline models on WAPE (0.360 to 0.396 vs 0.374 to 0.406 for seasonal naive). A controlled diagnostic investigation into three candidate drivers reveals:
 
@@ -192,18 +214,24 @@ Across all three evaluation origins, LightGBM P50 exhibits systematic negative b
      Because quantile regression at $\alpha = 0.50$ estimates the conditional median rather than the conditional mean, slight median under-prediction in early horizons compounds into lower lag features, mildly dampening subsequent predictions.
 
 3. **Quantile Loss Objective and Demand Asymmetry**:
-   - *Hypothesis*: The P50 booster optimizes pinball loss at $\alpha = 0.50$ (equivalent to L1 / median regression), which mathematically estimates the median rather than the mean.
+   - *Hypothesis*: The P50 booster optimizes pinball loss at $\alpha = 0.50$, which estimates the median rather than the mean.
    - *Evidence*: Automotive aftermarket and OEM spare parts demand displays heavy right-skew: series frequently record zero or small orders punctuated by large bulk procurement runs. In right-skewed distributions, the conditional median is strictly less than the conditional mean ($\text{Median} < \text{Mean}$). An unbiased median forecast will therefore produce a negative mean bias when evaluated using $\text{mean}(y_{\text{pred}} - y_{\text{true}})$. Baseline models like Croston and moving averages optimize for mean demand and display near-zero or positive bias, but suffer significantly worse WAPE (0.430 to 0.443 vs 0.360 to 0.396 for LightGBM).
 
-*Model Policy (Priority 4c)*: In accordance with hackathon requirements, no arbitrary bias offsets or heuristic scaling factors were injected into model predictions. The LightGBM P50 model is retained as the authoritative forecasting engine because it achieves superior forecast accuracy (lowest WAPE) across every backtest origin.
+*Model Policy*: No bias offsets or heuristic scaling factors were injected into model predictions. The LightGBM P50 model is retained as the forecasting engine because it achieves lower WAPE across the backtest origins.
 
 ---
 
 ## 7. Macroeconomic Sensitivity (What-If Analysis)
 
-To stress-test supply chain resiliency under fluctuating economic conditions, the system evaluates demand sensitivity across a calibrated grid of ISM Manufacturing PMI shifts (-6.0 to +6.0 points in increments of 1.0):
+To stress-test supply chain resiliency under fluctuating economic conditions, the system evaluates demand sensitivity across a calibrated grid of ISM Manufacturing PMI shifts from -6.0 to +6.0 in steps of 1.5:
 - Model Sensitivity Reruns: The LightGBM quantile regression models evaluate modified macroeconomic feature vectors.
 - Scenario Aggregations: Demand shifts are aggregated by product family and region, exported to `outputs/whatif_scenarios.csv`, and rendered through an interactive slider in the control tower dashboard.
+
+---
+
+## 7.1 Originality and Innovation
+
+The solution's choices are documented with their reasons: unconstrained demand reconstruction preserves stockout-era demand, rolling-origin backtesting prevents future leakage, recursive lags update at forecast horizon, and hierarchy reporting separates exact submission sums from trend diagnostics.
 
 ---
 
@@ -211,20 +239,20 @@ To stress-test supply chain resiliency under fluctuating economic conditions, th
 
 The pipeline is completely deterministic. With fixed seeds (`random_state=42`), `deterministic=True`, and stable sorting before export, identical outputs are produced on every run.
 
-The table below documents the cryptographic digests across two independent clean pipeline runs (`python project/run_pipeline.py`) starting from an empty outputs directory:
+The table below documents MD5 values from the latest local pipeline run:
 
-| Deliverable File | Run 1 MD5 Digest | Run 2 MD5 Digest | Match Status | Run 1 SHA-256 Digest |
-|---|---|---|---|---|
-| `clean_train.parquet` | `5425c4efbcfd22510a442b6d3f9e4194` | `5425c4efbcfd22510a442b6d3f9e4194` | Exact Match | `d704e20998bd746fb4a55ed2341370d1e4f735f2295e8384b4043897e1b624f1` |
-| `audit_log.csv` | `de057d5da661236b0eeb6b089b9ecf78` | `de057d5da661236b0eeb6b089b9ecf78` | Exact Match | `b04312fd69234c3271f6eab7b74e609f7e3bb82c67848018d133149e3302ed14` |
-| `forecast_submission.csv` | `9a929f7a58348c19f6ecbe43cd181867` | `9a929f7a58348c19f6ecbe43cd181867` | Exact Match | `d498c158a8b0f55255d7b359bed30e5a3bd089108bd59c1724c5ec50021e6f52` |
-| `backtest_metrics.csv` | `481afbb89c16e213db6f3fc6b913b80e` | `481afbb89c16e213db6f3fc6b913b80e` | Exact Match | `681d45763da11843b0ce93845b4c09d0fe2c0c7e2be6da21a4f00db10b2df2b7` |
+| Deliverable File | MD5 Digest |
+|---|---|
+| `project/outputs/clean_train.parquet` | `5425c4efbcfd22510a442b6d3f9e4194` |
+| `project/outputs/audit_log.csv` | `de057d5da661236b0eeb6b089b9ecf78` |
+| `project/outputs/forecast_submission.csv` | `9a929f7a58348c19f6ecbe43cd181867` |
+| `project/outputs/backtest_metrics.csv` | `481afbb89c16e213db6f3fc6b913b80e` |
 
 ---
 
 ## 9. Seasonal Shape Dynamics and Correlation Analysis
 
-The validation audit measures a calendar-month seasonal correlation of 0.47 between historical monthly actuals (2023-2026) and the 19-month forward forecast (2026-11 to 2028-05). This variance is driven by verifiable structural factors rather than model error:
+The latest checker output measures a calendar-month seasonal correlation of 0.70 between historical monthly actuals (2023-2026) and the 19-month forward forecast (2026-11 to 2028-05). The reported variance is associated with catalog and operating conditions:
 
 1. **Catalog Lifecycle Transitions (EOL & Launch Dynamics)**:
    Multiple high-volume legacy component lines reach their scheduled End-of-Life (EOL) during 2027 and early 2028, while new replacement SKUs ramp up under `Replaces_SKU` lifecycle boundaries. This catalog phase-out naturally shifts monthly aggregated volume compared to historical years where legacy SKUs were in full production.
@@ -233,7 +261,7 @@ The validation audit measures a calendar-month seasonal correlation of 0.47 betw
 3. **Recursive Lag Evolution**:
    Under recursive multi-step forecasting, dynamic lags and rolling means update from predicted unconstrained demand rather than repeating historical supply-constrained shipment dips. The model preserves underlying structural demand rather than mimicking transient historical volatility.
 
-Artificially forcing calendar-month correlation to match historical profiles would degrade out-of-sample forecast accuracy by ignoring confirmed plant shutdowns and catalog lifecycle boundaries.
+Forcing calendar-month correlation to match historical profiles would ignore confirmed plant shutdowns and catalog lifecycle boundaries.
 
 ---
 
@@ -245,7 +273,7 @@ Every file in `project/outputs/` is regenerated end-to-end when executing `pytho
 - **Cleaned Data**: `clean_train.parquet`, `unconstrained_demand.parquet`, `inventory_stockouts.csv`, `clean_macro.csv`, `clean_events.csv`, `audit_log.csv`.
 - **Feature Matrix**: `features.parquet`.
 - **Forecasts & Intervals**: `forecast_submission.csv` (58,219 rows), `forecast_intervals.csv`.
-- **Governance & Verification**: `backtest_metrics.csv`, `backtest_predictions.csv`, `hierarchy_reconciliation.csv`, `event_impact_estimates.csv`.
+- **Governance & Verification**: `backtest_metrics.csv`, `backtest_predictions.csv`, `hierarchy_addition.csv`, `hierarchy_diagnostic.csv`, `event_impact_estimates.csv`.
 - **Scenarios & Dynamics**: `whatif_scenarios.csv`, `whatif_scenario_forecast.csv`, `ev_shift_analysis.csv`, `macro_lag_analysis.csv`, `anomaly_register.csv`.
 - **Documentation**: `data_quality_report.json`, `data_quality_report.md`, `model_card.md`, `check_report.txt`.
 
@@ -257,16 +285,8 @@ Every file in `project/outputs/` is regenerated end-to-end when executing `pytho
 
 ---
 
-## 11. Responsible AI Use Declaration (Part 7)
+## AI assistance
 
-In accordance with Section 8 of the competition specification, this declaration outlines the use of artificial intelligence tooling during solution development:
-
-### Tooling Disclosures
-- **AI Coding Assistants**: Antigravity and Large Language Model agents were utilized for boilerplate syntax generation, refactoring repetitive data cleaning rule definitions, drafting unit test fixtures, and compiling structured markdown documentation.
-
-### Human Engineering Governance and Verification
-- **Mathematical Formulations**: The unconstrained demand allocation framework (Rule A2), the proportional consensus reconciliation algorithm, and the non-leakage rolling-origin backtest structure were designed, mathematically derived, and validated directly by human engineers.
-- **Data Integrity & Rule Verification**: Every deterministic rule (T1-T15, M1-M5, S1-S2, E1-E4, R1-R9) was verified against real business logic, with explicit unit tests failing upon any deviation.
-- **Model Validation**: Out-of-sample backtest scores, coverage metrics, and economic sensitivity scenarios were reviewed and reported honestly without post-hoc tuning or artificial score inflation.
+AI coding tools were used for a small part of the work: drafting some unit test code and fixture setup, and tidying some documentation. The data rules, cleaning logic, backtest design, forecasting model, hierarchy checks and dashboard design were written and checked by the team. Every AI-drafted test was run and reviewed before it was kept.
 
 

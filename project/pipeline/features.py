@@ -138,6 +138,8 @@ def add_lifecycle_features(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.Dat
 
     df['months_since_launch'] = (date_dt.dt.year - launch_dt.dt.year) * 12 + (date_dt.dt.month - launch_dt.dt.month)
     df['months_to_eol'] = (eol_dt.dt.year - date_dt.dt.year) * 12 + (eol_dt.dt.month - date_dt.dt.month)
+    df['flag_launch'] = (df['months_since_launch'] >= 0).astype(int)
+    df['flag_eol'] = (eol_dt.notna() & (date_dt >= eol_dt)).astype(int)
 
     df['is_replacement_sku'] = df['SKU_ID'].map(lambda s: 1 if replaces_map.get(s) else 0)
     df['has_replacement'] = df['SKU_ID'].map(
@@ -169,7 +171,7 @@ def add_lag_rolling_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     Compute historical lag (1, 2, 3, 6, 12m), rolling statistics (3, 6, 12m),
     and true YoY growth ratio per SKU-Region-Customer series.
-    Fixes F4: lag_12m_yoy is the growth ratio, distinct from lag_12m.
+    lag_12m_yoy is a growth ratio, distinct from lag_12m.
     """
     df = df.copy()
     df = df.sort_values(['SKU_ID', 'Region', 'Customer_Name', 'Date']).reset_index(drop=True)
@@ -313,11 +315,18 @@ def compute_macro_lag_analysis(clean_train: pd.DataFrame,
                 if len(aligned) < 6:
                     continue
                 corr = aligned.iloc[:, 0].corr(aligned.iloc[:, 1])
+                n = len(aligned)
+                if abs(corr) < 0.999:
+                    t_stat = corr * np.sqrt((n - 2) / max(1e-6, 1 - corr**2))
+                    significant = bool(abs(t_stat) > 1.96)
+                else:
+                    significant = bool(n >= 12)
                 results.append({
                     'Product_Family': family,
                     'MacroIndicator': col,
                     'Lag_Months': lag,
                     'Correlation': round(corr, 4),
+                    'Significant': significant,
                 })
 
     return pd.DataFrame(results)

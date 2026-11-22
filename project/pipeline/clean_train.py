@@ -1,4 +1,4 @@
-"""
+﻿"""
 clean_train.py - Applies cleaning rules T1-T15 to train.csv.
 Every change is logged to audit.py:audit.
 Outputs: a cleaned DataFrame, a dict of before/after counts per issue.
@@ -24,7 +24,6 @@ from pipeline.unconstrained import allocate_stockout_metric
 DQ = {}  # data-quality counts, populated as we clean
 
 
-# --- T1: Date parsing ---
 
 def _parse_date_to_yyyymm(raw: str) -> str | None:
     """Parse any known date format to YYYY-MM string. Returns None if unparseable."""
@@ -82,7 +81,6 @@ def apply_t1_date_parsing(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# --- T3: Typo year (2062 -> 2026) ---
 
 def apply_t3_typo_year(df: pd.DataFrame) -> pd.DataFrame:
     """T3: Correct 2062-xx typos to 2026-xx when Year col agrees."""
@@ -106,7 +104,6 @@ def apply_t3_typo_year(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# --- T2: Year/Month disagree with Date ---
 
 def apply_t2_year_month(df: pd.DataFrame) -> pd.DataFrame:
     """T2: Recompute Year and Month from cleaned Date (R1: Date is authoritative)."""
@@ -135,7 +132,6 @@ def apply_t2_year_month(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# --- T4: Duplicate Record_IDs ---
 
 def apply_t4_dedup_record_id(df: pd.DataFrame) -> pd.DataFrame:
     """T4: Keep the row with the latest Load_Timestamp per Record_ID (R2)."""
@@ -170,7 +166,6 @@ def apply_t4_dedup_record_id(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# --- T5: Region normalisation ---
 
 def _normalise_region(raw) -> str | None:
     """Return canonical region or None if unresolvable."""
@@ -265,7 +260,6 @@ def apply_t5_region(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# --- T6: Sales_Channel normalisation ---
 
 def _normalise_channel(raw) -> str | None:
     if pd.isna(raw):
@@ -309,7 +303,6 @@ def apply_t6_channel(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# --- T7: Product_Family & Business_Unit ---
 
 def apply_t7_product_family(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
     """T7: Fill blank Product_Family from SKU prefix; validate against sku_master."""
@@ -354,7 +347,6 @@ def apply_t7_product_family(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.Da
     return df
 
 
-# --- T8: SKU_ID normalisation ---
 
 def _normalise_sku(raw: str, canonical_set: set) -> str | None:
     """Normalise a raw SKU_ID to canonical form [PREFIX]-[NNN]."""
@@ -404,7 +396,6 @@ def apply_t8_sku_id(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# --- T9: SKU_Description fill ---
 
 def apply_t9_sku_description(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
     """T9: Fill blank SKU_Description from sku_master."""
@@ -424,7 +415,6 @@ def apply_t9_sku_description(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.D
     return df
 
 
-# --- T10: Customer_Name normalisation ---
 
 import difflib
 
@@ -491,7 +481,6 @@ def apply_t10_customer(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# --- T11: Units_Sold cleaning ---
 
 def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFrame:
     """T11 & A2: Clean Units_Sold: blanks, dashes, commas, negatives, and proportional stockout allocation."""
@@ -634,7 +623,6 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
     return df
 
 
-# --- T12: Unit_Price_USD cleaning ---
 
 def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
     """T12: One rule for all price anomalies. Replace out-of-band and zero prices with SKU-year median."""
@@ -729,7 +717,6 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# --- T13: Revenue reconciliation ---
 
 def apply_t13_revenue(df: pd.DataFrame) -> pd.DataFrame:
     """T13: Recompute Revenue_USD = Units_Sold x Unit_Price_USD."""
@@ -764,7 +751,6 @@ def apply_t13_revenue(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# --- T15: Zero-demand vs missing rows (flag) ---
 
 def apply_t15_zero_demand_flag(df: pd.DataFrame) -> pd.DataFrame:
     """T15: Flag zero-demand rows vs missing rows (R3). No edit needed."""
@@ -775,7 +761,6 @@ def apply_t15_zero_demand_flag(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# --- R5: Lifecycle validation ---
 
 def apply_r5_lifecycle(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
     """R5: Flag (not remove) sales after EOL_Date or before Launch_Date."""
@@ -814,7 +799,6 @@ def apply_r5_lifecycle(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFra
     return df
 
 
-# --- T4b: Date-SKU-Region dedup ---
 
 def apply_t4b_dsr_dedup(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -860,7 +844,6 @@ def apply_t4b_dsr_dedup(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# --- Master clean function ---
 
 def clean_train(raw: pd.DataFrame, sku_master: pd.DataFrame,
                 stockouts: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
@@ -890,7 +873,7 @@ def clean_train(raw: pd.DataFrame, sku_master: pd.DataFrame,
     df = apply_r5_lifecycle(df, sku_master)
     df = apply_t4b_dsr_dedup(df)
 
-    # Guard: ensure zero duplicate Date, SKU_ID, Region, Customer_Name rows (Priority 1c)
+    # Ensure no duplicate Date, SKU_ID, Region, Customer_Name rows remain
     dups = df[df.duplicated(['Date', 'SKU_ID', 'Region', 'Customer_Name'], keep=False)]
     if not dups.empty:
         first_five = dups[['Date', 'SKU_ID', 'Region', 'Customer_Name']].drop_duplicates().head(5).to_dict(orient='records')

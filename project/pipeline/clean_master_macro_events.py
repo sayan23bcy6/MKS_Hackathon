@@ -16,10 +16,8 @@ from pipeline.audit import audit
 DQ_MME = {}
 
 
-# SKU Master Cleaning (S1, S2)
-
 def clean_sku_master(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
-    """S1-S2: Validate sku_master. No silent changes."""
+    """Validate SKU master fields and references."""
     dq = {}
     df = raw.copy()
 
@@ -72,10 +70,8 @@ def clean_sku_master(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     return df, dq
 
 
-# Macro Indicators Cleaning (M1-M5)
-
 def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
-    """M1-M5: Clean macro_indicators."""
+    """Clean macro indicators."""
     dq = {}
     df = raw.copy()
 
@@ -143,7 +139,7 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
                   "2019 values stored as fractions; multiplied by 100 to match Pct header")
         df.at[idx, 'Auto_Production_YoY_Pct'] = new_val
 
-    # Check series has no break larger than 25 points at 2019-12 to 2020-01 after fix
+    # Check the 2019-12 to 2020-01 series break
     row_2019_12 = df.loc[df['Date'] == '2019-12', 'Auto_Production_YoY_Pct']
     row_2020_01 = df.loc[df['Date'] == '2020-01', 'Auto_Production_YoY_Pct']
     if len(row_2019_12) > 0 and len(row_2020_01) > 0:
@@ -221,8 +217,6 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     return df, dq
 
 
-# Events Calendar Cleaning (E1-E4)
-
 def _normalise_event_date(d: str) -> tuple[str, str]:
     """
     Return (start_date YYYY-MM-DD, end_date YYYY-MM-DD).
@@ -243,7 +237,7 @@ def _normalise_event_date(d: str) -> tuple[str, str]:
 
 
 def clean_events(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
-    """E1-E4: Clean events_calendar."""
+    """Clean the events calendar."""
     dq = {}
     df = raw.copy()
 
@@ -310,6 +304,20 @@ def clean_events(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         'Marketing': 'demand_boost_feature',
     }
     df['Data_Impact'] = df['Event_Type'].map(impact_types).fillna('informational')
+    treatment_map = {
+        'Holiday': 'feature',
+        'Price Change': 'feature',
+        'Announcement': 'feature',
+        'Supply Constraint': 'excluded',
+        'Disruption': 'excluded',
+        'System': 'excluded',
+        'Market Entry': 'feature',
+        'Customer Event': 'feature',
+        'Logistics': 'excluded',
+        'Corporate': 'excluded',
+        'Marketing': 'feature',
+    }
+    df['Treatment'] = df['Event_Type'].map(treatment_map).fillna('excluded')
     dq['E4_impact_annotations'] = df['Event_Type'].value_counts().to_dict()
 
     # Rule 7: Check for duplicate Event_IDs

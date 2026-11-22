@@ -1,9 +1,10 @@
-"""
+﻿"""
 ev_shift.py - Expert analysis of macroeconomic lag stability and the automotive EV shift (E-C).
 """
 
 import pandas as pd
 import numpy as np
+from scipy.stats import t as student_t
 from pipeline.config import OUT_EV_SHIFT, OUT_MACRO_LAG, OUT_LAG_STABILITY
 
 
@@ -32,7 +33,6 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
         'Fuel_Price_Index', 'EV_Adoption_Index'
     ] if c in mac.columns]
 
-    # --- 1. Macro Lag Cross-Correlation by Family (All history + Rolling Windows) ---
     fam_monthly = df.groupby(['Date', 'Product_Family'])['Units_num'].sum().reset_index()
     all_fams = sorted(df['Product_Family'].unique())
 
@@ -80,7 +80,6 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
     macro_lag_analysis = full_lag_df[full_lag_df['Window'] == 'Full_2019_2026'].drop(columns=['Window'])
     macro_lag_analysis.to_csv(OUT_MACRO_LAG, index=False)
 
-    # --- 2. Lag Stability Comparison (2019-2022 vs 2023-2026) ---
     stability_records = []
     w1_df = full_lag_df[full_lag_df['Window'] == 'Window1_2019_2022']
     w2_df = full_lag_df[full_lag_df['Window'] == 'Window2_2023_2026']
@@ -104,13 +103,13 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
                     'Corr_2023_2026': round(best_corr2, 4),
                     'Lag_Shift_Months': lag_shift,
                     'Is_Lag_Stable': (lag_shift == 0),
+                    'Lag_Moved': bool(lag_shift != 0),
                 })
 
     stability_df = pd.DataFrame(stability_records)
     stability_df.to_csv(OUT_LAG_STABILITY, index=False)
     print(f"Lag stability analysis saved: {OUT_LAG_STABILITY}")
 
-    # --- 3. Powertrain Volume Breakdown and EV Adoption Regression ---
     pt_monthly = df.groupby(['Date', 'Powertrain_Application'])['Units_num'].sum().unstack(fill_value=0)
     for col in ['ICE', 'EV', 'Universal']:
         if col not in pt_monthly.columns:
@@ -145,13 +144,14 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
             se_slope = np.sqrt(np.sum(residuals**2) / (n - 2) / max(1e-6, np.sum((x - x_mean)**2)))
             t_stat = slope / max(1e-6, se_slope)
 
+            p_value = float(2 * student_t.sf(abs(t_stat), df=max(n - 2, 1)))
             ev_reg_results.append({
                 'Lag_Months': lag,
                 'Slope_Coefficient': round(float(slope), 4),
                 'Intercept': round(float(intercept), 2),
                 'R_Squared': round(float(r_squared), 4),
                 'T_Statistic': round(float(t_stat), 2),
-                'P_Value_Approx': float(2 * (1 - min(0.9999, abs(t_stat) / 10))),
+                'P_Value_Approx': p_value,
             })
 
     ev_reg_df = pd.DataFrame(ev_reg_results)
@@ -164,8 +164,11 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
         'Metric_Type': 'EV_Adoption_vs_ICE_Regression',
         'Detail_1': f"Best Lag: {int(best_reg['Lag_Months'])} months, Slope: {best_reg['Slope_Coefficient']:.4f}",
         'Detail_2': f"R^2: {best_reg['R_Squared']:.4f}, t-stat: {best_reg['T_Statistic']:.2f}",
-        'Detail_3': f"p-value approx: {best_reg['P_Value_Approx']:.4f} (Statistically significant shift)",
+        'Detail_3': f"p-value approx: {best_reg['P_Value_Approx']:.4f} (" + ("Statistically significant at 5%" if best_reg['P_Value_Approx'] < 0.05 else "Not statistically significant at 5%") + ")",
         'Value': float(best_reg['R_Squared']),
+        'Coefficient': float(best_reg['Slope_Coefficient']),
+        'P_Value': float(best_reg['P_Value_Approx']),
+        'Lag_Months': int(best_reg['Lag_Months']),
     })
 
     # Add yearly EV share progression

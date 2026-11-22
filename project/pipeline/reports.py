@@ -114,6 +114,17 @@ def generate_dq_report(dq_train: dict,
                 "recomputed": dq_train.get('T13_recomputed', 0),
                 "rule": "T13",
             },
+            "T14_real_market_shocks": {
+                "description": "Real market shocks preserved without artificial outlier clipping",
+                "count": dq_train.get('T14_real_events', 0),
+                "rule": "T14",
+            },
+            "T15_zero_demand_vs_missing": {
+                "description": "Zero demand distinguished from missing panel observations",
+                "zero_demand_rows": dq_train.get('T15_zero_demand_rows', 0),
+                "null_demand_rows": dq_train.get('T15_null_demand_rows', 0),
+                "rule": "T15",
+            },
             "R5_lifecycle": {
                 "description": "Lifecycle validation: sales outside launch/EOL boundaries zeroed",
                 "eol_violations": dq_train.get('R5_eol_violations', 0),
@@ -182,6 +193,16 @@ def generate_dq_report(dq_train: dict,
             },
         },
     }
+
+    for issue in report["train_issues"].values():
+        before_count = issue.get("raw_rows", issue.get("rows_before",
+                        issue.get("found", issue.get("blank_count",
+                        issue.get("count", 0)))))
+        after_count = issue.get("rows_after", issue.get("corrected",
+                       issue.get("normalised", issue.get("filled",
+                       issue.get("recomputed", issue.get("count", 0))))))
+        issue["before_count"] = before_count
+        issue["after_count"] = after_count
 
     with open(OUT_DQ_JSON, 'w', encoding='utf-8') as f:
         json.dump(report, f, indent=2, default=str)
@@ -266,7 +287,7 @@ def _write_dq_markdown(report: dict):
 
 def build_panel_status(clean_train: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
     """
-    Priority B1: Build full panel status dataset.
+    Build the panel status dataset.
     For every SKU-Region-Customer series, iterates over live months (from launch/first sale to EOL/2026-10).
     Classifies every month cell as 'sold' (Units_Sold > 0), 'zero_order' (Units_Sold == 0),
     or 'not_recorded' (no transaction recorded).

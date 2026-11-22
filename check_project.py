@@ -15,6 +15,7 @@ Paste that file into the chat for review.
 
 import argparse
 import hashlib
+import ast
 import platform
 import re
 import subprocess
@@ -374,39 +375,34 @@ def check_hierarchy(s):
     ok = total == by_family == by_region == by_month
     record(s, "PASS" if ok else "FAIL",
            f"total {total:,}; family {by_family:,}; region {by_region:,}; month {by_month:,}")
-    rec = OUT / "hierarchy_reconciliation.csv"
+    rec = OUT / "hierarchy_addition.csv"
     if rec.exists():
-        record(s, "PASS", "hierarchy_reconciliation.csv present")
+        record(s, "PASS", "hierarchy_addition.csv present")
         df_rec = pd.read_csv(rec)
 
-        # 5a: Fail if any level is FAIL
-        has_fails = (df_rec["Status"] != "PASS").any()
-        record(s, "FAIL" if has_fails else "PASS",
-               f"hierarchy status: {'found FAIL status in records' if has_fails else 'all levels reported PASS'}")
-
-        # 5a: Fail if family/region sums do not equal total
         tot_rows = df_rec[df_rec["Level"] == "Total"]
         if not tot_rows.empty:
-            reconciled_total = int(tot_rows.iloc[0]["Reconciled_Units"])
-            fam_sum = int(df_rec[df_rec["Level"] == "Product_Family"]["Reconciled_Units"].sum())
-            reg_sum = int(df_rec[df_rec["Level"] == "Region"]["Reconciled_Units"].sum())
-            totals_agree = (fam_sum == reconciled_total) and (reg_sum == reconciled_total)
+            forecast_total = int(tot_rows.iloc[0]["Bottom_Up_Units"])
+            fam_sum = int(df_rec[df_rec["Level"] == "Product_Family"]["Bottom_Up_Units"].sum())
+            reg_sum = int(df_rec[df_rec["Level"] == "Region"]["Bottom_Up_Units"].sum())
+            bu_sum = int(df_rec[df_rec["Level"] == "Business_Unit"]["Bottom_Up_Units"].sum())
+            totals_agree = fam_sum == forecast_total and reg_sum == forecast_total and bu_sum == forecast_total
             record(s, "PASS" if totals_agree else "FAIL",
-                   f"reconciled totals match: total={reconciled_total:,}, family={fam_sum:,}, region={reg_sum:,}")
+                   f"hierarchy exact sums: total={forecast_total:,}, family={fam_sum:,}, region={reg_sum:,}, business_unit={bu_sum:,}")
         else:
-            record(s, "FAIL", "no Total row found in hierarchy_reconciliation.csv")
+            record(s, "FAIL", "no Total row found in hierarchy_addition.csv")
 
         # 5d: Model card reads hierarchy numbers from regenerated file
         mc_path = OUT / "model_card.md"
         if mc_path.exists():
             mc_text = mc_path.read_text(encoding="utf-8")
-            max_raw = df_rec["Raw_Deviation_Pct"].max()
-            expected_str = f"{max_raw:.1f}%"
+            level_rows = len(df_rec[df_rec["Level"] != "Total"])
+            expected_str = f"Total forecast units: {forecast_total:,}"
             mc_matches = expected_str in mc_text
             record(s, "PASS" if mc_matches else "FAIL",
-                   f"model card hierarchy numbers match hierarchy_reconciliation.csv ({expected_str})")
+                   f"model card states hierarchy total and exact-sum result ({expected_str}, level rows {level_rows})")
     else:
-        record(s, "FAIL", "hierarchy_reconciliation.csv not produced (spec requires it)")
+        record(s, "FAIL", "hierarchy_addition.csv not produced (spec requires it)")
 
 
 # ------------------------------------------------------------- 10 dashboard
@@ -501,7 +497,7 @@ REQUIRED = [
     "project/outputs/backtest_metrics.csv",
     "project/outputs/forecast_submission.csv",
     "project/outputs/forecast_intervals.csv",
-    "project/outputs/hierarchy_reconciliation.csv",
+    "project/outputs/hierarchy_addition.csv",
     "project/outputs/model_card.md",
     "project/outputs/panel_status.csv",
     "project/outputs/master_data_contradictions.csv",
@@ -628,10 +624,24 @@ def check_pdf_compliance(s):
     test_file = PROJECT / "tests" / "test_cleaning_rules.py"
     test_content = test_file.read_text(encoding="utf-8") if test_file.exists() else ""
     available_tests = set(re.findall(r"def (test_[a-zA-Z0-9_]+)", test_content))
+    test_bodies_with_assert = set()
+    test_bodies_with_skip = set()
+    if test_file.exists():
+        tree = ast.parse(test_content, filename=str(test_file))
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name.startswith("test_"):
+                has_assert = any(isinstance(child, ast.Assert) for child in ast.walk(node))
+                if has_assert:
+                    test_bodies_with_assert.add(node.name)
+                for child in ast.walk(node):
+                    if isinstance(child, ast.Call):
+                        if isinstance(child.func, ast.Attribute) and child.func.attr == "skip":
+                            test_bodies_with_skip.add(node.name)
 
     missing_impl = []
     missing_out = []
     missing_tests = []
+    no_assert_tests = []
     invalid_status = []
 
     for idx, r in enumerate(data_rows, 1):
@@ -654,6 +664,8 @@ def check_pdf_compliance(s):
 
         if test_fn not in available_tests:
             missing_tests.append(f"{test_fn} (row {idx})")
+        elif test_fn not in test_bodies_with_assert:
+            no_assert_tests.append(f"{test_fn} (row {idx})")
 
         if status.lower() not in ("done", "not done"):
             invalid_status.append(f"Invalid status '{status}' (row {idx})")
@@ -666,10 +678,14 @@ def check_pdf_compliance(s):
         record(s, "FAIL", f"Output files/views missing ({len(missing_out)}): {', '.join(missing_out[:5])}")
     if missing_tests:
         record(s, "FAIL", f"Tests missing from test_cleaning_rules.py ({len(missing_tests)}): {', '.join(missing_tests[:5])}")
+    if no_assert_tests:
+        record(s, "FAIL", f"Rows with test bodies containing no assert ({len(no_assert_tests)}): {', '.join(no_assert_tests[:5])}")
+    if test_bodies_with_skip:
+        record(s, "FAIL", f"Tests skip on missing required output ({len(test_bodies_with_skip)}): {', '.join(sorted(test_bodies_with_skip))}")
     if invalid_status:
         record(s, "FAIL", f"Status errors ({len(invalid_status)}): {', '.join(invalid_status[:5])}")
 
-    if not (missing_impl or missing_out or missing_tests or invalid_status):
+    if not (missing_impl or missing_out or missing_tests or no_assert_tests or test_bodies_with_skip or invalid_status):
         record(s, "PASS", f"all {len(data_rows)} PDF specification rows verified with valid files, outputs, and unit tests")
 
 

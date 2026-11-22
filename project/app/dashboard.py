@@ -415,7 +415,7 @@ def view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, fil
     display_ov = [c for c in ['origin', 'model', 'WAPE', 'Bias', 'coverage_raw', 'coverage_calibrated', 'n_obs'] if c in overall.columns]
     st.dataframe(overall[display_ov], use_container_width=True, hide_index=True)
 
-    # Coverage breakdown table (Priority C1)
+    # Coverage breakdown table
     cov_df = load_coverage_breakdown()
     if not cov_df.empty:
         st.subheader("Empirical Interval Coverage Breakdown (P10 - P90)")

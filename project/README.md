@@ -103,8 +103,8 @@ MKS_Hackathon/
 2. **Auditable Cleaning**: Every single change made to the data is recorded in `outputs/audit_log.csv` with the source file, row key, field, original value, cleaned value, rule ID, and reason.
 3. **Explicit Decision Rules**: Every data quality issue has an explicit, documented resolution rule. Ambiguous cases are handled through transparent, tested rules rather than silent deletion.
 4. **No Silent Exceptions**: Failures raise descriptive exceptions naming the step and cause.
-5. **Human Code Style**: Written in plain, maintainable Python without decorative Unicode, emojis, or ASCII banners.
-6. **Strict Output-Driven UI**: The Streamlit dashboard loads its data solely from `project/outputs/`. No hard-coded metrics exist in the presentation layer.
+5. **Plain Python, no decorative characters**: The code is written in plain, maintainable Python without decorative Unicode, emojis, or ASCII banners.
+6. **Output-Driven UI**: The Streamlit dashboard loads data from `project/outputs/` and does not use hard-coded presentation metrics.
 
 ---
 
@@ -121,7 +121,7 @@ After running `run_pipeline.py`, the following files are produced in `project/ou
 | `audit_log.csv` | Full row-level log of every value adjusted during cleaning |
 | `data_quality_report.json` | Machine-readable breakdown of issues found and rules applied |
 | `data_quality_report.md` | Human-readable documentation of data health |
-| `hierarchy_reconciliation.csv` | Verification of bottom-up consistency within 0.5% tolerance |
+| `hierarchy_addition.csv` | Exact bottom-up consistency across family, region and business unit |
 | `whatif_scenario_forecast.csv` | Macroeconomic sensitivity simulation (ISM PMI shift) |
 | `ev_shift_analysis.csv` | Powertrain technological transition progression |
 | `macro_lag_analysis.csv` | Cross-correlations between economic indicators and family volume |

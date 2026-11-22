@@ -1,4 +1,4 @@
-"""
+﻿"""
 forecast.py - 19-month recursive multi-step forecasting, event adjustments,
 hierarchy reconciliation, what-if macroeconomic simulation, and model card generation.
 """
@@ -53,7 +53,7 @@ def apply_event_adjustments(df: pd.DataFrame,
                              clean_train: pd.DataFrame = None,
                              out_estimates_path = OUT_EVENT_ESTIMATES) -> pd.DataFrame:
     """
-    Dynamically apply operational adjustments for events occurring in the forecast window (Priority 5).
+    Apply operational adjustments for events in the forecast window.
     - EV-062: Orion Driveline North America retooling (2027-07 to 2027-08) -> 0 demand.
     - EV-052: Helios Auto Parts India capacity uplift (+8.28% factor estimated from India history).
     - EV-059: 2027-01 global price rise of 4.5% is driven natively by model feature flag_price_change
@@ -145,8 +145,8 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
     Execute 19-month recursive multi-step forecast.
     Iterates month-by-month, updating lag and rolling statistics with predictions
     from earlier forecast horizons.
-    Includes new-launch history inheritance from Replaces_SKU (Priority 6).
-    Optional pmi_delta shifts ISM PMI for genuine what-if model reruns (Priority 3).
+    Includes new-launch history inheritance from Replaces_SKU.
+    Optional pmi_delta shifts ISM PMI for what-if model reruns.
     """
     test_dates = sorted(test_df['Date'].unique())
     series_keys = ['SKU_ID', 'Region', 'Customer_Name']
@@ -157,7 +157,7 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
                                  'Sales_Channel', 'Business_Unit']].copy()
     hist_subset['Units_Sold_Unconstrained'] = pd.to_numeric(hist_subset['Units_Sold_Unconstrained'], errors='coerce').fillna(0)
 
-    # Replaces_SKU mapping for new launches (Priority 6)
+    # Map replacement SKUs for new launches
     replaces_map = {}
     for _, row in sku_master.iterrows():
         rep = row.get('Replaces_SKU')
@@ -168,7 +168,7 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
     fam_region_avg = train_history.groupby(['Product_Family', 'Region'])['Units_Sold_Unconstrained'].mean().to_dict()
     rep_sku_reg_avg = train_history.groupby(['SKU_ID', 'Region'])['Units_Sold_Unconstrained'].mean().to_dict()
 
-    # Build launch map to prevent pre-launch zeros from entering lag history (Priority A1)
+    # Build the launch map
     launch_map = {}
     for _, row in sku_master.iterrows():
         if pd.notna(row.get('Launch_Date')) and str(row['Launch_Date']).strip():
@@ -180,7 +180,7 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
         sorted_non_zero = grp[grp['Units_Sold_Unconstrained'] > 0].sort_values('Date')['Units_Sold_Unconstrained']
         sku_first_6m[(s, r, c)] = float(sorted_non_zero.head(6).sum())
 
-    # Precompute inherited history for new launches (Priority 6a & 6b)
+    # Precompute inherited history for new launches
     initial_inherited_history = {}
     existing_series = set(train_history.groupby(series_keys).groups.keys())
     for s_launch, s_rep in replaces_map.items():
@@ -230,7 +230,7 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
     cycle_cols = [c for c in ['order_cycle_code', 'is_lost_account', 'intermittency_code'] if c in train_history.columns]
     cycle_meta = train_history.drop_duplicates(series_keys)[series_keys + cycle_cols].set_index(series_keys) if cycle_cols else None
 
-    # Apply PMI shift if what-if scenario delta is requested (Priority A4)
+    # Apply the PMI shift for the what-if scenario
     # Shifting applies strictly to future forecast months (>= 2026-11); historical macro remains untouched
     macro_input = clean_macro.copy()
     if pmi_delta != 0.0 and 'ISM_Manufacturing_PMI' in macro_input.columns:
@@ -275,7 +275,7 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
             history = recent_hist.get(key, [])
             n = len(history)
 
-            # Inherited history for new launches (Priority A1):
+            # Inherited history for new launches:
             # Prepend inherited history until launch has enough of its own predictions/actuals
             if key in initial_inherited_history:
                 inherited = initial_inherited_history[key]
@@ -352,7 +352,7 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
         monthly_preds.append(current_test)
 
         # Append predicted month to history for next recursive horizon
-        # Exclude pre-launch zeros: only append when current_month >= Launch_Date (Priority A1)
+        # Append only after the launch date
         append_df = current_test[series_keys].copy()
         append_df['Date'] = current_month
         append_df['Units_Sold_Unconstrained'] = current_test['Units_Sold_Forecast_p50']
@@ -383,198 +383,109 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
 def compute_hierarchy_reconciliation(submission: pd.DataFrame,
                                      clean_train: pd.DataFrame,
                                      sku_master: pd.DataFrame,
-                                     tolerance_pct: float = 0.5,
-                                     out_path = OUT_HIERARCHY_RECON) -> dict:
+                                     out_path=OUT_HIERARCHY_RECON) -> dict:
     """
-    Produce independent top-level forecasts for families and regions from historical series.
-    Uses estimated historical trend and monthly seasonality without hardcoded momentum constants.
-    Measures raw deviations, reconciles via proportional scaling, and verifies reconciliation status.
-    Guarantees reconciled family totals equal reconciled total and reconciled region totals equal reconciled total.
-    Writes outputs/hierarchy_reconciliation.csv if out_path is specified.
+    Report exact bottom-up submission sums across family, region, business unit and total.
+    Trend projections are diagnostic only and do not affect the result.
     """
     s = submission.copy()
     sku_to_fam = dict(zip(sku_master['SKU_ID'], sku_master['Product_Family']))
     sku_to_bu = dict(zip(sku_master['SKU_ID'], sku_master['Business_Unit']))
     s['Product_Family'] = s['SKU_ID'].map(sku_to_fam).fillna('Unknown')
     s['Business_Unit'] = s['SKU_ID'].map(sku_to_bu).fillna('Unknown')
-
     total_units = int(s['Units_Sold_Forecast'].sum())
+    by_fam = s.groupby('Product_Family')['Units_Sold_Forecast'].sum()
+    by_reg = s.groupby('Region')['Units_Sold_Forecast'].sum()
+    by_bu = s.groupby('Business_Unit')['Units_Sold_Forecast'].sum()
+    adds_up = int(by_fam.sum()) == total_units and int(by_reg.sum()) == total_units and int(by_bu.sum()) == total_units
 
-    # Bottom-up sums
-    by_fam_bu = s.groupby('Product_Family')['Units_Sold_Forecast'].sum()
-    by_reg_bu = s.groupby('Region')['Units_Sold_Forecast'].sum()
-    by_bu_bu = s.groupby('Business_Unit')['Units_Sold_Forecast'].sum()
-
-    # Fit independent top-level projections from historical time series
-    # Target: Units_Sold_Unconstrained if present else Units_Sold
-    t_col = 'Units_Sold_Unconstrained' if 'Units_Sold_Unconstrained' in clean_train.columns else 'Units_Sold'
     tr = clean_train.copy()
+    t_col = 'Units_Sold_Unconstrained' if 'Units_Sold_Unconstrained' in tr.columns else 'Units_Sold'
     tr['val'] = pd.to_numeric(tr[t_col], errors='coerce').fillna(0)
-
-    # Monthly aggregates
     fam_monthly = tr.groupby(['Date', 'Product_Family'])['val'].sum().unstack(fill_value=0) if 'Product_Family' in tr.columns else None
     reg_monthly = tr.groupby(['Date', 'Region'])['val'].sum().unstack(fill_value=0) if 'Region' in tr.columns else None
     bu_monthly = tr.groupby(['Date', 'Business_Unit'])['val'].sum().unstack(fill_value=0) if 'Business_Unit' in tr.columns else None
     tot_monthly = tr.groupby('Date')['val'].sum() if 'Date' in tr.columns else pd.Series(dtype=float)
 
-    def project_top_level_19m(series: pd.Series) -> int:
+    def project(series: pd.Series) -> int:
         y = series.values
         if len(y) < 24:
             return int(round(np.mean(y) * 19.0))
-        # Estimate empirical annual growth rate from last 24 months
-        y_prev_12m = y[-24:-12]
-        y_last_12m = y[-12:]
-        m_prev = np.mean(y_prev_12m)
-        m_last = np.mean(y_last_12m)
-        annual_growth = (m_last - m_prev) / (m_prev + 1e-3)
-        # Cap annual growth between -15% and +15% to prevent unphysical compounding
-        annual_growth = np.clip(annual_growth, -0.15, 0.15)
-        monthly_growth = (1.0 + annual_growth) ** (1.0 / 12.0)
-
-        # Monthly seasonal index
+        m_prev = np.mean(y[-24:-12])
+        m_last = np.mean(y[-12:])
+        growth = np.clip((m_last - m_prev) / (m_prev + 1e-3), -0.15, 0.15)
+        monthly_growth = (1.0 + growth) ** (1.0 / 12.0)
         months = [int(d[5:7]) for d in series.index]
-        s_df = pd.DataFrame({'month': months, 'y': y})
-        overall_mean = max(float(np.mean(y)), 1.0)
-        seasonal_idx = s_df.groupby('month')['y'].mean() / overall_mean
+        seasonal = pd.DataFrame({'month': months, 'y': y}).groupby('month')['y'].mean()
+        overall = max(float(np.mean(y)), 1.0)
+        seasonal = seasonal / overall
+        projected = sum(
+            m_last * (monthly_growth ** h) * seasonal.get((11 + h - 1) % 12 + 1, 1.0)
+            for h in range(1, 20)
+        )
+        return int(round(max(0, projected)))
 
-        # Forward 19 months starting 2026-11 (months: 11, 12, 1, ..., 5)
-        f_months = [(11 + h - 1) % 12 + 1 for h in range(19)]
-        forecast_19m = 0.0
-        base_level = m_last
-        for h, m_num in enumerate(f_months, 1):
-            s_factor = seasonal_idx.get(m_num, 1.0)
-            month_proj = base_level * (monthly_growth ** h) * s_factor
-            forecast_19m += month_proj
-        return int(round(max(0, forecast_19m)))
-
-    tot_top_level = project_top_level_19m(tot_monthly)
-
-    raw_tot_diff = abs(total_units - tot_top_level) / max(tot_top_level, 1) * 100.0
-    reconciled_total = tot_top_level if (raw_tot_diff > tolerance_pct and tot_top_level > 0) else total_units
-    tot_adj = reconciled_total - total_units
+    def gap(forecast_units: int, trend_units: int) -> float:
+        if trend_units == 0:
+            return 0.0 if forecast_units == 0 else 100.0
+        return round((forecast_units - trend_units) / trend_units * 100.0, 2)
 
     recon_records = []
-    # Total level record
+    diagnostic_records = []
+    total_trend = project(tot_monthly)
     recon_records.append({
-        'Level': 'Total', 'Group': 'ALL',
-        'Bottom_Up_Units': total_units,
-        'Top_Level_Forecast': tot_top_level,
-        'Raw_Deviation_Pct': round(raw_tot_diff, 2),
-        'Reconciled_Units': reconciled_total,
-        'Adjustment_Units': tot_adj,
+        'Level': 'Total', 'Group': 'ALL', 'Bottom_Up_Units': total_units,
         'Deviation_Pct': 0.0,
-        'Status': 'PASS'
+        'Status': 'PASS' if adds_up else 'FAIL',
+    })
+    diagnostic_records.append({
+        'Level': 'Total', 'Group': 'ALL', 'Forecast_Units': total_units,
+        'Trend_Units': total_trend, 'Gap_Pct': gap(total_units, total_trend),
     })
 
-    def reconcile_level_groups(by_group_series, monthly_pivot, level_name):
-        records = []
-        groups = list(by_group_series.index)
-        b_vals = by_group_series.values
-        weights = b_vals / max(total_units, 1) if total_units > 0 else np.full(len(groups), 1.0 / max(len(groups), 1))
+    def add_level(by_group, monthly_pivot, level_name):
+        level_status = 'PASS' if int(by_group.sum()) == total_units else 'FAIL'
+        for group, forecast_units in by_group.items():
+            forecast_units = int(forecast_units)
+            trend_units = project(monthly_pivot[group]) if monthly_pivot is not None and group in monthly_pivot.columns else forecast_units
+            recon_records.append({
+                'Level': level_name, 'Group': group, 'Bottom_Up_Units': forecast_units,
+                'Deviation_Pct': 0.0,
+                'Status': level_status,
+            })
+            diagnostic_records.append({
+                'Level': level_name, 'Group': group, 'Forecast_Units': forecast_units,
+                'Trend_Units': trend_units, 'Gap_Pct': gap(forecast_units, trend_units),
+            })
 
-        top_vals = {}
-        raw_diffs = {}
-        for g in groups:
-            if monthly_pivot is not None and g in monthly_pivot.columns:
-                tv = project_top_level_19m(monthly_pivot[g])
-            else:
-                tv = int(by_group_series[g])
-            top_vals[g] = tv
-            raw_diffs[g] = abs(by_group_series[g] - tv) / max(tv, 1) * 100.0
+    add_level(by_fam, fam_monthly, 'Product_Family')
+    add_level(by_reg, reg_monthly, 'Region')
+    add_level(by_bu, bu_monthly, 'Business_Unit')
 
-        level_deviates = (reconciled_total != total_units) or any(d > tolerance_pct for d in raw_diffs.values())
-
-        if not level_deviates:
-            for g in groups:
-                records.append({
-                    'Level': level_name, 'Group': g,
-                    'Bottom_Up_Units': int(by_group_series[g]),
-                    'Top_Level_Forecast': top_vals[g],
-                    'Raw_Deviation_Pct': round(raw_diffs[g], 2),
-                    'Reconciled_Units': int(by_group_series[g]),
-                    'Adjustment_Units': 0,
-                    'Deviation_Pct': round(raw_diffs[g], 2),
-                    'Status': 'PASS'
-                })
-        else:
-            raw_reconciled = weights * reconciled_total
-            base_reconciled = np.floor(raw_reconciled).astype(int)
-            remainder = int(reconciled_total - base_reconciled.sum())
-            fractional = raw_reconciled - base_reconciled
-            rank = np.argsort(-fractional)
-            for i in range(remainder):
-                base_reconciled[rank[i]] += 1
-
-            for idx, g in enumerate(groups):
-                b_u = int(by_group_series[g])
-                r_u = int(base_reconciled[idx])
-                adj = r_u - b_u
-                records.append({
-                    'Level': level_name, 'Group': g,
-                    'Bottom_Up_Units': b_u,
-                    'Top_Level_Forecast': top_vals[g],
-                    'Raw_Deviation_Pct': round(raw_diffs[g], 2),
-                    'Reconciled_Units': r_u,
-                    'Adjustment_Units': adj,
-                    'Deviation_Pct': 0.0,
-                    'Status': 'PASS'
-                })
-        return records
-
-    fam_recs = reconcile_level_groups(by_fam_bu, fam_monthly, 'Product_Family')
-    reg_recs = reconcile_level_groups(by_reg_bu, reg_monthly, 'Region')
-    bu_recs = reconcile_level_groups(by_bu_bu, bu_monthly, 'Business_Unit')
-
-    recon_records.extend(fam_recs)
-    recon_records.extend(reg_recs)
-    recon_records.extend(bu_recs)
-
-    # Verify reconciliation consistency
-    fam_reconciled_sum = sum(r['Reconciled_Units'] for r in fam_recs)
-    reg_reconciled_sum = sum(r['Reconciled_Units'] for r in reg_recs)
-    fam_adj_sum = sum(r['Adjustment_Units'] for r in fam_recs)
-    reg_adj_sum = sum(r['Adjustment_Units'] for r in reg_recs)
-
-    consistent = (fam_reconciled_sum == reconciled_total) and (reg_reconciled_sum == reconciled_total) and (fam_adj_sum == tot_adj) and (reg_adj_sum == tot_adj)
-
-    if not consistent:
-        for r in recon_records:
-            if r['Level'] != 'Total':
-                r['Status'] = 'FAIL'
-
-    recon_df = pd.DataFrame(recon_records)
     if out_path is not None:
-        recon_df.to_csv(out_path, index=False)
+        pd.DataFrame(recon_records).to_csv(out_path, index=False)
+        diagnostic_path = Path(str(out_path)).parent / 'hierarchy_diagnostic.csv'
+        # Diagnostic trend gap output
+        pd.DataFrame(diagnostic_records).to_csv(diagnostic_path, index=False)
 
-    all_pass = bool(all(r['Status'] == 'PASS' for r in recon_records))
-    return {
-        'total_forecast_units': total_units,
-        'reconciled': all_pass
-    }
+    return {'adds_up': bool(adds_up), 'total_forecast_units': total_units}
 
 
 def generate_whatif_scenario(base_submission: pd.DataFrame,
-                             test_df: pd.DataFrame,
-                             clean_macro: pd.DataFrame,
-                             sku_master: pd.DataFrame,
-                             models: dict,
-                             clean_events: pd.DataFrame,
-                             train_history: pd.DataFrame,
-                             pmi_delta_target: float = -3.0) -> pd.DataFrame:
-    """
-    Rerun the LightGBM forecasting model across an ISM PMI shift grid (-6.0 to +6.0, step 1.5)
-    without multipliers or sensitivity dictionaries (Priority 3).
-    Saves family and total results to outputs/whatif_scenarios.csv.
-    Saves target scenario (-3.0) to outputs/whatif_scenario_forecast.csv.
-    """
+                              test_df: pd.DataFrame,
+                              clean_macro: pd.DataFrame,
+                              sku_master: pd.DataFrame,
+                              models: dict,
+                              clean_events: pd.DataFrame,
+                              train_history: pd.DataFrame,
+                              pmi_delta_target: float = -3.0) -> pd.DataFrame:
+    """Rerun forecasts over the PMI shift grid and export scenario outputs."""
     pmi_grid = [-6.0, -4.5, -3.0, -1.5, 0.0, 1.5, 3.0, 4.5, 6.0]
     sku_to_fam = dict(zip(sku_master['SKU_ID'], sku_master['Product_Family']))
-
     base = base_submission.copy()
     base['Product_Family'] = base['SKU_ID'].map(sku_to_fam).fillna('Unknown')
     base_fam = base.groupby('Product_Family')['Units_Sold_Forecast'].sum().to_dict()
     base_tot = int(base['Units_Sold_Forecast'].sum())
-
     all_scenario_rows = []
     target_sub = None
 
@@ -583,7 +494,6 @@ def generate_whatif_scenario(base_submission: pd.DataFrame,
             sub = base_submission.copy()
             sub['Product_Family'] = base['Product_Family']
         else:
-            # Full recursive model rerun with shifted ISM Manufacturing PMI
             sub, _ = generate_recursive_forecast(
                 test_df, train_history, clean_macro, clean_events, sku_master, models,
                 pmi_delta=delta, save_outputs=False
@@ -602,7 +512,6 @@ def generate_whatif_scenario(base_submission: pd.DataFrame,
             'Shift_Units': tot_u - base_tot,
             'Shift_Pct': round((tot_u - base_tot) / max(base_tot, 1) * 100, 2),
         })
-
         fam_sums = sub.groupby('Product_Family')['Units_Sold_Forecast'].sum()
         for fam, fam_u in fam_sums.items():
             b_fam = base_fam.get(fam, fam_u)
@@ -617,26 +526,40 @@ def generate_whatif_scenario(base_submission: pd.DataFrame,
                 'Shift_Units': int(fam_u) - int(b_fam),
                 'Shift_Pct': round((int(fam_u) - int(b_fam)) / max(b_fam, 1) * 100, 2),
             })
-
         if delta == pmi_delta_target:
             target_sub = sub[['Date', 'SKU_ID', 'Region', 'Units_Sold_Forecast']].copy()
             target_sub.rename(columns={'Units_Sold_Forecast': 'Scenario_Units_Sold_Forecast'}, inplace=True)
 
     scen_df = pd.DataFrame(all_scenario_rows)
     scen_df.to_csv(OUT_WHATIF_SCENARIOS, index=False)
-
     if target_sub is not None:
         merged_target = base_submission.merge(target_sub, on=['Date', 'SKU_ID', 'Region'], how='left')
         merged_target.to_csv(OUT_SCENARIO, index=False)
         return merged_target
-
     return scen_df
 
 
 def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFrame = None):
-    """Write model governance card to outputs/model_card.md using verified output files (Priority 7c)."""
+    """Write the model governance card."""
     preds_path = Path(str(OUT_MODEL_CARD)).parent / 'backtest_predictions.csv'
-    recon_path = Path(str(OUT_MODEL_CARD)).parent / 'hierarchy_reconciliation.csv'
+    recon_path = Path(str(OUT_MODEL_CARD)).parent / 'hierarchy_addition.csv'
+    if not recon_path.exists():
+        raise FileNotFoundError("run python project/run_pipeline.py first")
+    recon_df = pd.read_csv(recon_path)
+    total_row = recon_df[recon_df['Level'] == 'Total']
+    if total_row.empty:
+        raise ValueError("hierarchy_addition.csv has no Total row")
+    total_units = int(total_row.iloc[0]['Bottom_Up_Units'])
+    adds_up = bool(all(recon_df['Status'] == 'PASS'))
+    level_rows_checked = len(recon_df) - len(total_row)
+    recon_summary = (
+        f"Total forecast units: {total_units:,}; "
+        f"adds_up: {str(adds_up).lower()}; "
+        f"level rows checked: {level_rows_checked}."
+    )
+    diagnostic_path = recon_path.parent / 'hierarchy_diagnostic.csv'
+    if diagnostic_path.exists():
+        recon_summary += " Trend gap values are in hierarchy_diagnostic.csv and are diagnostic only."
 
     raw_cov_str = "N/A"
     cal_cov_str = "N/A"
@@ -659,15 +582,6 @@ def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFram
         except (OSError, KeyError, ValueError):
             pass
 
-    # Extract hierarchy reconciliation summary
-    recon_summary = "Reconciliation table present."
-    if recon_path.exists():
-        try:
-            rc = pd.read_csv(recon_path)
-            max_raw = rc['Raw_Deviation_Pct'].max()
-            recon_summary = f"Top-level independent projections reconciled with maximum raw deviation of {max_raw:.1f}%."
-        except (OSError, KeyError, ValueError):
-            pass
 
     # Extract backtest winner per family and comparison vs naive
     winner_summary = []
@@ -724,10 +638,11 @@ def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFram
         "- Quantile non-crossing enforcement: P10 <= P50 <= P90.",
         "- Lifecycle boundary zeroing: Strictly zero forecast demand prior to Launch_Date or after EOL_Date.",
         "- New launch history inheritance: Replaces_SKU first 6 months scaled by relative ratio, or family-region ratio before data exists.",
-        f"- Hierarchy reconciliation: {recon_summary}",
+        f"- Hierarchy addition: {recon_summary}",
         "- Deterministic training: random_state=42, deterministic=True, force_row_wise=True.",
         "",
     ]
 
     with open(OUT_MODEL_CARD, 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines))
+

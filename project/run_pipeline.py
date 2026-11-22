@@ -150,7 +150,7 @@ def main():
     )
 
     recon_results = compute_hierarchy_reconciliation(submission, df_unconstrained, clean_sku)
-    print(f"  Hierarchy reconciliation: total forecast = {recon_results['total_forecast_units']} units, status = {'PASS' if recon_results['reconciled'] else 'FAIL'}")
+    print(f"  Hierarchy addition: total forecast = {recon_results['total_forecast_units']} units, adds_up = {recon_results['adds_up']}")
 
     # What-if scenario simulation (model rerun with shifted PMI)
     print("  Generating macroeconomic what-if scenarios (-6.0 to +6.0 PMI shift)...")
