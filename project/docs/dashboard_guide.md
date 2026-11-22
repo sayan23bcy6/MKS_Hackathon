@@ -37,7 +37,7 @@ The dashboard and deployment depend on the following outputs tracked in version 
 | `clean_events.csv` | < 0.1 MB | Scoped corporate and market events calendar |
 | `audit_log.csv` | ~12.5 MB | Complete deterministic audit log of every corrected record |
 | `data_quality_report.json` | < 0.1 MB | Machine-readable data health and rule counts |
-| `data_quality_report.md` | < 0.1 MB | Comprehensive human-readable data governance report |
+| `data_quality_report.md` | < 0.1 MB | Human-readable data governance report |
 | `anomaly_register.csv` | ~0.3 MB | Documented market disruptions and operational shocks |
 | `unconstrained_demand.parquet` | ~6.0 MB | True unconstrained demand with stockouts added back |
 | `inventory_stockouts.csv` | ~0.5 MB | Historical stockout transactions and fill rate metrics |

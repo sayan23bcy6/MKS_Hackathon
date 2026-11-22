@@ -35,7 +35,7 @@ The solution combines deterministic cleaning, unconstrained demand reconstructio
 - **Price and Volume Normalization**:
   - Negative units handled: paired reversals dropped; clerical sign flips corrected via absolute value (Rule T11).
   - Out-of-band pricing (cent-scale slips, currency disparities) repaired using annual SKU median reference prices across regions (Rule T12).
-  - Revenue mathematically recomputed as `Units_Sold * Unit_Price_USD` (Rule T13).
+  - Revenue recomputed as `Units_Sold * Unit_Price_USD` (Rule T13).
 - **Master Data Harmonization**:
   - PMP-004 Business Unit conflict resolved to `Advanced Manufacturing` based on transaction history majority (Rule S1).
   - Blank geographic regions classified under canonical `Unassigned` category (Rule T5).
@@ -151,7 +151,7 @@ The solution combines deterministic cleaning, unconstrained demand reconstructio
 | CORE-FORECAST-02 | Core | Non-negative integer forecasts matching test.csv keys exactly | outputs/forecast_submission.csv | done |
 | CORE-GOV-01 | Core | Audit log capturing every data modification | outputs/audit_log.csv | done |
 | CORE-GOV-02 | Core | Data quality report in JSON and Markdown | outputs/data_quality_report.json, outputs/data_quality_report.md | done |
-| CORE-GOV-03 | Core | Comprehensive automated pytest test suite | project/tests/test_cleaning_rules.py | done |
+| CORE-GOV-03 | Core | Automated pytest test suite | project/tests/test_cleaning_rules.py | done |
 | CORE-DASH-01 | Core | Streamlit interactive dashboard with 5 required views | project/app/dashboard.py (Tabs 1-5) | done |
 | ADV-UNCONSTRAINED-01 | Advanced | Unconstrained demand reconstruction from stockouts | outputs/unconstrained_demand.parquet | done |
 | ADV-ALLOCATION-01 | Advanced | Customer stockout integer allocation with remainder rule (Rule A2) | outputs/unconstrained_demand.parquet, outputs/audit_log.csv | done |
@@ -160,7 +160,7 @@ The solution combines deterministic cleaning, unconstrained demand reconstructio
 | ADV-PREBUY-01 | Advanced | Nov-Dec 2022 early buying quantification ahead of EV-030 price rise | outputs/early_buying.csv | done |
 | ADV-HOLIDAY-01 | Advanced | Regional holiday effect measurement (LNY, Ramadan, Summer) | outputs/holiday_effects.csv | done |
 | ADV-MACRO-LAG-01 | Advanced | Macroeconomic lead-lag cross-correlation analysis across lags 0-6m | outputs/macro_lag_analysis.csv | done |
-| ADV-BACKTEST-01 | Advanced | Multi-origin honest rolling backtest (2023-10, 2024-10, 2025-03) | outputs/backtest_metrics.csv | done |
+| ADV-BACKTEST-01 | Advanced | Multi-origin rolling backtest (2023-10, 2024-10, 2025-03) | outputs/backtest_metrics.csv | done |
 | ADV-BACKTEST-02 | Advanced | Benchmark comparison against Seasonal Naive, Moving Average, Croston/SBA/TSB | outputs/backtest_metrics.csv | done |
 | ADV-INTERVALS-01 | Advanced | Quantile forecast intervals P10, P50, P90 with non-crossing constraints | outputs/forecast_intervals.csv | done |
 | ADV-RECON-01 | Advanced | Exact bottom-up hierarchy addition reporting | outputs/hierarchy_addition.csv | done |
@@ -172,4 +172,4 @@ The solution combines deterministic cleaning, unconstrained demand reconstructio
 | EXP-WHATIF-01 | Expert | Model rerun macroeconomic what-if simulation (-6.0 to +6.0 PMI grid) | outputs/whatif_scenarios.csv, outputs/whatif_scenario_forecast.csv | done |
 | EXP-RECURSIVE-01 | Expert | Multi-step recursive forecasting updating lags from prior predictions | project/pipeline/forecast.py | done |
 | EXP-CALIBRATION-01 | Expert | Out-of-sample coverage calibration using only prior origin residuals | outputs/coverage_breakdown.csv, outputs/backtest_metrics.csv | done |
-| EXP-MODELCARD-01 | Expert | Model card documenting architecture, training regimes, features, and honest out-of-sample coverage | outputs/model_card.md | done |
+| EXP-MODELCARD-01 | Expert | Model card documenting architecture, training regimes, features, and out-of-sample coverage | outputs/model_card.md | done |

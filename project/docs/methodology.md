@@ -4,7 +4,7 @@
 
 Celeris Automobili manufactures engineered automotive systems across seven product families, delivering to twelve major commercial customers across six global operating regions. The core objective is forecasting true unconstrained demand (underlying customer order volume, independent of temporary plant disruptions or inventory stockouts) across 58,219 forecast rows for the 19-month horizon from 2026-11 through 2028-05.
 
-The source data exhibits real-world data quality issues across transactional history (`train.csv`), macroeconomic time series (`macro_indicators.csv`), product master definitions (`sku_master.csv`), and the operational calendar (`events_calendar.csv`). Our methodology establishes an explainable, rule-based data transformation pipeline coupled with gradient boosted quantile regression, honest rolling-origin backtesting, recursive multi-step forecasting, and exact hierarchy addition reporting.
+The source data exhibits real-world data quality issues across transactional history (`train.csv`), macroeconomic time series (`macro_indicators.csv`), product master definitions (`sku_master.csv`), and the operational calendar (`events_calendar.csv`). Our methodology establishes an explainable, rule-based data transformation pipeline coupled with gradient boosted quantile regression, rolling-origin backtesting, recursive multi-step forecasting, and exact hierarchy addition reporting.
 
 ---
 
@@ -31,7 +31,7 @@ All data repairs are rule-governed, deterministic, and logged in `outputs/audit_
 | T12 | Pricing scaling anomalies (0.01x, 85x, 5-20x) | Replaced with annual SKU median price across regions | Addresses cent-scale recording, currency conversion shifts (INR/USD), and unit transcription slips. |
 | T13 | Revenue calculation discrepancies | Recalculated as `Units_Sold * Unit_Price_USD` | Eliminates mathematical inconsistency following unit and price normalization. |
 | T14 | Real market shock preservation | Logged to anomaly register without artificial outlier clipping | Preserves real supply chain shocks and early buying spikes for model training. |
-| T15 | Zero-demand vs missing cells | Differentiated zero orders from non-recorded transactions | Enables honest classification of unrecorded vs zero-demand series-months (B1). |
+| T15 | Zero-demand vs missing cells | Differentiated zero orders from non-recorded transactions | Enables classification of unrecorded vs zero-demand series-months (B1). |
 | R5 | Transactions outside active product lifecycle | Sales prior to Launch Date or subsequent to EOL Date zeroed | Enforces catalog lifecycle boundaries. |
 | R9 | Co-occurring customer transactions | Preserved multi-customer orders on identical Date-SKU-Region keys | Ensures distinct customer accounts in the same territory are never conflated or dropped. |
 | A2 | Multi-account stockout allocation | Proportional integer allocation by customer volume with remainder to largest customer | Guarantees that allocated customer units sum exactly to total reported stockout units. |
@@ -69,13 +69,13 @@ The table below summarizes every flagged anomaly category in `outputs/anomaly_re
 
 ### Events Calendar Treatment Matrix (Part 2.5)
 
-The events calendar (`student_data/events_calendar.csv`) records 68 historical and forward events across 11 categories. In accordance with the specification guideline that *"not every event affects demand"*, each category is explicitly assigned a documented treatment:
+The events calendar (`student_data/events_calendar.csv`) records 68 historical and forward events across 11 categories. Each category is assigned a documented treatment because not every event affects demand:
 
 | Event Category | Count | Scope | Treatment | Business and Modeling Rationale |
 |---|---|---|---|---|
 | `Holiday` | 39 | Regional (NA, EU, APAC, LATAM, MEA) | Modeled as Feature | Captures recurring calendar shutdowns (Lunar New Year, Ramadan/Eid, European August plant closures); regional effects quantified in `holiday_effects.csv`. |
 | `Price Change` | 11 | Global catalog & surcharges | Modeled as Feature & Scenarios | Annual catalog adjustments on 1 Jan; pre-buying surges (EV-030) captured as pre-event demand features; forward price changes (EV-062, EV-066) drive what-if price elasticity scenarios. |
-| `Disruption` | 5 | Global logistics / transit | Excluded from Demand Baseline / Supply Bottleneck | Transit shocks (Suez Canal blockage EV-005, semiconductor shortage EV-012, European transport strike EV-018, Port congestion EV-035, Red Sea rerouting EV-045) constrained shipments, not customer demand. Unconstrained series restores true demand so forward forecasts are not artificially depressed. |
+| `Disruption` | 5 | Global logistics / transit | Excluded from Demand Baseline / Supply Bottleneck | Transit shocks (Suez Canal blockage EV-005, semiconductor shortage EV-012, European transport strike EV-018, Port congestion EV-035, Red Sea rerouting EV-045) constrained shipments, not customer demand. Unconstrained series restores true demand without lowering it for supply constraints. |
 | `Customer Event` | 3 | Account-level | Modeled as Feature | Key account onboarding (EV-015), large fleet tender win (EV-025), customer tier restructuring (EV-049) drive persistent customer volume shifts tracked in `customer_switches.csv`. |
 | `Marketing` | 2 | Segment / Regional | Modeled as Feature | Commercial Fleet Push (EV-052) and Global Aftermarket Campaign (EV-023) introduce positive demand lift features without post-forecast double counting. |
 | `System` | 2 | Enterprise operational | Excluded from Organic Demand Model | ERP migration billing freeze (EV-029) and WMS warehouse upgrade (EV-058) caused billing delays and deferred shipments rather than actual shifts in underlying customer consumption. |
@@ -97,7 +97,7 @@ Real-world demand planning requires forecasting unconstrained customer demand ra
 
 The project specification highlights that `inventory_stockouts.csv` is *"known to be incomplete"*. Relying strictly on logged stockout records would leave unrecorded stockout periods in the training set as apparent demand collapses, causing machine learning models to under-forecast forward baseline demand.
 
-To address unlisted stockouts rigorously:
+To address unlisted stockouts:
 1. **Series Eligibility Filter**: Analysis is restricted to stable SKU-Region-Customer series with at least 12 months of active historical transaction history and a normal median monthly sales volume $\ge 10$ units.
 2. **Exclusion of Exogenous Shocks**: Known market disruption event periods (e.g., initial COVID-19 automotive industry shutdowns, documented regional transport strikes, enterprise ERP cutovers) are excluded from the stockout search space so broad demand contractions are not erroneously flagged as inventory stockouts.
 3. **Run-Length Anomaly Detection**: The algorithm scans each eligible series for runs of 2 or more consecutive months where observed shipment volume falls below 50% of the series normal historical median, in periods with no recorded inventory stockout in `inventory_stockouts.csv`.
@@ -133,7 +133,7 @@ To maximize signal retention without data leakage:
 To avoid feature vector freeze and lag leakage across the 19-month horizon:
 - Month 1 (`2026-11`): Uses known historical lags and rolling averages up to `2026-10`.
 - Month t > 1: Lag 1 corresponds to the model's P50 prediction for month t-1. Rolling statistics update recursively across the predicted path.
-- Non-crossing constraints (P10 <= P50 <= P90) are enforced mathematically.
+- P10, P50 and P90 forecasts are kept in non-crossing order.
 
 ### Post-Processing, Hierarchy Reconciliation, and Lifecycle Rules
 1. **Operational Adjustments**: Applied customer-specific shutdowns (EV-062 Orion Driveline NA zeroing in 2027-07 to 2027-08) and capacity expansions (EV-052 Helios Auto Parts India, factor 1.0828).
@@ -145,7 +145,7 @@ To avoid feature vector freeze and lag leakage across the 19-month horizon:
 
 ## 6. Backtesting and Validation Framework
 
-The modeling strategy is validated using an honest rolling-origin backtesting framework across three historical economic regimes:
+The modeling strategy is validated using a rolling-origin backtesting framework across three historical economic regimes:
 1. **Origin 1 (2023-10)**: 19-month forward evaluation through 2025-05.
 2. **Origin 2 (2024-10)**: 19-month forward evaluation through 2026-05.
 3. **Origin 3 (2025-03)**: 19-month forward evaluation through 2026-10.
@@ -214,10 +214,10 @@ Across all three evaluation origins, LightGBM P50 exhibits systematic negative b
      Because quantile regression at $\alpha = 0.50$ estimates the conditional median rather than the conditional mean, slight median under-prediction in early horizons compounds into lower lag features, mildly dampening subsequent predictions.
 
 3. **Quantile Loss Objective and Demand Asymmetry**:
-   - *Hypothesis*: The P50 booster optimizes pinball loss at $\alpha = 0.50$ (equivalent to L1 / median regression), which mathematically estimates the median rather than the mean.
+   - *Hypothesis*: The P50 booster optimizes pinball loss at $\alpha = 0.50$, which estimates the median rather than the mean.
    - *Evidence*: Automotive aftermarket and OEM spare parts demand displays heavy right-skew: series frequently record zero or small orders punctuated by large bulk procurement runs. In right-skewed distributions, the conditional median is strictly less than the conditional mean ($\text{Median} < \text{Mean}$). An unbiased median forecast will therefore produce a negative mean bias when evaluated using $\text{mean}(y_{\text{pred}} - y_{\text{true}})$. Baseline models like Croston and moving averages optimize for mean demand and display near-zero or positive bias, but suffer significantly worse WAPE (0.430 to 0.443 vs 0.360 to 0.396 for LightGBM).
 
-*Model Policy (Priority 4c)*: In accordance with hackathon requirements, no arbitrary bias offsets or heuristic scaling factors were injected into model predictions. The LightGBM P50 model is retained as the authoritative forecasting engine because it achieves superior forecast accuracy (lowest WAPE) across every backtest origin.
+*Model Policy*: No bias offsets or heuristic scaling factors were injected into model predictions. The LightGBM P50 model is retained as the forecasting engine because it achieves lower WAPE across the backtest origins.
 
 ---
 
@@ -252,7 +252,7 @@ The table below documents MD5 values from the latest local pipeline run:
 
 ## 9. Seasonal Shape Dynamics and Correlation Analysis
 
-The latest checker output measures a calendar-month seasonal correlation of 0.70 between historical monthly actuals (2023-2026) and the 19-month forward forecast (2026-11 to 2028-05). This variance is driven by verifiable structural factors rather than model error:
+The latest checker output measures a calendar-month seasonal correlation of 0.70 between historical monthly actuals (2023-2026) and the 19-month forward forecast (2026-11 to 2028-05). The reported variance is associated with catalog and operating conditions:
 
 1. **Catalog Lifecycle Transitions (EOL & Launch Dynamics)**:
    Multiple high-volume legacy component lines reach their scheduled End-of-Life (EOL) during 2027 and early 2028, while new replacement SKUs ramp up under `Replaces_SKU` lifecycle boundaries. This catalog phase-out naturally shifts monthly aggregated volume compared to historical years where legacy SKUs were in full production.
@@ -261,7 +261,7 @@ The latest checker output measures a calendar-month seasonal correlation of 0.70
 3. **Recursive Lag Evolution**:
    Under recursive multi-step forecasting, dynamic lags and rolling means update from predicted unconstrained demand rather than repeating historical supply-constrained shipment dips. The model preserves underlying structural demand rather than mimicking transient historical volatility.
 
-Artificially forcing calendar-month correlation to match historical profiles would degrade out-of-sample forecast accuracy by ignoring confirmed plant shutdowns and catalog lifecycle boundaries.
+Forcing calendar-month correlation to match historical profiles would ignore confirmed plant shutdowns and catalog lifecycle boundaries.
 
 ---
 
