@@ -41,7 +41,7 @@ All data repairs are rule-governed, deterministic, and logged in `outputs/audit_
 - **Rule S1 (PMP-004 BU Alignment)**: Reconciled PMP-004 to `Advanced Manufacturing` based on agreement with transaction history majority and Rule R8.
 - **Rule S2 (Lifecycle Date Integrity)**: Validated Launch_Date and EOL_Date formats in SKU master, ensuring chronological ordering (Launch <= EOL).
 - **Rule M1 (2022-06 Macro Duplicate)**: Selected observation with minimal distance to adjacent linear interpolation (May and July 2022).
-- **Rule M2 (Auto Production Percentage Scaling)**: Scaled 2019 fractional values x100, verified continuity step from 2019-12 to 2020-01 is under 25.0 points.
+- **Rule M2 (Auto Production Percentage Scaling)**: Scaled 2019 fractional values x100; the continuity step from 2019-12 to 2020-01 is under 25.0 points.
 - **Rule M3 (PMI Decimal Misplacement)**: Corrected May 2023 PMI from 4.79 to 47.9 via single-decimal shift.
 - **Rule M4 (Missing Macro Indicator Imputation)**: Linear time interpolation applied with `Macro_Imputed` indicator flag.
 - **Rule M5 (COVID Structural Break)**: Added `Is_COVID_Period` indicator for 2020-03 through 2021-06.
@@ -53,7 +53,7 @@ All data repairs are rule-governed, deterministic, and logged in `outputs/audit_
 ### Anomaly Classification and Treatment: Errors vs. Real Events (Part 1.6)
 
 A central requirement of the specification is distinguishing clerical data errors from real physical market events:
-- **Data Errors (Fix Them)**: Systematic recording errors, typographical slips, currency/unit transcription mistakes, and duplicate database records where the true commercial activity was unchanged. These are corrected deterministically using verified reference baselines.
+- **Data Errors**: Systematic recording errors, typographical slips, currency/unit transcription mistakes, and duplicate database records where the true commercial activity was unchanged. These are corrected using reference baselines.
 - **Real Events (Model or Exclude Them)**: Genuine supply chain disruptions, customer pre-buying behaviors, and macro shocks where transaction volume genuinely moved. These points are preserved in history and incorporated as model features, structural break indicators, or unconstrained demand adjustments.
 
 The table below summarizes every flagged anomaly category in `outputs/anomaly_register.csv` (1,529 total records):
@@ -154,7 +154,7 @@ The modeling strategy is validated using a rolling-origin backtesting framework 
 - **Strict Temporal Boundary**: For each origin cutoff, training data is strictly filtered to observations occurring on or before that origin date (`Date <= origin`).
 - **Dynamic Feature Isolation**: Customer ordering cycle classification, Syntetos-Boylan intermittency parameters, and churn flags are recomputed strictly from historical observations up to that cutoff.
 - **Recursive Forward Path**: Evaluated across 19 forward months where future lags are fed from model predictions rather than ground truth actuals.
-- **Interval Predictions**: Detailed backtest predictions including `p10`, `p50`, and `p90` are logged in `outputs/backtest_predictions.csv` to allow rigorous coverage validation.
+- **Interval Predictions**: Backtest predictions including `p10`, `p50`, and `p90` are logged in `outputs/backtest_predictions.csv` for coverage validation.
 - **Benchmarks**: LightGBM is compared against seasonal naive, moving average, and Croston/SBA/TSB baselines on identical test rows.
 
 ### Evaluation Metrics and Sign Conventions
@@ -191,13 +191,64 @@ Using matched rows in `outputs/backtest_predictions.csv` and `outputs/clean_trai
 
 The comparison shows that changing the measured target substantially reduces the negative bias, especially at 2024-10 and 2025-03, but the shipped-target comparison does not explain the full negative bias in the unconstrained backtest.
 
+## Effect of entry-error replacement
+
+Replacing Units_Sold values above 20 times their SKU-year median changed the 19-month forecast total from 2,847,167 units to 2,812,116 units.
+
+| Origin | LightGBM WAPE before | LightGBM WAPE after |
+|---|---:|---:|
+| 2023-10 | 0.3962 | 0.3721 |
+| 2024-10 | 0.3596 | 0.3302 |
+| 2025-03 | 0.3615 | 0.3333 |
+
+Overall coverage changed from raw 0.6706 and calibrated 0.7345 to raw 0.6655 and calibrated 0.7297. Origin coverage was raw/calibrated 0.6179/0.6179 at 2023-10, 0.7071/0.7787 at 2024-10, and 0.6858/0.8047 at 2025-03 before the replacement, and 0.6037/0.6037, 0.7023/0.7763, and 0.6893/0.8068 after it.
+
+Top five forecast families before: Brake & Safety Systems 552,340; Precision Machined Parts 443,978; Thermal Management 440,985; Chassis & Structural 426,159; Powertrain Components 368,673. After: Brake & Safety Systems 550,786; Thermal Management 437,813; Precision Machined Parts 434,644; Chassis & Structural 425,528; Powertrain Components 360,920.
+
+Coverage is the share of non-null backtest actuals between p10 and p90 on the same rows. The overall result covers 169,229 predictions: raw 0.6655 and calibrated 0.7297.
+
+### Zero-order shares
+
+The panel reports these zero-order rows and active SKU-region-customer series per year:
+
+| Year | Zero-order rows | Active series | Zero-order rows per active series |
+|---|---:|---:|---:|
+| 2019 | 3,457 | 2,068 | 1.671663 |
+| 2020 | 3,675 | 2,211 | 1.662144 |
+| 2021 | 3,848 | 2,347 | 1.639540 |
+| 2022 | 4,826 | 2,916 | 1.655007 |
+| 2023 | 4,880 | 3,049 | 1.600525 |
+| 2024 | 5,073 | 3,113 | 1.629618 |
+| 2025 | 5,211 | 3,142 | 1.658498 |
+| 2026 | 4,408 | 3,144 | 1.402036 |
+
+The rise from 2021 to 2022 was accompanied by an increase in active series from 2,347 to 2,916 and a small increase in zero-order rows per active series from 1.639540 to 1.655007. Both more active series and slightly more zero orders per series contributed.
+
+### Revenue and unassigned regions
+
+Forecast revenue uses the most recent positive Unit_Price_USD for each SKU in the cleaned training data. Unassigned rows are sales with no region in the source data. Their LightGBM P50 WAPE is 0.7392 for 2023-10, 0.8776 for 2024-10, and 0.7978 for 2025-03, higher than the named-region results.
+
 ### EV shift and lag stability findings
 
-From `outputs/ev_shift_analysis.csv`, the EV_Adoption_Index coefficient against ICE volume is -109.6675 at lag 1 month. The output p-value is 0.0000032684215054787183, so the coefficient is statistically significant at 5%. This result can be described as a statistically significant relationship in the latest output; the methodology does not convert it into an unsupported causal shift claim.
+The level regression in `outputs/ev_shift_analysis.csv` has coefficient -109.6675 against ICE volume at lag 1 month, with p-value 0.0000032684215054787183. Shared trends can inflate this level result.
+
+The first-difference regressions report:
+
+| Lag | Coefficient | t-statistic | p-value | Observations | Significant at 5% |
+|---:|---:|---:|---:|---:|---|
+| 0 | -448.124081 | -0.7027 | 0.484195 | 93 | No |
+| 1 | 383.495079 | 0.5999 | 0.550604 | 92 | No |
+| 2 | -311.055674 | -0.4931 | 0.623038 | 91 | No |
+| 3 | 327.805299 | 0.5184 | 0.605725 | 90 | No |
+| 4 | -209.259518 | -0.3288 | 0.743702 | 89 | No |
+| 5 | 722.582669 | 1.1491 | 0.254667 | 88 | No |
+| 6 | -451.048432 | -0.7075 | 0.481387 | 87 | No |
+
+The first-difference result is not significant at 5%, so it is not described as a shift or a causal effect.
 
 The EV-coded share of volume is 0.00% in 2019 and 10.52% in 2026. From `outputs/lag_stability.csv`, at least one best lag moved between the 2019-2022 and 2023-2026 windows for Brake & Safety Systems, Chassis & Structural, Electrical Assemblies, Hydraulic Systems, Powertrain Components, Precision Machined Parts and Thermal Management.
 
-### Investigation of Systematic Under-Forecasting (Priority A5)
+### Investigation of systematic under-forecasting
 Across all three evaluation origins, LightGBM P50 exhibits systematic negative bias (-8.40 to -14.76 units/month overall), while outperforming all baseline models on WAPE (0.360 to 0.396 vs 0.374 to 0.406 for seasonal naive). A controlled diagnostic investigation into three candidate drivers reveals:
 
 1. **Target Change (Unconstrained Demand vs Shipped History)**:
@@ -243,10 +294,10 @@ The table below documents MD5 values from the latest local pipeline run:
 
 | Deliverable File | MD5 Digest |
 |---|---|
-| `project/outputs/clean_train.parquet` | `5425c4efbcfd22510a442b6d3f9e4194` |
-| `project/outputs/audit_log.csv` | `de057d5da661236b0eeb6b089b9ecf78` |
-| `project/outputs/forecast_submission.csv` | `9a929f7a58348c19f6ecbe43cd181867` |
-| `project/outputs/backtest_metrics.csv` | `481afbb89c16e213db6f3fc6b913b80e` |
+| `project/outputs/clean_train.parquet` | `c5d4bf330ba93f492e46e39049c9ba93` |
+| `project/outputs/audit_log.csv` | `0e48a083adc53d0d5610a644502ecc44` |
+| `project/outputs/forecast_submission.csv` | `8120d20c31b02b96e2f186bb49cc87ec` |
+| `project/outputs/backtest_metrics.csv` | `a08c7f06fe59758121a89dc79d9cf110` |
 
 ---
 

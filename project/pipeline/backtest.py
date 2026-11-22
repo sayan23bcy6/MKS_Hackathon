@@ -433,7 +433,7 @@ def run_honest_backtest(clean_train: pd.DataFrame,
     c_cal = float(((lgb_preds.loc[val_overall, 'actual'] >= lgb_preds.loc[val_overall, 'p10_cal']) &
                    (lgb_preds.loc[val_overall, 'actual'] <= lgb_preds.loc[val_overall, 'p90_cal'])).mean())
     cov_rows.append({
-        'origin': 'ALL', 'breakdown': 'overall', 'group': 'ALL', 'horizon_month': -1,
+        'origin': 'ALL', 'breakdown': 'overall', 'group': 'ALL', 'horizon_month': 'all',
         'n_obs': int(val_overall.sum()), 'coverage_raw': round(c_raw, 4), 'coverage_calibrated': round(c_cal, 4)
     })
     for orig, grp in lgb_preds.groupby('origin'):

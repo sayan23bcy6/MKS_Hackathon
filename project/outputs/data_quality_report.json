@@ -1,7 +1,7 @@
 {
   "summary": {
-    "total_audit_entries": 106226,
-    "total_anomalies": 1529
+    "total_audit_entries": 106332,
+    "total_anomalies": 1605
   },
   "train_issues": {
     "T1_date_formats": {
@@ -17,7 +17,7 @@
       "count": 246,
       "rule": "T2",
       "before_count": 246,
-      "after_count": 246
+      "after_count": 0
     },
     "T3_typo_year": {
       "description": "Impossible future dates (e.g. 2062 transposed to 2026)",
@@ -25,7 +25,7 @@
       "corrected": 30,
       "rule": "T3",
       "before_count": 30,
-      "after_count": 30
+      "after_count": 0
     },
     "T4_duplicate_record_ids": {
       "description": "Duplicate Record_IDs resolved by keeping latest Load_Timestamp",
@@ -96,7 +96,7 @@
       "zero_demand_rows": 35403,
       "null_demand_rows": 3460,
       "rule": "T11",
-      "before_count": 0,
+      "before_count": 4079,
       "after_count": 0
     },
     "T12_unit_price": {
@@ -106,17 +106,17 @@
       "scale_85x_band": 0,
       "scale_5_20x_band": 0,
       "rule": "T12",
-      "before_count": 0,
+      "before_count": 36352,
       "after_count": 0
     },
     "T13_revenue": {
       "description": "Revenue_USD recalculated as Units_Sold * Unit_Price_USD",
       "blank_count": 380,
-      "discrepancy_before": 18529,
-      "recomputed": 18529,
+      "discrepancy_before": 18531,
+      "recomputed": 18531,
       "rule": "T13",
-      "before_count": 380,
-      "after_count": 18529
+      "before_count": 18531,
+      "after_count": 0
     },
     "T14_real_market_shocks": {
       "description": "Real market shocks preserved without artificial outlier clipping",
@@ -130,15 +130,15 @@
       "zero_demand_rows": 35403,
       "null_demand_rows": 3460,
       "rule": "T15",
-      "before_count": 0,
-      "after_count": 0
+      "before_count": 38863,
+      "after_count": 38863
     },
     "R5_lifecycle": {
       "description": "Lifecycle validation: sales outside launch/EOL boundaries zeroed",
       "eol_violations": 0,
       "launch_violations": 15,
       "rule": "R5",
-      "before_count": 0,
+      "before_count": 15,
       "after_count": 0
     },
     "T4b_date_sku_region": {
@@ -222,16 +222,16 @@
       "reason": "Preserves total company sales volume and transaction count without guessing geographic origins."
     },
     "high_volume_orders": {
-      "rule_id": "T11",
-      "count": 31,
-      "decision": "Retained genuine large orders (>5000 units) in historical training data after validating non-corrupt status.",
-      "reason": "Reflects genuine commercial customer bulk procurement rather than data transmission errors."
+      "rule_id": "A3",
+      "count": 104,
+      "decision": "Replaced suspected entry errors above 20 times the SKU-year median.",
+      "reason": "Uses the SKU-year median and records each replacement in the audit log."
     },
     "macro_2022_06_duplicate": {
       "rule_id": "M1",
       "count": 1,
       "decision": "Row B (52.7) is closer to neighbour interpolation (52.85)",
-      "reason": "Preserves continuity with May 2022 and July 2022 macroeconomic indicators."
+      "reason": "Row B 52.7 is compared with interpolation 52.85 from May 2022 53.5 and July 2022 52.2."
     },
     "macro_2023_05_pmi_decimal": {
       "rule_id": "M3",
@@ -256,6 +256,188 @@
       "count": 0,
       "decision": "Allocated inventory stockouts defined at Date-SKU-Region proportionally across active customer accounts by non-negative volume, with remainder to largest customer.",
       "reason": "Preserves individual customer demand history while ensuring exact conservation of reported stockout units."
+    }
+  },
+  "rules": {
+    "T1": {
+      "rule": "T1",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 9967
+    },
+    "T2": {
+      "rule": "T2",
+      "before_count": 246,
+      "after_count": 0,
+      "audit_entries": 246
+    },
+    "T3": {
+      "rule": "T3",
+      "before_count": 30,
+      "after_count": 0,
+      "audit_entries": 30
+    },
+    "T4": {
+      "rule": "T4",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 3682
+    },
+    "T5": {
+      "rule": "T5",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 6854
+    },
+    "T6": {
+      "rule": "T6",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 3524
+    },
+    "T7": {
+      "rule": "T7",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 1228
+    },
+    "T8": {
+      "rule": "T8",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 3683
+    },
+    "T9": {
+      "rule": "T9",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 982
+    },
+    "T10": {
+      "rule": "T10",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 2455
+    },
+    "T11": {
+      "rule": "T11",
+      "before_count": 4079,
+      "after_count": 0,
+      "audit_entries": 884
+    },
+    "T12": {
+      "rule": "T12",
+      "before_count": 36352,
+      "after_count": 0,
+      "audit_entries": 37351
+    },
+    "T13": {
+      "rule": "T13",
+      "before_count": 18531,
+      "after_count": 0,
+      "audit_entries": 18531
+    },
+    "T14": {
+      "rule": "T14",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 0
+    },
+    "T15": {
+      "rule": "T15",
+      "before_count": 38863,
+      "after_count": 38863,
+      "audit_entries": 0
+    },
+    "R5": {
+      "rule": "R5",
+      "before_count": 15,
+      "after_count": 0,
+      "audit_entries": 15
+    },
+    "R9": {
+      "rule": "R9",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 0
+    },
+    "A2": {
+      "rule": "A2",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 14
+    },
+    "A3": {
+      "rule": "A3",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 104
+    },
+    "S1": {
+      "rule": "S1",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 1
+    },
+    "S2": {
+      "rule": "S2",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 0
+    },
+    "M1": {
+      "rule": "M1",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 1
+    },
+    "M2": {
+      "rule": "M2",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 12
+    },
+    "M3": {
+      "rule": "M3",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 1
+    },
+    "M4": {
+      "rule": "M4",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 5
+    },
+    "M5": {
+      "rule": "M5",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 0
+    },
+    "E1": {
+      "rule": "E1",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 48
+    },
+    "E2": {
+      "rule": "E2",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 1
+    },
+    "E3": {
+      "rule": "E3",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 3
+    },
+    "E4": {
+      "rule": "E4",
+      "before_count": 0,
+      "after_count": 0,
+      "audit_entries": 0
     }
   }
 }

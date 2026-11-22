@@ -90,6 +90,7 @@ def apply_t3_typo_year(df: pd.DataFrame) -> pd.DataFrame:
     typo_mask = mask & (df['Year'].str.strip() == '2026')
     DQ['T3_found'] = int(mask.sum())
     DQ['T3_corrected'] = int(typo_mask.sum())
+    DQ['T3_before_count'] = int(typo_mask.sum())
     for idx in df.index[typo_mask]:
         raw_date = df.at[idx, 'Date']
         corrected = '2026' + raw_date[4:]
@@ -99,6 +100,7 @@ def apply_t3_typo_year(df: pd.DataFrame) -> pd.DataFrame:
         df.at[idx, 'Date'] = corrected
     # Remaining dates still > 2026-10 that couldn't be corrected: fail loudly
     still_bad = df['Date'].str[:7] > TRAIN_DATE_MAX
+    DQ['T3_after_count'] = int(still_bad.sum())
     if still_bad.any():
         raise RuntimeError(f"T3: {still_bad.sum()} rows with Date > {TRAIN_DATE_MAX} remain after correction. Manual review needed.")
     return df
@@ -118,6 +120,7 @@ def apply_t2_year_month(df: pd.DataFrame) -> pd.DataFrame:
     any_wrong = year_wrong | month_wrong
 
     DQ['T2_year_month_mismatch'] = int(any_wrong.sum())
+    DQ['T2_before_count'] = int(any_wrong.sum())
     for idx in df.index[any_wrong]:
         rid = df.at[idx, 'Record_ID']
         if year_wrong[idx]:
@@ -129,6 +132,11 @@ def apply_t2_year_month(df: pd.DataFrame) -> pd.DataFrame:
 
     df['Year'] = expected_year
     df['Month'] = df['Date'].str[5:7].str.lstrip('0')
+    recomputed_wrong = (
+        (df['Year'].astype(str) != df['Date'].str[:4])
+        | (df['Month'].astype(str) != df['Date'].str[5:7].str.lstrip('0'))
+    )
+    DQ['T2_after_count'] = int(recomputed_wrong.sum())
     return df
 
 
@@ -570,7 +578,7 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
         if key in pos_keys:
             audit.log("train.csv", rid, "Units_Sold",
                       val, "DROPPED", "T11",
-                      "Negative Units_Sold dropped as transaction reversal matching positive sale")
+                      f"Negative Units_Sold dropped as transaction reversal; Date={df.at[idx, 'Date']}; SKU_ID={df.at[idx, 'SKU_ID']}; Region={df.at[idx, 'Region']}")
             drop_indices.append(idx)
             reversals_dropped += 1
         else:
@@ -627,6 +635,10 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
 def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
     """T12: One rule for all price anomalies. Replace out-of-band and zero prices with SKU-year median."""
     df = df.copy()
+    original_price = df['Unit_Price_USD'].apply(
+        lambda x: float(str(x).strip().replace(',', '')) if pd.notna(x) else np.nan
+    )
+    DQ['T12_before_count'] = int(((original_price == 0) | original_price.isna()).sum())
 
     def _to_float(x):
         try:
@@ -713,6 +725,7 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
     df = df.drop(columns=['_year', '_ref_price'])
     DQ['T12_repaired_prices'] = repaired_count
     DQ['T12_r4_violations_corrected'] = r4_violations
+    DQ['T12_after_count'] = int(((df['Unit_Price_USD'].isna()) | (df['Unit_Price_USD'] == 0)).sum())
 
     return df
 
@@ -748,6 +761,8 @@ def apply_t13_revenue(df: pd.DataFrame) -> pd.DataFrame:
 
     df.loc[has_both, 'Revenue_USD'] = expected_rev
     DQ['T13_recomputed'] = int(discrepancy.sum())
+    remaining = (df.loc[has_both, 'Revenue_USD'] - expected_rev).abs() > 1.0
+    DQ['T13_after_count'] = int(remaining.sum())
     return df
 
 
@@ -758,6 +773,53 @@ def apply_t15_zero_demand_flag(df: pd.DataFrame) -> pd.DataFrame:
     null_rows = df['Units_Sold'].isna().sum()
     DQ['T15_zero_demand_rows'] = int(zero_rows)
     DQ['T15_null_demand_rows'] = int(null_rows)
+    DQ['T15_before_count'] = int(zero_rows + null_rows)
+    DQ['T15_after_count'] = int(zero_rows + null_rows)
+    return df
+
+
+def apply_a3_high_volume_replacements(df: pd.DataFrame) -> pd.DataFrame:
+    """Replace suspected high-volume entries above 20 times the SKU-year median."""
+    df = df.copy()
+    units = pd.to_numeric(df['Units_Sold'], errors='coerce')
+    year = df['Date'].str[:4]
+    medians = (
+        pd.DataFrame({'SKU_ID': df['SKU_ID'], 'Year': year, 'Units': units})
+        .query('Units > 0')
+        .groupby(['SKU_ID', 'Year'])['Units']
+        .median()
+    )
+
+    replaced = 0
+    df['_A3_Original_Units'] = np.nan
+    df['_A3_Ratio'] = np.nan
+    for idx in df.index:
+        value = units.at[idx] if idx in units.index else np.nan
+        if pd.isna(value) or value <= 0:
+            continue
+        median = medians.get((df.at[idx, 'SKU_ID'], year.at[idx]))
+        if pd.isna(median) or median <= 0:
+            continue
+        ratio = float(value) / float(median)
+        if ratio > 20:
+            new_value = int(round(float(median)))
+            df.at[idx, 'Units_Sold'] = new_value
+            df.at[idx, '_A3_Original_Units'] = float(value)
+            df.at[idx, '_A3_Ratio'] = round(ratio, 6)
+            audit.log(
+                "train.csv",
+                df.at[idx, 'Record_ID'],
+                "Units_Sold",
+                value,
+                new_value,
+                "A3",
+                f"suspected entry error: ratio {ratio:.6f} against SKU-year median",
+            )
+            replaced += 1
+
+    DQ['A3_replaced_rows'] = replaced
+    DQ['A3_before_count'] = replaced
+    DQ['A3_after_count'] = 0
     return df
 
 
@@ -854,6 +916,25 @@ def clean_train(raw: pd.DataFrame, sku_master: pd.DataFrame,
     global DQ
     DQ = {}
     DQ['raw_rows'] = len(raw)
+    DQ['T5_blank_regions'] = int(raw['Region'].isna().sum() if 'Region' in raw else 0)
+    DQ['T7_blank_product_family'] = int(raw['Product_Family'].isna().sum() if 'Product_Family' in raw else 0)
+    sku_text = raw['SKU_ID'].astype(str) if 'SKU_ID' in raw else pd.Series(dtype=str)
+    DQ['T8_bad_sku_before'] = int((~sku_text.str.fullmatch(r'[A-Z]{3}-[0-9]{3}')).sum())
+    DQ['T9_blank_desc'] = int(raw['SKU_Description'].isna().sum() if 'SKU_Description' in raw else 0)
+    units_raw = raw['Units_Sold'].copy() if 'Units_Sold' in raw else pd.Series(dtype=object)
+    unit_text = units_raw.astype(str).str.strip()
+    DQ['T11_blank'] = int(units_raw.isna().sum())
+    DQ['T11_dash'] = int(unit_text.eq('-').sum())
+    DQ['T11_comma'] = int(unit_text.str.contains(',', regex=False).sum())
+    numeric_units = pd.to_numeric(units_raw.astype(str).str.replace(',', '', regex=False), errors='coerce')
+    DQ['T11_negative'] = int((numeric_units < 0).sum())
+    if 'Revenue_USD' in raw and 'Units_Sold' in raw and 'Unit_Price_USD' in raw:
+        revenue = pd.to_numeric(raw['Revenue_USD'], errors='coerce')
+        units = pd.to_numeric(units_raw.astype(str).str.replace(',', '', regex=False), errors='coerce')
+        prices = pd.to_numeric(raw['Unit_Price_USD'], errors='coerce')
+        mismatch = (revenue - units * prices).abs() > 1
+        DQ['T13_blank_revenue'] = int(raw['Revenue_USD'].isna().sum())
+        DQ['T13_discrepancy_before'] = int(mismatch.sum())
 
     df = raw.copy()
     df = apply_t1_date_parsing(df)
@@ -867,6 +948,7 @@ def clean_train(raw: pd.DataFrame, sku_master: pd.DataFrame,
     df = apply_t9_sku_description(df, sku_master)
     df = apply_t10_customer(df)
     df = apply_t11_units_sold(df, stockouts)
+    df = apply_a3_high_volume_replacements(df)
     df = apply_t12_prices(df)
     df = apply_t13_revenue(df)
     df = apply_t15_zero_demand_flag(df)

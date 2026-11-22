@@ -1,4 +1,4 @@
 Holiday_Name,Region,Holiday_Months,Holiday_Avg_Units,Non_Holiday_Avg_Units,Impact_Percentage,Description
-Lunar New Year,Asia Pacific,2,34.52,55.24,-37.5,February seasonal production pause across East Asian tier-1 OEMs
-Ramadan / Eid,Middle East & Africa,"4, 5",23.32,23.98,-2.8,Observed working hour reductions and logistics shift
-Summer Shutdown,Europe,"7, 8",44.13,56.43,-21.8,Annual OEM plant maintenance shutdowns in July/August
+Lunar New Year,Asia Pacific,2,34.52,53.33,-35.3,February seasonal production pause across East Asian tier-1 OEMs
+Ramadan / Eid,Middle East & Africa,"4, 5",22.78,23.17,-1.7,Observed working hour reductions and logistics shift
+Summer Shutdown,Europe,"7, 8",42.69,54.57,-21.8,Annual OEM plant maintenance shutdowns in July/August

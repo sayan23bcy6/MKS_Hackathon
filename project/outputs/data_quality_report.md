@@ -1,7 +1,7 @@
 # Data Quality Report - Celeris Automobili Demand Forecasting
 
-Total audit log entries recorded: 106226  
-Total anomalies registered: 1529
+Total audit log entries recorded: 106332  
+Total anomalies registered: 1605
 
 ---
 
@@ -21,7 +21,7 @@ Total anomalies registered: 1529
 | T10 | Customer name casing and whitespace variants unified | - | 2455 normalized |
 | T11 | Units_Sold formatting and negatives | 44 comma, 491 negative | Converted to numeric and absolute value applied |
 | T12 | Unit_Price_USD scale errors & zero prices | 0 zero rows | Annual SKU median reference price applied |
-| T13 | Revenue_USD recalculation | 18529 discrepant | Recalculated as Units_Sold * Unit_Price_USD |
+| T13 | Revenue_USD recalculation | 18531 discrepant | Recalculated as Units_Sold * Unit_Price_USD |
 | R5 | Sales outside launch/EOL lifecycle | - | Zeroed out 0 EOL and 15 pre-launch records |
 | T4b | Duplicate customer series records across differing channels | 244488 | 244321 (167 duplicates removed; clean dataset = 244,321 rows) |
 
@@ -60,16 +60,16 @@ Total anomalies registered: 1529
 - **Reason:** Preserves total company sales volume and transaction count without guessing geographic origins.
 
 ### high_volume_orders
-- **Rule ID:** T11
-- **Affected Records:** 31
-- **Decision:** Retained genuine large orders (>5000 units) in historical training data after validating non-corrupt status.
-- **Reason:** Reflects genuine commercial customer bulk procurement rather than data transmission errors.
+- **Rule ID:** A3
+- **Affected Records:** 104
+- **Decision:** Replaced suspected entry errors above 20 times the SKU-year median.
+- **Reason:** Uses the SKU-year median and records each replacement in the audit log.
 
 ### macro_2022_06_duplicate
 - **Rule ID:** M1
 - **Affected Records:** 1
 - **Decision:** Row B (52.7) is closer to neighbour interpolation (52.85)
-- **Reason:** Preserves continuity with May 2022 and July 2022 macroeconomic indicators.
+- **Reason:** Row B 52.7 is compared with interpolation 52.85 from May 2022 53.5 and July 2022 52.2.
 
 ### macro_2023_05_pmi_decimal
 - **Rule ID:** M3

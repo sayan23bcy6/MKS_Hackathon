@@ -327,6 +327,26 @@ def compute_macro_lag_analysis(clean_train: pd.DataFrame,
                     'Lag_Months': lag,
                     'Correlation': round(corr, 4),
                     'Significant': significant,
+                    'Analysis_Type': 'Levels',
                 })
+                fam_change = fam_series.diff()
+                mac_change = mac_shifted.diff()
+                aligned_change = pd.concat([fam_change, mac_change.shift(lag)], axis=1).dropna()
+                if len(aligned_change) >= 6:
+                    corr_change = aligned_change.iloc[:, 0].corr(aligned_change.iloc[:, 1])
+                    n_change = len(aligned_change)
+                    if abs(corr_change) < 0.999:
+                        t_change = corr_change * np.sqrt((n_change - 2) / max(1e-6, 1 - corr_change**2))
+                        significant_change = bool(abs(t_change) > 1.96)
+                    else:
+                        significant_change = bool(n_change >= 12)
+                    results.append({
+                        'Product_Family': family,
+                        'MacroIndicator': col,
+                        'Lag_Months': lag,
+                        'Correlation': round(corr_change, 4),
+                        'Significant': significant_change,
+                        'Analysis_Type': 'Changes',
+                    })
 
     return pd.DataFrame(results)

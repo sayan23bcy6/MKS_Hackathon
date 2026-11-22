@@ -1583,6 +1583,96 @@ def test_intermittency_class_present():
     assert set(frame['intermittency_class'].dropna().unique()).issubset({'smooth', 'erratic', 'intermittent', 'lumpy'})
 
 
+def test_high_volume_replacements_are_limited():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    clean_path = os.path.join(project_dir, 'outputs', 'clean_train.parquet')
+    audit_path = os.path.join(project_dir, 'outputs', 'audit_log.csv')
+    assert os.path.exists(clean_path), "run python project/run_pipeline.py first"
+    assert os.path.exists(audit_path), "run python project/run_pipeline.py first"
+    clean = pd.read_parquet(clean_path)
+    clean['_year'] = clean['Date'].str[:4]
+    medians = (
+        clean.query('Units_Sold > 0')
+        .groupby(['SKU_ID', '_year'])['Units_Sold']
+        .median()
+    )
+    ratios = []
+    for _, row in clean.iterrows():
+        median = medians.get((row['SKU_ID'], row['_year']))
+        if pd.notna(median) and median > 0:
+            value = row['Units_Sold']
+            if pd.notna(value):
+                ratios.append(float(value) / float(median))
+    assert ratios
+    assert max(ratios) <= 20
+    audit = pd.read_csv(audit_path)
+    a3 = audit[audit['rule_id'] == 'A3']
+    assert not a3.empty
+
+
+def test_anomaly_rows_have_keys():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    path = os.path.join(project_dir, 'outputs', 'anomaly_register.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    for column in ['Date', 'SKU_ID', 'Region']:
+        assert column in frame.columns
+        assert frame[column].fillna('').astype(str).str.strip().ne('').all()
+
+
+def test_data_health_corrected_counts_are_zero():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    path = os.path.join(project_dir, 'outputs', 'data_quality_report.json')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    with open(path, encoding='utf-8') as fh:
+        report = json.load(fh)
+    train = report['train_issues']
+    assert train['T2_year_month_mismatch']['after_count'] == 0
+    assert train['T3_typo_year']['after_count'] == 0
+    assert train['T13_revenue']['after_count'] == 0
+
+
+def test_macro_changes_matrix_matches_levels_shape():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    path = os.path.join(project_dir, 'outputs', 'macro_lag_analysis.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    if 'Analysis_Type' not in frame.columns:
+        assert not frame.empty
+        return
+    levels = frame[frame['Analysis_Type'] == 'Levels']
+    changes = frame[frame['Analysis_Type'] == 'Changes']
+    assert levels.shape == changes.shape
+
+
+def test_ev_shift_has_first_difference_rows():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    path = os.path.join(project_dir, 'outputs', 'ev_shift_analysis.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    diff_rows = frame[frame['Metric_Type'].astype(str).str.contains('First_Difference', na=False)]
+    assert len(diff_rows) >= 7
+    assert {'Coefficient', 'P_Value', 'Lag_Months', 'Observations'}.issubset(set(diff_rows.columns))
+
+
+def test_lifecycle_chains_include_pmp020():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    path = os.path.join(project_dir, '..', 'student_data', 'sku_master.csv')
+    assert os.path.exists(path)
+    frame = pd.read_csv(path)
+    row = frame[frame['SKU_ID'] == 'PMP-020']
+    assert not row.empty
+    assert row.iloc[0]['Replaces_SKU'] == 'PMP-003'
+
+
+def test_unassigned_region_rule_is_documented():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    path = os.path.join(project_dir, 'docs', 'methodology.md')
+    assert os.path.exists(path)
+    text = open(path, encoding='utf-8').read()
+    assert 'Unassigned rows' in text
+
+
 def test_insights_outputs_present():
     project_dir = os.path.dirname(os.path.dirname(__file__))
     for name in ['macro_lag_analysis.csv', 'lag_stability.csv', 'ev_shift_analysis.csv', 'early_buying.csv']:

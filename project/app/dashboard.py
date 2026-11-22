@@ -186,13 +186,32 @@ def view_executive_overview(df_train, df_forecast, df_intervals, filters):
 
     df_t = apply_filters(df_train, filters)
     df_f = apply_filters(df_forecast, filters)
+    unfiltered_forecast_total = int(df_forecast['Units_Sold_Forecast'].sum()) if not df_forecast.empty else 0
+    all_filters = (
+        set(filters.get('families', [])) == set(df_train['Product_Family'].dropna().unique())
+        and set(filters.get('regions', [])) == set(df_train['Region'].dropna().unique())
+        and set(filters.get('skus', [])) == set(df_train['SKU_ID'].dropna().unique())
+    ) if not df_train.empty else True
+    headline_label = "All data" if all_filters else "Filtered"
+    st.caption(f"{headline_label} forecast total: {int(df_f['Units_Sold_Forecast'].sum()) if not df_f.empty else 0:,} units")
+    if not all_filters:
+        st.caption(f"Unfiltered forecast total: {unfiltered_forecast_total:,} units")
 
     if df_t.empty and df_f.empty:
         st.warning("No data found matching the selected filter criteria.")
         return
 
     # Price map for projected revenue calculation
-    sku_price_map = df_train.groupby('SKU_ID')['Unit_Price_USD'].median().to_dict() if not df_train.empty else {}
+    latest_prices = (
+        df_train.assign(_dt=pd.to_datetime(df_train['Date'] + '-01'))
+        .sort_values(['SKU_ID', '_dt'])
+        .drop_duplicates('SKU_ID', keep='last')
+        .set_index('SKU_ID')['Unit_Price_USD']
+        .to_dict()
+        if not df_train.empty
+        else {}
+    )
+    sku_price_map = latest_prices
     df_f_rev = df_f.copy()
     df_f_rev['Est_Unit_Price'] = df_f_rev['SKU_ID'].map(sku_price_map).fillna(100.0)
     df_f_rev['Est_Revenue'] = df_f_rev['Units_Sold_Forecast'] * df_f_rev['Est_Unit_Price']
@@ -242,6 +261,23 @@ def view_executive_overview(df_train, df_forecast, df_intervals, filters):
                 fill='toself', fillcolor='rgba(255,127,14,0.15)',
                 line=dict(color='rgba(255,127,14,0)'),
                 name='Forecast Interval (P10-P90)'
+            ))
+    elif metric_mode == "Revenue (USD)" and not df_intervals.empty:
+        df_int_filtered = df_intervals[df_intervals['Region'].isin(filters['regions'])].copy()
+        if not df_int_filtered.empty:
+            df_int_filtered['Est_P10_Price'] = df_int_filtered['SKU_ID'].map(sku_price_map).fillna(100.0)
+            df_int_filtered['Est_P90_Price'] = df_int_filtered['Est_P10_Price']
+            int_monthly = df_int_filtered.groupby('Date').agg(
+                p10=('Units_Sold_Forecast_p10', 'sum'),
+                p90=('Units_Sold_Forecast_p90', 'sum')
+            ).reset_index()
+            int_monthly['p10'] = int_monthly['p10'] * df_int_filtered.groupby('Date')['Est_P10_Price'].mean().reindex(int_monthly['Date']).fillna(100.0).values
+            int_monthly['p90'] = int_monthly['p90'] * df_int_filtered.groupby('Date')['Est_P90_Price'].mean().reindex(int_monthly['Date']).fillna(100.0).values
+            fig.add_trace(go.Scatter(
+                x=list(int_monthly['Date']) + list(reversed(int_monthly['Date'])),
+                y=list(int_monthly['p90']) + list(reversed(int_monthly['p10'])),
+                fill='toself', fillcolor='rgba(255,127,14,0.15)',
+                line=dict(color='rgba(255,127,14,0)'), name='Revenue Interval'
             ))
 
     fig.add_vline(x='2026-10', line_dash='dot', line_color='gray')
@@ -314,6 +350,20 @@ def view_data_health(dq_report):
         })
     st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
 
+    rule_counts = dq_report.get('rules', {})
+    if rule_counts:
+        st.subheader("Rule Coverage")
+        rule_rows = [
+            {
+                'Rule ID': rule_id,
+                'Before': info.get('before_count', 0),
+                'After': info.get('after_count', 0),
+                'Audit Entries': info.get('audit_entries', 0),
+            }
+            for rule_id, info in rule_counts.items()
+        ]
+        st.dataframe(pd.DataFrame(rule_rows), use_container_width=True, hide_index=True)
+
     st.subheader("Documented Decision Rules")
     decisions = dq_report.get('decision_rules_applied', {})
     for k, v in decisions.items():
@@ -334,10 +384,27 @@ def view_demand_explorer(df_train, filters):
         st.warning("No data matching selection.")
         return
 
-    group_col = st.selectbox("Group By Dimension", ['Product_Family', 'Region', 'Sales_Channel', 'Customer_Name'])
-    grouped = df.groupby(['Date', group_col])['Units_Sold_num'].sum().reset_index()
+    dimension_options = {
+        'Product family': 'Product_Family',
+        'Region': 'Region',
+        'Sales channel': 'Sales_Channel',
+        'Customer name': 'Customer_Name',
+    }
+    display_dimension = st.selectbox("Group by", list(dimension_options.keys()))
+    if display_dimension in dimension_options:
+        group_col = dimension_options[display_dimension]
+    elif display_dimension in dimension_options.values():
+        group_col = display_dimension
+    else:
+        group_col = 'Product_Family'
+    df = df.rename(columns={'Units_Sold_num': 'Units sold'})
+    display_group = 'Product family' if group_col == 'Product_Family' else group_col
+    if display_group == 'Product family':
+        df['Product family'] = df['Product_Family']
+        group_col = 'Product family'
+    grouped = df.groupby(['Date', group_col])['Units sold'].sum().reset_index()
 
-    fig = px.line(grouped, x='Date', y='Units_Sold_num', color=group_col,
+    fig = px.line(grouped, x='Date', y='Units sold', color=group_col,
                   title=f'Historical Demand by {group_col}', height=450)
     st.plotly_chart(fig, use_container_width=True)
 
@@ -345,14 +412,14 @@ def view_demand_explorer(df_train, filters):
     with col_s1:
         st.subheader("Seasonality Profile")
         df['Month_Num'] = df['Date'].str[5:7].astype(int)
-        seas = df.groupby('Month_Num')['Units_Sold_num'].mean().reset_index()
-        fig_seas = px.bar(seas, x='Month_Num', y='Units_Sold_num', title='Average Demand by Calendar Month')
+        seas = df.groupby('Month_Num')['Units sold'].mean().reset_index()
+        fig_seas = px.bar(seas, x='Month_Num', y='Units sold', title='Average Demand by Calendar Month')
         fig_seas.update_layout(xaxis_title='Month of Year (1-12)', yaxis_title='Average Units Sold')
         st.plotly_chart(fig_seas, use_container_width=True)
 
     with col_s2:
         st.subheader("Zero-Demand Transaction Profile")
-        zero_df = df[df['Units_Sold_num'] == 0].groupby('Date')['SKU_ID'].count().reset_index()
+        zero_df = df[df['Units sold'] == 0].groupby('Date')['SKU_ID'].count().reset_index()
         if not zero_df.empty:
             fig_zeros = px.bar(zero_df, x='Date', y='SKU_ID', labels={'SKU_ID': 'Zero Demand Rows'}, title='Zero-Demand Occurrences over Time')
             fig_zeros.update_layout(xaxis_title='Date', yaxis_title='Zero Demand Rows')
@@ -420,6 +487,8 @@ def view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, fil
     if not cov_df.empty:
         st.subheader("Empirical Interval Coverage Breakdown (P10 - P90)")
         st.caption("Raw quantile coverage vs out-of-sample calibrated coverage by origin, horizon, and family")
+        cov_df = cov_df.copy()
+        cov_df.loc[cov_df['breakdown'] == 'overall', 'horizon_month'] = 'all'
         st.dataframe(cov_df, use_container_width=True, hide_index=True)
 
     col1, col2 = st.columns(2)
@@ -432,7 +501,8 @@ def view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, fil
             st.plotly_chart(fig_hor, use_container_width=True)
 
     with col2:
-        st.subheader("Forecast Bias by Product Family")
+        st.subheader("LightGBM P50 mean bias (predicted minus actual), units")
+        st.caption("Negative bias means under-forecasting; positive bias means over-forecasting.")
         fam_bias = backtest_df[(backtest_df['breakdown'] == 'family') & (backtest_df['model'] == 'lightgbm_p50')]
         if not fam_bias.empty:
             fig_bias = px.bar(fam_bias, x='group', y='Bias', color='origin', barmode='group', title='Mean Bias (Pred - Actual) by Family')
@@ -445,6 +515,15 @@ def view_forecast_accuracy(df_train, df_forecast, df_intervals, backtest_df, fil
         fig_reg = px.bar(reg_metrics, x='group', y='WAPE', color='origin', barmode='group', title='WAPE by Geographic Region')
         fig_reg.update_layout(xaxis_title='Geographic Region', yaxis_title='WAPE')
         st.plotly_chart(fig_reg, use_container_width=True)
+        unassigned = reg_metrics[reg_metrics['group'] == 'Unassigned']
+        if not unassigned.empty:
+            wape_text = ", ".join(
+                f"{row.origin}: {row.WAPE:.4f}" for row in unassigned.itertuples()
+            )
+            st.caption(
+                "Unassigned rows are sales with no region in the source data. "
+                f"Their forecast error is higher than the named regions. WAPE by origin: {wape_text}"
+            )
 
 
 # 6. Macro Lead/Lag Heatmap (Opt 1)
@@ -457,10 +536,25 @@ def view_macro_lag_heatmap(macro_lag_df):
         st.warning("Macro lag analysis data not found.")
         return
 
+    analysis_type = st.radio("Correlation view", ["Levels", "Changes"], horizontal=True)
+    if analysis_type not in ("Levels", "Changes"):
+        analysis_type = "Changes"
+    st.caption("Levels correlations can be high because both series trend over time. Use the Changes view for a like-for-like comparison.")
+    if 'Analysis_Type' in macro_lag_df.columns:
+        filtered_lag = macro_lag_df[macro_lag_df['Analysis_Type'] == analysis_type]
+        if not filtered_lag.empty:
+            macro_lag_df = filtered_lag
+
     lags = sorted(macro_lag_df['Lag_Months'].unique())
+    if not lags:
+        st.dataframe(macro_lag_df.head(30), use_container_width=True, hide_index=True)
+        return
     sel_lag = st.select_slider("Macro Lag Horizon (Months)", options=lags, value=0)
 
     sub = macro_lag_df[macro_lag_df['Lag_Months'] == sel_lag]
+    if sub.empty:
+        st.dataframe(macro_lag_df.head(30), use_container_width=True, hide_index=True)
+        return
     pivot = sub.pivot(index='Product_Family', columns='MacroIndicator', values='Correlation')
 
     fig = px.imshow(pivot, color_continuous_scale='RdBu_r', zmin=-1, zmax=1, aspect='auto', text_auto='.2f',
@@ -549,7 +643,83 @@ def view_powertrain_lifecycle(ev_df):
         st.warning("Powertrain transition analysis not found.")
         return
 
+    sku_path = OUTPUTS_DIR.parent / 'student_data' if False else PROJECT_DIR.parent / 'student_data'
+    sku_file = sku_path / 'sku_master.csv'
+    forecast_file = OUTPUTS_DIR / 'forecast_submission.csv'
+    sku_master = pd.read_csv(sku_file) if sku_file.exists() else pd.DataFrame()
+    forecast = pd.read_csv(forecast_file) if forecast_file.exists() else pd.DataFrame()
+
+    st.subheader("Launch and end-of-life timeline")
+    if not sku_master.empty:
+        timeline = sku_master[
+            sku_master['Launch_Date'].fillna('').ne('') | sku_master['EOL_Date'].fillna('').ne('')
+        ].copy()
+        families = sorted(timeline['Product_Family'].dropna().unique())
+        selected_family = st.selectbox("Family", families, key='lifecycle_family') if families else None
+        if selected_family:
+            timeline = timeline[timeline['Product_Family'] == selected_family]
+        if not timeline.empty:
+            timeline_rows = []
+            timeline_fig = go.Figure()
+            for _, row in timeline.iterrows():
+                start = str(row['Launch_Date'])[:10] if pd.notna(row.get('Launch_Date')) else ''
+                end = str(row['EOL_Date'])[:10] if pd.notna(row.get('EOL_Date')) else ''
+                timeline_rows.append({
+                    'SKU_ID': row['SKU_ID'],
+                    'Launch_Date': start,
+                    'EOL_Date': end,
+                    'Product_Family': row.get('Product_Family', ''),
+                })
+                if start and end:
+                    start_dt = pd.to_datetime(start)
+                    end_dt = pd.to_datetime(end)
+                    timeline_fig.add_trace(go.Bar(
+                        x=[(end_dt - start_dt).days],
+                        y=[row['SKU_ID']],
+                        orientation='h',
+                        base=[start_dt],
+                        name=row['SKU_ID'],
+                        showlegend=False,
+                    ))
+            if len(timeline_fig.data) > 0:
+                timeline_fig.update_layout(title='SKU lifecycle timeline', xaxis_title='Date', yaxis_title='SKU')
+                st.plotly_chart(timeline_fig, use_container_width=True)
+            st.dataframe(pd.DataFrame(timeline_rows), use_container_width=True, hide_index=True)
+
+    st.subheader("Replaces_SKU chains")
+    if not sku_master.empty and 'Replaces_SKU' in sku_master.columns:
+        chains = sku_master[
+            sku_master['Replaces_SKU'].fillna('').astype(str).str.strip().ne('')
+        ][['SKU_ID', 'Replaces_SKU', 'Launch_Date', 'EOL_Date']]
+        if not chains.empty:
+            predecessor = sku_master.set_index('SKU_ID')
+            chain_rows = []
+            for _, row in chains.iterrows():
+                pred = predecessor.loc[row['Replaces_SKU']] if row['Replaces_SKU'] in predecessor.index else None
+                chain_rows.append({
+                    'Predecessor': row['Replaces_SKU'],
+                    'Predecessor_Launch_Date': pred.get('Launch_Date', '') if pred is not None else '',
+                    'Successor': row['SKU_ID'],
+                    'Successor_Launch_Date': row['Launch_Date'],
+                })
+            st.dataframe(pd.DataFrame(chain_rows), use_container_width=True, hide_index=True)
+
+    st.subheader("Forecast before and after EOL")
+    if not forecast.empty and not sku_master.empty:
+        sku_options = sorted(sku_master[sku_master['EOL_Date'].fillna('').ne('')]['SKU_ID'].unique())
+        if sku_options:
+            selected_sku = st.selectbox("SKU", sku_options, key='lifecycle_sku')
+            sku_forecast = forecast[forecast['SKU_ID'] == selected_sku].copy()
+            sku_forecast = sku_forecast.sort_values('Date')
+            if not sku_forecast.empty:
+                eol_date = sku_master.loc[sku_master['SKU_ID'] == selected_sku, 'EOL_Date'].iloc[0]
+                fig_eol = px.line(sku_forecast, x='Date', y='Units_Sold_Forecast', title=f'Forecast for {selected_sku}')
+                if pd.notna(eol_date):
+                    fig_eol.add_vline(x=str(eol_date)[:7], line_dash='dot', line_color='gray')
+                st.plotly_chart(fig_eol, use_container_width=True)
+
     st.subheader("EV Adoption Index Correlation Analysis")
+    st.caption("First-difference EV/ICE coefficients are not significant at 5%; this view does not describe a shift.")
     st.dataframe(ev_df, use_container_width=True, hide_index=True)
 
 

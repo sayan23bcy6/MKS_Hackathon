@@ -33400,7 +33400,7 @@ train.csv,CEL-0189874,Units_Sold,-20.0,20.0,T11,Negative Units_Sold sign-entry e
 train.csv,CEL-0136242,Units_Sold,-37.0,37.0,T11,Negative Units_Sold sign-entry error; absolute value applied
 train.csv,CEL-0147232,Units_Sold,-54.0,54.0,T11,Negative Units_Sold sign-entry error; absolute value applied
 train.csv,CEL-0112918,Units_Sold,-55.0,55.0,T11,Negative Units_Sold sign-entry error; absolute value applied
-train.csv,CEL-0057120,Units_Sold,-24.0,DROPPED,T11,Negative Units_Sold dropped as transaction reversal matching positive sale
+train.csv,CEL-0057120,Units_Sold,-24.0,DROPPED,T11,Negative Units_Sold dropped as transaction reversal; Date=2022-05; SKU_ID=CSS-055; Region=India
 train.csv,CEL-0125656,Units_Sold,-52.0,52.0,T11,Negative Units_Sold sign-entry error; absolute value applied
 train.csv,CEL-0158592,Units_Sold,-226.0,226.0,T11,Negative Units_Sold sign-entry error; absolute value applied
 train.csv,CEL-0052459,Units_Sold,-30.0,30.0,T11,Negative Units_Sold sign-entry error; absolute value applied
@@ -33620,6 +33620,110 @@ train.csv,CEL-0086635,Units_Sold,24.0,7,A2,Units_Sold aligned with allocated inv
 train.csv,CEL-0086447,Units_Sold,58.0,17,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.7073 of total 24)
 train.csv,CEL-0173628,Units_Sold,23.0,12,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.5000 of total 23)
 train.csv,CEL-0173910,Units_Sold,23.0,11,A2,Units_Sold aligned with allocated inventory_stockouts Shipped_Units (share=0.5000 of total 23)
+train.csv,CEL-0107257,Units_Sold,620.0,26,A3,suspected entry error: ratio 24.313725 against SKU-year median
+train.csv,CEL-0206499,Units_Sold,4800.0,30,A3,suspected entry error: ratio 162.711864 against SKU-year median
+train.csv,CEL-0149669,Units_Sold,5100.0,45,A3,suspected entry error: ratio 113.333333 against SKU-year median
+train.csv,CEL-0081202,Units_Sold,6900.0,30,A3,suspected entry error: ratio 230.000000 against SKU-year median
+train.csv,CEL-0030883,Units_Sold,4400.0,48,A3,suspected entry error: ratio 92.631579 against SKU-year median
+train.csv,CEL-0012949,Units_Sold,2800.0,60,A3,suspected entry error: ratio 46.666667 against SKU-year median
+train.csv,CEL-0225748,Units_Sold,10700.0,96,A3,suspected entry error: ratio 110.880829 against SKU-year median
+train.csv,CEL-0015030,Units_Sold,6700.0,70,A3,suspected entry error: ratio 95.714286 against SKU-year median
+train.csv,CEL-0123855,Units_Sold,3800.0,37,A3,suspected entry error: ratio 102.702703 against SKU-year median
+train.csv,CEL-0057778,Units_Sold,504.0,21,A3,suspected entry error: ratio 24.000000 against SKU-year median
+train.csv,CEL-0022697,Units_Sold,5700.0,65,A3,suspected entry error: ratio 87.692308 against SKU-year median
+train.csv,CEL-0022603,Units_Sold,9400.0,65,A3,suspected entry error: ratio 144.615385 against SKU-year median
+train.csv,CEL-0071902,Units_Sold,4400.0,42,A3,suspected entry error: ratio 104.761905 against SKU-year median
+train.csv,CEL-0028705,Units_Sold,16300.0,44,A3,suspected entry error: ratio 370.454545 against SKU-year median
+train.csv,CEL-0001321,Units_Sold,2440.0,111,A3,suspected entry error: ratio 21.981982 against SKU-year median
+train.csv,CEL-0045049,Units_Sold,6400.0,40,A3,suspected entry error: ratio 160.000000 against SKU-year median
+train.csv,CEL-0209535,Units_Sold,9200.0,43,A3,suspected entry error: ratio 213.953488 against SKU-year median
+train.csv,CEL-0134904,Units_Sold,1900.0,38,A3,suspected entry error: ratio 50.000000 against SKU-year median
+train.csv,CEL-0100389,Units_Sold,4100.0,19,A3,suspected entry error: ratio 215.789474 against SKU-year median
+train.csv,CEL-0114409,Units_Sold,4600.0,37,A3,suspected entry error: ratio 124.324324 against SKU-year median
+train.csv,CEL-0150555,Units_Sold,5100.0,31,A3,suspected entry error: ratio 164.516129 against SKU-year median
+train.csv,CEL-0044363,Units_Sold,5100.0,40,A3,suspected entry error: ratio 127.500000 against SKU-year median
+train.csv,CEL-0151668,Units_Sold,1700.0,66,A3,suspected entry error: ratio 25.757576 against SKU-year median
+train.csv,CEL-0164211,Units_Sold,6300.0,70,A3,suspected entry error: ratio 89.361702 against SKU-year median
+train.csv,CEL-0186875,Units_Sold,920.0,34,A3,suspected entry error: ratio 27.058824 against SKU-year median
+train.csv,CEL-0100053,Units_Sold,3800.0,43,A3,suspected entry error: ratio 88.372093 against SKU-year median
+train.csv,CEL-0234317,Units_Sold,1600.0,63,A3,suspected entry error: ratio 25.396825 against SKU-year median
+train.csv,CEL-0242612,Units_Sold,1300.0,54,A3,suspected entry error: ratio 24.074074 against SKU-year median
+train.csv,CEL-0046886,Units_Sold,10000.0,60,A3,suspected entry error: ratio 166.666667 against SKU-year median
+train.csv,CEL-0223380,Units_Sold,13800.0,98,A3,suspected entry error: ratio 140.101523 against SKU-year median
+train.csv,CEL-0052210,Units_Sold,1120.0,24,A3,suspected entry error: ratio 46.666667 against SKU-year median
+train.csv,CEL-0101919,Units_Sold,2500.0,24,A3,suspected entry error: ratio 104.166667 against SKU-year median
+train.csv,CEL-0133690,Units_Sold,800.0,26,A3,suspected entry error: ratio 30.188679 against SKU-year median
+train.csv,CEL-0072799,Units_Sold,4400.0,38,A3,suspected entry error: ratio 115.789474 against SKU-year median
+train.csv,CEL-0167282,Units_Sold,1170.0,47,A3,suspected entry error: ratio 24.893617 against SKU-year median
+train.csv,CEL-0220477,Units_Sold,1270.0,62,A3,suspected entry error: ratio 20.483871 against SKU-year median
+train.csv,CEL-0069064,Units_Sold,3000.0,35,A3,suspected entry error: ratio 85.714286 against SKU-year median
+train.csv,CEL-0018735,Units_Sold,1190.0,56,A3,suspected entry error: ratio 21.061947 against SKU-year median
+train.csv,CEL-0236970,Units_Sold,1370.0,54,A3,suspected entry error: ratio 25.370370 against SKU-year median
+train.csv,CEL-0094938,Units_Sold,790.0,29,A3,suspected entry error: ratio 27.241379 against SKU-year median
+train.csv,CEL-0017024,Units_Sold,6000.0,48,A3,suspected entry error: ratio 125.000000 against SKU-year median
+train.csv,CEL-0162902,Units_Sold,1710.0,49,A3,suspected entry error: ratio 34.897959 against SKU-year median
+train.csv,CEL-0121917,Units_Sold,870.0,41,A3,suspected entry error: ratio 21.219512 against SKU-year median
+train.csv,CEL-0082977,Units_Sold,4500.0,56,A3,suspected entry error: ratio 80.357143 against SKU-year median
+train.csv,CEL-0170493,Units_Sold,1450.0,62,A3,suspected entry error: ratio 23.387097 against SKU-year median
+train.csv,CEL-0022365,Units_Sold,2200.0,52,A3,suspected entry error: ratio 42.307692 against SKU-year median
+train.csv,CEL-0098020,Units_Sold,1300.0,16,A3,suspected entry error: ratio 78.787879 against SKU-year median
+train.csv,CEL-0036330,Units_Sold,1290.0,49,A3,suspected entry error: ratio 26.326531 against SKU-year median
+train.csv,CEL-0001027,Units_Sold,2700.0,58,A3,suspected entry error: ratio 46.956522 against SKU-year median
+train.csv,CEL-0063545,Units_Sold,1410.0,64,A3,suspected entry error: ratio 21.860465 against SKU-year median
+train.csv,CEL-0200147,Units_Sold,3500.0,46,A3,suspected entry error: ratio 76.086957 against SKU-year median
+train.csv,CEL-0155324,Units_Sold,4400.0,46,A3,suspected entry error: ratio 94.623656 against SKU-year median
+train.csv,CEL-0032065,Units_Sold,6100.0,60,A3,suspected entry error: ratio 101.666667 against SKU-year median
+train.csv,CEL-0041932,Units_Sold,7100.0,51,A3,suspected entry error: ratio 139.215686 against SKU-year median
+train.csv,CEL-0075817,Units_Sold,300.0,6,A3,suspected entry error: ratio 50.000000 against SKU-year median
+train.csv,CEL-0189651,Units_Sold,3400.0,35,A3,suspected entry error: ratio 97.142857 against SKU-year median
+train.csv,CEL-0106166,Units_Sold,1630.0,42,A3,suspected entry error: ratio 38.809524 against SKU-year median
+train.csv,CEL-0243273,Units_Sold,1750.0,67,A3,suspected entry error: ratio 26.119403 against SKU-year median
+train.csv,CEL-0057379,Units_Sold,2250.0,38,A3,suspected entry error: ratio 58.441558 against SKU-year median
+train.csv,CEL-0048333,Units_Sold,6000.0,30,A3,suspected entry error: ratio 200.000000 against SKU-year median
+train.csv,CEL-0139045,Units_Sold,2100.0,45,A3,suspected entry error: ratio 46.666667 against SKU-year median
+train.csv,CEL-0043810,Units_Sold,10200.0,42,A3,suspected entry error: ratio 242.857143 against SKU-year median
+train.csv,CEL-0032920,Units_Sold,5200.0,56,A3,suspected entry error: ratio 93.693694 against SKU-year median
+train.csv,CEL-0070474,Units_Sold,680.0,15,A3,suspected entry error: ratio 45.333333 against SKU-year median
+train.csv,CEL-0101988,Units_Sold,2500.0,20,A3,suspected entry error: ratio 125.000000 against SKU-year median
+train.csv,CEL-0094127,Units_Sold,912.0,28,A3,suspected entry error: ratio 32.000000 against SKU-year median
+train.csv,CEL-0209749,Units_Sold,1360.0,62,A3,suspected entry error: ratio 21.935484 against SKU-year median
+train.csv,CEL-0242677,Units_Sold,2170.0,84,A3,suspected entry error: ratio 25.988024 against SKU-year median
+train.csv,CEL-0019389,Units_Sold,4890.0,47,A3,suspected entry error: ratio 104.042553 against SKU-year median
+train.csv,CEL-0130156,Units_Sold,8400.0,36,A3,suspected entry error: ratio 233.333333 against SKU-year median
+train.csv,CEL-0243730,Units_Sold,7100.0,66,A3,suspected entry error: ratio 108.396947 against SKU-year median
+train.csv,CEL-0128231,Units_Sold,2380.0,36,A3,suspected entry error: ratio 66.111111 against SKU-year median
+train.csv,CEL-0010352,Units_Sold,1000.0,38,A3,suspected entry error: ratio 26.315789 against SKU-year median
+train.csv,CEL-0002434,Units_Sold,4700.0,42,A3,suspected entry error: ratio 111.904762 against SKU-year median
+train.csv,CEL-0210518,Units_Sold,4400.0,38,A3,suspected entry error: ratio 115.789474 against SKU-year median
+train.csv,CEL-0019138,Units_Sold,2900.0,47,A3,suspected entry error: ratio 61.702128 against SKU-year median
+train.csv,CEL-0207838,Units_Sold,3500.0,57,A3,suspected entry error: ratio 61.403509 against SKU-year median
+train.csv,CEL-0155393,Units_Sold,7400.0,43,A3,suspected entry error: ratio 172.093023 against SKU-year median
+train.csv,CEL-0112229,Units_Sold,2500.0,61,A3,suspected entry error: ratio 40.983607 against SKU-year median
+train.csv,CEL-0032506,Units_Sold,10200.0,84,A3,suspected entry error: ratio 121.428571 against SKU-year median
+train.csv,CEL-0103156,Units_Sold,6200.0,24,A3,suspected entry error: ratio 258.333333 against SKU-year median
+train.csv,CEL-0031786,Units_Sold,6700.0,43,A3,suspected entry error: ratio 155.813953 against SKU-year median
+train.csv,CEL-0127747,Units_Sold,3000.0,42,A3,suspected entry error: ratio 72.289157 against SKU-year median
+train.csv,CEL-0090103,Units_Sold,400.0,18,A3,suspected entry error: ratio 22.222222 against SKU-year median
+train.csv,CEL-0137566,Units_Sold,1090.0,42,A3,suspected entry error: ratio 25.647059 against SKU-year median
+train.csv,CEL-0006435,Units_Sold,2040.0,54,A3,suspected entry error: ratio 37.777778 against SKU-year median
+train.csv,CEL-0050940,Units_Sold,4900.0,37,A3,suspected entry error: ratio 132.432432 against SKU-year median
+train.csv,CEL-0051727,Units_Sold,8800.0,24,A3,suspected entry error: ratio 374.468085 against SKU-year median
+train.csv,CEL-0140811,Units_Sold,9000.0,50,A3,suspected entry error: ratio 178.217822 against SKU-year median
+train.csv,CEL-0074290,Units_Sold,830.0,29,A3,suspected entry error: ratio 28.620690 against SKU-year median
+train.csv,CEL-0128117,Units_Sold,5000.0,28,A3,suspected entry error: ratio 178.571429 against SKU-year median
+train.csv,CEL-0244963,Units_Sold,160.0,6,A3,suspected entry error: ratio 26.666667 against SKU-year median
+train.csv,CEL-0117085,Units_Sold,870.0,34,A3,suspected entry error: ratio 25.588235 against SKU-year median
+train.csv,CEL-0084759,Units_Sold,440.0,19,A3,suspected entry error: ratio 23.157895 against SKU-year median
+train.csv,CEL-0136747,Units_Sold,800.0,28,A3,suspected entry error: ratio 28.571429 against SKU-year median
+train.csv,CEL-0200533,Units_Sold,900.0,39,A3,suspected entry error: ratio 23.076923 against SKU-year median
+train.csv,CEL-0212144,Units_Sold,380.0,15,A3,suspected entry error: ratio 25.333333 against SKU-year median
+train.csv,CEL-0001692,Units_Sold,15100.0,85,A3,suspected entry error: ratio 177.647059 against SKU-year median
+train.csv,CEL-0077207,Units_Sold,3100.0,20,A3,suspected entry error: ratio 155.000000 against SKU-year median
+train.csv,CEL-0211798,Units_Sold,4500.0,36,A3,suspected entry error: ratio 125.000000 against SKU-year median
+train.csv,CEL-0236424,Units_Sold,8200.0,50,A3,suspected entry error: ratio 164.000000 against SKU-year median
+train.csv,CEL-0030551,Units_Sold,9600.0,49,A3,suspected entry error: ratio 195.918367 against SKU-year median
+train.csv,CEL-0075665,Units_Sold,190.0,7,A3,suspected entry error: ratio 27.142857 against SKU-year median
+train.csv,CEL-0094177,Units_Sold,790.0,39,A3,suspected entry error: ratio 20.256410 against SKU-year median
 train.csv,CEL-0217935,Unit_Price_USD,0.0,796.91,T12,Zero or missing price replaced with SKU-year reference price
 train.csv,CEL-0022139,Unit_Price_USD,0.0,275.13,T12,Zero or missing price replaced with SKU-year reference price
 train.csv,CEL-0214453,Unit_Price_USD,0.0,1027.24,T12,Zero or missing price replaced with SKU-year reference price
@@ -87453,7 +87557,7 @@ train.csv,CEL-0181614,Revenue_USD,-4776.0,4776.0,T13,Revenue_USD recomputed as U
 train.csv,CEL-0129962,Revenue_USD,112173.6,11217.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0031324,Revenue_USD,472071.6,47207.16,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0104371,Revenue_USD,275321.8,27532.18,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0107257,Revenue_USD,98537.84,985378.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0107257,Revenue_USD,98537.84,41322.32,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0194357,Revenue_USD,102073.5,1020735.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0236073,Revenue_USD,-43916.25,43916.25,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0235335,Revenue_USD,22226.18,222261.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87481,7 +87585,7 @@ train.csv,CEL-0238581,Revenue_USD,26768.32,27668.32,T13,Revenue_USD recomputed a
 train.csv,CEL-0120452,Revenue_USD,10835.8,108358.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0127097,Revenue_USD,0.0,35477.45,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0236510,Revenue_USD,1451148.8,145114.88,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0206499,Revenue_USD,43740.0,4374000.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0206499,Revenue_USD,43740.0,27337.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0007805,Revenue_USD,0.0,42885.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0053134,Revenue_USD,-49565.46,49565.46,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0083531,Revenue_USD,-163810.64,163810.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87574,7 +87678,7 @@ train.csv,CEL-0193730,Revenue_USD,0.0,48307.5,T13,Revenue_USD recomputed as Unit
 train.csv,CEL-0081314,Revenue_USD,-46059.42,46059.42,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0212911,Revenue_USD,0.0,132406.88,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0170857,Revenue_USD,242046.0,24204.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0149669,Revenue_USD,38603.43,3860343.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0149669,Revenue_USD,38603.43,34061.85,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0026264,Revenue_USD,-37828.91,37828.91,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0203398,Revenue_USD,500857.5,50085.75,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0129147,Revenue_USD,-55519.1,55519.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87595,11 +87699,11 @@ train.csv,CEL-0045905,Revenue_USD,10376.5,103765.0,T13,Revenue_USD recomputed as
 train.csv,CEL-0177290,Revenue_USD,74166.84,741668.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0031658,Revenue_USD,44350.41,43450.41,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0223019,Revenue_USD,792901.2,79290.12,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0081202,Revenue_USD,83634.21,8363421.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0081202,Revenue_USD,83634.21,36362.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0235973,Revenue_USD,322650.0,32265.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0220495,Revenue_USD,-21064.2,21064.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0072220,Revenue_USD,0.0,79921.17,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0030883,Revenue_USD,13520.76,1352076.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0030883,Revenue_USD,13520.76,14749.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0013979,Revenue_USD,52959.06,59259.06,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0212839,Revenue_USD,-75271.2,75271.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0033581,Revenue_USD,276929.4,27692.94,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87637,7 +87741,7 @@ train.csv,CEL-0148789,Revenue_USD,136887.3,13688.73,T13,Revenue_USD recomputed a
 train.csv,CEL-0056693,Revenue_USD,0.0,31731.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0053619,Revenue_USD,-25038.72,25038.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0234235,Revenue_USD,897062.3,89706.23,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0012949,Revenue_USD,22379.84,2237984.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0012949,Revenue_USD,22379.84,47956.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0190145,Revenue_USD,-120239.54,120239.54,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0067649,Revenue_USD,1899.84,8199.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0009354,Revenue_USD,-14529.3,14529.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87706,7 +87810,7 @@ train.csv,CEL-0195026,Revenue_USD,0.0,31520.88,T13,Revenue_USD recomputed as Uni
 train.csv,CEL-0126689,Revenue_USD,-17999.14,17999.14,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0216894,Revenue_USD,-38398.14,38398.14,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0185111,Revenue_USD,-34153.64,34153.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0225748,Revenue_USD,86361.84,8636184.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0225748,Revenue_USD,86361.84,77483.52,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0004061,Revenue_USD,-35811.0,35811.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0156650,Revenue_USD,893328.3,89332.83,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0100061,Revenue_USD,968346.0,96834.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87729,26 +87833,27 @@ train.csv,CEL-0196685,Revenue_USD,163642.8,16364.28,T13,Revenue_USD recomputed a
 train.csv,CEL-0174596,Revenue_USD,-34175.33,34175.33,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0003156,Revenue_USD,0.0,16977.45,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0093139,Revenue_USD,22696.32,22966.32,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0015030,Revenue_USD,19947.91,1994791.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0015030,Revenue_USD,19947.91,20841.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0035348,Revenue_USD,14890.55,18490.55,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0186506,Revenue_USD,40373.1,403731.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0182752,Revenue_USD,0.0,25998.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0026351,Revenue_USD,1043629.5,104362.95,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0059309,Revenue_USD,16722.57,17622.57,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0123855,Revenue_USD,61817.26,6181726.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0123855,Revenue_USD,61817.26,60190.49,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0210408,Revenue_USD,-43052.87,43052.87,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0056349,Revenue_USD,210271.0,21027.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0137715,Revenue_USD,-22569.9,22569.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0056760,Revenue_USD,310173.3,31017.33,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0138735,Revenue_USD,426711.6,42671.16,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0057778,Revenue_USD,300545.28,12522.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0099397,Revenue_USD,-23912.4,23912.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0083425,Revenue_USD,506163.6,50616.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0053462,Revenue_USD,263455.2,26345.52,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0022697,Revenue_USD,33681.87,3368187.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0022697,Revenue_USD,33681.87,38409.15,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0014277,Revenue_USD,0.0,21030.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0005549,Revenue_USD,-75698.48,75698.48,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0238618,Revenue_USD,0.0,6414.24,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0022603,Revenue_USD,55545.54,5554554.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0022603,Revenue_USD,55545.54,38409.15,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0165121,Revenue_USD,1009129.1,100912.91,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0216704,Revenue_USD,-48646.89,48646.89,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0146556,Revenue_USD,-22312.4,22312.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87806,8 +87911,8 @@ train.csv,CEL-0101680,Revenue_USD,18931.35,189313.5,T13,Revenue_USD recomputed a
 train.csv,CEL-0086685,Revenue_USD,51081.6,510816.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0050655,Revenue_USD,-41234.49,41234.49,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0222048,Revenue_USD,-274171.92,274171.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0071902,Revenue_USD,32362.0,3236200.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0028705,Revenue_USD,38963.52,3896352.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0071902,Revenue_USD,32362.0,30891.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0028705,Revenue_USD,38963.52,10517.76,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0212020,Revenue_USD,-12952.5,12952.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0060491,Revenue_USD,16224.0,162240.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0029044,Revenue_USD,-20796.48,20796.48,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87841,7 +87946,7 @@ train.csv,CEL-0093886,Revenue_USD,-32057.62,32057.62,T13,Revenue_USD recomputed 
 train.csv,CEL-0077069,Revenue_USD,54275.44,54725.44,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0093510,Revenue_USD,93883.03,938830.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0026780,Revenue_USD,83570.33,83750.33,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0001321,Revenue_USD,54050.88,540508.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0001321,Revenue_USD,54050.88,24588.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0160119,Revenue_USD,63287.68,632876.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0233170,Revenue_USD,0.0,175839.12,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0070562,Revenue_USD,-18711.54,18711.54,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87850,21 +87955,21 @@ train.csv,CEL-0058208,Revenue_USD,-23820.48,23820.48,T13,Revenue_USD recomputed 
 train.csv,CEL-0207633,Revenue_USD,0.0,48484.69,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0064158,Revenue_USD,-30100.59,30100.59,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0067640,Revenue_USD,0.0,8574.67,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0045049,Revenue_USD,18425.6,1842560.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0209535,Revenue_USD,177474.44,17747444.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0045049,Revenue_USD,18425.6,11516.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0209535,Revenue_USD,177474.44,82950.01,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0218848,Revenue_USD,68219.09,682190.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0017803,Revenue_USD,-95561.84,95561.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0136372,Revenue_USD,36326.72,36236.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0147922,Revenue_USD,-16125.88,16125.88,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0060396,Revenue_USD,10896.0,18096.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0134904,Revenue_USD,20461.29,2046129.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0134904,Revenue_USD,20461.29,40922.58,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0065178,Revenue_USD,93269.0,9326.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0100389,Revenue_USD,82333.33,8233333.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0100389,Revenue_USD,82333.33,38154.47,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0048638,Revenue_USD,0.0,24089.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0158062,Revenue_USD,12163.5,11263.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0114409,Revenue_USD,26272.9,2627290.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0114409,Revenue_USD,26272.9,21132.55,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0073910,Revenue_USD,-77586.88,77586.88,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0150555,Revenue_USD,34351.05,3435105.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0150555,Revenue_USD,34351.05,20880.05,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0149540,Revenue_USD,35647.45,35674.45,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0195521,Revenue_USD,47115.95,471159.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0007448,Revenue_USD,77868.0,7786.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87891,23 +87996,23 @@ train.csv,CEL-0064402,Revenue_USD,-2315.43,2315.43,T13,Revenue_USD recomputed as
 train.csv,CEL-0076247,Revenue_USD,550789.4,55078.94,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0105314,Revenue_USD,-15720.79,15720.79,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0182463,Revenue_USD,0.0,56059.74,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0044363,Revenue_USD,19291.77,1929177.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0044363,Revenue_USD,19291.77,15130.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0198198,Revenue_USD,722999.2,72299.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0218256,Revenue_USD,-32750.62,32750.62,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0151668,Revenue_USD,14251.44,1425144.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0151668,Revenue_USD,14251.44,55329.12,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0046887,Revenue_USD,-31490.67,31490.67,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0069258,Revenue_USD,0.0,47992.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0082551,Revenue_USD,0.0,54262.55,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0164211,Revenue_USD,40961.34,4096134.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0186875,Revenue_USD,125136.56,1251365.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0164211,Revenue_USD,40961.34,45512.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0186875,Revenue_USD,125136.56,46246.12,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0228170,Revenue_USD,-33380.66,33380.66,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0203326,Revenue_USD,32092.06,320920.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0024427,Revenue_USD,149744.7,14974.47,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0211923,Revenue_USD,457375.5,45737.55,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0165795,Revenue_USD,34154.51,341545.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0100053,Revenue_USD,61328.58,6132858.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0100053,Revenue_USD,61328.58,69398.13,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0231678,Revenue_USD,-59647.35,59647.35,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0234317,Revenue_USD,17072.0,1707200.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0234317,Revenue_USD,17072.0,67221.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0143111,Revenue_USD,21587.35,215873.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0222723,Revenue_USD,0.0,63106.71,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0003336,Revenue_USD,-20447.6,20447.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87919,13 +88024,13 @@ train.csv,CEL-0237950,Revenue_USD,-112734.71,112734.71,T13,Revenue_USD recompute
 train.csv,CEL-0241754,Revenue_USD,38488.4,38848.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0212544,Revenue_USD,61556.61,65156.61,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0012053,Revenue_USD,-13965.44,13965.44,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0242612,Revenue_USD,6264.83,626483.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0242612,Revenue_USD,6264.83,26023.14,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0115273,Revenue_USD,286185.6,28618.56,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0213377,Revenue_USD,401620.2,40162.02,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0240096,Revenue_USD,28405.5,24805.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0140767,Revenue_USD,71452.64,714526.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0227019,Revenue_USD,1154396.0,115439.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0046886,Revenue_USD,47001.0,4700100.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0046886,Revenue_USD,47001.0,28200.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0147851,Revenue_USD,20413.94,204139.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0112177,Revenue_USD,40326.3,403263.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0111215,Revenue_USD,173804.4,17380.44,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87947,7 +88052,7 @@ train.csv,CEL-0177275,Revenue_USD,452698.4,45269.84,T13,Revenue_USD recomputed a
 train.csv,CEL-0125746,Revenue_USD,-26487.3,26487.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0117870,Revenue_USD,390350.4,39035.04,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0010561,Revenue_USD,-21526.68,21526.68,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0223380,Revenue_USD,135607.08,13560708.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0223380,Revenue_USD,135607.08,96300.68,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0144154,Revenue_USD,274137.6,27413.76,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0228544,Revenue_USD,126305.2,12630.52,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0237489,Revenue_USD,47814.25,478142.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87959,7 +88064,7 @@ train.csv,CEL-0001939,Revenue_USD,52750.5,527505.0,T13,Revenue_USD recomputed as
 train.csv,CEL-0035715,Revenue_USD,194904.0,19490.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0118456,Revenue_USD,52414.2,524142.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0126303,Revenue_USD,12975.0,129750.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0052210,Revenue_USD,32800.32,328003.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0052210,Revenue_USD,32800.32,7028.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0230808,Revenue_USD,21372.01,21732.01,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0149478,Revenue_USD,996726.4,99672.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0028604,Revenue_USD,0.0,10527.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -87978,7 +88083,7 @@ train.csv,CEL-0003956,Revenue_USD,32922.89,329228.9,T13,Revenue_USD recomputed a
 train.csv,CEL-0076822,Revenue_USD,33336.16,333361.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0066485,Revenue_USD,-6530.22,6530.22,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0022247,Revenue_USD,37209.15,73209.15,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0101919,Revenue_USD,35913.75,3591375.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0101919,Revenue_USD,35913.75,34477.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0210398,Revenue_USD,281688.0,28168.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0092461,Revenue_USD,3045873.6,304587.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0093881,Revenue_USD,70936.0,709360.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88014,7 +88119,7 @@ train.csv,CEL-0003087,Revenue_USD,-27339.9,27339.9,T13,Revenue_USD recomputed as
 train.csv,CEL-0197768,Revenue_USD,58991.0,589910.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0017027,Revenue_USD,-22952.64,22952.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0006481,Revenue_USD,371133.3,37113.33,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0133690,Revenue_USD,45478.4,454784.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0133690,Revenue_USD,45478.4,14780.48,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0027302,Revenue_USD,-40266.24,40266.24,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0144868,Revenue_USD,68906.15,689061.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0165791,Revenue_USD,23695.54,23965.54,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88024,13 +88129,13 @@ train.csv,CEL-0067634,Revenue_USD,128342.0,12834.2,T13,Revenue_USD recomputed as
 train.csv,CEL-0100478,Revenue_USD,-36514.39,36514.39,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0058201,Revenue_USD,271815.6,27181.56,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0171662,Revenue_USD,353511.6,35351.16,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0072799,Revenue_USD,72820.44,7282044.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0167282,Revenue_USD,114028.2,1140282.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0072799,Revenue_USD,72820.44,62890.38,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0167282,Revenue_USD,114028.2,45806.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0125591,Revenue_USD,-88384.75,88384.75,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0097273,Revenue_USD,-75747.75,75747.75,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0057207,Revenue_USD,1196.34,10196.34,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0197827,Revenue_USD,719690.2,71969.02,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0220477,Revenue_USD,124557.79,1245577.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0220477,Revenue_USD,124557.79,60807.74,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0075582,Revenue_USD,12278.84,12287.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0169828,Revenue_USD,0.0,6909.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0150455,Revenue_USD,0.0,13580.28,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88049,11 +88154,11 @@ train.csv,CEL-0115797,Revenue_USD,0.0,56141.62,T13,Revenue_USD recomputed as Uni
 train.csv,CEL-0046693,Revenue_USD,-6443.2,6443.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0002803,Revenue_USD,320267.4,32026.74,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0040171,Revenue_USD,-55840.4,55840.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0069064,Revenue_USD,12592.8,1259280.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0069064,Revenue_USD,12592.8,14691.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0060822,Revenue_USD,-23432.4,23432.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0018829,Revenue_USD,31510.47,31501.47,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0056618,Revenue_USD,29065.8,29605.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0018735,Revenue_USD,41194.23,411942.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0018735,Revenue_USD,41194.23,19385.52,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0206475,Revenue_USD,379557.0,37955.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0129937,Revenue_USD,112447.4,11244.74,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0153490,Revenue_USD,-45580.77,45580.77,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88062,9 +88167,9 @@ train.csv,CEL-0107420,Revenue_USD,378219.4,37821.94,T13,Revenue_USD recomputed a
 train.csv,CEL-0233444,Revenue_USD,223485.7,22348.57,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0110588,Revenue_USD,-23675.85,23675.85,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0155708,Revenue_USD,-22234.56,22234.56,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0236970,Revenue_USD,77285.81,772858.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0236970,Revenue_USD,77285.81,30463.02,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0121238,Revenue_USD,-22562.4,22562.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0094938,Revenue_USD,187688.99,1876889.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0094938,Revenue_USD,187688.99,68898.49,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0130527,Revenue_USD,0.0,59169.04,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0234312,Revenue_USD,372488.4,37248.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0039327,Revenue_USD,50055.5,500555.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88077,7 +88182,7 @@ train.csv,CEL-0037295,Revenue_USD,-18306.96,18306.96,T13,Revenue_USD recomputed 
 train.csv,CEL-0102914,Revenue_USD,84940.2,84904.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0166070,Revenue_USD,361006.6,36100.66,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0045956,Revenue_USD,206233.6,20623.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0017024,Revenue_USD,28690.8,2869080.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0017024,Revenue_USD,28690.8,22952.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0148117,Revenue_USD,45148.6,4514.86,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0231671,Revenue_USD,37835.9,37853.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0186492,Revenue_USD,173738.3,17373.83,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88086,21 +88191,21 @@ train.csv,CEL-0034184,Revenue_USD,0.0,113586.72,T13,Revenue_USD recomputed as Un
 train.csv,CEL-0176014,Revenue_USD,36782.44,63782.44,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0029034,Revenue_USD,-12357.9,12357.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0107947,Revenue_USD,0.0,47689.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0162902,Revenue_USD,180705.96,1807059.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0162902,Revenue_USD,180705.96,51781.24,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0154557,Revenue_USD,-6632.28,6632.28,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0056865,Revenue_USD,8324.46,8342.46,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0092574,Revenue_USD,35051.72,350517.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0094655,Revenue_USD,43108.24,43018.24,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0135271,Revenue_USD,401647.1,40164.71,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0113575,Revenue_USD,6795.36,67953.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0121917,Revenue_USD,84200.34,842003.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0121917,Revenue_USD,84200.34,39680.62,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0025504,Revenue_USD,-34916.2,34916.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0020281,Revenue_USD,90671.0,9067.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0058860,Revenue_USD,86364.0,8636.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0082977,Revenue_USD,48933.0,4893300.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0082977,Revenue_USD,48933.0,60894.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0195350,Revenue_USD,0.0,8742.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0091283,Revenue_USD,139153.56,1391535.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0170493,Revenue_USD,134277.25,1342772.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0170493,Revenue_USD,134277.25,57415.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0080165,Revenue_USD,3613.11,3163.11,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0122198,Revenue_USD,22259.86,222598.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0104250,Revenue_USD,-28410.32,28410.32,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88124,7 +88229,7 @@ train.csv,CEL-0162619,Revenue_USD,83099.25,38099.25,T13,Revenue_USD recomputed a
 train.csv,CEL-0163393,Revenue_USD,2490.46,249046.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0049005,Revenue_USD,-11481.64,11481.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0217572,Revenue_USD,0.0,69522.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0022365,Revenue_USD,8801.1,880110.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0022365,Revenue_USD,8801.1,20802.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0163487,Revenue_USD,458956.2,45895.62,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0020809,Revenue_USD,92949.9,9294.99,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0222376,Revenue_USD,-47776.95,47776.95,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88134,7 +88239,7 @@ train.csv,CEL-0116076,Revenue_USD,59422.4,594224.0,T13,Revenue_USD recomputed as
 train.csv,CEL-0177080,Revenue_USD,618837.0,61883.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0122197,Revenue_USD,52226.28,52262.28,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0194329,Revenue_USD,805506.0,80550.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0098020,Revenue_USD,34210.15,3421015.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0098020,Revenue_USD,34210.15,42104.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0081826,Revenue_USD,-205875.95,205875.95,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0020186,Revenue_USD,-22279.16,22279.16,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0093875,Revenue_USD,30134.5,31034.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88143,7 +88248,7 @@ train.csv,CEL-0188790,Revenue_USD,998409.6,99840.96,T13,Revenue_USD recomputed a
 train.csv,CEL-0181304,Revenue_USD,-32999.34,32999.34,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0106079,Revenue_USD,28536.96,285369.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0189999,Revenue_USD,-235965.44,235965.44,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0036330,Revenue_USD,88584.3,885843.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0036330,Revenue_USD,88584.3,33648.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0195291,Revenue_USD,8472.3,8742.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0064335,Revenue_USD,-9191.91,9191.91,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0145145,Revenue_USD,-16455.2,16455.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88159,7 +88264,7 @@ train.csv,CEL-0187487,Revenue_USD,49680.12,496801.2,T13,Revenue_USD recomputed a
 train.csv,CEL-0205638,Revenue_USD,237868.4,23786.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0117674,Revenue_USD,0.0,8165.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0209241,Revenue_USD,0.0,57880.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0001027,Revenue_USD,5131.35,513135.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0001027,Revenue_USD,5131.35,11022.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0040279,Revenue_USD,0.0,26651.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0203034,Revenue_USD,521881.6,52188.16,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0195706,Revenue_USD,0.0,34703.46,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88171,10 +88276,10 @@ train.csv,CEL-0222221,Revenue_USD,0.0,82813.38,T13,Revenue_USD recomputed as Uni
 train.csv,CEL-0113223,Revenue_USD,-45119.25,45119.25,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0229555,Revenue_USD,-49149.78,49149.78,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0109093,Revenue_USD,20624.04,206240.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0063545,Revenue_USD,87785.19,877851.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0063545,Revenue_USD,87785.19,39845.76,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0003232,Revenue_USD,0.0,23289.28,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0140663,Revenue_USD,62567.82,625678.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0200147,Revenue_USD,78283.1,7828310.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0200147,Revenue_USD,78283.1,102886.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0007002,Revenue_USD,-16154.56,16154.56,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0135983,Revenue_USD,129196.0,12919.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0121233,Revenue_USD,9732.8,97328.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88238,9 +88343,9 @@ train.csv,CEL-0103528,Revenue_USD,16051.17,160511.7,T13,Revenue_USD recomputed a
 train.csv,CEL-0009141,Revenue_USD,5972.12,59721.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0028409,Revenue_USD,0.0,35648.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0133270,Revenue_USD,0.0,70059.25,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0155324,Revenue_USD,31087.76,3108776.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0155324,Revenue_USD,31087.76,32500.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0118198,Revenue_USD,13754.92,17354.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0032065,Revenue_USD,37272.22,3727222.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0032065,Revenue_USD,37272.22,36661.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0070112,Revenue_USD,159173.6,15917.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0229458,Revenue_USD,-11154.56,11154.56,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0138773,Revenue_USD,0.0,12983.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88256,7 +88361,7 @@ train.csv,CEL-0117455,Revenue_USD,0.0,74863.79,T13,Revenue_USD recomputed as Uni
 train.csv,CEL-0223707,Revenue_USD,286113.6,28611.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0027425,Revenue_USD,-4129.64,4129.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0081248,Revenue_USD,17323.92,17233.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0041932,Revenue_USD,49985.42,4998542.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0041932,Revenue_USD,49985.42,35905.02,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0040970,Revenue_USD,0.0,17837.16,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0194323,Revenue_USD,803793.6,80379.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0213797,Revenue_USD,14544.31,145443.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88271,7 +88376,7 @@ train.csv,CEL-0000059,Revenue_USD,0.0,82319.3,T13,Revenue_USD recomputed as Unit
 train.csv,CEL-0144516,Revenue_USD,115778.87,117578.87,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0022863,Revenue_USD,-74954.7,74954.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0095350,Revenue_USD,0.0,4106.07,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0075817,Revenue_USD,6861.03,686103.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0075817,Revenue_USD,6861.03,13722.06,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0142040,Revenue_USD,375315.5,37531.55,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0069922,Revenue_USD,-22630.72,22630.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0121908,Revenue_USD,-35897.16,35897.16,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88284,8 +88389,8 @@ train.csv,CEL-0092331,Revenue_USD,-37769.68,37769.68,T13,Revenue_USD recomputed 
 train.csv,CEL-0193418,Revenue_USD,61672.5,66172.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0160817,Revenue_USD,35779.0,357790.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0158547,Revenue_USD,-117751.07,117751.07,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0189651,Revenue_USD,46471.54,4647154.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0106166,Revenue_USD,93100.71,931007.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0189651,Revenue_USD,46471.54,47838.35,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0106166,Revenue_USD,93100.71,23989.14,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0147778,Revenue_USD,176670.4,17667.04,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0072320,Revenue_USD,741873.0,74187.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0238195,Revenue_USD,89965.86,89695.86,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88365,7 +88470,7 @@ train.csv,CEL-0000432,Revenue_USD,15023.22,15032.22,T13,Revenue_USD recomputed a
 train.csv,CEL-0060280,Revenue_USD,46244.32,46424.32,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0092385,Revenue_USD,30379.96,303799.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0088683,Revenue_USD,73933.56,739335.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0243273,Revenue_USD,116170.25,1161702.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0243273,Revenue_USD,116170.25,44476.61,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0209419,Revenue_USD,725417.0,72541.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0060562,Revenue_USD,159021.5,15902.15,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0220462,Revenue_USD,945875.1,94587.51,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88399,7 +88504,7 @@ train.csv,CEL-0049050,Revenue_USD,0.0,2170.32,T13,Revenue_USD recomputed as Unit
 train.csv,CEL-0245138,Revenue_USD,-67330.64,67330.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0073029,Revenue_USD,-15776.0,15776.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0136689,Revenue_USD,0.0,23730.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0057379,Revenue_USD,90483.75,904837.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0057379,Revenue_USD,90483.75,15281.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0142563,Revenue_USD,61896.6,16896.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0179368,Revenue_USD,752194.8,75219.48,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0201193,Revenue_USD,27249.3,272493.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88413,7 +88518,7 @@ train.csv,CEL-0161398,Revenue_USD,31346.82,31364.82,T13,Revenue_USD recomputed a
 train.csv,CEL-0234296,Revenue_USD,425695.7,42569.57,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0095709,Revenue_USD,-31479.87,31479.87,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0142468,Revenue_USD,0.0,99126.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0048333,Revenue_USD,55116.6,5511660.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0048333,Revenue_USD,55116.6,27558.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0050781,Revenue_USD,0.0,16724.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0211749,Revenue_USD,0.0,62153.52,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0178217,Revenue_USD,-96266.52,96266.52,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -88474,12 +88579,12 @@ train.csv,CEL-0110476,Revenue_USD,34890.7,34980.7,T13,Revenue_USD recomputed as 
 train.csv,CEL-0035317,Revenue_USD,-9656.26,9656.26,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0234482,Revenue_USD,-53459.46,53459.46,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0031527,Revenue_USD,-16235.97,16235.97,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0139045,Revenue_USD,20247.15,2024715.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0139045,Revenue_USD,20247.15,43386.75,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0090280,Revenue_USD,212770.7,21277.07,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0167827,Revenue_USD,1316323.3,131632.33,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0208228,Revenue_USD,11799.5,11979.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0041582,Revenue_USD,208018.8,20801.88,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0043810,Revenue_USD,25526.52,2552652.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0043810,Revenue_USD,25526.52,10510.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0077714,Revenue_USD,-217439.2,217439.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0203641,Revenue_USD,-255727.68,255727.68,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0074940,Revenue_USD,373496.8,37349.68,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -89308,7 +89413,7 @@ train.csv,CEL-0158408,Revenue_USD,29537.64,28701.72,T13,Revenue_USD recomputed a
 train.csv,CEL-0182096,Revenue_USD,53168.92,50159.48,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0155969,Revenue_USD,40327.9,38045.06,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0074222,Revenue_USD,28008.0,26422.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0032920,Revenue_USD,14082.12,1368354.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0032920,Revenue_USD,14082.12,14736.12,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0063742,Revenue_USD,11986.59,11647.34,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0070381,Revenue_USD,31573.93,30680.32,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0225033,Revenue_USD,45656.15,44363.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -90095,7 +90200,7 @@ train.csv,CEL-0099927,Revenue_USD,7275.38,6863.5,T13,Revenue_USD recomputed as U
 train.csv,CEL-0220982,Revenue_USD,7077.69,6676.98,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0003837,Revenue_USD,26747.5,25990.62,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0001725,Revenue_USD,222129.8,209558.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0070474,Revenue_USD,126295.72,1227213.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0070474,Revenue_USD,126295.72,27070.88,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0059744,Revenue_USD,57401.12,54152.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0158751,Revenue_USD,28217.92,27419.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0149278,Revenue_USD,13988.04,13592.15,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -90664,7 +90769,7 @@ train.csv,CEL-0177589,Revenue_USD,181879.21,171584.76,T13,Revenue_USD recomputed
 train.csv,CEL-0092037,Revenue_USD,110868.05,107730.18,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0148504,Revenue_USD,160881.28,151773.44,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0194744,Revenue_USD,40945.32,38627.68,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0101988,Revenue_USD,33321.75,3332175.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0101988,Revenue_USD,33321.75,26657.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0063799,Revenue_USD,6849.48,6655.62,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0071588,Revenue_USD,41489.92,39141.52,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0239407,Revenue_USD,6631.57,6443.85,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -92453,6 +92558,7 @@ train.csv,CEL-0241913,Revenue_USD,9655.84,9109.28,T13,Revenue_USD recomputed as 
 train.csv,CEL-0003647,Revenue_USD,11036.25,10411.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0191591,Revenue_USD,33110.7,31236.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0020975,Revenue_USD,28582.84,26964.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0094127,Revenue_USD,895474.56,27492.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0005607,Revenue_USD,11499.0,10848.15,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0142612,Revenue_USD,37038.24,35990.02,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0169087,Revenue_USD,6929.01,6732.88,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -92731,7 +92837,7 @@ train.csv,CEL-0002005,Revenue_USD,47297.6,44620.8,T13,Revenue_USD recomputed as 
 train.csv,CEL-0025481,Revenue_USD,53931.03,52404.74,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0148220,Revenue_USD,2963.16,2795.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0090274,Revenue_USD,15412.2,14539.76,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0209749,Revenue_USD,234910.08,2282617.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0209749,Revenue_USD,234910.08,104060.49,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0004891,Revenue_USD,19755.0,18636.75,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0194026,Revenue_USD,74071.04,69878.14,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0069474,Revenue_USD,25500.77,24057.16,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -92994,7 +93100,7 @@ train.csv,CEL-0078483,Revenue_USD,41207.04,38874.56,T13,Revenue_USD recomputed a
 train.csv,CEL-0061738,Revenue_USD,8183.89,7952.28,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0173937,Revenue_USD,27041.1,25510.68,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0004269,Revenue_USD,31720.44,29924.61,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0242677,Revenue_USD,134930.6,1349306.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0242677,Revenue_USD,134930.6,52231.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0229196,Revenue_USD,23167.3,21855.93,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0004797,Revenue_USD,4829.0,4555.65,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0013843,Revenue_USD,24220.09,23534.51,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -95347,7 +95453,7 @@ train.csv,CEL-0159651,Revenue_USD,70789.84,66783.2,T13,Revenue_USD recomputed as
 train.csv,CEL-0216420,Revenue_USD,55817.45,52658.24,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0233722,Revenue_USD,26991.36,26227.44,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0092033,Revenue_USD,58571.8,56914.06,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0019389,Revenue_USD,268363.2,2531748.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0019389,Revenue_USD,268363.2,24333.78,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0167045,Revenue_USD,97184.0,94433.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0091693,Revenue_USD,10459.25,10163.22,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0021349,Revenue_USD,18779.49,18248.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -97102,7 +97208,7 @@ train.csv,CEL-0155059,Revenue_USD,19271.46,19849.61,T13,Revenue_USD recomputed a
 train.csv,CEL-0101327,Revenue_USD,25313.34,26832.26,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0130004,Revenue_USD,11364.3,11705.25,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0014708,Revenue_USD,40190.58,41396.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0130156,Revenue_USD,31820.04,3277470.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0130156,Revenue_USD,31820.04,14046.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0022998,Revenue_USD,43801.12,45114.96,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0202765,Revenue_USD,26654.06,28253.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0162594,Revenue_USD,22831.2,23516.08,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -97218,7 +97324,7 @@ train.csv,CEL-0092032,Revenue_USD,104592.32,107730.18,T13,Revenue_USD recomputed
 train.csv,CEL-0014614,Revenue_USD,8186.97,8432.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0156857,Revenue_USD,49796.5,52784.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0042536,Revenue_USD,22256.85,22924.55,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0243730,Revenue_USD,63550.68,6355068.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0243730,Revenue_USD,63550.68,59075.28,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0164084,Revenue_USD,28341.72,29191.89,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0097316,Revenue_USD,25764.8,27310.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0195173,Revenue_USD,10068.3,10672.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -97993,7 +98099,7 @@ train.csv,CEL-0020313,Revenue_USD,8529.36,9041.04,T13,Revenue_USD recomputed as 
 train.csv,CEL-0012904,Revenue_USD,9810.0,10104.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0062685,Revenue_USD,1506.52,1551.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0161573,Revenue_USD,12728.4,13110.24,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0128231,Revenue_USD,117745.74,1212776.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0128231,Revenue_USD,117745.74,18344.52,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0208653,Revenue_USD,44357.29,45688.12,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0031799,Revenue_USD,18961.21,20099.08,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0164987,Revenue_USD,149435.28,153918.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -99403,7 +99509,7 @@ train.csv,CEL-0120247,Revenue_USD,60140.56,61944.6,T13,Revenue_USD recomputed as
 train.csv,CEL-0225329,Revenue_USD,20721.96,21343.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0128512,Revenue_USD,24157.67,24882.32,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0233907,Revenue_USD,32890.38,33877.11,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0010352,Revenue_USD,37186.0,394170.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0010352,Revenue_USD,37186.0,14978.46,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0043894,Revenue_USD,2742.12,2906.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0104845,Revenue_USD,42063.34,44587.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0022996,Revenue_USD,31357.62,32298.21,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -99869,7 +99975,7 @@ train.csv,CEL-0022150,Revenue_USD,19000.98,19570.95,T13,Revenue_USD recomputed a
 train.csv,CEL-0152925,Revenue_USD,69277.04,71355.48,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0224461,Revenue_USD,2932.35,3020.32,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0127420,Revenue_USD,79477.3,84245.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0002434,Revenue_USD,19207.96,1920796.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0002434,Revenue_USD,19207.96,17164.56,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0163366,Revenue_USD,1898.76,1955.73,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0016902,Revenue_USD,12538.68,13290.78,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0207204,Revenue_USD,19017.44,20158.56,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -100100,7 +100206,7 @@ train.csv,CEL-0058699,Revenue_USD,18121.44,19208.64,T13,Revenue_USD recomputed a
 train.csv,CEL-0174460,Revenue_USD,6235.28,6609.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0088046,Revenue_USD,24430.77,25896.57,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0241380,Revenue_USD,4499.92,4769.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0210518,Revenue_USD,33034.32,3303432.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0210518,Revenue_USD,33034.32,28529.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0066829,Revenue_USD,47929.92,49368.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0054289,Revenue_USD,60991.26,62821.11,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0057025,Revenue_USD,8027.8,8509.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -103052,7 +103158,7 @@ train.csv,CEL-0031420,Revenue_USD,10085.75,10691.0,T13,Revenue_USD recomputed as
 train.csv,CEL-0205307,Revenue_USD,124385.76,131848.56,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0025779,Revenue_USD,71727.12,73879.02,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0170128,Revenue_USD,8947.62,9484.42,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0019138,Revenue_USD,15014.46,1501446.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0019138,Revenue_USD,15014.46,24333.78,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0204931,Revenue_USD,46924.83,49740.03,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0066357,Revenue_USD,2585.76,2740.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0230397,Revenue_USD,69535.62,71621.55,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105040,7 +105146,7 @@ train.csv,CEL-0009210,Revenue_USD,14958.5,1495.85,T13,Revenue_USD recomputed as 
 train.csv,CEL-0025226,Revenue_USD,90234.0,9023.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0120923,Revenue_USD,46328.4,4632.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0003486,Revenue_USD,25361.2,2536.12,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0207838,Revenue_USD,13836.55,1383655.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0207838,Revenue_USD,13836.55,22533.81,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0053265,Revenue_USD,39282.0,3928.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0083380,Revenue_USD,22327.0,15628.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0009702,Revenue_USD,14874.6,1487.46,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105069,7 +105175,7 @@ train.csv,CEL-0030398,Revenue_USD,9409.2,940.92,T13,Revenue_USD recomputed as Un
 train.csv,CEL-0222099,Revenue_USD,383306.3,38330.63,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0127416,Revenue_USD,86719.2,8671.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0115951,Revenue_USD,1063132.0,106313.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0155393,Revenue_USD,43898.28,4389828.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0155393,Revenue_USD,43898.28,25508.46,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0086642,Revenue_USD,20671.6,17570.86,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0105275,Revenue_USD,13504.2,1350.42,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0156391,Revenue_USD,0.0,16131.45,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105331,7 +105437,7 @@ train.csv,CEL-0012597,Revenue_USD,0.0,29888.1,T13,Revenue_USD recomputed as Unit
 train.csv,CEL-0150511,Revenue_USD,38515.4,3851.54,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0235613,Revenue_USD,12709.6,1270.96,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0083376,Revenue_USD,44654.0,4465.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0112229,Revenue_USD,18227.5,1822750.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0112229,Revenue_USD,18227.5,44475.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0242852,Revenue_USD,-62670.93,62670.93,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0184720,Revenue_USD,28818.8,2881.88,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0147129,Revenue_USD,28416.0,2841.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105397,7 +105503,7 @@ train.csv,CEL-0199833,Revenue_USD,34202.0,3420.2,T13,Revenue_USD recomputed as U
 train.csv,CEL-0008146,Revenue_USD,17496.5,1749.65,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0048782,Revenue_USD,-11354.4,11354.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0009698,Revenue_USD,19832.8,1983.28,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0032506,Revenue_USD,67584.18,6758418.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0032506,Revenue_USD,67584.18,55657.56,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0196917,Revenue_USD,422491.3,42249.13,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0123277,Revenue_USD,26455.8,2645.58,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0115759,Revenue_USD,22553.7,2255.37,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105512,7 +105618,7 @@ train.csv,CEL-0111170,Revenue_USD,-13778.06,13778.06,T13,Revenue_USD recomputed 
 train.csv,CEL-0054900,Revenue_USD,134506.8,13450.68,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0101970,Revenue_USD,372403.0,37240.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0002951,Revenue_USD,42995.4,42959.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0103156,Revenue_USD,121103.36,12110336.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0103156,Revenue_USD,121103.36,46878.72,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0073581,Revenue_USD,-50912.74,50912.74,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0062250,Revenue_USD,1283626.9,128362.69,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0041901,Revenue_USD,143931.1,134931.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105535,7 +105641,7 @@ train.csv,CEL-0129520,Revenue_USD,341667.0,34166.7,T13,Revenue_USD recomputed as
 train.csv,CEL-0050604,Revenue_USD,31044.44,310444.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0018412,Revenue_USD,41207.75,41027.75,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0023758,Revenue_USD,-30401.28,30401.28,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0031786,Revenue_USD,25780.93,2578093.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0031786,Revenue_USD,25780.93,16545.97,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0115849,Revenue_USD,713663.49,173663.49,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0135947,Revenue_USD,0.0,18856.25,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0043050,Revenue_USD,-48663.96,48663.96,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105553,7 +105659,7 @@ train.csv,CEL-0044999,Revenue_USD,17610.67,176106.7,T13,Revenue_USD recomputed a
 train.csv,CEL-0070172,Revenue_USD,-16559.0,16559.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0154176,Revenue_USD,91004.7,19004.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0191197,Revenue_USD,721300.7,72130.07,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0127747,Revenue_USD,37697.7,3769770.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0127747,Revenue_USD,37697.7,52776.78,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0122064,Revenue_USD,36639.45,36693.45,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0063508,Revenue_USD,14896.14,148961.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0178472,Revenue_USD,126338.6,12633.86,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105566,10 +105672,10 @@ train.csv,CEL-0026823,Revenue_USD,50830.78,508307.8,T13,Revenue_USD recomputed a
 train.csv,CEL-0059441,Revenue_USD,0.0,20200.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0119575,Revenue_USD,94500.1,9450.01,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0245110,Revenue_USD,0.0,19820.85,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0090103,Revenue_USD,32406.4,324064.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0090103,Revenue_USD,32406.4,14582.88,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0107905,Revenue_USD,-18493.16,18493.16,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0106039,Revenue_USD,0.0,17857.44,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0137566,Revenue_USD,129633.7,1296337.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0137566,Revenue_USD,129633.7,49950.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0024378,Revenue_USD,0.0,6421.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0161276,Revenue_USD,133016.0,13301.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0002232,Revenue_USD,-19944.57,19944.57,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105585,7 +105691,7 @@ train.csv,CEL-0081937,Revenue_USD,348029.1,34802.91,T13,Revenue_USD recomputed a
 train.csv,CEL-0213574,Revenue_USD,72553.92,75253.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0183035,Revenue_USD,-17051.1,17051.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0171183,Revenue_USD,0.0,58848.22,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0006435,Revenue_USD,73136.04,731360.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0006435,Revenue_USD,73136.04,19359.54,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0023509,Revenue_USD,749548.8,74954.88,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0245109,Revenue_USD,-11892.51,11892.51,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0003721,Revenue_USD,950456.0,95045.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105601,18 +105707,18 @@ train.csv,CEL-0124607,Revenue_USD,-15192.55,15192.55,T13,Revenue_USD recomputed 
 train.csv,CEL-0018596,Revenue_USD,119036.9,11903.69,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0117915,Revenue_USD,32944.08,329440.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0058343,Revenue_USD,126715.2,12671.52,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0050940,Revenue_USD,19245.73,1924573.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0050940,Revenue_USD,19245.73,14532.49,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0218795,Revenue_USD,221304.4,22130.44,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0184618,Revenue_USD,-88173.54,88173.54,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0037156,Revenue_USD,77452.2,77425.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0051727,Revenue_USD,56626.24,5662624.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0051727,Revenue_USD,56626.24,15443.52,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0050600,Revenue_USD,-39258.38,39258.38,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0108149,Revenue_USD,38002.9,380029.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0116561,Revenue_USD,208557.0,20855.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0086254,Revenue_USD,531203.1,53120.31,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0016546,Revenue_USD,0.0,19831.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0029576,Revenue_USD,-48652.41,48652.41,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0140811,Revenue_USD,90518.4,9051840.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0140811,Revenue_USD,90518.4,50288.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0152815,Revenue_USD,616636.8,61663.68,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0039696,Revenue_USD,9515.84,9155.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0159538,Revenue_USD,-83046.04,83046.04,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105632,7 +105738,7 @@ train.csv,CEL-0165402,Revenue_USD,19848.24,198482.4,T13,Revenue_USD recomputed a
 train.csv,CEL-0151181,Revenue_USD,0.0,9744.12,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0235603,Revenue_USD,28593.42,25893.42,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0197095,Revenue_USD,0.0,41677.02,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0074290,Revenue_USD,63368.84,633688.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0074290,Revenue_USD,63368.84,22140.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0071317,Revenue_USD,42254.96,422549.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0141287,Revenue_USD,108491.82,108941.82,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0132363,Revenue_USD,0.0,28081.62,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105653,7 +105759,7 @@ train.csv,CEL-0091331,Revenue_USD,721695.0,72169.5,T13,Revenue_USD recomputed as
 train.csv,CEL-0144384,Revenue_USD,3656.36,30656.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0085969,Revenue_USD,141607.4,14160.74,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0006677,Revenue_USD,68949.6,69849.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0128117,Revenue_USD,22952.5,2295250.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0128117,Revenue_USD,22952.5,12853.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0140714,Revenue_USD,-58334.08,58334.08,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0135130,Revenue_USD,-30279.15,30279.15,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0103488,Revenue_USD,-39411.99,39411.99,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105662,9 +105768,9 @@ train.csv,CEL-0123547,Revenue_USD,32479.6,32497.6,T13,Revenue_USD recomputed as 
 train.csv,CEL-0042608,Revenue_USD,5649.75,56497.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0209478,Revenue_USD,97196.28,97169.28,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0216737,Revenue_USD,1795655.0,179565.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0244963,Revenue_USD,8769.44,87694.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0244963,Revenue_USD,8769.44,3288.54,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0035040,Revenue_USD,0.0,28028.75,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0117085,Revenue_USD,59527.14,595271.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0117085,Revenue_USD,59527.14,23263.48,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0231189,Revenue_USD,-12579.0,12579.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0183218,Revenue_USD,50116.5,5011.65,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0154791,Revenue_USD,-29681.06,29681.06,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105682,7 +105788,7 @@ train.csv,CEL-0086061,Revenue_USD,-6436.7,6436.7,T13,Revenue_USD recomputed as U
 train.csv,CEL-0121774,Revenue_USD,7942.2,79422.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0204102,Revenue_USD,8219.99,8291.99,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0127833,Revenue_USD,18452.55,184525.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0084759,Revenue_USD,37781.92,377819.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0084759,Revenue_USD,37781.92,16314.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0078891,Revenue_USD,1992.12,9192.12,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0036811,Revenue_USD,14973.84,14937.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0045273,Revenue_USD,-4922.5,4922.5,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105703,7 +105809,7 @@ train.csv,CEL-0232771,Revenue_USD,0.0,102776.76,T13,Revenue_USD recomputed as Un
 train.csv,CEL-0187158,Revenue_USD,-28029.37,28029.37,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0155281,Revenue_USD,231808.0,23180.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0173628,Revenue_USD,11812.11,6162.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0136747,Revenue_USD,5468.4,546840.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0136747,Revenue_USD,5468.4,19139.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0173440,Revenue_USD,-13808.09,13808.09,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0104823,Revenue_USD,164321.6,16432.16,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0173910,Revenue_USD,11812.11,5649.27,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105743,7 +105849,7 @@ train.csv,CEL-0128394,Revenue_USD,0.0,3213.35,T13,Revenue_USD recomputed as Unit
 train.csv,CEL-0009870,Revenue_USD,0.0,26252.1,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0236183,Revenue_USD,10039.65,10309.65,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0029568,Revenue_USD,341881.8,34188.18,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0200533,Revenue_USD,4678.92,467892.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0200533,Revenue_USD,4678.92,20275.32,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0143052,Revenue_USD,114536.4,11453.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0173813,Revenue_USD,318413.4,31841.34,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0169339,Revenue_USD,57594.22,55794.22,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105769,8 +105875,8 @@ train.csv,CEL-0055131,Revenue_USD,112288.2,11228.82,T13,Revenue_USD recomputed a
 train.csv,CEL-0082772,Revenue_USD,48170.16,481701.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0020662,Revenue_USD,-38121.08,38121.08,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0031772,Revenue_USD,0.0,15962.94,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0212144,Revenue_USD,26016.32,260163.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0001692,Revenue_USD,56259.58,5625958.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0212144,Revenue_USD,26016.32,10269.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0001692,Revenue_USD,56259.58,31669.3,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0056563,Revenue_USD,-30275.44,30275.44,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0041170,Revenue_USD,-12564.16,12564.16,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0169714,Revenue_USD,0.0,50604.06,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105778,7 +105884,7 @@ train.csv,CEL-0139991,Revenue_USD,166040.6,16604.06,T13,Revenue_USD recomputed a
 train.csv,CEL-0168998,Revenue_USD,-20275.26,20275.26,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0020568,Revenue_USD,0.0,28355.04,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0138574,Revenue_USD,278891.3,27889.13,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0077207,Revenue_USD,29184.02,2918402.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0077207,Revenue_USD,29184.02,18828.4,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0043187,Revenue_USD,605333.4,60533.34,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0213656,Revenue_USD,0.0,34806.69,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0216296,Revenue_USD,-96014.92,96014.92,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105857,7 +105963,7 @@ train.csv,CEL-0050737,Revenue_USD,14135.4,141354.0,T13,Revenue_USD recomputed as
 train.csv,CEL-0153429,Revenue_USD,13114.08,131140.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0092855,Revenue_USD,13027.36,31027.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0220415,Revenue_USD,785010.6,78501.06,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0211798,Revenue_USD,35171.1,3517110.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0211798,Revenue_USD,35171.1,28136.88,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0054011,Revenue_USD,911283.6,91128.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0057485,Revenue_USD,14383.07,143830.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0065929,Revenue_USD,-17268.66,17268.66,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105878,7 +105984,7 @@ train.csv,CEL-0031238,Revenue_USD,198950.4,19895.04,T13,Revenue_USD recomputed a
 train.csv,CEL-0157653,Revenue_USD,14618.84,14168.84,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0021313,Revenue_USD,13064.6,10364.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0051804,Revenue_USD,45828.0,458280.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0236424,Revenue_USD,71695.88,7169588.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0236424,Revenue_USD,71695.88,43717.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0176587,Revenue_USD,0.0,21427.64,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0149180,Revenue_USD,199713.6,19971.36,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0114340,Revenue_USD,14823.27,148232.7,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
@@ -105955,14 +106061,14 @@ train.csv,CEL-0066791,Revenue_USD,366220.3,36622.03,T13,Revenue_USD recomputed a
 train.csv,CEL-0227757,Revenue_USD,36007.6,36070.6,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0086795,Revenue_USD,-69155.68,69155.68,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0235054,Revenue_USD,-83185.2,83185.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0030551,Revenue_USD,21719.04,2171904.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0030551,Revenue_USD,21719.04,11085.76,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0161439,Revenue_USD,-38211.51,38211.51,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0033589,Revenue_USD,256951.4,25695.14,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0113066,Revenue_USD,0.0,27292.17,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0075665,Revenue_USD,36769.18,367691.8,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0075665,Revenue_USD,36769.18,13546.54,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0047001,Revenue_USD,-21426.44,21426.44,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0068562,Revenue_USD,-7385.0,7385.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
-train.csv,CEL-0094177,Revenue_USD,66897.99,668979.9,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
+train.csv,CEL-0094177,Revenue_USD,66897.99,33025.59,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0058508,Revenue_USD,6792.0,7692.0,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0166495,Revenue_USD,0.0,32561.76,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)
 train.csv,CEL-0134488,Revenue_USD,0.0,30747.2,T13,Revenue_USD recomputed as Units_Sold x Unit_Price_USD (within $1 tolerance failed)

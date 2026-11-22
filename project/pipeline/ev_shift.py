@@ -157,6 +157,33 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
     ev_reg_df = pd.DataFrame(ev_reg_results)
     best_reg = ev_reg_df.sort_values('R_Squared', ascending=False).iloc[0]
 
+    # First-difference regression across lags 0 to 6
+    diff_results = []
+    y_diff = aligned_pt['ICE'].diff()
+    for lag in range(7):
+        x_diff = aligned_pt['EV_Adoption_Index'].diff().shift(lag)
+        valid_diff = pd.concat([y_diff, x_diff], axis=1).dropna()
+        if len(valid_diff) >= 12:
+            yv = valid_diff.iloc[:, 0].values
+            xv = valid_diff.iloc[:, 1].values
+            x_mean = np.mean(xv)
+            y_mean = np.mean(yv)
+            slope = np.sum((xv - x_mean) * (yv - y_mean)) / max(1e-6, np.sum((xv - x_mean)**2))
+            intercept = y_mean - slope * x_mean
+            residuals = yv - (intercept + slope * xv)
+            n = len(yv)
+            se_slope = np.sqrt(np.sum(residuals**2) / (n - 2) / max(1e-6, np.sum((xv - x_mean)**2)))
+            t_stat = slope / max(1e-6, se_slope)
+            p_value = float(2 * student_t.sf(abs(t_stat), df=max(n - 2, 1)))
+            diff_results.append({
+                'Lag_Months': lag,
+                'Coefficient': round(float(slope), 6),
+                'T_Statistic': round(float(t_stat), 4),
+                'P_Value': p_value,
+                'Observations': n,
+                'Significant_At_5Pct': bool(p_value < 0.05),
+            })
+
     # Assemble summary report DataFrame for outputs/ev_shift_analysis.csv
     summary_rows = []
     # Add regression summary row
@@ -164,7 +191,7 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
         'Metric_Type': 'EV_Adoption_vs_ICE_Regression',
         'Detail_1': f"Best Lag: {int(best_reg['Lag_Months'])} months, Slope: {best_reg['Slope_Coefficient']:.4f}",
         'Detail_2': f"R^2: {best_reg['R_Squared']:.4f}, t-stat: {best_reg['T_Statistic']:.2f}",
-        'Detail_3': f"p-value approx: {best_reg['P_Value_Approx']:.4f} (" + ("Statistically significant at 5%" if best_reg['P_Value_Approx'] < 0.05 else "Not statistically significant at 5%") + ")",
+        'Detail_3': f"p-value approx: {best_reg['P_Value_Approx']:.4f}; level result, not a first-difference finding",
         'Value': float(best_reg['R_Squared']),
         'Coefficient': float(best_reg['Slope_Coefficient']),
         'P_Value': float(best_reg['P_Value_Approx']),
@@ -194,6 +221,20 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
         'Detail_3': f"Net Gain: {end_ev_share - start_ev_share:+.1f}%",
         'Value': float(end_ev_share),
     })
+
+    for diff_row in diff_results:
+        summary_rows.append({
+            'Metric_Type': f"EV_Adoption_ICE_First_Difference_Lag_{diff_row['Lag_Months']}",
+            'Detail_1': f"Coefficient: {diff_row['Coefficient']:.6f}",
+            'Detail_2': f"t-statistic: {diff_row['T_Statistic']:.4f}",
+            'Detail_3': f"p-value: {diff_row['P_Value']:.6f}",
+            'Value': float(diff_row['Coefficient']),
+            'Coefficient': float(diff_row['Coefficient']),
+            'P_Value': float(diff_row['P_Value']),
+            'Lag_Months': int(diff_row['Lag_Months']),
+            'Observations': int(diff_row['Observations']),
+            'Significant_At_5Pct': diff_row['Significant_At_5Pct'],
+        })
 
     # Add lag stability summaries
     stable_count = stability_df['Is_Lag_Stable'].sum()

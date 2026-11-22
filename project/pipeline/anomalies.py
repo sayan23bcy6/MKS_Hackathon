@@ -5,6 +5,7 @@ Logs real market disruptions, structural breaks, stockouts, and data adjustments
 
 import numpy as np
 import pandas as pd
+import re
 from pipeline.config import (
     UNITS_LARGE_THRESHOLD,
     OUT_ANOMALY_REG,
@@ -14,7 +15,7 @@ ANOMALY_COLS = [
     "Date", "SKU_ID", "Region", "Customer_Name",
     "anomaly_type", "field", "value", "baseline",
     "action", "reason", "event_reference",
-    "type", "evidence", "Classification",
+    "type", "evidence", "Classification", "ratio",
 ]
 
 
@@ -24,7 +25,7 @@ class AnomalyRegister:
 
     def add(self, date, sku_id, region, customer,
             anomaly_type, field, value, baseline,
-            action, reason, event_ref=""):
+            action, reason, event_ref="", ratio=None):
         classification = "error" if anomaly_type in {
             "sign_reversal", "price_scaling_correction"
         } else "real event"
@@ -39,6 +40,7 @@ class AnomalyRegister:
             "type": str(anomaly_type),
             "evidence": evidence,
             "Classification": classification,
+            "ratio": ratio,
         })
 
     def as_dataframe(self) -> pd.DataFrame:
@@ -67,15 +69,16 @@ def build_anomaly_register(clean_train: pd.DataFrame,
     df['Units_Sold_num'] = pd.to_numeric(df['Units_Sold'], errors='coerce')
     df['Price_num'] = pd.to_numeric(df['Unit_Price_USD'], errors='coerce')
 
-    # 1. High-volume orders (>5000 units)
-    large = df[df['Units_Sold_num'] > UNITS_LARGE_THRESHOLD]
-    for _, row in large.iterrows():
-        sku_med = df[df['SKU_ID'] == row['SKU_ID']]['Units_Sold_num'].median()
+    # High-volume orders replaced as suspected entry errors
+    replaced = df[df.get('_A3_Ratio', pd.Series(index=df.index, dtype=float)).notna()]
+    for _, row in replaced.iterrows():
+        original = row['_A3_Original_Units']
+        ratio = row['_A3_Ratio']
         reg.add(row['Date'], row['SKU_ID'], row['Region'], row.get('Customer_Name', ''),
-                "high_volume_order", "Units_Sold", row['Units_Sold_num'], sku_med,
-                "retained_in_history",
-                f"Units_Sold={row['Units_Sold_num']} exceeds {UNITS_LARGE_THRESHOLD} threshold (SKU median={sku_med:.0f})",
-                "T11")
+                "high_volume_order", "Units_Sold", original, row['Units_Sold_num'],
+                "replaced_suspected_entry_error",
+                f"suspected entry error: ratio {ratio:.6f} against SKU-year median",
+                "A3", ratio)
 
     # 2. Negative unit reversals handled
     neg_audit = audit_log[
@@ -83,10 +86,30 @@ def build_anomaly_register(clean_train: pd.DataFrame,
         (audit_log['reason'].str.contains('Negative', na=False))
     ] if audit_log is not None and len(audit_log) else pd.DataFrame()
     for _, row in neg_audit.iterrows():
-        reg.add('', '', '', '',
+        kept = df[df['Record_ID'] == row['row_key']] if 'Record_ID' in df.columns else pd.DataFrame()
+        date_value = sku_value = region_value = ''
+        reason_text = str(row['reason'])
+        date_match = re.search(r'Date=([^;]+)', reason_text)
+        sku_match = re.search(r'SKU_ID=([^;]+)', reason_text)
+        region_match = re.search(r'Region=([^;]+)', reason_text)
+        if date_match:
+            date_value = date_match.group(1)
+        if sku_match:
+            sku_value = sku_match.group(1)
+        if region_match:
+            region_value = region_match.group(1)
+        if kept.empty:
+            kept_row = {'Date': date_value, 'SKU_ID': sku_value, 'Region': region_value}
+        else:
+            kept_row = kept.iloc[0]
+        reason = "Negative units recorded due to clerical sign inversion"
+        if row['reason'].startswith("Negative Units_Sold dropped"):
+            reason += "; reversed row dropped as a duplicate"
+        reg.add(kept_row.get('Date', ''), kept_row.get('SKU_ID', ''), kept_row.get('Region', ''),
+                '',
                 "sign_reversal", "Units_Sold", row['raw_value'], 0,
                 "absolute_value_applied",
-                "Negative units recorded due to clerical sign inversion; converted to positive demand",
+                reason,
                 "T11")
 
     # 3. Price scale adjustments
@@ -94,7 +117,11 @@ def build_anomaly_register(clean_train: pd.DataFrame,
         (audit_log['rule_id'] == 'T12')
     ] if audit_log is not None and len(audit_log) else pd.DataFrame()
     for _, row in price_audit.head(200).iterrows():
-        reg.add('', '', '', '',
+        kept = df[df['Record_ID'] == row['row_key']] if 'Record_ID' in df.columns else pd.DataFrame()
+        date_value = kept.iloc[0].get('Date', '') if not kept.empty else ''
+        sku_value = kept.iloc[0].get('SKU_ID', '') if not kept.empty else ''
+        region_value = kept.iloc[0].get('Region', '') if not kept.empty else ''
+        reg.add(date_value, sku_value, region_value, '',
                 "price_scaling_correction", "Unit_Price_USD", row['raw_value'], row['new_value'],
                 "reference_price_applied",
                 row['reason'],
