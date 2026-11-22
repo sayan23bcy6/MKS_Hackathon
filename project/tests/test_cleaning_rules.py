@@ -1682,3 +1682,65 @@ def test_insights_outputs_present():
         assert not frame.empty
 
 
+def test_forecast_total_matches_hierarchy_and_scenario():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    forecast_path = os.path.join(project_dir, 'outputs', 'forecast_submission.csv')
+    hierarchy_path = os.path.join(project_dir, 'outputs', 'hierarchy_addition.csv')
+    scenario_path = os.path.join(project_dir, 'outputs', 'whatif_scenarios.csv')
+    for path in [forecast_path, hierarchy_path, scenario_path]:
+        assert os.path.exists(path), "run python project/run_pipeline.py first"
+    submission = pd.read_csv(forecast_path)
+    hierarchy = pd.read_csv(hierarchy_path)
+    scenario = pd.read_csv(scenario_path)
+    submission_total = int(submission['Units_Sold_Forecast'].sum())
+    hierarchy_total = int(hierarchy[hierarchy['Level'] == 'Total']['Bottom_Up_Units'].iloc[0])
+    baseline_row = scenario[(scenario['Scenario_PMI_Delta'] == 0.0) & (scenario['Level'] == 'Total')]
+    assert hierarchy_total == submission_total
+    assert int(baseline_row['Baseline_Units'].iloc[0]) == submission_total
+
+
+def test_model_card_coverage_matches_overall_row():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    coverage_path = os.path.join(project_dir, 'outputs', 'coverage_breakdown.csv')
+    card_path = os.path.join(project_dir, 'outputs', 'model_card.md')
+    assert os.path.exists(coverage_path), "run python project/run_pipeline.py first"
+    assert os.path.exists(card_path), "run python project/run_pipeline.py first"
+    coverage = pd.read_csv(coverage_path)
+    overall = coverage[coverage['breakdown'] == 'overall'].iloc[0]
+    card = open(card_path, encoding='utf-8').read()
+    raw_2dec = f"{float(overall['coverage_raw']) * 100:.2f}%"
+    cal_2dec = f"{float(overall['coverage_calibrated']) * 100:.2f}%"
+    assert raw_2dec in card or f"{float(overall['coverage_raw']) * 100:.1f}%" in card
+    assert cal_2dec in card or f"{float(overall['coverage_calibrated']) * 100:.1f}%" in card
+    assert str(int(overall['n_obs'])) in card or f"{int(overall['n_obs']):,}" in card
+
+
+def test_anomaly_high_volume_has_replacement_values():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    path = os.path.join(project_dir, 'outputs', 'anomaly_register.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    high = frame[frame['anomaly_type'] == 'high_volume_order']
+    assert not high.empty
+    assert 'new_value' in frame.columns
+    assert high['new_value'].notna().all()
+    assert 'ratio' in frame.columns
+    assert high['ratio'].notna().all()
+
+
+def test_backtest_lightgbm_origin_comparison():
+    project_dir = os.path.dirname(os.path.dirname(__file__))
+    path = os.path.join(project_dir, 'outputs', 'backtest_metrics.csv')
+    assert os.path.exists(path), "run python project/run_pipeline.py first"
+    frame = pd.read_csv(path)
+    overall = frame[(frame['breakdown'] == 'overall') & (frame['model'].isin(['lightgbm_p50', 'naive_seasonal']))]
+    for origin in ['2023-10', '2024-10', '2025-03']:
+        rows = overall[overall['origin'] == origin]
+        lightgbm = rows[rows['model'] == 'lightgbm_p50']['WAPE'].iloc[0]
+        naive = rows[rows['model'] == 'naive_seasonal']['WAPE'].iloc[0]
+        if origin in ('2023-10', '2025-03'):
+            assert lightgbm >= naive
+        else:
+            assert lightgbm <= naive
+
+

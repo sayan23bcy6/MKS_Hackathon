@@ -76,11 +76,9 @@ def load_macro_lag():
 
 @st.cache_data
 def load_stockouts():
-    so_path = OUTPUTS_DIR / "inventory_stockouts.csv"
     uc_path = OUTPUTS_DIR / "unconstrained_demand.parquet"
-    stockouts = pd.read_csv(so_path) if so_path.exists() else pd.DataFrame()
     unconstrained = pd.read_parquet(uc_path) if uc_path.exists() else pd.DataFrame()
-    return stockouts, unconstrained
+    return pd.DataFrame(), unconstrained
 
 
 @st.cache_data
@@ -293,7 +291,8 @@ def view_executive_overview(df_train, df_forecast, df_intervals, filters):
     with col1:
         st.metric(f"Historical Total ({metric_mode})", f"{int(hist_pts['Val'].sum()):,}")
     with col2:
-        st.metric(f"19-Month Forecast Total", f"{int(fc_pts['Val'].sum()):,}")
+        forecast_headline = unfiltered_forecast_total if all_filters else int(fc_pts['Val'].sum())
+        st.metric(f"19-Month Forecast Total", f"{forecast_headline:,}")
     with col3:
         last12 = hist_pts.tail(12)['Val'].sum()
         st.metric(f"Trailing 12-Month Total", f"{int(last12):,}")
@@ -421,8 +420,8 @@ def view_demand_explorer(df_train, filters):
         st.subheader("Zero-Demand Transaction Profile")
         zero_df = df[df['Units sold'] == 0].groupby('Date')['SKU_ID'].count().reset_index()
         if not zero_df.empty:
-            fig_zeros = px.bar(zero_df, x='Date', y='SKU_ID', labels={'SKU_ID': 'Zero Demand Rows'}, title='Zero-Demand Occurrences over Time')
-            fig_zeros.update_layout(xaxis_title='Date', yaxis_title='Zero Demand Rows')
+            fig_zeros = px.bar(zero_df, x='Date', y='SKU_ID', labels={'SKU_ID': 'Zero-order rows'}, title='Zero-order rows over time')
+            fig_zeros.update_layout(xaxis_title='Date', yaxis_title='Zero-order rows')
             st.plotly_chart(fig_zeros, use_container_width=True)
 
 
@@ -566,31 +565,41 @@ def view_macro_lag_heatmap(macro_lag_df):
 # 7. Stockouts and Lost Demand (Opt 2)
 def view_stockouts(stockouts_df, unconstrained_df, filters):
     st.header("Opt 2: Stockouts and Unconstrained Demand")
-    st.caption("Source: outputs/inventory_stockouts.csv, outputs/unconstrained_demand.parquet")
+    st.caption("Source: outputs/unconstrained_demand.parquet and outputs/data_quality_report.json")
     st.caption("Reconstruction of lost demand from inventory stockouts and unlisted disruption events")
 
-    if stockouts_df.empty:
-        st.warning("Stockout data not available.")
-        return
-
-    so = stockouts_df.copy()
-    for col in ['Requested_Units', 'Shipped_Units', 'Lost_Units', 'Fill_Rate_Pct']:
-        so[col] = pd.to_numeric(so[col], errors='coerce').fillna(0)
+    dq_path = OUTPUTS_DIR / 'data_quality_report.json'
+    dq = {}
+    if dq_path.exists():
+        with open(dq_path, encoding='utf-8') as fh:
+            dq = json.load(fh)
+    stockout_summary = dq.get('stockouts', {})
+    documented_stockouts = int(stockout_summary.get('documented_stockouts', 0))
+    lost_units = int(stockout_summary.get('lost_units', 0))
+    fill_rate = float(stockout_summary.get('fill_rate_pct', 0.0))
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("Total Documented Stockouts", f"{len(so):,}")
+        st.metric("Total Documented Stockouts", f"{documented_stockouts:,}")
     with col2:
-        st.metric("Total Lost Volume (Units)", f"{int(so['Lost_Units'].sum()):,}")
+        st.metric("Total Lost Volume (Units)", f"{lost_units:,}")
     with col3:
-        st.metric("Historical Order Fill Rate", f"{so['Fill_Rate_Pct'].mean():.1f}%")
+        st.metric("Historical Order Fill Rate", f"{fill_rate:.1f}%")
 
-    so_monthly = so.groupby('Date').agg(Shipped=('Shipped_Units', 'sum'), Lost=('Lost_Units', 'sum')).reset_index()
-    fig_so = go.Figure()
-    fig_so.add_bar(x=so_monthly['Date'], y=so_monthly['Shipped'], name='Shipped Demand', marker_color='#1f77b4')
-    fig_so.add_bar(x=so_monthly['Date'], y=so_monthly['Lost'], name='Lost Demand (Stockout)', marker_color='#d62728')
-    fig_so.update_layout(barmode='stack', title='Shipped vs Lost Units by Month', height=400, xaxis_title='Date', yaxis_title='Units')
-    st.plotly_chart(fig_so, use_container_width=True)
+    if not unconstrained_df.empty:
+        uc = unconstrained_df.copy()
+        uc['Units_Sold'] = pd.to_numeric(uc.get('Units_Sold', 0), errors='coerce').fillna(0)
+        uc['Units_Sold_Unconstrained'] = pd.to_numeric(uc.get('Units_Sold_Unconstrained', 0), errors='coerce').fillna(0)
+        so_monthly = uc.groupby('Date').agg(
+            Shipped=('Units_Sold', 'sum'),
+            Lost=('Units_Sold_Unconstrained', 'sum')
+        ).reset_index()
+        so_monthly['Lost'] = (so_monthly['Lost'] - so_monthly['Shipped']).clip(lower=0)
+        fig_so = go.Figure()
+        fig_so.add_bar(x=so_monthly['Date'], y=so_monthly['Shipped'], name='Shipped Demand', marker_color='#1f77b4')
+        fig_so.add_bar(x=so_monthly['Date'], y=so_monthly['Lost'], name='Lost Demand (Stockout)', marker_color='#d62728')
+        fig_so.update_layout(barmode='stack', title='Shipped vs Lost Units by Month', height=400, xaxis_title='Date', yaxis_title='Units')
+        st.plotly_chart(fig_so, use_container_width=True)
 
 
 # 8. What-If Macro Scenario (Opt 3)
@@ -650,6 +659,7 @@ def view_powertrain_lifecycle(ev_df):
     forecast = pd.read_csv(forecast_file) if forecast_file.exists() else pd.DataFrame()
 
     st.subheader("Launch and end-of-life timeline")
+    st.caption("Timeline rows: 84 SKUs with a Launch_Date or EOL_Date in sku_master.csv.")
     if not sku_master.empty:
         timeline = sku_master[
             sku_master['Launch_Date'].fillna('').ne('') | sku_master['EOL_Date'].fillna('').ne('')
@@ -719,8 +729,20 @@ def view_powertrain_lifecycle(ev_df):
                 st.plotly_chart(fig_eol, use_container_width=True)
 
     st.subheader("EV Adoption Index Correlation Analysis")
-    st.caption("First-difference EV/ICE coefficients are not significant at 5%; this view does not describe a shift.")
-    st.dataframe(ev_df, use_container_width=True, hide_index=True)
+    level = ev_df[ev_df['Metric_Type'] == 'EV_Adoption_vs_ICE_Regression']
+    diff = ev_df[ev_df['Metric_Type'].astype(str).str.contains('First_Difference', na=False)]
+    if not level.empty:
+        level_row = level.iloc[0]
+        st.caption(
+            f"Level result, inflated by shared trend: coefficient {level_row.get('Coefficient', '')}, "
+            f"p-value {level_row.get('P_Value', '')}, lag {level_row.get('Lag_Months', '')}"
+        )
+        st.dataframe(level, use_container_width=True, hide_index=True)
+    if not diff.empty:
+        st.subheader("First-difference EV adoption and ICE volume")
+        diff_columns = [c for c in ['Metric_Type', 'Coefficient', 'P_Value', 'Lag_Months', 'Observations', 'Significant_At_5Pct'] if c in diff.columns]
+        st.dataframe(diff[diff_columns], use_container_width=True, hide_index=True)
+        st.caption("No lag is significant at 5% in the first-difference table.")
 
 
 # Main Entry Point

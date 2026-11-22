@@ -36,13 +36,15 @@ All data repairs are rule-governed, deterministic, and logged in `outputs/audit_
 | R9 | Co-occurring customer transactions | Preserved multi-customer orders on identical Date-SKU-Region keys | Ensures distinct customer accounts in the same territory are never conflated or dropped. |
 | A2 | Multi-account stockout allocation | Proportional integer allocation by customer volume with remainder to largest customer | Guarantees that allocated customer units sum exactly to total reported stockout units. |
 
+Before cleaning, 1,744 revenue rows differed from Units_Sold multiplied by Unit_Price_USD.
+
 ### Master Data and Macroeconomic Cleaning
 
 - **Rule S1 (PMP-004 BU Alignment)**: Reconciled PMP-004 to `Advanced Manufacturing` based on agreement with transaction history majority and Rule R8.
 - **Rule S2 (Lifecycle Date Integrity)**: Validated Launch_Date and EOL_Date formats in SKU master, ensuring chronological ordering (Launch <= EOL).
 - **Rule M1 (2022-06 Macro Duplicate)**: Selected observation with minimal distance to adjacent linear interpolation (May and July 2022).
 - **Rule M2 (Auto Production Percentage Scaling)**: Scaled 2019 fractional values x100; the continuity step from 2019-12 to 2020-01 is under 25.0 points.
-- **Rule M3 (PMI Decimal Misplacement)**: Corrected May 2023 PMI from 4.79 to 47.9 via single-decimal shift.
+- **Rule M3 (PMI Decimal Misplacement)**: The 2023-04 PMI is 47.2, 2023-05 was corrected from 4.79 to 47.9, and 2023-06 is 46.1.
 - **Rule M4 (Missing Macro Indicator Imputation)**: Linear time interpolation applied with `Macro_Imputed` indicator flag.
 - **Rule M5 (COVID Structural Break)**: Added `Is_COVID_Period` indicator for 2020-03 through 2021-06.
 - **Rule E1 (Event Date Normalisation)**: Formatted Start_Date and End_Date strings to canonical ISO `YYYY-MM-DD`.
@@ -56,16 +58,18 @@ A central requirement of the specification is distinguishing clerical data error
 - **Data Errors**: Systematic recording errors, typographical slips, currency/unit transcription mistakes, and duplicate database records where the true commercial activity was unchanged. These are corrected using reference baselines.
 - **Real Events (Model or Exclude Them)**: Genuine supply chain disruptions, customer pre-buying behaviors, and macro shocks where transaction volume genuinely moved. These points are preserved in history and incorporated as model features, structural break indicators, or unconstrained demand adjustments.
 
-The table below summarizes every flagged anomaly category in `outputs/anomaly_register.csv` (1,529 total records):
+The table below summarizes every flagged anomaly category in `outputs/anomaly_register.csv` (1,605 total records):
 
 | Anomaly Type | Classification | Treatment / Action | Record Count | Rationale and Evidence |
 |---|---|---|---|---|
 | `inventory_stockout` | Real Event (Supply Limit) | Unconstrained demand reconstructed | 500 | Physical inventory shortages where shipped units were constrained by stockouts. Replaced with requested units to model true demand. |
 | `sign_reversal` | Data Error | Absolute value applied (`abs()`) | 491 | Negative units sold resulting from clerical transcription or accounting entry errors without paired positive reversal records. |
-| `early_buying` | Real Event (Demand Surge) | Modeled as event feature | 277 | Surge in order volume in Nov-Dec 2022 preceding the announced 1 Jan 2023 catalog price increase (EV-030). |
+| `early_buying` | Real Event (Demand Surge) | Modeled as event feature | 280 | Surge in order volume in Nov-Dec 2022 preceding the announced 1 Jan 2023 catalog price increase (EV-030). |
 | `price_scaling_correction` | Data Error | Reference price applied | 200 | Extreme unit price scaling slips (e.g. 100x cent-scale recording, 85x currency transposition) reconciled to SKU-year median price. |
-| `high_volume_order` | Real Event (Tender Win) | Retained in history | 31 | Legitimate large commercial fleet tender wins and bulk ordering batches; preserved in sales history to prevent under-forecasting peak demand. |
+| `high_volume_order` | Data Entry Check | Replaced with SKU-year median | 104 | Rows above 20 times their SKU-year median were replaced and logged as suspected entry errors. |
 | `pandemic_supply_shock` | Real Event (Systemic Shock) | Modeled as structural break | 30 | Widespread global automotive manufacturing stoppage during initial COVID-19 pandemic wave (2020-03 to 2020-05); modeled with structural break flag. |
+
+The sign-reversal count is 491 in both the T11 negative-units profile and the sign_reversal register, so no difference requires reconciliation.
 
 ### Events Calendar Treatment Matrix (Part 2.5)
 
@@ -205,7 +209,9 @@ Overall coverage changed from raw 0.6706 and calibrated 0.7345 to raw 0.6655 and
 
 Top five forecast families before: Brake & Safety Systems 552,340; Precision Machined Parts 443,978; Thermal Management 440,985; Chassis & Structural 426,159; Powertrain Components 368,673. After: Brake & Safety Systems 550,786; Thermal Management 437,813; Precision Machined Parts 434,644; Chassis & Structural 425,528; Powertrain Components 360,920.
 
-Coverage is the share of non-null backtest actuals between p10 and p90 on the same rows. The overall result covers 169,229 predictions: raw 0.6655 and calibrated 0.7297.
+Coverage is calculated as the fraction of non-null out-of-sample evaluation rows where actual demand falls within the prediction interval:
+$$\text{Coverage} = \frac{1}{N} \sum_{i=1}^N \mathbf{1}(P10_i \le y_i \le P90_i)$$
+The calculation uses an unweighted observation average (giving equal weight to every series-month evaluation observation) across all $N = 169,229$ out-of-sample predictions across the three rolling backtest origins (2023-10, 2024-10, and 2025-03). The overall result covers 169,229 predictions: raw coverage 66.55% (0.6655) and calibrated coverage 72.97% (0.7297).
 
 ### Zero-order shares
 

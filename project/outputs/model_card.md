@@ -16,7 +16,7 @@
 ## Validation & Backtesting
 - **Strategy**: Honest multi-origin rolling backtests across 3 cutoff points (2023-10, 2024-10, 2025-03) with 19-month recursive horizons.
 - **No Leakage**: Features, cycles, and intermittency recomputed strictly on data up to each origin. Recursive lag propagation used for months 2-19.
-- **P10-P90 Coverage**: Raw coverage 65.7%; Calibrated coverage 72.1% across 171,317 out-of-sample predictions.
+- **P10-P90 Coverage**: Raw coverage 66.55%; Calibrated coverage 72.97% across 169229 (169,229) out-of-sample predictions.
 
 ### Benchmark Comparisons by Origin
   - Origin 2023-10: LightGBM WAPE 0.372 vs Seasonal Naive 0.358 (Loses to naive)
