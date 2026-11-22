@@ -1,4 +1,4 @@
-"""
+﻿"""
 config.py - Central configuration: paths, canonical label maps, thresholds, rule IDs.
 All cleaning rules reference constants defined here.
 """
@@ -6,7 +6,6 @@ All cleaning rules reference constants defined here.
 import os
 from pathlib import Path
 
-# --- Paths ---
 ROOT = Path(__file__).resolve().parents[1]
 RAW_DIR = ROOT.parent / "student_data"
 OUTPUT_DIR = ROOT / "outputs"
@@ -50,7 +49,6 @@ OUT_LOST_ACCOUNTS        = OUTPUT_DIR / "lost_accounts.csv"
 OUT_LAG_STABILITY        = OUTPUT_DIR / "lag_stability.csv"
 OUT_COVERAGE_BREAKDOWN   = OUTPUT_DIR / "coverage_breakdown.csv"
 
-# --- T5: Region canonical map ---
 # Strip + casefold applied first, then this dict (keys are casefolded+stripped)
 REGION_MAP = {
     # India variants (all casefolded+stripped; hyphens already replaced with spaces in normaliser)
@@ -92,7 +90,6 @@ CANONICAL_REGIONS = {
     "Unassigned",
 }
 
-# --- T6: Sales_Channel canonical map ---
 CHANNEL_MAP = {
     "direct oem": "Direct OEM",
     "direct-oem": "Direct OEM",
@@ -113,7 +110,6 @@ CANONICAL_CHANNELS = {
     "Export",
 }
 
-# --- T7: SKU prefix -> Product_Family ---
 PREFIX_TO_FAMILY = {
     "HYD": "Hydraulic Systems",
     "PTC": "Powertrain Components",
@@ -124,7 +120,6 @@ PREFIX_TO_FAMILY = {
     "THM": "Thermal Management",
 }
 
-# --- T10: Customer_Name canonical map ---
 CANONICAL_CUSTOMERS = [
     "Vantara Auto",
     "Helios Auto Parts",
@@ -143,12 +138,10 @@ CANONICAL_CUSTOMERS = [
 # Case-folded map built dynamically
 CUSTOMER_MAP = {c.casefold(): c for c in CANONICAL_CUSTOMERS}
 
-# --- Lifecycle status values ---
 ACTIVE_STATUSES = {"Active", "EOL Announced"}
 PLANNED_LAUNCH_STATUS = "Planned Launch"
 DISCONTINUED_STATUSES = {"Discontinued", "EOL Announced"}
 
-# --- Thresholds ---
 TRAIN_DATE_MIN = "2019-01"
 TRAIN_DATE_MAX = "2026-10"
 FORECAST_DATE_MIN = "2026-11"
@@ -167,23 +160,19 @@ PMI_MIN = 30.0
 PMI_MAX = 70.0
 PMI_DECIMAL_SHIFT_THRESHOLD = 10.0  # below this, check x10
 
-# --- Macro correction windows ---
 # M2: 2019 rows are fractions, multiply by 100
 MACRO_PCT_FRACTION_YEAR_MAX = 2019
 
-# --- Audit log columns ---
 AUDIT_COLS = [
     "file", "row_key", "field", "raw_value", "new_value", "rule_id", "reason"
 ]
 
-# --- Month name map (for T1) ---
 MONTH_NAME_MAP = {
     "jan": "01", "feb": "02", "mar": "03", "apr": "04",
     "may": "05", "jun": "06", "jul": "07", "aug": "08",
     "sep": "09", "oct": "10", "nov": "11", "dec": "12",
 }
 
-# --- Forecast Event Adjustment Rules ---
 EVENT_FORECAST_RULES = {
     'EV-062': {
         'effect': 'zero',

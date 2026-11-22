@@ -1,6 +1,6 @@
 """
 tests/test_cleaning_rules.py - pytest unit tests for all cleaning rules.
-One test per rule as required by the spec.
+# Test suite for the cleaning and forecasting rules.
 """
 
 import sys
@@ -39,8 +39,6 @@ from pipeline.clean_master_macro_events import (
 )
 from pipeline.config import CANONICAL_REGIONS, CANONICAL_CHANNELS, CANONICAL_CUSTOMERS
 
-
-# --- Fixtures ---
 
 def _make_train_row(**kwargs) -> pd.DataFrame:
     """Make a minimal train DataFrame with one row."""
@@ -90,8 +88,6 @@ def empty_stockouts():
     ])
 
 
-# --- T1: Date parsing ---
-
 class TestT1DateParsing:
     def test_yyyy_mm_unchanged(self):
         df = _make_train_row(Date='2022-01')
@@ -139,8 +135,6 @@ class TestT1DateParsing:
             apply_t1_date_parsing(df)
 
 
-# --- T2: Year/Month consistency ---
-
 class TestT2YearMonth:
     def test_correct_year_month_unchanged(self):
         df = _make_train_row(Date='2022-03', Year='2022', Month='3')
@@ -159,8 +153,6 @@ class TestT2YearMonth:
         assert out['Month'].iloc[0] == '3'
 
 
-# --- T3: Typo year ---
-
 class TestT3TypoYear:
     def test_2062_corrected_to_2026(self):
         df = _make_train_row(Date='2062-01', Year='2026', Month='1')
@@ -172,8 +164,6 @@ class TestT3TypoYear:
         out = apply_t3_typo_year(df)
         assert out['Date'].iloc[0] == '2024-06'
 
-
-# --- T4: Dedup Record_ID ---
 
 class TestT4Dedup:
     def test_keeps_latest_timestamp(self):
@@ -197,8 +187,6 @@ class TestT4Dedup:
         out = apply_t4_dedup_record_id(df)
         assert len(out) == 2
 
-
-# --- T5: Region ---
 
 class TestT5Region:
     @pytest.mark.parametrize("raw,expected", [
@@ -227,8 +215,6 @@ class TestT5Region:
             assert _normalise_region(r) == r
 
 
-# --- T6: Sales_Channel ---
-
 class TestT6Channel:
     @pytest.mark.parametrize("raw,expected", [
         ("tier-1 distributor", "Tier-1 Distributor"),
@@ -249,8 +235,6 @@ class TestT6Channel:
         result = _normalise_channel(raw)
         assert result == expected, f"Expected {expected!r} for {raw!r}, got {result!r}"
 
-
-# --- T8: SKU_ID ---
 
 class TestT8SKU:
     CANONICAL = {
@@ -279,8 +263,6 @@ class TestT8SKU:
         assert result is None
 
 
-# --- T10: Customer_Name ---
-
 class TestT10Customer:
     @pytest.mark.parametrize("raw,expected", [
         ("Vantara Auto Inc.", "Vantara Auto"),
@@ -299,8 +281,6 @@ class TestT10Customer:
         for c in CANONICAL_CUSTOMERS:
             assert _normalise_customer(c) == c
 
-
-# --- T11: Units_Sold ---
 
 class TestT11Units:
     def test_dash_becomes_null(self, empty_stockouts):
@@ -329,8 +309,6 @@ class TestT11Units:
         assert float(out['Units_Sold'].iloc[0]) == 0.0
 
 
-# --- T12: Unit_Price ---
-
 class TestT12Price:
     def test_zero_price_with_units_flagged_in_audit(self):
         """Zero price with units>0 should be filled from reference price."""
@@ -354,8 +332,6 @@ class TestT12Price:
         assert float(out.loc[out['Date'] == '2022-02', 'Unit_Price_USD'].iloc[0]) == 500.0
 
 
-# --- T13: Revenue ---
-
 class TestT13Revenue:
     def test_revenue_recomputed(self):
         df = _make_train_row(Units_Sold='100', Unit_Price_USD='500.0', Revenue_USD='999.0')
@@ -375,8 +351,6 @@ class TestT13Revenue:
         out = apply_t13_revenue(df)
         assert abs(float(out['Revenue_USD'].iloc[0]) - 50000.0) < 1.0
 
-
-# --- R5: Lifecycle ---
 
 class TestR5Lifecycle:
     def test_no_violations_on_active_sku(self, minimal_sku_master):
@@ -402,8 +376,6 @@ class TestR5Lifecycle:
         # Should log an R5 violation but not raise
         apply_r5_lifecycle(df, sku_master)
 
-
-# --- Macro cleaning ---
 
 class TestMacroCleaning:
     @pytest.fixture
@@ -454,8 +426,6 @@ class TestMacroCleaning:
         assert abs(pct_2022 - 1.0) < 0.01
 
 
-# --- Events cleaning ---
-
 class TestEventsCleaning:
     @pytest.fixture
     def raw_events(self):
@@ -488,8 +458,6 @@ class TestEventsCleaning:
         assert ev038['Scope_Customer'].iloc[0] == 'Nexon Motor Group'
         assert ev038['Scope_Region'].iloc[0] == 'Europe'
 
-
-# --- Schema / validation checks ---
 
 class TestSchemaValidation:
     def test_forecast_submission_columns(self):
@@ -608,7 +576,7 @@ class TestSchemaValidation:
         assert {'Level', 'Group', 'Bottom_Up_Units', 'Deviation_Pct', 'Status'} == set(df.columns)
 
     def test_features_yoy_growth_not_identical_to_lag12(self):
-        """Fix F4: lag_12m_yoy must be the YoY ratio, distinct from lag_12m."""
+        """Checks that lag_12m_yoy is distinct from lag_12m."""
         from pipeline.features import add_lag_rolling_features
         df = pd.DataFrame([
             {'SKU_ID': 'S1', 'Region': 'R1', 'Customer_Name': 'C1', 'Date': f'2020-{m:02d}', 'Units_Sold': 100 + m * 5}
@@ -625,9 +593,7 @@ class TestSchemaValidation:
         assert abs(last_row['lag_12m_yoy'] - ((160 - 105) / 105.001)) < 0.05
 
     def test_features_no_duplicate_key_rows(self):
-        """Priority 1: features table must have zero duplicate rows on
-        Date, SKU_ID, Region, Customer_Name (Fixes V1).
-        """
+        """Checks that the features table has no duplicate series-month rows."""
         import os
         import pytest
         feat_path = os.path.join(os.path.dirname(__file__), '..', 'outputs', 'features.parquet')
@@ -639,9 +605,7 @@ class TestSchemaValidation:
         assert dup_count == 0, f"features table has {dup_count} duplicate rows on {key_cols}"
 
     def test_t4b_one_row_per_customer_key(self):
-        """Priority 1: A fixture with two channels for one customer-SKU-region-month
-        yields exactly one row and logs the drop with rule ID T4b (Rule R2).
-        """
+        """Checks that channel duplicates retain one customer-series row."""
         from pipeline.clean_train import apply_t4b_dsr_dedup
         from pipeline.audit import audit
         fixture = pd.DataFrame([
@@ -669,7 +633,7 @@ class TestSchemaValidation:
         assert 'REC-001' in t4b_drops['row_key'].values
 
     def test_stockout_allocation_two_customers_sums_to_total(self):
-        """Priority 2: Two-customer key splits proportionally and sums to stockout total."""
+        """Checks proportional stockout allocation across two customers."""
         from pipeline.unconstrained import allocate_stockout_metric
         train_fixture = pd.DataFrame([
             {'Date': '2024-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe', 'Units_Sold': 60},
@@ -685,7 +649,7 @@ class TestSchemaValidation:
         assert res.iloc[1]['allocated_Requested_Units'] == 40
 
     def test_stockout_allocation_single_customer_unchanged(self):
-        """Priority 2: Single customer key gets 100% of stockout value."""
+        """Checks that a single-customer stockout is unchanged."""
         from pipeline.unconstrained import allocate_stockout_metric
         train_fixture = pd.DataFrame([
             {'Date': '2024-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe', 'Units_Sold': 50}
@@ -699,7 +663,7 @@ class TestSchemaValidation:
         assert res.iloc[0]['share_Requested_Units'] == 1.0
 
     def test_stockout_allocation_all_zero_splits_equally(self):
-        """Priority 2: All-zero demand splits equally, remainder to largest/first customer."""
+        """Checks equal splitting for all-zero customer demand."""
         from pipeline.unconstrained import allocate_stockout_metric
         train_fixture = pd.DataFrame([
             {'Date': '2024-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe', 'Units_Sold': 0},
@@ -715,7 +679,7 @@ class TestSchemaValidation:
         assert set(res['allocated_Requested_Units'].values) == {3.0, 4.0}
 
     def test_backtest_predictions_exists(self):
-        """Priority 3: backtest_predictions.csv exists with required columns."""
+        """Checks the backtest prediction file schema."""
         import os
         import pytest
         pred_path = os.path.join(os.path.dirname(__file__), '..', 'outputs', 'backtest_predictions.csv')
@@ -726,8 +690,8 @@ class TestSchemaValidation:
         expected = {'origin', 'model', 'Date', 'SKU_ID', 'Region', 'Customer_Name', 'actual', 'p10', 'p50', 'p90'}
         assert expected.issubset(set(df.columns)), f"Missing columns: {expected - set(df.columns)}"
 
-    def test_event_rules_no_helios_mobility(self):
-        """Priority 4a: 'Helios Mobility' must not appear anywhere in code; canonical is Helios Auto Parts."""
+    def test_event_rules_use_canonical_customer_name(self):
+        """Checks that the canonical customer name appears in event rules."""
         import os
         pipeline_dir = os.path.join(os.path.dirname(__file__), '..', 'pipeline')
         for fname in os.listdir(pipeline_dir):
@@ -738,7 +702,7 @@ class TestSchemaValidation:
                     assert 'Helios Mobility' not in content, f"Found 'Helios Mobility' in {fname}"
 
     def test_launch_replaces_sku_mapping(self):
-        """Priority 4b: New launches with Replaces_SKU inherit replaced catalog history."""
+        """Checks that launches inherit replaced SKU catalog history."""
         from pipeline.config import RAW_SKU_MASTER
         sku_master = pd.read_csv(RAW_SKU_MASTER)
         replaces = sku_master[sku_master['Replaces_SKU'].notna() & (sku_master['Replaces_SKU'] != '')]
@@ -794,7 +758,7 @@ class TestSchemaValidation:
         assert launch_row['Units_Sold_Forecast'] > 0
 
     def test_whatif_zero_shift_equals_baseline(self):
-        """Priority 3: Scenario at delta 0 equals baseline forecast."""
+        """Checks that a zero PMI scenario equals the baseline forecast."""
         import os
         import pytest
         scen_path = os.path.join(os.path.dirname(__file__), '..', 'outputs', 'whatif_scenarios.csv')
@@ -810,7 +774,7 @@ class TestSchemaValidation:
             assert diff == 0, "Scenario at delta 0 must equal baseline forecast"
 
     def test_calibration_offsets_independent_of_test_actuals(self):
-        """Priority A2 / 1d: get_calibration_offsets uses only residuals with Date <= current_origin."""
+        """Checks that calibration offsets exclude future residuals."""
         from pipeline.backtest import get_calibration_offsets
         resids_history = [
             ('2023-01', -10.0),
@@ -830,7 +794,7 @@ class TestSchemaValidation:
         assert q90 == q90_pert
 
     def test_null_actual_does_not_change_wape_or_bias(self):
-        """Priority 2c: A NULL actual does not change WAPE or bias."""
+        """Checks that NULL actuals do not change WAPE or bias."""
         from pipeline.backtest import evaluate_backtest_slice
         s_act_clean = pd.Series([100.0, 200.0, 300.0])
         s_pred_clean = pd.Series([110.0, 190.0, 310.0])
@@ -846,7 +810,7 @@ class TestSchemaValidation:
         assert res_null['n_excluded'] == 2
 
     def test_ev059_and_ev052_no_post_forecast_double_counting(self):
-        """Priority A6: EV-059 and EV-052 do not apply post-forecast multipliers."""
+        """Checks that event adjustments are not applied twice."""
         from pipeline.config import EVENT_FORECAST_RULES
         from pipeline.forecast import apply_event_adjustments
         assert EVENT_FORECAST_RULES['EV-059'].get('effect') == 'model_feature'
@@ -866,7 +830,7 @@ class TestSchemaValidation:
         assert adjusted['Units_Sold_Forecast'].iloc[0] == 100
 
     def test_hierarchy_addition_structure_and_result(self):
-        """Priority A3: Hierarchy addition reports exact totals."""
+        """Checks that hierarchy addition reports exact totals."""
         from pipeline.forecast import compute_hierarchy_reconciliation
         sub_fixture = pd.DataFrame([
             {'Date': '2026-11', 'SKU_ID': 'BSS-001', 'Region': 'North America', 'Units_Sold_Forecast': 100},
@@ -925,7 +889,7 @@ class TestSchemaValidation:
         assert int(submission_with_families.groupby('Business_Unit')['Units_Sold_Forecast'].sum().sum()) == total
 
     def test_pytest_does_not_modify_outputs(self):
-        """Fix 1b: Verify that running the test suite does not modify production outputs."""
+        """Checks that the test suite does not modify production outputs."""
         import subprocess, sys
         from pathlib import Path
         out_dir = Path(__file__).resolve().parent.parent / "outputs"
@@ -950,7 +914,7 @@ class TestSchemaValidation:
         assert not modified_files, f"Production files in outputs/ were modified during test execution: {modified_files}"
 
     def test_new_launch_inheritance_fixture(self):
-        """Priority 6c: A launch forecast before Launch_Date is zero, and inherited values match rule."""
+        """Checks launch forecasts before the launch date and inherited values."""
         from pipeline.forecast import apply_lifecycle_rules
         sku_master_fixture = pd.DataFrame([
             {'SKU_ID': 'NEW-001', 'Launch_Date': '2027-03', 'EOL_Date': '', 'Replaces_SKU': 'OLD-001'}
@@ -969,7 +933,7 @@ class TestSchemaValidation:
         assert cleaned.loc[cleaned['Date'] == '2027-04', 'Units_Sold_Forecast'].iloc[0] == 180
 
     def test_dashboard_all_filter_combinations(self):
-        """Fix 6a: Test dashboard views across all 7 filter combinations and verify 0 exceptions."""
+        """Checks dashboard views across filter combinations."""
         from unittest.mock import MagicMock
         import streamlit as st
         for attr in ['header', 'subheader', 'caption', 'dataframe', 'metric', 'plotly_chart', 'write', 'warning', 'info', 'error', 'stop']:
@@ -1100,10 +1064,8 @@ def test_dashboard_views_return_content():
         assert has_non_empty, f"{name} passed no non-empty chart or table object"
 
 
-# PDF Business Rules R1 through R7, Hierarchy Exactness, and Backtest Temporal Isolation
-
 def test_rule_r1_date_authoritative():
-    """PDF Rule R1: Date is authoritative. Year and Month follow Date."""
+    """Checks that Date determines Year and Month."""
     df = pd.DataFrame([
         {'Record_ID': 'R1', 'Date': '2023-04', 'Year': '2020', 'Month': '1'},
         {'Record_ID': 'R2', 'Date': '2024-11', 'Year': '2021', 'Month': '2'}
@@ -1116,7 +1078,7 @@ def test_rule_r1_date_authoritative():
 
 
 def test_rule_r2_load_timestamp_dedup():
-    """PDF Rule R2: Repeated Record_ID: keep the row with the latest Load_Timestamp."""
+    """Checks Record_ID deduplication by load timestamp."""
     row1 = {'Record_ID': 'CEL-001', 'Date': '2023-01', 'SKU_ID': 'BSS-001', 'Region': 'Europe',
             'Customer_Name': 'Cust A', 'Sales_Channel': 'Direct OEM',
             'Load_Timestamp': '2023-01-01 10:00:00', 'Units_Sold': '100'}
@@ -1131,7 +1093,7 @@ def test_rule_r2_load_timestamp_dedup():
 
 
 def test_rule_r3_zero_orders_vs_missing_rows():
-    """PDF Rule R3: Units_Sold = 0 is a valid no-order record; missing rows are not zeros."""
+    """Checks zero-order records and missing rows."""
     df = pd.DataFrame([{'Record_ID': 'REC-Z1', 'Units_Sold': '0'}])
     cleaned = apply_t15_zero_demand_flag(df)
     assert len(cleaned) == 1
@@ -1143,7 +1105,7 @@ def test_rule_r3_zero_orders_vs_missing_rows():
 
 
 def test_rule_r4_prices_same_per_region_annual_change():
-    """PDF Rule R4: Prices per SKU in USD uniform across regions; annual 1 Jan adjustments except surcharges."""
+    """Checks uniform SKU prices across regions."""
     df = pd.DataFrame([
         {'Record_ID': 'P1', 'Date': '2023-01', 'Year': '2023', 'SKU_ID': 'BSS-001', 'Region': 'North America',
          'Unit_Price_USD': '500.0', 'Units_Sold': '10', 'Revenue_USD': '5000.0'},
@@ -1157,7 +1119,7 @@ def test_rule_r4_prices_same_per_region_annual_change():
 
 
 def test_rule_r5_lifecycle_no_sales_outside_bounds():
-    """PDF Rule R5: No sales after EOL_Date or before planned Launch_Date."""
+    """Checks lifecycle sales boundaries."""
     sku_master = pd.DataFrame([
         {'SKU_ID': 'SKU-PRE', 'Launch_Date': '2023-06', 'EOL_Date': ''},
         {'SKU_ID': 'SKU-POST', 'Launch_Date': '2020-01', 'EOL_Date': '2022-12'},
@@ -1185,7 +1147,7 @@ def test_rule_r5_lifecycle_no_sales_outside_bounds():
 
 
 def test_rule_r6_customer_ordering_cycles():
-    """PDF Rule R6: Customers order on their own cycle; cycle detection and change points are tracked."""
+    """Checks customer ordering cycle change points."""
     cs_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'customer_switches.csv')
     assert os.path.exists(cs_path), "customer_switches.csv must exist"
     cs_df = pd.read_csv(cs_path)
@@ -1211,7 +1173,7 @@ def test_rule_r6_customer_ordering_cycles():
 
 
 def test_rule_r7_unconstrained_demand_forecast():
-    """PDF Rule R7: Forecast window has no supply limits; forecast unconstrained demand."""
+    """Checks unconstrained demand forecasting."""
     unc_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'unconstrained_demand.parquet')
     assert os.path.exists(unc_path), "unconstrained_demand.parquet must exist"
     unc_df = pd.read_parquet(unc_path)
@@ -1223,7 +1185,7 @@ def test_rule_r7_unconstrained_demand_forecast():
 
 
 def test_hierarchy_submission_exact_sums():
-    """PDF Part 4.10 & 6: Forecast submission sums exactly match totals across family, region, business unit, date."""
+    """Checks exact forecast sums across hierarchy levels."""
     sub_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'forecast_submission.csv')
     sku_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'student_data', 'sku_master.csv')
     sub = pd.read_csv(sub_path)

@@ -287,7 +287,7 @@ def _write_dq_markdown(report: dict):
 
 def build_panel_status(clean_train: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
     """
-    Priority B1: Build full panel status dataset.
+    Build the panel status dataset.
     For every SKU-Region-Customer series, iterates over live months (from launch/first sale to EOL/2026-10).
     Classifies every month cell as 'sold' (Units_Sold > 0), 'zero_order' (Units_Sold == 0),
     or 'not_recorded' (no transaction recorded).

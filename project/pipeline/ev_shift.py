@@ -1,4 +1,4 @@
-"""
+﻿"""
 ev_shift.py - Expert analysis of macroeconomic lag stability and the automotive EV shift (E-C).
 """
 
@@ -33,7 +33,6 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
         'Fuel_Price_Index', 'EV_Adoption_Index'
     ] if c in mac.columns]
 
-    # --- 1. Macro Lag Cross-Correlation by Family (All history + Rolling Windows) ---
     fam_monthly = df.groupby(['Date', 'Product_Family'])['Units_num'].sum().reset_index()
     all_fams = sorted(df['Product_Family'].unique())
 
@@ -81,7 +80,6 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
     macro_lag_analysis = full_lag_df[full_lag_df['Window'] == 'Full_2019_2026'].drop(columns=['Window'])
     macro_lag_analysis.to_csv(OUT_MACRO_LAG, index=False)
 
-    # --- 2. Lag Stability Comparison (2019-2022 vs 2023-2026) ---
     stability_records = []
     w1_df = full_lag_df[full_lag_df['Window'] == 'Window1_2019_2022']
     w2_df = full_lag_df[full_lag_df['Window'] == 'Window2_2023_2026']
@@ -112,7 +110,6 @@ def analyze_ev_shift_and_lag_stability(clean_train: pd.DataFrame,
     stability_df.to_csv(OUT_LAG_STABILITY, index=False)
     print(f"Lag stability analysis saved: {OUT_LAG_STABILITY}")
 
-    # --- 3. Powertrain Volume Breakdown and EV Adoption Regression ---
     pt_monthly = df.groupby(['Date', 'Powertrain_Application'])['Units_num'].sum().unstack(fill_value=0)
     for col in ['ICE', 'EV', 'Universal']:
         if col not in pt_monthly.columns:

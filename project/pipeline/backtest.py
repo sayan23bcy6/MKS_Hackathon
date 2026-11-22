@@ -1,14 +1,14 @@
 """
-backtest.py - Honest rolling-origin backtesting across multi-year horizons (Rule WS4 / Fixes V3, V4, V5, V6).
+backtest.py - Rolling-origin backtesting across multiple years.
 Evaluates 19-month horizons at origins 2023-10, 2024-10, and 2025-03.
-- Target: Units_Sold_Unconstrained (Priority 2).
+- Target: Units_Sold_Unconstrained.
 - NULL Units_Sold / target rows are strictly excluded (never filled with 0).
 - Secondary metric: shipped Units_Sold score reported alongside unconstrained target.
 - No leakage: features, customer ordering cycles, and intermittency classifications are
   computed strictly using data up to and including each evaluation origin.
 - Models (P10, P50, P90) are trained and refit strictly on data up to each origin.
 - Recursive 19-month multi-step forecasting: lags in months 2-19 use model predictions.
-- Out-of-sample coverage calibration (Priority 1): residual quantiles estimated only
+- Out-of-sample coverage calibration: residual quantiles estimated only
   from origins prior to the one being scored. Raw and calibrated coverage reported side by side.
 - Baselines: Seasonal Naive, Moving Average (12m), and Croston / SBA / TSB intermittent methods.
 - Saves outputs/backtest_metrics.csv and outputs/backtest_predictions.csv.
@@ -37,7 +37,7 @@ OUT_COVERAGE_BREAKDOWN = Path(str(OUT_BACKTEST).replace('backtest_metrics.csv', 
 
 def get_calibration_offsets(residuals_with_date: list[tuple[str, float]], current_origin: str) -> tuple[float, float]:
     """
-    Compute P10 and P90 residual offsets using strictly residuals from dates <= current_origin (Priority A2).
+    Compute P10 and P90 residual offsets using residuals from dates <= current_origin.
     residuals_with_date is a list of (date_str, residual_float).
     Returns (q10_offset, q90_offset). If no prior residuals, returns (0.0, 0.0).
     """
@@ -107,7 +107,7 @@ def run_honest_backtest(clean_train: pd.DataFrame,
             print(f"    Skipping origin {origin}: insufficient test dates ({len(test_dates)} < {horizon})")
             continue
 
-        # 1. Strictly isolated historical training data up to origin
+        # Isolate historical training data at the origin
         train_hist = clean_train[clean_train['Date'].isin(train_dates)].copy()
         test_actuals = clean_train[clean_train['Date'].isin(test_dates)].copy()
 
@@ -128,13 +128,13 @@ def run_honest_backtest(clean_train: pd.DataFrame,
         n_null_test = int(test_actuals['actual'].isna().sum())
         print(f"    Excluded {n_null_train} NULL rows from training target, {n_null_test} NULL rows from test evaluation")
 
-        # 2. Recompute intermittency and customer cycles strictly on historical data up to origin
+        # Recompute intermittency and customer cycles at the origin
         train_hist_valid = train_hist.dropna(subset=['target']).copy()
         train_hist_valid['Units_Sold_Unconstrained'] = train_hist_valid['target']
         train_hist_valid = classify_intermittency(train_hist_valid)
         train_hist_valid = add_cycle_features(train_hist_valid)
 
-        # 3. Build features strictly on historical data
+        # Build features from historical data
         train_feat = add_calendar_features(train_hist_valid)
         train_feat = add_event_features(train_feat, clean_events)
         train_feat = add_lifecycle_features(train_feat, sku_master)
@@ -145,7 +145,7 @@ def run_honest_backtest(clean_train: pd.DataFrame,
         # Drop any remaining null targets
         train_feat = train_feat.dropna(subset=['target']).copy()
 
-        # 4. Train LightGBM models with internal 6-month validation window
+        # Train LightGBM models with an internal validation window
         val_start_dt = pd.to_datetime(origin + '-01') - pd.DateOffset(months=5)
         val_start = val_start_dt.strftime('%Y-%m')
         tr_split = train_feat[train_feat['Date'] < val_start].copy()
@@ -153,7 +153,7 @@ def run_honest_backtest(clean_train: pd.DataFrame,
 
         models = train_all_quantiles(tr_split, val_split, full_df=train_feat)
 
-        # 5. Recursive 19-month multi-step forecasting across test window
+        # Forecast recursively across the test window
         cycle_cols = [c for c in ['order_cycle_code', 'is_lost_account', 'intermittency_code'] if c in train_feat.columns]
         cycle_meta = train_feat.drop_duplicates(series_keys)[series_keys + cycle_cols].set_index(series_keys) if cycle_cols else None
 
@@ -262,7 +262,7 @@ def run_honest_backtest(clean_train: pd.DataFrame,
             lambda d: test_dates.index(d) + 1 if d in test_dates else -1
         )
 
-        # Store raw quantile forecasts (Priority 1)
+        # Store raw quantile forecasts
         lgb_results['p10_raw'] = lgb_results['p10'].copy()
         lgb_results['p90_raw'] = lgb_results['p90'].copy()
 
@@ -270,7 +270,7 @@ def run_honest_backtest(clean_train: pd.DataFrame,
         raw_cov = float(((lgb_results.loc[val_rows, 'actual'] >= lgb_results.loc[val_rows, 'p10_raw']) &
                          (lgb_results.loc[val_rows, 'actual'] <= lgb_results.loc[val_rows, 'p90_raw'])).mean())
 
-        # Calibration using strictly prior origins' residuals (Priority A2)
+        # Calibrate using prior origins' residuals
         q10_off, q90_off = get_calibration_offsets(residuals_with_date, origin)
         if q10_off != 0.0 or q90_off != 0.0:
             cal_p10 = np.clip(lgb_results['p50'] + q10_off, 0, None).round()
@@ -289,7 +289,7 @@ def run_honest_backtest(clean_train: pd.DataFrame,
             lgb_results['p90_cal'] = lgb_results['p90_raw']
             cal_cov = raw_cov
 
-        # Save current origin residuals tagged with date for future origins strictly (Priority A2)
+        # Save current origin residuals for later calibration
         for d, act, pred in zip(lgb_results.loc[val_rows, 'Date'],
                                 lgb_results.loc[val_rows, 'actual'],
                                 lgb_results.loc[val_rows, 'p50']):
@@ -390,7 +390,7 @@ def run_honest_backtest(clean_train: pd.DataFrame,
                 slice_row['coverage_calibrated'] = round(cal_cov, 4)
             all_metrics.append(slice_row)
 
-            # Secondary metric: evaluate against shipped actuals (Priority 2a)
+            # Evaluate against shipped actuals
             if 'shipped_actual' in df_eval.columns:
                 all_metrics.append(evaluate_backtest_slice(
                     df_eval['shipped_actual'], df_eval['pred'], origin, f"{m_name}_vs_shipped", 'secondary_shipped', 'ALL'
@@ -424,7 +424,7 @@ def run_honest_backtest(clean_train: pd.DataFrame,
     if preds_df.empty or not save_outputs:
         return metrics_df, preds_df
 
-    # Generate and export coverage breakdown (Priority C1)
+    # Generate and export coverage breakdown
     lgb_preds = preds_df[preds_df['model'] == 'lightgbm_p50'].copy()
     cov_rows = []
     val_overall = lgb_preds['actual'].notna()

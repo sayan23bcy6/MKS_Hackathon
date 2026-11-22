@@ -171,7 +171,7 @@ def add_lag_rolling_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     Compute historical lag (1, 2, 3, 6, 12m), rolling statistics (3, 6, 12m),
     and true YoY growth ratio per SKU-Region-Customer series.
-    Fixes F4: lag_12m_yoy is the growth ratio, distinct from lag_12m.
+    lag_12m_yoy is a growth ratio, distinct from lag_12m.
     """
     df = df.copy()
     df = df.sort_values(['SKU_ID', 'Region', 'Customer_Name', 'Date']).reset_index(drop=True)

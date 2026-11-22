@@ -53,7 +53,7 @@ def apply_event_adjustments(df: pd.DataFrame,
                              clean_train: pd.DataFrame = None,
                              out_estimates_path = OUT_EVENT_ESTIMATES) -> pd.DataFrame:
     """
-    Dynamically apply operational adjustments for events occurring in the forecast window (Priority 5).
+    Apply operational adjustments for events in the forecast window.
     - EV-062: Orion Driveline North America retooling (2027-07 to 2027-08) -> 0 demand.
     - EV-052: Helios Auto Parts India capacity uplift (+8.28% factor estimated from India history).
     - EV-059: 2027-01 global price rise of 4.5% is driven natively by model feature flag_price_change
@@ -145,8 +145,8 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
     Execute 19-month recursive multi-step forecast.
     Iterates month-by-month, updating lag and rolling statistics with predictions
     from earlier forecast horizons.
-    Includes new-launch history inheritance from Replaces_SKU (Priority 6).
-    Optional pmi_delta shifts ISM PMI for genuine what-if model reruns (Priority 3).
+    Includes new-launch history inheritance from Replaces_SKU.
+    Optional pmi_delta shifts ISM PMI for what-if model reruns.
     """
     test_dates = sorted(test_df['Date'].unique())
     series_keys = ['SKU_ID', 'Region', 'Customer_Name']
@@ -157,7 +157,7 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
                                  'Sales_Channel', 'Business_Unit']].copy()
     hist_subset['Units_Sold_Unconstrained'] = pd.to_numeric(hist_subset['Units_Sold_Unconstrained'], errors='coerce').fillna(0)
 
-    # Replaces_SKU mapping for new launches (Priority 6)
+    # Map replacement SKUs for new launches
     replaces_map = {}
     for _, row in sku_master.iterrows():
         rep = row.get('Replaces_SKU')
@@ -168,7 +168,7 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
     fam_region_avg = train_history.groupby(['Product_Family', 'Region'])['Units_Sold_Unconstrained'].mean().to_dict()
     rep_sku_reg_avg = train_history.groupby(['SKU_ID', 'Region'])['Units_Sold_Unconstrained'].mean().to_dict()
 
-    # Build launch map to prevent pre-launch zeros from entering lag history (Priority A1)
+    # Build the launch map
     launch_map = {}
     for _, row in sku_master.iterrows():
         if pd.notna(row.get('Launch_Date')) and str(row['Launch_Date']).strip():
@@ -180,7 +180,7 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
         sorted_non_zero = grp[grp['Units_Sold_Unconstrained'] > 0].sort_values('Date')['Units_Sold_Unconstrained']
         sku_first_6m[(s, r, c)] = float(sorted_non_zero.head(6).sum())
 
-    # Precompute inherited history for new launches (Priority 6a & 6b)
+    # Precompute inherited history for new launches
     initial_inherited_history = {}
     existing_series = set(train_history.groupby(series_keys).groups.keys())
     for s_launch, s_rep in replaces_map.items():
@@ -230,7 +230,7 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
     cycle_cols = [c for c in ['order_cycle_code', 'is_lost_account', 'intermittency_code'] if c in train_history.columns]
     cycle_meta = train_history.drop_duplicates(series_keys)[series_keys + cycle_cols].set_index(series_keys) if cycle_cols else None
 
-    # Apply PMI shift if what-if scenario delta is requested (Priority A4)
+    # Apply the PMI shift for the what-if scenario
     # Shifting applies strictly to future forecast months (>= 2026-11); historical macro remains untouched
     macro_input = clean_macro.copy()
     if pmi_delta != 0.0 and 'ISM_Manufacturing_PMI' in macro_input.columns:
@@ -275,7 +275,7 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
             history = recent_hist.get(key, [])
             n = len(history)
 
-            # Inherited history for new launches (Priority A1):
+            # Inherited history for new launches:
             # Prepend inherited history until launch has enough of its own predictions/actuals
             if key in initial_inherited_history:
                 inherited = initial_inherited_history[key]
@@ -352,7 +352,7 @@ def generate_recursive_forecast(test_df: pd.DataFrame,
         monthly_preds.append(current_test)
 
         # Append predicted month to history for next recursive horizon
-        # Exclude pre-launch zeros: only append when current_month >= Launch_Date (Priority A1)
+        # Append only after the launch date
         append_df = current_test[series_keys].copy()
         append_df['Date'] = current_month
         append_df['Units_Sold_Unconstrained'] = current_test['Units_Sold_Forecast_p50']
@@ -385,7 +385,6 @@ def compute_hierarchy_reconciliation(submission: pd.DataFrame,
                                      sku_master: pd.DataFrame,
                                      out_path=OUT_HIERARCHY_RECON) -> dict:
     """
-    diagnostic, not a PDF requirement
     Report exact bottom-up submission sums across family, region, business unit and total.
     Trend projections are diagnostic only and do not affect the result.
     """
@@ -466,7 +465,7 @@ def compute_hierarchy_reconciliation(submission: pd.DataFrame,
     if out_path is not None:
         pd.DataFrame(recon_records).to_csv(out_path, index=False)
         diagnostic_path = Path(str(out_path)).parent / 'hierarchy_diagnostic.csv'
-        # diagnostic, not a PDF requirement
+        # Diagnostic trend gap output
         pd.DataFrame(diagnostic_records).to_csv(diagnostic_path, index=False)
 
     return {'adds_up': bool(adds_up), 'total_forecast_units': total_units}
@@ -541,7 +540,7 @@ def generate_whatif_scenario(base_submission: pd.DataFrame,
 
 
 def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFrame = None):
-    """Write model governance card to outputs/model_card.md using verified output files (Priority 7c)."""
+    """Write the model governance card."""
     preds_path = Path(str(OUT_MODEL_CARD)).parent / 'backtest_predictions.csv'
     recon_path = Path(str(OUT_MODEL_CARD)).parent / 'hierarchy_addition.csv'
     if not recon_path.exists():
@@ -560,7 +559,7 @@ def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFram
     )
     diagnostic_path = recon_path.parent / 'hierarchy_diagnostic.csv'
     if diagnostic_path.exists():
-        recon_summary += " Trend gap values are in hierarchy_diagnostic.csv, which is diagnostic, not a PDF requirement."
+        recon_summary += " Trend gap values are in hierarchy_diagnostic.csv and are diagnostic only."
 
     raw_cov_str = "N/A"
     cal_cov_str = "N/A"
