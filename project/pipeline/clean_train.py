@@ -685,6 +685,7 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
     out_of_band_mask = has_p & has_ref & ((ratio < 0.5) | (ratio > 2.0))
 
     repaired_count = 0
+    zero_repaired = 0
     for idx in df.index[zero_price_mask]:
         rid = df.at[idx, 'Record_ID']
         price = df.at[idx, 'Unit_Price_USD']
@@ -694,7 +695,9 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
                   "Zero or missing price replaced with SKU-year reference price")
         df.at[idx, 'Unit_Price_USD'] = ref_val
         repaired_count += 1
+        zero_repaired += 1
 
+    band_counts = {'T12_band_85x': 0, 'T12_band_100x': 0, 'T12_band_5_20x': 0, 'T12_band_other': 0}
     for idx in df.index[out_of_band_mask]:
         rid = df.at[idx, 'Record_ID']
         price = df.at[idx, 'Unit_Price_USD']
@@ -705,6 +708,14 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
                   f"Price out of band (x{r_val:.2f} vs reference); replaced with SKU-year reference price")
         df.at[idx, 'Unit_Price_USD'] = ref_val
         repaired_count += 1
+        if 80 <= r_val < 95:
+            band_counts['T12_band_85x'] += 1
+        elif 95 <= r_val <= 120:
+            band_counts['T12_band_100x'] += 1
+        elif 5 <= r_val <= 20:
+            band_counts['T12_band_5_20x'] += 1
+        else:
+            band_counts['T12_band_other'] += 1
 
     # Check R4: within each SKU and year, price changes only on 1 January or in surcharge months
     r4_violations = 0
@@ -724,6 +735,9 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
 
     df = df.drop(columns=['_year', '_ref_price'])
     DQ['T12_repaired_prices'] = repaired_count
+    DQ['T12_zero_repaired'] = zero_repaired
+    DQ['T12_outofband_repaired'] = repaired_count - zero_repaired
+    DQ.update(band_counts)
     DQ['T12_r4_violations_corrected'] = r4_violations
     DQ['T12_after_count'] = int(((df['Unit_Price_USD'].isna()) | (df['Unit_Price_USD'] == 0)).sum())
 

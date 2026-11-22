@@ -101,7 +101,7 @@ The sidebar provides shared filters that update all active dashboard views simul
 The dashboard organizes operational demand intelligence into nine distinct tabs:
 
 ### 1. Executive Overview
-- Visualizes historical actual shipments alongside the 19-month point forecast (P50) and prediction intervals (P10-P90).
+- Visualizes historical actual shipments alongside the 19-month forecast and the P10-P90 interval for families selected as LightGBM. Families selected for a baseline show a point forecast only.
 - Summarizes total historical units, 19-month forward forecast volume, trailing 12-month baseline, and projected run-rate shift.
 
 ### 2. Data Health & Audit Log

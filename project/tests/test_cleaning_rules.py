@@ -1337,12 +1337,17 @@ def test_coverage_breakdown_raw_and_calibrated():
 
 
 def test_quantile_ordering():
-    """P10, P50 and P90 interval rows remain ordered on every forecast row."""
+    """Every row has a point forecast. Rows with bands are ordered P10 <= P50 <= P90."""
     path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'outputs', 'forecast_intervals.csv')
     assert os.path.exists(path), "run python project/run_pipeline.py first"
     frame = pd.read_csv(path)
-    assert (frame['Units_Sold_Forecast_p10'] <= frame['Units_Sold_Forecast_p50']).all()
-    assert (frame['Units_Sold_Forecast_p50'] <= frame['Units_Sold_Forecast_p90']).all()
+    assert frame['Units_Sold_Forecast_p50'].notna().all()
+    banded = frame.dropna(subset=['Units_Sold_Forecast_p10', 'Units_Sold_Forecast_p90'])
+    assert len(banded) > 0
+    assert (banded['Units_Sold_Forecast_p10'] <= banded['Units_Sold_Forecast_p50']).all()
+    assert (banded['Units_Sold_Forecast_p50'] <= banded['Units_Sold_Forecast_p90']).all()
+    unbanded = frame[frame['Units_Sold_Forecast_p10'].isna()]
+    assert unbanded['Units_Sold_Forecast_p90'].isna().all()
 
 
 def test_originality_methodology_heading():

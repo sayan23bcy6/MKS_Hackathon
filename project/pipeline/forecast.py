@@ -34,11 +34,12 @@ def apply_lifecycle_rules(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.Data
         if pd.notna(row.get('Launch_Date')) and str(row['Launch_Date']).strip():
             launch_map[sku] = str(row['Launch_Date'])[:7]
 
-    eol_series = df['SKU_ID'].map(eol_map)
-    launch_series = df['SKU_ID'].map(launch_map)
+    # Blank strings mean no limit. Dates are YYYY-MM, so string order is date order.
+    eol_series = df['SKU_ID'].map(eol_map).fillna('').astype(str)
+    launch_series = df['SKU_ID'].map(launch_map).fillna('').astype(str)
 
-    eol_mask = eol_series.notna() & (df['Date'] > eol_series)
-    launch_mask = launch_series.notna() & (df['Date'] < launch_series)
+    eol_mask = (eol_series != '') & (df['Date'].astype(str) > eol_series)
+    launch_mask = (launch_series != '') & (df['Date'].astype(str) < launch_series)
     zero_mask = eol_mask | launch_mask
 
     for col in ['Units_Sold_Forecast_p50', 'Units_Sold_Forecast_p10', 'Units_Sold_Forecast_p90', 'Units_Sold_Forecast']:
@@ -478,8 +479,13 @@ def generate_whatif_scenario(base_submission: pd.DataFrame,
                               models: dict,
                               clean_events: pd.DataFrame,
                               train_history: pd.DataFrame,
-                              pmi_delta_target: float = -3.0) -> pd.DataFrame:
-    """Rerun forecasts over the PMI shift grid and export scenario outputs."""
+                              pmi_delta_target: float = -3.0,
+                              baselines: pd.DataFrame = None,
+                              family_selection: pd.DataFrame = None) -> pd.DataFrame:
+    """
+    Rerun the LightGBM forecast over the PMI shift grid and export scenario outputs.
+    Families whose selected model is a baseline do not respond to PMI and stay fixed.
+    """
     pmi_grid = [-6.0, -4.5, -3.0, -1.5, 0.0, 1.5, 3.0, 4.5, 6.0]
     sku_to_fam = dict(zip(sku_master['SKU_ID'], sku_master['Product_Family']))
     base = base_submission.copy()
@@ -494,10 +500,16 @@ def generate_whatif_scenario(base_submission: pd.DataFrame,
             sub = base_submission.copy()
             sub['Product_Family'] = base['Product_Family']
         else:
-            sub, _ = generate_recursive_forecast(
+            lgb_sub, lgb_int = generate_recursive_forecast(
                 test_df, train_history, clean_macro, clean_events, sku_master, models,
                 pmi_delta=delta, save_outputs=False
             )
+            if baselines is not None and family_selection is not None:
+                from pipeline.family_selection import assemble_family_forecast
+                sub, _, _ = assemble_family_forecast(lgb_sub, lgb_int, baselines, family_selection,
+                                                     test_df, sku_master)
+            else:
+                sub = lgb_sub
             sub['Product_Family'] = sub['SKU_ID'].map(sku_to_fam).fillna('Unknown')
 
         tot_u = int(sub['Units_Sold_Forecast'].sum())
@@ -606,7 +618,8 @@ def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFram
         "# Model Card: Celeris Automobili Demand Forecasting System",
         "",
         "## Model Details",
-        "- **Architecture**: LightGBM Quantile Gradient Boosted Trees (P10, P50, P90)",
+        "- **Architecture**: LightGBM Quantile Gradient Boosted Trees (P10, P50, P90) as the global ML candidate",
+        "- **Forecast assembly**: each product family uses the model selected by the backtest rule (see the per-family section below)",
         "- **Training Horizon**: 2019-01 to 2026-10 (Full history refit following validation)",
         "- **Forecast Horizon**: 2026-11 to 2028-05 (19 months, recursive multi-step forecasting)",
         "- **Target Variable**: Units_Sold_Unconstrained (actual shipments adjusted for stockouts and event constraints)",
@@ -619,9 +632,9 @@ def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFram
         "- **Operational Events**: Retooling shutdown (EV-062), capacity expansion (EV-052 estimated from India sales), price change (EV-059 native feature)",
         "",
         "## Validation & Backtesting",
-        "- **Strategy**: Honest multi-origin rolling backtests across 3 cutoff points (2023-10, 2024-10, 2025-03) with 19-month recursive horizons.",
+        "- **Strategy**: Rolling-origin backtests across 3 cutoff points (2023-10, 2024-10, 2025-03) with 19-month recursive horizons.",
         "- **No Leakage**: Features, cycles, and intermittency recomputed strictly on data up to each origin. Recursive lag propagation used for months 2-19.",
-        f"- **P10-P90 Coverage**: Raw coverage {raw_cov_str}; Calibrated coverage {cal_cov_str} across {total_backtest_rows} ({total_backtest_rows:,}) out-of-sample predictions.",
+        f"- **P10-P90 Coverage**: Raw coverage {raw_cov_str}; Calibrated coverage {cal_cov_str} across {total_backtest_rows} ({total_backtest_rows:,}) out-of-sample LightGBM predictions. Bands exist only for LightGBM rows.",
         "",
         "### Benchmark Comparisons by Origin",
         comp_text,

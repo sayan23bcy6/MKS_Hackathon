@@ -1,20 +1,20 @@
 Level,Group,Bottom_Up_Units,Deviation_Pct,Status
-Total,ALL,2812116,0.0,PASS
-Product_Family,Brake & Safety Systems,550786,0.0,PASS
-Product_Family,Chassis & Structural,425528,0.0,PASS
-Product_Family,Electrical Assemblies,277167,0.0,PASS
-Product_Family,Hydraulic Systems,325258,0.0,PASS
-Product_Family,Powertrain Components,360920,0.0,PASS
-Product_Family,Precision Machined Parts,434644,0.0,PASS
-Product_Family,Thermal Management,437813,0.0,PASS
-Region,Asia Pacific,510652,0.0,PASS
-Region,Europe,553195,0.0,PASS
-Region,India,514085,0.0,PASS
-Region,Latin America,451484,0.0,PASS
-Region,Middle East & Africa,244557,0.0,PASS
-Region,North America,538143,0.0,PASS
-Business_Unit,Advanced Manufacturing,860172,0.0,PASS
-Business_Unit,Electronics & Controls,277167,0.0,PASS
-Business_Unit,Fluid Control Group,763071,0.0,PASS
-Business_Unit,Power & Drive Systems,360920,0.0,PASS
-Business_Unit,Safety & Compliance,550786,0.0,PASS
+Total,ALL,3016755,0.0,PASS
+Product_Family,Brake & Safety Systems,580555,0.0,PASS
+Product_Family,Chassis & Structural,469648,0.0,PASS
+Product_Family,Electrical Assemblies,278940,0.0,PASS
+Product_Family,Hydraulic Systems,386209,0.0,PASS
+Product_Family,Powertrain Components,418604,0.0,PASS
+Product_Family,Precision Machined Parts,441995,0.0,PASS
+Product_Family,Thermal Management,440804,0.0,PASS
+Region,Asia Pacific,552964,0.0,PASS
+Region,Europe,590969,0.0,PASS
+Region,India,551080,0.0,PASS
+Region,Latin America,482972,0.0,PASS
+Region,Middle East & Africa,260404,0.0,PASS
+Region,North America,578366,0.0,PASS
+Business_Unit,Advanced Manufacturing,911643,0.0,PASS
+Business_Unit,Electronics & Controls,278940,0.0,PASS
+Business_Unit,Fluid Control Group,827013,0.0,PASS
+Business_Unit,Power & Drive Systems,418604,0.0,PASS
+Business_Unit,Safety & Compliance,580555,0.0,PASS

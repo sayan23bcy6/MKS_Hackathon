@@ -93,24 +93,26 @@
     },
     "T11_units_sold": {
       "description": "Units_Sold formatting, negative reversal resolution, and stockout alignment",
-      "blank": 3362,
+      "blank": 3327,
       "dash": 217,
       "comma_formatted": 44,
-      "negative": 497,
+      "negative": 491,
       "null_from_stockout": 84,
       "large_values_gt5000": 31,
       "zero_demand_rows": 35403,
       "null_demand_rows": 3460,
       "rule": "T11",
-      "before_count": 4121,
+      "before_count": 4079,
       "after_count": 0
     },
     "T12_unit_price": {
       "description": "Unit_Price_USD zeros, scale errors, and currency shifts repaired with annual median reference",
-      "filled_zero_price_rows": 0,
-      "scale_100x_band": 518,
-      "scale_85x_band": 73,
-      "scale_5_20x_band": 369,
+      "zero_price_rows_repaired": 36352,
+      "outofband_rows_repaired": 999,
+      "scale_100x_band": 581,
+      "scale_85x_band": 33,
+      "scale_5_20x_band": 385,
+      "scale_other": 0,
       "rule": "T12",
       "before_count": 37351,
       "after_count": 0
@@ -121,7 +123,7 @@
       "discrepancy_before": 18531,
       "recomputed": 18531,
       "rule": "T13",
-      "before_count": 1744,
+      "before_count": 18531,
       "after_count": 0
     },
     "T14_real_market_shocks": {
@@ -163,6 +165,18 @@
     "M2_fraction_rows": 12,
     "M2_break_points_2019_2020": 1.5,
     "M3_pmi_implausible": 1,
+    "M3_detail": [
+      {
+        "date": "2023-05",
+        "old": 4.79,
+        "prev_date": "2023-04",
+        "prev": 47.2,
+        "next_date": "2023-06",
+        "next": 46.1
+      }
+    ],
+    "M3_text": "Corrected 4.79 to 47.9 via decimal point shift (2023-05).",
+    "M3_reason": "Neighbours: 2023-04 = 47.2, 2023-06 = 46.1; the corrected value fits the neighbour average.",
     "M4_blank_cells": {
       "Vehicle_Inventory_Days": [
         "2019-07"
@@ -207,9 +221,9 @@
       "Corporate": 2,
       "System": 2,
       "Marketing": 2,
-      "Announcement": 1,
-      "Market Entry": 1,
       "Supply Constraint": 1,
+      "Market Entry": 1,
+      "Announcement": 1,
       "Logistics": 1
     },
     "E_R7_dup_event_ids": 0
@@ -218,7 +232,7 @@
     "price_out_of_band_scaling": {
       "rule_id": "T12",
       "count": 37351,
-      "decision": "Replaced 37,351 T12 price rows: 518 100x-scale entries, 73 85x-scale entries and 369 entries in the 5-20x band.",
+      "decision": "Repaired 37,351 unit prices: 36,352 zero or missing prices and 999 prices outside 0.5x to 2.0x the SKU-year reference (581 near 100x, 33 near 85x, 385 in the 5x to 20x band).",
       "reason": "Corrects cent-scale entry errors, currency conversion disparities, and manual data-entry slips while maintaining intra-year price stability."
     },
     "blank_region_categorization": {
@@ -242,8 +256,8 @@
     "macro_2023_05_pmi_decimal": {
       "rule_id": "M3",
       "count": 1,
-      "decision": "Corrected 4.79 to 47.9 via decimal point shift.",
-      "reason": "April 2023 was 47.2 and June 2023 was 46.1; value of 4.79 was a typographical single-decimal slip."
+      "decision": "Corrected 4.79 to 47.9 via decimal point shift (2023-05).",
+      "reason": "Neighbours: 2023-04 = 47.2, 2023-06 = 46.1; the corrected value fits the neighbour average."
     },
     "sku_bu_conflict_resolution": {
       "rule_id": "S1",
@@ -327,7 +341,7 @@
     },
     "T11": {
       "rule": "T11",
-      "before_count": 4121,
+      "before_count": 4079,
       "after_count": 0,
       "audit_entries": 884
     },
@@ -339,7 +353,7 @@
     },
     "T13": {
       "rule": "T13",
-      "before_count": 1744,
+      "before_count": 18531,
       "after_count": 0,
       "audit_entries": 18531
     },

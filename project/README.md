@@ -2,7 +2,7 @@
 
 An end-to-end demand forecasting pipeline and operational planning control tower built for the Celeris Automobili hackathon project.
 
-The system cleans commercial sales transactions, reconstructs unconstrained demand from stockout records, computes calendar, lifecycle, and customer cycle features, trains LightGBM quantile regression models, and generates 19-month forecasts with prediction intervals and exact hierarchy addition checks.
+The system cleans commercial sales transactions, reconstructs unconstrained demand from stockout records, computes calendar, lifecycle, and customer cycle features, trains LightGBM and baseline models, selects one model per product family on a rolling-origin backtest, quantile regression models, and generates 19-month forecasts with prediction intervals and exact hierarchy addition checks.
 
 ---
 

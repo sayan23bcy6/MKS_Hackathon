@@ -1,73 +1,73 @@
 Scenario_PMI_Delta,Level,Group,Forecast_Units,Baseline_Units,Units_Sold_Forecast,Scenario_Units_Sold_Forecast,Shift_Units,Shift_Pct
--6.0,Total,ALL,2740012,2812116,2812116,2740012,-72104,-2.56
--6.0,Product_Family,Brake & Safety Systems,543110,550786,550786,543110,-7676,-1.39
--6.0,Product_Family,Chassis & Structural,418542,425528,425528,418542,-6986,-1.64
--6.0,Product_Family,Electrical Assemblies,269170,277167,277167,269170,-7997,-2.89
--6.0,Product_Family,Hydraulic Systems,314226,325258,325258,314226,-11032,-3.39
--6.0,Product_Family,Powertrain Components,352568,360920,360920,352568,-8352,-2.31
--6.0,Product_Family,Precision Machined Parts,419944,434644,434644,419944,-14700,-3.38
--6.0,Product_Family,Thermal Management,422452,437813,437813,422452,-15361,-3.51
--4.5,Total,ALL,2753088,2812116,2812116,2753088,-59028,-2.1
--4.5,Product_Family,Brake & Safety Systems,544304,550786,550786,544304,-6482,-1.18
--4.5,Product_Family,Chassis & Structural,420819,425528,425528,420819,-4709,-1.11
--4.5,Product_Family,Electrical Assemblies,270795,277167,277167,270795,-6372,-2.3
--4.5,Product_Family,Hydraulic Systems,315981,325258,325258,315981,-9277,-2.85
--4.5,Product_Family,Powertrain Components,353360,360920,360920,353360,-7560,-2.09
--4.5,Product_Family,Precision Machined Parts,422079,434644,434644,422079,-12565,-2.89
--4.5,Product_Family,Thermal Management,425750,437813,437813,425750,-12063,-2.76
--3.0,Total,ALL,2756087,2812116,2812116,2756087,-56029,-1.99
--3.0,Product_Family,Brake & Safety Systems,546145,550786,550786,546145,-4641,-0.84
--3.0,Product_Family,Chassis & Structural,421220,425528,425528,421220,-4308,-1.01
--3.0,Product_Family,Electrical Assemblies,270433,277167,277167,270433,-6734,-2.43
--3.0,Product_Family,Hydraulic Systems,315925,325258,325258,315925,-9333,-2.87
--3.0,Product_Family,Powertrain Components,352825,360920,360920,352825,-8095,-2.24
--3.0,Product_Family,Precision Machined Parts,422826,434644,434644,422826,-11818,-2.72
--3.0,Product_Family,Thermal Management,426713,437813,437813,426713,-11100,-2.54
--1.5,Total,ALL,2768488,2812116,2812116,2768488,-43628,-1.55
--1.5,Product_Family,Brake & Safety Systems,548281,550786,550786,548281,-2505,-0.45
--1.5,Product_Family,Chassis & Structural,422986,425528,425528,422986,-2542,-0.6
--1.5,Product_Family,Electrical Assemblies,271296,277167,277167,271296,-5871,-2.12
--1.5,Product_Family,Hydraulic Systems,317415,325258,325258,317415,-7843,-2.41
--1.5,Product_Family,Powertrain Components,354997,360920,360920,354997,-5923,-1.64
--1.5,Product_Family,Precision Machined Parts,424791,434644,434644,424791,-9853,-2.27
--1.5,Product_Family,Thermal Management,428722,437813,437813,428722,-9091,-2.08
-0.0,Total,ALL,2812116,2812116,2812116,2812116,0,0.0
-0.0,Product_Family,Brake & Safety Systems,550786,550786,550786,550786,0,0.0
-0.0,Product_Family,Chassis & Structural,425528,425528,425528,425528,0,0.0
-0.0,Product_Family,Electrical Assemblies,277167,277167,277167,277167,0,0.0
-0.0,Product_Family,Hydraulic Systems,325258,325258,325258,325258,0,0.0
-0.0,Product_Family,Powertrain Components,360920,360920,360920,360920,0,0.0
-0.0,Product_Family,Precision Machined Parts,434644,434644,434644,434644,0,0.0
-0.0,Product_Family,Thermal Management,437813,437813,437813,437813,0,0.0
-1.5,Total,ALL,2839746,2812116,2812116,2839746,27630,0.98
-1.5,Product_Family,Brake & Safety Systems,553056,550786,550786,553056,2270,0.41
-1.5,Product_Family,Chassis & Structural,428450,425528,425528,428450,2922,0.69
-1.5,Product_Family,Electrical Assemblies,280764,277167,277167,280764,3597,1.3
-1.5,Product_Family,Hydraulic Systems,329004,325258,325258,329004,3746,1.15
-1.5,Product_Family,Powertrain Components,365194,360920,360920,365194,4274,1.18
-1.5,Product_Family,Precision Machined Parts,440563,434644,434644,440563,5919,1.36
-1.5,Product_Family,Thermal Management,442715,437813,437813,442715,4902,1.12
-3.0,Total,ALL,2848330,2812116,2812116,2848330,36214,1.29
-3.0,Product_Family,Brake & Safety Systems,554723,550786,550786,554723,3937,0.71
-3.0,Product_Family,Chassis & Structural,429645,425528,425528,429645,4117,0.97
-3.0,Product_Family,Electrical Assemblies,281911,277167,277167,281911,4744,1.71
-3.0,Product_Family,Hydraulic Systems,330210,325258,325258,330210,4952,1.52
-3.0,Product_Family,Powertrain Components,366296,360920,360920,366296,5376,1.49
-3.0,Product_Family,Precision Machined Parts,441501,434644,434644,441501,6857,1.58
-3.0,Product_Family,Thermal Management,444044,437813,437813,444044,6231,1.42
-4.5,Total,ALL,2855163,2812116,2812116,2855163,43047,1.53
-4.5,Product_Family,Brake & Safety Systems,556186,550786,550786,556186,5400,0.98
-4.5,Product_Family,Chassis & Structural,430334,425528,425528,430334,4806,1.13
-4.5,Product_Family,Electrical Assemblies,281976,277167,277167,281976,4809,1.74
-4.5,Product_Family,Hydraulic Systems,330877,325258,325258,330877,5619,1.73
-4.5,Product_Family,Powertrain Components,367142,360920,360920,367142,6222,1.72
-4.5,Product_Family,Precision Machined Parts,442893,434644,434644,442893,8249,1.9
-4.5,Product_Family,Thermal Management,445755,437813,437813,445755,7942,1.81
-6.0,Total,ALL,2867948,2812116,2812116,2867948,55832,1.99
-6.0,Product_Family,Brake & Safety Systems,557615,550786,550786,557615,6829,1.24
-6.0,Product_Family,Chassis & Structural,432618,425528,425528,432618,7090,1.67
-6.0,Product_Family,Electrical Assemblies,282712,277167,277167,282712,5545,2.0
-6.0,Product_Family,Hydraulic Systems,331797,325258,325258,331797,6539,2.01
-6.0,Product_Family,Powertrain Components,368373,360920,360920,368373,7453,2.07
-6.0,Product_Family,Precision Machined Parts,444047,434644,434644,444047,9403,2.16
-6.0,Product_Family,Thermal Management,450786,437813,437813,450786,12973,2.96
+-6.0,Total,ALL,2993658,3016755,3016755,2993658,-23097,-0.77
+-6.0,Product_Family,Brake & Safety Systems,580555,580555,580555,580555,0,0.0
+-6.0,Product_Family,Chassis & Structural,469648,469648,469648,469648,0,0.0
+-6.0,Product_Family,Electrical Assemblies,272984,278940,278940,272984,-5956,-2.14
+-6.0,Product_Family,Hydraulic Systems,386209,386209,386209,386209,0,0.0
+-6.0,Product_Family,Powertrain Components,418604,418604,418604,418604,0,0.0
+-6.0,Product_Family,Precision Machined Parts,431407,441995,441995,431407,-10588,-2.4
+-6.0,Product_Family,Thermal Management,434251,440804,440804,434251,-6553,-1.49
+-4.5,Total,ALL,2997244,3016755,3016755,2997244,-19511,-0.65
+-4.5,Product_Family,Brake & Safety Systems,580555,580555,580555,580555,0,0.0
+-4.5,Product_Family,Chassis & Structural,469648,469648,469648,469648,0,0.0
+-4.5,Product_Family,Electrical Assemblies,273675,278940,278940,273675,-5265,-1.89
+-4.5,Product_Family,Hydraulic Systems,386209,386209,386209,386209,0,0.0
+-4.5,Product_Family,Powertrain Components,418604,418604,418604,418604,0,0.0
+-4.5,Product_Family,Precision Machined Parts,433181,441995,441995,433181,-8814,-1.99
+-4.5,Product_Family,Thermal Management,435372,440804,440804,435372,-5432,-1.23
+-3.0,Total,ALL,3004644,3016755,3016755,3004644,-12111,-0.4
+-3.0,Product_Family,Brake & Safety Systems,580555,580555,580555,580555,0,0.0
+-3.0,Product_Family,Chassis & Structural,469648,469648,469648,469648,0,0.0
+-3.0,Product_Family,Electrical Assemblies,275577,278940,278940,275577,-3363,-1.21
+-3.0,Product_Family,Hydraulic Systems,386209,386209,386209,386209,0,0.0
+-3.0,Product_Family,Powertrain Components,418604,418604,418604,418604,0,0.0
+-3.0,Product_Family,Precision Machined Parts,435921,441995,441995,435921,-6074,-1.37
+-3.0,Product_Family,Thermal Management,438130,440804,440804,438130,-2674,-0.61
+-1.5,Total,ALL,3010583,3016755,3016755,3010583,-6172,-0.2
+-1.5,Product_Family,Brake & Safety Systems,580555,580555,580555,580555,0,0.0
+-1.5,Product_Family,Chassis & Structural,469648,469648,469648,469648,0,0.0
+-1.5,Product_Family,Electrical Assemblies,276651,278940,278940,276651,-2289,-0.82
+-1.5,Product_Family,Hydraulic Systems,386209,386209,386209,386209,0,0.0
+-1.5,Product_Family,Powertrain Components,418604,418604,418604,418604,0,0.0
+-1.5,Product_Family,Precision Machined Parts,439271,441995,441995,439271,-2724,-0.62
+-1.5,Product_Family,Thermal Management,439645,440804,440804,439645,-1159,-0.26
+0.0,Total,ALL,3016755,3016755,3016755,3016755,0,0.0
+0.0,Product_Family,Brake & Safety Systems,580555,580555,580555,580555,0,0.0
+0.0,Product_Family,Chassis & Structural,469648,469648,469648,469648,0,0.0
+0.0,Product_Family,Electrical Assemblies,278940,278940,278940,278940,0,0.0
+0.0,Product_Family,Hydraulic Systems,386209,386209,386209,386209,0,0.0
+0.0,Product_Family,Powertrain Components,418604,418604,418604,418604,0,0.0
+0.0,Product_Family,Precision Machined Parts,441995,441995,441995,441995,0,0.0
+0.0,Product_Family,Thermal Management,440804,440804,440804,440804,0,0.0
+1.5,Total,ALL,3024022,3016755,3016755,3024022,7267,0.24
+1.5,Product_Family,Brake & Safety Systems,580555,580555,580555,580555,0,0.0
+1.5,Product_Family,Chassis & Structural,469648,469648,469648,469648,0,0.0
+1.5,Product_Family,Electrical Assemblies,282342,278940,278940,282342,3402,1.22
+1.5,Product_Family,Hydraulic Systems,386209,386209,386209,386209,0,0.0
+1.5,Product_Family,Powertrain Components,418604,418604,418604,418604,0,0.0
+1.5,Product_Family,Precision Machined Parts,444326,441995,441995,444326,2331,0.53
+1.5,Product_Family,Thermal Management,442338,440804,440804,442338,1534,0.35
+3.0,Total,ALL,3026700,3016755,3016755,3026700,9945,0.33
+3.0,Product_Family,Brake & Safety Systems,580555,580555,580555,580555,0,0.0
+3.0,Product_Family,Chassis & Structural,469648,469648,469648,469648,0,0.0
+3.0,Product_Family,Electrical Assemblies,283821,278940,278940,283821,4881,1.75
+3.0,Product_Family,Hydraulic Systems,386209,386209,386209,386209,0,0.0
+3.0,Product_Family,Powertrain Components,418604,418604,418604,418604,0,0.0
+3.0,Product_Family,Precision Machined Parts,444981,441995,441995,444981,2986,0.68
+3.0,Product_Family,Thermal Management,442882,440804,440804,442882,2078,0.47
+4.5,Total,ALL,3028618,3016755,3016755,3028618,11863,0.39
+4.5,Product_Family,Brake & Safety Systems,580555,580555,580555,580555,0,0.0
+4.5,Product_Family,Chassis & Structural,469648,469648,469648,469648,0,0.0
+4.5,Product_Family,Electrical Assemblies,284235,278940,278940,284235,5295,1.9
+4.5,Product_Family,Hydraulic Systems,386209,386209,386209,386209,0,0.0
+4.5,Product_Family,Powertrain Components,418604,418604,418604,418604,0,0.0
+4.5,Product_Family,Precision Machined Parts,445777,441995,441995,445777,3782,0.86
+4.5,Product_Family,Thermal Management,443590,440804,440804,443590,2786,0.63
+6.0,Total,ALL,3028059,3016755,3016755,3028059,11304,0.37
+6.0,Product_Family,Brake & Safety Systems,580555,580555,580555,580555,0,0.0
+6.0,Product_Family,Chassis & Structural,469648,469648,469648,469648,0,0.0
+6.0,Product_Family,Electrical Assemblies,283319,278940,278940,283319,4379,1.57
+6.0,Product_Family,Hydraulic Systems,386209,386209,386209,386209,0,0.0
+6.0,Product_Family,Powertrain Components,418604,418604,418604,418604,0,0.0
+6.0,Product_Family,Precision Machined Parts,446265,441995,441995,446265,4270,0.97
+6.0,Product_Family,Thermal Management,443459,440804,440804,443459,2655,0.6

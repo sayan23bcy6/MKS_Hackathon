@@ -1,4 +1,4 @@
-﻿"""
+"""
 config.py - Central configuration: paths, canonical label maps, thresholds, rule IDs.
 All cleaning rules reference constants defined here.
 """
@@ -38,6 +38,8 @@ OUT_MACRO_LAG       = OUTPUT_DIR / "macro_lag_analysis.csv"
 OUT_SCENARIO        = OUTPUT_DIR / "whatif_scenario_forecast.csv"
 OUT_WHATIF_SCENARIOS = OUTPUT_DIR / "whatif_scenarios.csv"
 OUT_EVENT_ESTIMATES = OUTPUT_DIR / "event_impact_estimates.csv"
+OUT_FAMILY_SELECTION = OUTPUT_DIR / "family_model_selection.csv"
+OUT_BASELINE_FORECAST = OUTPUT_DIR / "baseline_forecasts.csv"
 OUT_STOCKOUTS       = OUTPUT_DIR / "inventory_stockouts.csv"
 OUT_PANEL_STATUS         = OUTPUT_DIR / "panel_status.csv"
 OUT_MASTER_CONTRADICTIONS = OUTPUT_DIR / "master_data_contradictions.csv"
