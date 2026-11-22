@@ -118,6 +118,21 @@
       "before_count": 380,
       "after_count": 18529
     },
+    "T14_real_market_shocks": {
+      "description": "Real market shocks preserved without artificial outlier clipping",
+      "count": 0,
+      "rule": "T14",
+      "before_count": 0,
+      "after_count": 0
+    },
+    "T15_zero_demand_vs_missing": {
+      "description": "Zero demand distinguished from missing panel observations",
+      "zero_demand_rows": 35403,
+      "null_demand_rows": 3460,
+      "rule": "T15",
+      "before_count": 0,
+      "after_count": 0
+    },
     "R5_lifecycle": {
       "description": "Lifecycle validation: sales outside launch/EOL boundaries zeroed",
       "eol_violations": 0,

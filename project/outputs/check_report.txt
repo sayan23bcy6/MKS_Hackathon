@@ -1,10 +1,10 @@
-Celeris project check, 2026-11-22 00:18
+Celeris project check, 2026-11-22 12:25
 Folder: D:\Work\GitHub\MKS_Hackathon
 
 SUMMARY  PASS=49  WARN=0  FAIL=0  ERROR=0  INFO=18
 
 == 0 environment
-  [INFO] run at 2026-11-22 00:18
+  [INFO] run at 2026-11-22 12:25
 
   [INFO] python 3.10.0 on Windows
 
@@ -12,7 +12,7 @@ SUMMARY  PASS=49  WARN=0  FAIL=0  ERROR=0  INFO=18
 
   [PASS] lightgbm 4.7.0 installed
 
-  [INFO] git commit 58bae55
+  [INFO] git commit b8d7a5b
 
   [INFO] forecast_submission.csv: md5 9a929f7a5834, 1,847 KB
 
@@ -197,7 +197,7 @@ SUMMARY  PASS=49  WARN=0  FAIL=0  ERROR=0  INFO=18
 
   [PASS] all outputs referenced in spec compliance matrix are tracked in git
 
-  [PASS] test suite verified: 102 unit tests found in test_cleaning_rules.py
+  [PASS] test suite verified: 116 unit tests found in test_cleaning_rules.py
 
 == 14 pdf compliance
   [PASS] all 77 PDF specification rows verified with valid files, outputs, and unit tests
