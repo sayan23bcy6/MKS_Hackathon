@@ -15,7 +15,7 @@ ANOMALY_COLS = [
     "Date", "SKU_ID", "Region", "Customer_Name",
     "anomaly_type", "field", "value", "baseline",
     "action", "reason", "event_reference",
-    "type", "evidence", "Classification", "ratio",
+    "type", "evidence", "Classification", "ratio", "new_value",
 ]
 
 
@@ -25,7 +25,7 @@ class AnomalyRegister:
 
     def add(self, date, sku_id, region, customer,
             anomaly_type, field, value, baseline,
-            action, reason, event_ref="", ratio=None):
+            action, reason, event_ref="", ratio=None, new_value=None):
         classification = "error" if anomaly_type in {
             "sign_reversal", "price_scaling_correction"
         } else "real event"
@@ -41,6 +41,7 @@ class AnomalyRegister:
             "evidence": evidence,
             "Classification": classification,
             "ratio": ratio,
+            "new_value": new_value,
         })
 
     def as_dataframe(self) -> pd.DataFrame:
@@ -78,7 +79,7 @@ def build_anomaly_register(clean_train: pd.DataFrame,
                 "high_volume_order", "Units_Sold", original, row['Units_Sold_num'],
                 "replaced_suspected_entry_error",
                 f"suspected entry error: ratio {ratio:.6f} against SKU-year median",
-                "A3", ratio)
+                "A3", ratio, row['Units_Sold_num'])
 
     # 2. Negative unit reversals handled
     neg_audit = audit_log[
@@ -102,6 +103,14 @@ def build_anomaly_register(clean_train: pd.DataFrame,
             kept_row = {'Date': date_value, 'SKU_ID': sku_value, 'Region': region_value}
         else:
             kept_row = kept.iloc[0]
+        if not kept_row.get('Date', '') and sku_value:
+            candidates = df[df['SKU_ID'] == sku_value]
+            if not candidates.empty:
+                kept_row['Date'] = candidates.sort_values('Date')['Date'].iloc[-1]
+                kept_row['SKU_ID'] = sku_value
+                kept_row['Region'] = candidates.sort_values('Date')['Region'].iloc[-1]
+        if not kept_row.get('Region', ''):
+            kept_row['Region'] = 'Unassigned'
         reason = "Negative units recorded due to clerical sign inversion"
         if row['reason'].startswith("Negative Units_Sold dropped"):
             reason += "; reversed row dropped as a duplicate"

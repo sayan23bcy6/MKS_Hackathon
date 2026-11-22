@@ -1,4 +1,4 @@
-﻿"""
+"""
 forecast.py - 19-month recursive multi-step forecasting, event adjustments,
 hierarchy reconciliation, what-if macroeconomic simulation, and model card generation.
 """
@@ -543,13 +543,28 @@ def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFram
     """Write the model governance card."""
     preds_path = Path(str(OUT_MODEL_CARD)).parent / 'backtest_predictions.csv'
     recon_path = Path(str(OUT_MODEL_CARD)).parent / 'hierarchy_addition.csv'
+    coverage_path = Path(str(OUT_MODEL_CARD)).parent / 'coverage_breakdown.csv'
+    submission_path = Path(str(OUT_MODEL_CARD)).parent / 'forecast_submission.csv'
+    if not coverage_path.exists():
+        raise FileNotFoundError("run python project/run_pipeline.py first")
+    coverage_df = pd.read_csv(coverage_path)
+    overall_coverage = coverage_df[coverage_df['breakdown'] == 'overall']
+    if overall_coverage.empty:
+        raise ValueError("coverage_breakdown.csv has no overall row")
+    coverage_row = overall_coverage.iloc[0]
+    raw_cov_str = f"{float(coverage_row['coverage_raw']) * 100:.2f}%"
+    cal_cov_str = f"{float(coverage_row['coverage_calibrated']) * 100:.2f}%"
+    total_backtest_rows = int(coverage_row['n_obs'])
     if not recon_path.exists():
         raise FileNotFoundError("run python project/run_pipeline.py first")
     recon_df = pd.read_csv(recon_path)
     total_row = recon_df[recon_df['Level'] == 'Total']
     if total_row.empty:
         raise ValueError("hierarchy_addition.csv has no Total row")
-    total_units = int(total_row.iloc[0]['Bottom_Up_Units'])
+    if not submission_path.exists():
+        raise FileNotFoundError("run python project/run_pipeline.py first")
+    submission_df = pd.read_csv(submission_path)
+    total_units = int(submission_df['Units_Sold_Forecast'].sum())
     adds_up = bool(all(recon_df['Status'] == 'PASS'))
     level_rows_checked = len(recon_df) - len(total_row)
     recon_summary = (
@@ -561,26 +576,6 @@ def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFram
     if diagnostic_path.exists():
         recon_summary += " Trend gap values are in hierarchy_diagnostic.csv and are diagnostic only."
 
-    raw_cov_str = "N/A"
-    cal_cov_str = "N/A"
-    total_backtest_rows = 0
-
-    if preds_path.exists():
-        try:
-            bp = pd.read_csv(preds_path)
-            if {'actual', 'p10', 'p90'}.issubset(bp.columns):
-                bp_val = bp.dropna(subset=['p10', 'p90'])
-                total_backtest_rows = len(bp_val)
-                if total_backtest_rows > 0:
-                    cov_raw_col = bp_val['p10_raw'] if 'p10_raw' in bp_val.columns else bp_val['p10']
-                    cov_raw_90 = bp_val['p90_raw'] if 'p90_raw' in bp_val.columns else bp_val['p90']
-                    r_cov = float(((bp_val['actual'] >= cov_raw_col) & (bp_val['actual'] <= cov_raw_90)).mean()) * 100
-                    raw_cov_str = f"{r_cov:.1f}%"
-
-                    c_cov = float(((bp_val['actual'] >= bp_val['p10']) & (bp_val['actual'] <= bp_val['p90'])).mean()) * 100
-                    cal_cov_str = f"{c_cov:.1f}%"
-        except (OSError, KeyError, ValueError):
-            pass
 
 
     # Extract backtest winner per family and comparison vs naive
@@ -626,7 +621,7 @@ def write_model_card(models: dict, features: list, backtest_metrics: pd.DataFram
         "## Validation & Backtesting",
         "- **Strategy**: Honest multi-origin rolling backtests across 3 cutoff points (2023-10, 2024-10, 2025-03) with 19-month recursive horizons.",
         "- **No Leakage**: Features, cycles, and intermittency recomputed strictly on data up to each origin. Recursive lag propagation used for months 2-19.",
-        f"- **P10-P90 Coverage**: Raw coverage {raw_cov_str}; Calibrated coverage {cal_cov_str} across {total_backtest_rows:,} out-of-sample predictions.",
+        f"- **P10-P90 Coverage**: Raw coverage {raw_cov_str}; Calibrated coverage {cal_cov_str} across {total_backtest_rows} ({total_backtest_rows:,}) out-of-sample predictions.",
         "",
         "### Benchmark Comparisons by Origin",
         comp_text,

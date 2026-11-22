@@ -163,7 +163,7 @@ def main():
     n_audit = audit.save()
     audit_df = pd.read_csv(OUT_AUDIT_LOG)
     write_model_card(models, get_feature_names(features_df), backtest_metrics=backtest_metrics)
-    dq_report = generate_dq_report(dq_train, dq_mac, dq_sku, dq_ev, audit_df, anomaly_df)
+    dq_report = generate_dq_report(dq_train, dq_mac, dq_sku, dq_ev, audit_df, anomaly_df, raw_stockouts)
     build_panel_status(df_clean, clean_sku)
 
     elapsed = time.time() - t0
