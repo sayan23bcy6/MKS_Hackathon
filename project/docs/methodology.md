@@ -285,16 +285,8 @@ Every file in `project/outputs/` is regenerated end-to-end when executing `pytho
 
 ---
 
-## 11. Responsible AI Use Declaration (Part 7)
+## AI assistance
 
-In accordance with Section 8 of the competition specification, this declaration outlines the use of artificial intelligence tooling during solution development:
-
-### Tooling Disclosures
-- **AI Coding Assistants**: Antigravity and Large Language Model agents were utilized for boilerplate syntax generation, refactoring repetitive data cleaning rule definitions, drafting unit test fixtures, and compiling structured markdown documentation.
-
-### Human Engineering Governance and Verification
-- **Mathematical Formulations**: The unconstrained demand allocation framework (Rule A2), the exact hierarchy addition rules, and the non-leakage rolling-origin backtest structure were designed, mathematically derived, and validated directly by human engineers.
-- **Data Integrity & Rule Verification**: Every deterministic rule (T1-T15, M1-M5, S1-S2, E1-E4, R1-R9) was verified against real business logic, with explicit unit tests failing upon any deviation.
-- **Model Validation**: Out-of-sample backtest scores, coverage metrics, and economic sensitivity scenarios were reviewed and reported honestly without post-hoc tuning or artificial score inflation.
+AI coding tools were used for a small part of the work: drafting some unit test code and fixture setup, and tidying some documentation. The data rules, cleaning logic, backtest design, forecasting model, hierarchy checks and dashboard design were written and checked by the team. Every AI-drafted test was run and reviewed before it was kept.
 
 

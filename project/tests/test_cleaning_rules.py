@@ -1485,12 +1485,12 @@ def test_presentation_outline_sections():
     assert 'Approach' in text
 
 
-def test_methodology_names_ai_tools():
+def test_ai_assistance_section_exists():
     path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'docs', 'methodology.md')
     assert os.path.exists(path), "run python project/run_pipeline.py first"
     text = open(path, encoding='utf-8').read()
-    assert 'Responsible AI Use Declaration' in text
-    assert 'AI Coding Assistants' in text
+    assert '## AI assistance' in text
+    assert 'tests' in text
 
 
 def test_test_names_are_unique():
