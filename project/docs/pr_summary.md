@@ -2,6 +2,7 @@
 
 | Commit | Change | Matrix rows affected |
 |---|---|---|
+| `d6fcb2a` | Added the initial project compliance checker. | Matrix-wide |
 | `db069f3` | Implemented exact hierarchy sums and separate diagnostic gaps. | 4.10, 6.3 |
 | `8e6ea15` | Updated hierarchy tests to assert exact sums instead of status. | 4.10, 6.3 |
 | `5d9c54b` | Added a real backtest-origin leakage fixture and save-output control. | 4.2, 4.5, 6.4 |
@@ -30,3 +31,6 @@
 | `751d00d` | Added measured EV shift and lag stability findings. | 3.4, 3.5, 7.4 |
 | `2f88011` | Added measured bias findings with the required sign convention. | 7.3 |
 | `da06969` | Updated methodology text to match code and output values. | 7.1, 7.6 |
+| `9743d84` | Refreshed project state and generated-output revisions. | 1.1, 2.1, 3.1, 4.9 |
+| `3a34ff6` | Added T14 and T15 data-quality entries and tightened report coverage. | 1.5, 6.2, WS 1.7 |
+| `b8d7a5b` | Fixed methodology MD5 table parsing. | 1.8, WS 1.8 |
