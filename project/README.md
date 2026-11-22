@@ -2,7 +2,7 @@
 
 An end-to-end demand forecasting pipeline and operational planning control tower built for the Celeris Automobili hackathon project.
 
-The system cleans commercial sales transactions, reconstructs unconstrained demand from stockout records, computes calendar, lifecycle, and customer cycle features, trains LightGBM quantile regression models, and generates 19-month forecasts with prediction intervals and top-down reconciliation.
+The system cleans commercial sales transactions, reconstructs unconstrained demand from stockout records, computes calendar, lifecycle, and customer cycle features, trains LightGBM quantile regression models, and generates 19-month forecasts with prediction intervals and exact hierarchy addition checks.
 
 ---
 
@@ -16,7 +16,19 @@ The project runs on Python 3.10+ with lightgbm, pandas, pyarrow, scikit-learn, p
 pip install -r project/requirements.txt
 ```
 
-### 2. Run the Full Pipeline
+### 2. Set Up the Input Files
+
+Copy the organisers' seven input files into `student_data/` at the repository root before running the pipeline:
+
+- `train.csv`
+- `test.csv`
+- `macro_indicators.csv`
+- `sku_master.csv`
+- `events_calendar.csv`
+- `inventory_stockouts.csv`
+- `sample_submission.csv`
+
+### 3. Run the Full Pipeline
 
 Execute the entire data cleaning, feature engineering, model training, backtesting, and forecasting pipeline with one command:
 
@@ -26,7 +38,7 @@ python project/run_pipeline.py
 
 This reads input data from `student_data/` and saves all cleaned datasets, models, metrics, and forecast files into `project/outputs/`.
 
-### 3. Run the Test Suite
+### 4. Run the Test Suite
 
 Run unit tests covering every data cleaning rule, feature transformation, and model constraint:
 
@@ -34,7 +46,7 @@ Run unit tests covering every data cleaning rule, feature transformation, and mo
 pytest project/tests -v
 ```
 
-### 4. Launch the Dashboard
+### 5. Launch the Dashboard
 
 Open the interactive Streamlit Control Tower in your web browser:
 
@@ -45,7 +57,7 @@ streamlit run project/app/dashboard.py
 The application runs locally at `http://localhost:8501`.
 
 ### Dashboard
-Public dashboard: https://celeris-control-tower.streamlit.app
+Public dashboard: [link to be added after deployment]
 
 ---
 
@@ -92,7 +104,6 @@ MKS_Hackathon/
       methodology.md            Methodology and model explanation
       presentation_outline.md   Presentation structure and defense talking points
       dashboard_guide.md        Operator instructions for dashboard views and filters
-      audit_of_existing_work.md Summary of modified, created, and audited files
 ```
 
 ---
@@ -117,7 +128,7 @@ After running `run_pipeline.py`, the following files are produced in `project/ou
 | `forecast_submission.csv` | Final 19-month point forecast matching the 58,219 row submission format |
 | `forecast_intervals.csv` | P10, P50, and P90 prediction intervals for uncertainty planning |
 | `backtest_metrics.csv` | WAPE and bias scores evaluated across 3 origins and 19 horizons |
-| `backtest_predictions.csv` | Per-row held-out predictions for empirical P10-P90 coverage analysis |
+| `coverage_breakdown.csv` | Raw and calibrated P10-P90 coverage by origin, horizon and family |
 | `audit_log.csv` | Full row-level log of every value adjusted during cleaning |
 | `data_quality_report.json` | Machine-readable breakdown of issues found and rules applied |
 | `data_quality_report.md` | Human-readable documentation of data health |
