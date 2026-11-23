@@ -4,7 +4,7 @@ A structured guide for presenting and defending the Celeris Automobili demand fo
 
 ## Approach
 
-The solution combines deterministic cleaning, unconstrained demand reconstruction, LightGBM quantile forecasting, rolling-origin backtesting and hierarchy validation.
+The solution combines deterministic cleaning, unconstrained demand reconstruction, LightGBM quantile forecasting, per-family model selection on a rolling-origin backtest, and hierarchy validation.
 
 ---
 
@@ -69,8 +69,11 @@ The solution combines deterministic cleaning, unconstrained demand reconstructio
 ---
 
 ## Slide 6: Machine Learning Architecture
+- **Per-family model selection**:
+  - Each product family uses the candidate with the lowest mean WAPE over the 2023-10 and 2024-10 origins. The 2025-03 origin is the holdout.
+  - Candidates: seasonal naive, 12-month moving average, Croston/SBA/TSB, and LightGBM P50. Result: `outputs/family_model_selection.csv`.
 - **LightGBM Quantile Gradient Boosted Trees**:
-  - Direct quantile modeling for P10 (downside threshold), P50 (median point forecast), and P90 (upside buffer).
+  - Direct quantile modeling for P10 (downside threshold), P50 (median point forecast), and P90 (upside buffer). Bands exist only for families selected as LightGBM.
 - **Two-Stage Training Strategy**:
   1. Validation stage (train through 2025-03, validate 2025-04 through 2026-10) using early stopping to identify optimal `best_iteration`.
   2. Full-history refit on all data through 2026-10 using `best_iteration`, ensuring the latest market dynamics inform future projections.
@@ -92,15 +95,15 @@ The solution combines deterministic cleaning, unconstrained demand reconstructio
   - Weighted Absolute Percentage Error (WAPE) and Mean Forecast Bias.
   - Performance degradation tracking across horizon months 1 through 19.
   - Slices across product families, operating regions, and commercial channels.
-- **Benchmark Superiority**:
-  - Quantified accuracy improvement of LightGBM P50 over seasonal naive and trailing moving average benchmarks.
+- **Benchmark Comparison**:
+  - LightGBM P50 WAPE against seasonal naive and moving average at each origin. LightGBM is better at 2024-10 only; it is worse at 2023-10 and 2025-03.
 
 ---
 
 ## Slide 8: Control Tower Dashboard & Decision Support
 - **Architecture**: Streamlit application reading strictly from pipeline outputs (`project/outputs/`).
 - **Core Views**:
-  1. Executive Overview: Consolidated historical actuals, P50 forecast, and P10-P90 interval band.
+  1. Executive Overview: Consolidated historical actuals, the forecast, and the P10-P90 band for LightGBM-selected families.
   2. Data Health and Audit Log: Live audit tracking, cleaning rule counts, and decision rule register.
   3. Demand Explorer: Multi-level drill-down by product family, region, channel, and customer.
   4. Anomaly Monitor: Historical demand overlaid with structural breaks, stockouts, and market events.

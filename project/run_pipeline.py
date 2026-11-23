@@ -8,6 +8,7 @@ import os
 import sys
 import time
 import pathlib
+import shutil
 import pandas as pd
 import numpy as np
 
@@ -22,7 +23,8 @@ from pipeline.config import (
     OUT_WHATIF_SCENARIOS, OUT_EVENT_ESTIMATES,
     OUT_PANEL_STATUS, OUT_MASTER_CONTRADICTIONS, OUT_EARLY_BUYING,
     OUT_HOLIDAY_EFFECTS, OUT_STRUCTURAL_BREAKS, OUT_CUSTOMER_SWITCHES,
-    OUT_LOST_ACCOUNTS, OUT_LAG_STABILITY, OUT_COVERAGE_BREAKDOWN
+    OUT_LOST_ACCOUNTS, OUT_LAG_STABILITY, OUT_COVERAGE_BREAKDOWN,
+    RAW_SKU_MASTER, OUTPUT_DIR, OUT_FAMILY_SELECTION, OUT_BASELINE_FORECAST, OUT_MODEL_CARD
 )
 from pipeline.load import (
     load_train, load_test, load_macro,
@@ -45,6 +47,9 @@ from pipeline.anomalies import build_anomaly_register
 from pipeline.reports import generate_dq_report, build_panel_status
 from pipeline.models.lightgbm_model import train_all_quantiles, get_feature_names
 from pipeline.backtest import run_honest_backtest, OUT_BACKTEST_PREDS
+from pipeline.family_selection import (
+    select_family_models, compute_baseline_forecasts, assemble_family_forecast
+)
 from pipeline.forecast import (
     generate_recursive_forecast, compute_hierarchy_reconciliation,
     generate_whatif_scenario, write_model_card
@@ -66,6 +71,8 @@ def main():
     print(f"  train: {raw_train.shape}, test: {raw_test.shape}, macro: {raw_macro.shape}")
 
     # Step 2: Clean master files
+    # The dashboard reads outputs only, so the SKU master is copied there.
+    shutil.copy(RAW_SKU_MASTER, OUTPUT_DIR / 'sku_master.csv')
     print("\n[2/10] Cleaning SKU master, macro indicators, and events calendar...")
     clean_sku, dq_sku = clean_sku_master(raw_sku)
     clean_mac, dq_mac = clean_macro(raw_macro)
@@ -136,18 +143,28 @@ def main():
     # Train on validation split then refit on full history (Fix F1)
     models = train_all_quantiles(train_split, val_split, full_df=features_df)
 
-    # Step 8: Honest backtesting across multi-year rolling origins
-    print("  Running honest multi-origin rolling backtests (2023-10, 2024-10, 2025-03)...")
+    # Step 8: Rolling-origin backtests across multi-year origins
+    print("  Running multi-origin rolling backtests (2023-10, 2024-10, 2025-03)...")
     backtest_metrics, backtest_preds = run_honest_backtest(
         df_unconstrained, clean_mac, clean_ev, clean_sku,
         origins=['2023-10', '2024-10', '2025-03'], horizon=19
     )
 
+    # Per-family model choice from the backtest (selection origins 2023-10 and 2024-10).
+    family_selection = select_family_models(backtest_preds)
+
     # Step 9: Recursive forecasting and hierarchy reconciliation
     print("\n[9/10] Generating 19-month recursive forecast and hierarchy reconciliation...")
-    submission, intervals = generate_recursive_forecast(
-        raw_test, features_df, clean_mac, clean_ev, clean_sku, models
+    lgb_submission, lgb_intervals = generate_recursive_forecast(
+        raw_test, features_df, clean_mac, clean_ev, clean_sku, models, save_outputs=False
     )
+    baselines = compute_baseline_forecasts(df_unconstrained, raw_test)
+    baselines.to_csv(OUT_BASELINE_FORECAST, index=False)
+    submission, intervals, assignment = assemble_family_forecast(
+        lgb_submission, lgb_intervals, baselines, family_selection, raw_test, clean_sku
+    )
+    submission.to_csv(OUT_FORECAST_SUB, index=False)
+    intervals.to_csv(OUT_FORECAST_INT, index=False)
 
     recon_results = compute_hierarchy_reconciliation(submission, df_unconstrained, clean_sku)
     print(f"  Hierarchy addition: total forecast = {recon_results['total_forecast_units']} units, adds_up = {recon_results['adds_up']}")
@@ -155,7 +172,8 @@ def main():
     # What-if scenario simulation (model rerun with shifted PMI)
     print("  Generating macroeconomic what-if scenarios (-6.0 to +6.0 PMI shift)...")
     scenario_df = generate_whatif_scenario(
-        submission, raw_test, clean_mac, clean_sku, models, clean_ev, features_df, pmi_delta_target=-3.0
+        submission, raw_test, clean_mac, clean_sku, models, clean_ev, features_df, pmi_delta_target=-3.0,
+        baselines=baselines, family_selection=family_selection,
     )
 
     # Step 10: Generate documentation, model card, and data quality reports
@@ -163,6 +181,14 @@ def main():
     n_audit = audit.save()
     audit_df = pd.read_csv(OUT_AUDIT_LOG)
     write_model_card(models, get_feature_names(features_df), backtest_metrics=backtest_metrics)
+    with open(OUT_MODEL_CARD, 'a', encoding='utf-8') as fh:
+        fh.write('\n## Per-family model selection\n\n')
+        fh.write('Each family uses the model with the lowest mean WAPE over the selection origins 2023-10 and 2024-10. '
+                 'The 2025-03 origin is the holdout and was not used for the choice.\n\n')
+        fh.write('| Family | Selected model | Selection WAPE (selected) | Holdout WAPE 2025-03 (selected) |\n|---|---|---:|---:|\n')
+        for _, r in family_selection.iterrows():
+            sel_col = 'Selection_WAPE_' + r['Selected_Model']
+            fh.write(f"| {r['Product_Family']} | {r['Selected_Model']} | {r[sel_col]:.4f} | {r['Holdout_WAPE_selected']:.4f} |\n")
     dq_report = generate_dq_report(dq_train, dq_mac, dq_sku, dq_ev, audit_df, anomaly_df, raw_stockouts)
     build_panel_status(df_clean, clean_sku)
 

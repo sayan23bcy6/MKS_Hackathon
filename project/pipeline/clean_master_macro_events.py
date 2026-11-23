@@ -154,6 +154,7 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     # M3: PMI decimal shift (4.79 -> 47.9)
     pmi_bad = (df['ISM_Manufacturing_PMI'] < PMI_DECIMAL_SHIFT_THRESHOLD) & df['ISM_Manufacturing_PMI'].notna()
     dq['M3_pmi_implausible'] = int(pmi_bad.sum())
+    dq['M3_detail'] = []
     for idx in df.index[pmi_bad]:
         old_val = df.at[idx, 'ISM_Manufacturing_PMI']
         candidate = old_val * 10
@@ -165,6 +166,9 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
             prev_pmi = df[df['Date'] == prev_dates.max()]['ISM_Manufacturing_PMI'].values[0]
             next_pmi = df[df['Date'] == next_dates.min()]['ISM_Manufacturing_PMI'].values[0]
             interp = (prev_pmi + next_pmi) / 2
+            dq['M3_detail'].append({'date': date_v, 'old': float(old_val),
+                                    'prev_date': prev_dates.max(), 'prev': float(prev_pmi),
+                                    'next_date': next_dates.min(), 'next': float(next_pmi)})
             if PMI_MIN <= candidate <= PMI_MAX and abs(candidate - interp) < abs(old_val - interp):
                 new_val = candidate
                 reason = f"Decimal shift: {old_val}->{new_val} fits neighbour average {interp:.1f}"
@@ -177,6 +181,17 @@ def clean_macro(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         audit.log("macro_indicators.csv", date_v, "ISM_Manufacturing_PMI",
                   old_val, new_val, "M3", reason)
         df.at[idx, 'ISM_Manufacturing_PMI'] = new_val
+
+    m3_items = dq.get('M3_detail', [])
+    if m3_items:
+        it = m3_items[0]
+        dq['M3_text'] = (f"Corrected {it['old']} to {it['old'] * 10:.1f} via decimal point shift "
+                         f"({it['date']}).")
+        dq['M3_reason'] = (f"Neighbours: {it['prev_date']} = {it['prev']}, {it['next_date']} = {it['next']}; "
+                           f"the corrected value fits the neighbour average.")
+    else:
+        dq['M3_text'] = "No PMI decimal correction applied."
+        dq['M3_reason'] = ""
 
     # M4: Blank cells - linear interpolation with imputed flag column
     blank_cells = {}

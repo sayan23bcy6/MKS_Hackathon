@@ -36,7 +36,7 @@ All data repairs are rule-governed, deterministic, and logged in `outputs/audit_
 | R9 | Co-occurring customer transactions | Preserved multi-customer orders on identical Date-SKU-Region keys | Ensures distinct customer accounts in the same territory are never conflated or dropped. |
 | A2 | Multi-account stockout allocation | Proportional integer allocation by customer volume with remainder to largest customer | Guarantees that allocated customer units sum exactly to total reported stockout units. |
 
-Before cleaning, 1,744 revenue rows differed from Units_Sold multiplied by Unit_Price_USD.
+Before cleaning, 18,531 revenue rows differed from Units_Sold multiplied by Unit_Price_USD (counted after the price repair step). The 1,744 figure in an earlier profile is superseded.
 
 ### Master Data and Macroeconomic Cleaning
 
@@ -124,7 +124,21 @@ To address unlisted stockouts:
 ## 5. Forecasting Model Architecture
 
 ### Model Selection and Training Strategy
-We employ LightGBM quantile regression to predict demand distribution parameters:
+The forecast is chosen per product family. Each family uses the candidate with the lowest mean WAPE over the two selection origins, 2023-10 and 2024-10. The holdout origin, 2025-03, is not used for the choice. Candidates are seasonal naive, the 12-month moving average, Croston/SBA/TSB intermittent methods, and LightGBM P50. Ties go to the simpler model. The selection table is written to `outputs/family_model_selection.csv` and reproduced here:
+
+| Family | Selected model | Selection WAPE (2023-10, 2024-10 mean) | Holdout WAPE 2025-03, selected | Holdout WAPE 2025-03, LightGBM | Holdout WAPE 2025-03, seasonal naive |
+|---|---|---:|---:|---:|---:|
+| Brake & Safety Systems | naive_seasonal | 0.2977 | 0.2936 | 0.3062 | 0.2936 |
+| Chassis & Structural | naive_seasonal | 0.3419 | 0.3301 | 0.3479 | 0.3301 |
+| Electrical Assemblies | lightgbm_p50 | 0.3729 | 0.3488 | 0.3488 | 0.3624 |
+| Hydraulic Systems | naive_seasonal | 0.3505 | 0.3432 | 0.3481 | 0.3432 |
+| Powertrain Components | naive_seasonal | 0.3453 | 0.3205 | 0.3505 | 0.3205 |
+| Precision Machined Parts | lightgbm_p50 | 0.3564 | 0.3361 | 0.3361 | 0.3391 |
+| Thermal Management | lightgbm_p50 | 0.3355 | 0.3134 | 0.3134 | 0.3276 |
+
+On the holdout origin, the selected models give a mean WAPE of 0.3265 across families. LightGBM alone gives 0.3359, and seasonal naive alone gives 0.3309. Only the LightGBM candidate has P10 and P90 bands.
+
+LightGBM quantile regression provides the LightGBM candidate and the P10 and P90 bands:
 - **P50 Model**: Quantile regression at alpha=0.50 providing median point forecasts.
 - **P10 Model**: Quantile regression at alpha=0.10 establishing the downside operational threshold.
 - **P90 Model**: Quantile regression at alpha=0.90 establishing the upside safety stock buffer.
@@ -138,12 +152,14 @@ To avoid feature vector freeze and lag leakage across the 19-month horizon:
 - Month 1 (`2026-11`): Uses known historical lags and rolling averages up to `2026-10`.
 - Month t > 1: Lag 1 corresponds to the model's P50 prediction for month t-1. Rolling statistics update recursively across the predicted path.
 - P10, P50 and P90 forecasts are kept in non-crossing order.
+- This recursion drives the LightGBM candidate for every family. Families whose selected model is a baseline use the baseline values instead (see the assembly step below).
 
 ### Post-Processing, Hierarchy Reconciliation, and Lifecycle Rules
-1. **Operational Adjustments**: Applied customer-specific shutdowns (EV-062 Orion Driveline NA zeroing in 2027-07 to 2027-08) and capacity expansions (EV-052 Helios Auto Parts India, factor 1.0828).
+1. **Operational Adjustments**: Applied the EV-062 Orion Driveline NA zeroing in 2027-07 to 2027-08. EV-052 (Helios Auto Parts, India) is handled as a model feature; its estimated uplift factor (1.2056 in `outputs/event_impact_estimates.csv`) is recorded but not applied as a post-forecast multiplier.
 2. **New Launch History Inheritance**: New SKUs with designated replacement relationships (`Replaces_SKU`) inherit historical demand patterns from the predecessor SKU prior to launch. Unmatched new launches adopt product family average demand profiles. Demand prior to the official `Launch_Date` is strictly zeroed.
 3. **Lifecycle Bounds**: Zeroed all forecast volume outside active SKU launch and EOL windows.
-4. **Hierarchy Addition**: Exact bottom-up sums are reported across family, region, business unit and total. Trend projections are in `outputs/hierarchy_diagnostic.csv` as diagnostic only and do not change any status or the submission.
+4. **Per-family assembly**: Each row takes the value of its family's selected model. Rows selected as LightGBM carry P10, P50 and P90. Rows selected as a baseline carry a point forecast only, and their P10 and P90 are blank.
+5. **Hierarchy Addition**: Exact bottom-up sums are reported across family, region, business unit and total. Trend projections are in `outputs/hierarchy_diagnostic.csv` as diagnostic only and do not change any status or the submission.
 
 ---
 
@@ -181,33 +197,33 @@ Measured LightGBM P50 and seasonal naive bias by rolling origin, with `breakdown
 
 | Origin | LightGBM P50 bias | Seasonal naive bias |
 |---|---:|---:|
-| 2023-10 | -14.76 | -4.53 |
-| 2024-10 | -8.40 | -2.45 |
-| 2025-03 | -9.39 | -0.87 |
+| 2023-10 | -12.44 | -3.13 |
+| 2024-10 | -5.62 | -0.97 |
+| 2025-03 | -7.15 | -0.21 |
 
 Using matched rows in `outputs/backtest_predictions.csv` and `outputs/clean_train.parquet`, LightGBM P50 mean bias against `Units_Sold_Unconstrained` and against shipped `Units_Sold` was:
 
 | Origin | Bias vs Units_Sold_Unconstrained | Bias vs Units_Sold |
 |---|---:|---:|
-| 2023-10 | -14.755922 | -7.283128 |
-| 2024-10 | -8.399352 | -0.787794 |
-| 2025-03 | -9.388353 | -1.850973 |
+| 2023-10 | -12.44 | -3.13 |
+| 2024-10 | -5.62 | -0.97 |
+| 2025-03 | -7.15 | -0.21 |
 
-The comparison shows that changing the measured target substantially reduces the negative bias, especially at 2024-10 and 2025-03, but the shipped-target comparison does not explain the full negative bias in the unconstrained backtest.
+Against shipped `Units_Sold`, the negative bias at 2023-10 falls from -12.44 to -4.96 units; a negative bias remains. At 2024-10 and 2025-03 the shipped-target bias is +1.99 and +0.38. The unconstrained target therefore accounts for most of the negative bias at those two origins.
 
 ## Effect of entry-error replacement
 
-Replacing Units_Sold values above 20 times their SKU-year median changed the 19-month forecast total from 2,847,167 units to 2,812,116 units.
+Entry-error replacement (rule A3) is applied in this build: 104 rows above 20 times their SKU-year median were replaced. Totals and metrics from earlier builds are not reproduced here, so this section reports only the values from this build.
 
-| Origin | LightGBM WAPE before | LightGBM WAPE after |
+| Origin | LightGBM WAPE | Seasonal naive WAPE |
 |---|---:|---:|
-| 2023-10 | 0.3962 | 0.3721 |
-| 2024-10 | 0.3596 | 0.3302 |
-| 2025-03 | 0.3615 | 0.3333 |
+| 2023-10 | 0.3721 | 0.3585 |
+| 2024-10 | 0.3302 | 0.3337 |
+| 2025-03 | 0.3333 | 0.3278 |
 
-Overall coverage changed from raw 0.6706 and calibrated 0.7345 to raw 0.6655 and calibrated 0.7297. Origin coverage was raw/calibrated 0.6179/0.6179 at 2023-10, 0.7071/0.7787 at 2024-10, and 0.6858/0.8047 at 2025-03 before the replacement, and 0.6037/0.6037, 0.7023/0.7763, and 0.6893/0.8068 after it.
+Coverage in this build: raw 0.6037 at 2023-10, 0.7023 at 2024-10 and 0.6893 at 2025-03; calibrated 0.6037, 0.7763 and 0.8068 at the same origins. The 2023-10 origin has no earlier residuals, so its calibrated value equals its raw value.
 
-Top five forecast families before: Brake & Safety Systems 552,340; Precision Machined Parts 443,978; Thermal Management 440,985; Chassis & Structural 426,159; Powertrain Components 368,673. After: Brake & Safety Systems 550,786; Thermal Management 437,813; Precision Machined Parts 434,644; Chassis & Structural 425,528; Powertrain Components 360,920.
+Top five families in this build: Brake & Safety Systems 580,555, Chassis & Structural 469,648, Thermal Management 437,813, Precision Machined Parts 434,644, Powertrain Components 418,604.
 
 Coverage is calculated as the fraction of non-null out-of-sample evaluation rows where actual demand falls within the prediction interval:
 $$\text{Coverage} = \frac{1}{N} \sum_{i=1}^N \mathbf{1}(P10_i \le y_i \le P90_i)$$
@@ -232,49 +248,49 @@ The rise from 2021 to 2022 was accompanied by an increase in active series from 
 
 ### Revenue and unassigned regions
 
-Forecast revenue uses the most recent positive Unit_Price_USD for each SKU in the cleaned training data. Unassigned rows are sales with no region in the source data. Their LightGBM P50 WAPE is 0.7392 for 2023-10, 0.8776 for 2024-10, and 0.7978 for 2025-03, higher than the named-region results.
+Forecast revenue uses the most recent positive Unit_Price_USD for each SKU in the cleaned training data. Unassigned rows are sales with no region in the source data. Their LightGBM P50 WAPE is 0.7392 for 2023-10, 0.8776 for 2024-10, and 0.7978 for 2025-03, against 0.3713, 0.3286 and 0.3320 for the named regions at the same origins.
 
 ### EV shift and lag stability findings
 
-The level regression in `outputs/ev_shift_analysis.csv` has coefficient -109.6675 against ICE volume at lag 1 month, with p-value 0.0000032684215054787183. Shared trends can inflate this level result.
+The level regression in `outputs/ev_shift_analysis.csv` has coefficient -122.9144 against ICE volume at lag 1 month, R^2 0.2834 and p-value 3.97e-08. Shared trends can inflate this level result.
 
 The first-difference regressions report:
 
 | Lag | Coefficient | t-statistic | p-value | Observations | Significant at 5% |
 |---:|---:|---:|---:|---:|---|
-| 0 | -448.124081 | -0.7027 | 0.484195 | 93 | No |
-| 1 | 383.495079 | 0.5999 | 0.550604 | 92 | No |
-| 2 | -311.055674 | -0.4931 | 0.623038 | 91 | No |
-| 3 | 327.805299 | 0.5184 | 0.605725 | 90 | No |
-| 4 | -209.259518 | -0.3288 | 0.743702 | 89 | No |
-| 5 | 722.582669 | 1.1491 | 0.254667 | 88 | No |
-| 6 | -451.048432 | -0.7075 | 0.481387 | 87 | No |
+| 0 | -448.124081 | -0.7024 | 0.484195 | 93 | No |
+| 1 | 383.495079 | 0.5991 | 0.550604 | 92 | No |
+| 2 | -311.055674 | -0.4933 | 0.623038 | 91 | No |
+| 3 | 327.805299 | 0.5180 | 0.605725 | 90 | No |
+| 4 | -209.259518 | -0.3280 | 0.743702 | 89 | No |
+| 5 | 722.582679 | 1.1467 | 0.254667 | 88 | No |
+| 6 | -451.048432 | -0.7072 | 0.481387 | 87 | No |
 
 The first-difference result is not significant at 5%, so it is not described as a shift or a causal effect.
 
-The EV-coded share of volume is 0.00% in 2019 and 10.52% in 2026. From `outputs/lag_stability.csv`, at least one best lag moved between the 2019-2022 and 2023-2026 windows for Brake & Safety Systems, Chassis & Structural, Electrical Assemblies, Hydraulic Systems, Powertrain Components, Precision Machined Parts and Thermal Management.
+The EV-coded share of volume is 0.00% in 2019 and 9.89% in 2026. In `outputs/lag_stability.csv`, 12 of 56 family-indicator pairs keep the same best lag between the 2019-2022 and 2023-2026 windows (21.4%); the other 44 move.
 
 ### Investigation of systematic under-forecasting
-Across all three evaluation origins, LightGBM P50 exhibits systematic negative bias (-8.40 to -14.76 units/month overall), while outperforming all baseline models on WAPE (0.360 to 0.396 vs 0.374 to 0.406 for seasonal naive). A controlled diagnostic investigation into three candidate drivers reveals:
+Across the three evaluation origins, LightGBM P50 has negative bias against the unconstrained target (-5.62 to -12.44 units per month overall). LightGBM beats seasonal naive on WAPE only at 2024-10 (0.3302 vs 0.3337); it loses at 2023-10 (0.3721 vs 0.3585) and 2025-03 (0.3333 vs 0.3278). A controlled diagnostic investigation into three candidate drivers reveals:
 
 1. **Target Change (Unconstrained Demand vs Shipped History)**:
    - *Hypothesis*: The model is trained and scored against `Units_Sold_Unconstrained` (which reconstructs lost volume from documented stockout records), rather than raw shipped transactions (`Units_Sold`).
-   - *Evidence*: Scoring the exact same LightGBM predictions against raw shipped actuals (`lightgbm_p50_vs_shipped`) cuts the measured negative bias roughly in half (from -14.76 units to -7.28 units on Origin 2023-10). Evaluating against the unconstrained ground truth naturally widens the negative gap by ~7.5 units because stockout replenishment adds genuine latent demand that constrained historical shipments never captured.
+   - *Evidence*: Scoring the same predictions against shipped `Units_Sold` reduces the negative bias at 2023-10 from -12.44 to -4.96 units. At 2024-10 and 2025-03 the shipped-target bias is +1.99 and +0.38, so the unconstrained target accounts for most of the negative bias at those origins.
 
 2. **Recursive Multi-Step Lag Propagation**:
    - *Hypothesis*: In recursive multi-step forecasting, predictions for horizon $h > 1$ rely on model-generated lag features rather than true actuals, potentially compounding negative bias over the 19-month window.
    - *Evidence*: Empirical horizon tracking confirms monotonic divergence across the forward horizon:
-     - Month 1: Bias = -3.83 units (WAPE: 0.274)
-     - Month 6: Bias = -10.43 units (WAPE: 0.336)
-     - Month 12: Bias = -19.66 units (WAPE: 0.401)
-     - Month 19: Bias = -26.16 units (WAPE: 0.473)
+     - Month 1: Bias = -2.73 units (WAPE: 0.258), pooled over the three origins
+     - Month 6: Bias = -6.58 units (WAPE: 0.308), pooled over the three origins
+     - Month 12: Bias = -10.30 units (WAPE: 0.340), pooled over the three origins
+     - Month 19: Bias = -15.08 units (WAPE: 0.406), pooled over the three origins
      Because quantile regression at $\alpha = 0.50$ estimates the conditional median rather than the conditional mean, slight median under-prediction in early horizons compounds into lower lag features, mildly dampening subsequent predictions.
 
 3. **Quantile Loss Objective and Demand Asymmetry**:
    - *Hypothesis*: The P50 booster optimizes pinball loss at $\alpha = 0.50$, which estimates the median rather than the mean.
-   - *Evidence*: Automotive aftermarket and OEM spare parts demand displays heavy right-skew: series frequently record zero or small orders punctuated by large bulk procurement runs. In right-skewed distributions, the conditional median is strictly less than the conditional mean ($\text{Median} < \text{Mean}$). An unbiased median forecast will therefore produce a negative mean bias when evaluated using $\text{mean}(y_{\text{pred}} - y_{\text{true}})$. Baseline models like Croston and moving averages optimize for mean demand and display near-zero or positive bias, but suffer significantly worse WAPE (0.430 to 0.443 vs 0.360 to 0.396 for LightGBM).
+   - *Evidence*: Automotive aftermarket and OEM spare parts demand displays heavy right-skew: series frequently record zero or small orders punctuated by large bulk procurement runs. In right-skewed distributions, the conditional median is strictly less than the conditional mean ($\text{Median} < \text{Mean}$). An unbiased median forecast will therefore produce a negative mean bias when evaluated using $\text{mean}(y_{\text{pred}} - y_{\text{true}})$. Baseline models like Croston and moving averages optimize for mean demand and display near-zero or positive bias, but suffer significantly worse WAPE (0.374 to 0.402, against 0.330 to 0.372 for LightGBM).
 
-*Model Policy*: No bias offsets or heuristic scaling factors were injected into model predictions. The LightGBM P50 model is retained as the forecasting engine because it achieves lower WAPE across the backtest origins.
+*Model Policy*: No bias offsets or heuristic scaling factors were injected into model predictions. Each family uses the model chosen by the selection rule above, so the forecast is not a single model. LightGBM is retained as the global ML candidate that the brief asks for, and it is used for the families where it wins on the selection origins. On this backtest it does not beat seasonal naive overall: mean WAPE across the three origins is 0.345 for LightGBM and 0.340 for seasonal naive, and LightGBM is better only at 2024-10. This is reported as a limitation.
 
 ---
 
@@ -282,6 +298,7 @@ Across all three evaluation origins, LightGBM P50 exhibits systematic negative b
 
 To stress-test supply chain resiliency under fluctuating economic conditions, the system evaluates demand sensitivity across a calibrated grid of ISM Manufacturing PMI shifts from -6.0 to +6.0 in steps of 1.5:
 - Model Sensitivity Reruns: The LightGBM quantile regression models evaluate modified macroeconomic feature vectors.
+- Scope of the shock: Only families whose selected model is LightGBM respond to the PMI shift. Families selected for a baseline have no macro input and stay fixed in every scenario. At -3.0 points the total moves from 3,004,640 to 2,974,988 units (-29,652, or -0.99%).
 - Scenario Aggregations: Demand shifts are aggregated by product family and region, exported to `outputs/whatif_scenarios.csv`, and rendered through an interactive slider in the control tower dashboard.
 
 ---
@@ -294,16 +311,18 @@ The solution's choices are documented with their reasons: unconstrained demand r
 
 ## 8. Reproducibility and Deliverable Hashes
 
-The pipeline is completely deterministic. With fixed seeds (`random_state=42`), `deterministic=True`, and stable sorting before export, identical outputs are produced on every run.
+The pipeline sets fixed seeds (`random_state=42`), `deterministic=True`, `num_threads=1` for LightGBM, and sorts before export. The results are reproducible when the library versions in `requirements.txt` are used (Python 3.10, pandas 2.2.3, numpy 2.1.2, LightGBM 4.7.0). A run in the sandbox with Python 3.12, pandas 3.0 and numpy 2.5 gave a different forecast (3,016,755 units); the same pipeline with the pinned versions reproduces the team's forecast of 3,004,640 units exactly. The cleaned training data is identical in every run; the audit log content is identical apart from line endings.
 
-The table below documents MD5 values from the latest local pipeline run:
+The hash check is opt-in. Run `CELERIS_CHECK_HASHES=1 pytest project/tests` to compare this machine's outputs with the table below.
+
+The table below documents MD5 values from the reference run with the pinned versions:
 
 | Deliverable File | MD5 Digest |
 |---|---|
-| `project/outputs/clean_train.parquet` | `c5d4bf330ba93f492e46e39049c9ba93` |
-| `project/outputs/audit_log.csv` | `0e48a083adc53d0d5610a644502ecc44` |
-| `project/outputs/forecast_submission.csv` | `8120d20c31b02b96e2f186bb49cc87ec` |
-| `project/outputs/backtest_metrics.csv` | `a08c7f06fe59758121a89dc79d9cf110` |
+| `project/outputs/clean_train.parquet` | `625c0a51a6552299b57a8624cc1f5d22` |
+| `project/outputs/audit_log.csv` | `7d668b0e7ba3fd139856b2ef9ab9b675` |
+| `project/outputs/forecast_submission.csv` | `cad40b2354854eaa87b6c047903b0d60` |
+| `project/outputs/backtest_metrics.csv` | `5a7477b9894a1f997403064094fe6a49` |
 
 ---
 
