@@ -1,5 +1,5 @@
 Metric_Type,Detail_1,Detail_2,Detail_3,Value,Coefficient,P_Value,Lag_Months,Observations,Significant_At_5Pct
-EV_Adoption_vs_ICE_Regression,"Best Lag: 1 months, Slope: -122.9144","R^2: 0.2834, t-stat: -6.00","p-value approx: 0.0000; level result, not a first-difference finding",0.2834,-122.9144,3.970938945235286e-08,1.0,,
+EV_Adoption_vs_ICE_Regression,"Best Lag: 1 months, Slope: -122.9144","R^2: 0.2834, t-stat: -6.00","p-value approx: 0.0000; level result, not a first-difference finding",0.2834,-122.9144,3.970938945235294e-08,1.0,,
 Yearly_EV_Share_2019,"Total Units: 1,324,810","EV Units: 43, ICE Units: 320,291",EV Share: 0.00%,0.0,,,,,
 Yearly_EV_Share_2020,"Total Units: 1,056,500","EV Units: 3,424, ICE Units: 230,812",EV Share: 0.32%,0.32,,,,,
 Yearly_EV_Share_2021,"Total Units: 1,520,161","EV Units: 21,825, ICE Units: 306,189",EV Share: 1.44%,1.44,,,,,
@@ -9,11 +9,11 @@ Yearly_EV_Share_2024,"Total Units: 1,702,763","EV Units: 156,376, ICE Units: 236
 Yearly_EV_Share_2025,"Total Units: 1,672,746","EV Units: 165,273, ICE Units: 217,487",EV Share: 9.88%,9.88,,,,,
 Yearly_EV_Share_2026,"Total Units: 1,436,352","EV Units: 142,033, ICE Units: 186,924",EV Share: 9.89%,9.89,,,,,
 EV_Share_Growth,2019-01 EV Share: 0.0%,2026-10 EV Share: 10.9%,Net Gain: +10.9%,10.940333779104915,,,,,
-EV_Adoption_ICE_First_Difference_Lag_0,Coefficient: -448.124081,t-statistic: -0.7024,p-value: 0.484195,-448.124081,-448.124081,0.48419528103736037,0.0,93.0,False
+EV_Adoption_ICE_First_Difference_Lag_0,Coefficient: -448.124081,t-statistic: -0.7024,p-value: 0.484195,-448.124081,-448.124081,0.4841952810373601,0.0,93.0,False
 EV_Adoption_ICE_First_Difference_Lag_1,Coefficient: 383.495079,t-statistic: 0.5991,p-value: 0.550604,383.495079,383.495079,0.5506043913884147,1.0,92.0,False
-EV_Adoption_ICE_First_Difference_Lag_2,Coefficient: -311.055674,t-statistic: -0.4933,p-value: 0.623038,-311.055674,-311.055674,0.6230381820709897,2.0,91.0,False
+EV_Adoption_ICE_First_Difference_Lag_2,Coefficient: -311.055674,t-statistic: -0.4933,p-value: 0.623038,-311.055674,-311.055674,0.62303818207099,2.0,91.0,False
 EV_Adoption_ICE_First_Difference_Lag_3,Coefficient: 327.805299,t-statistic: 0.5180,p-value: 0.605725,327.805299,327.805299,0.6057251591607594,3.0,90.0,False
 EV_Adoption_ICE_First_Difference_Lag_4,Coefficient: -209.259518,t-statistic: -0.3280,p-value: 0.743702,-209.259518,-209.259518,0.7437020517836698,4.0,89.0,False
-EV_Adoption_ICE_First_Difference_Lag_5,Coefficient: 722.582679,t-statistic: 1.1467,p-value: 0.254667,722.582679,722.582679,0.2546666424575787,5.0,88.0,False
+EV_Adoption_ICE_First_Difference_Lag_5,Coefficient: 722.582679,t-statistic: 1.1467,p-value: 0.254667,722.582679,722.582679,0.2546666424575788,5.0,88.0,False
 EV_Adoption_ICE_First_Difference_Lag_6,Coefficient: -451.048432,t-statistic: -0.7072,p-value: 0.481387,-451.048432,-451.048432,0.48138748560763467,6.0,87.0,False
 Macro_Lag_Stability,Stable Indicator Pairs: 12/56,Stability Rate: 21.4%,Windows compared: 2019-2022 vs 2023-2026,0.21428571428571427,,,,,

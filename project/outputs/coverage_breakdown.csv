@@ -1,31 +1,31 @@
 origin,breakdown,group,horizon_month,n_obs,coverage_raw,coverage_calibrated
-ALL,overall,ALL,all,169229,0.6672,0.7317
-2023-10,origin,2023-10,-1,55724,0.6107,0.6107
-2024-10,origin,2024-10,-1,56643,0.7023,0.7883
-2025-03,origin,2025-03,-1,56862,0.6876,0.794
-ALL,horizon,month_1.0,1,8797,0.8121,0.8147
-ALL,horizon,month_2.0,2,8825,0.7916,0.7965
-ALL,horizon,month_3.0,3,8854,0.7567,0.7831
-ALL,horizon,month_4.0,4,8856,0.7394,0.7615
-ALL,horizon,month_5.0,5,8883,0.715,0.7476
-ALL,horizon,month_6.0,6,8911,0.7106,0.7572
-ALL,horizon,month_7.0,7,8868,0.6887,0.7409
-ALL,horizon,month_8.0,8,8885,0.6775,0.7374
-ALL,horizon,month_9.0,9,8894,0.673,0.7233
-ALL,horizon,month_10.0,10,8915,0.6685,0.7299
-ALL,horizon,month_11.0,11,8925,0.6478,0.7138
-ALL,horizon,month_12.0,12,8915,0.642,0.7235
-ALL,horizon,month_13.0,13,8900,0.6239,0.7122
-ALL,horizon,month_14.0,14,8937,0.6303,0.7066
-ALL,horizon,month_15.0,15,8960,0.6006,0.6891
-ALL,horizon,month_16.0,16,8954,0.6068,0.6988
-ALL,horizon,month_17.0,17,8977,0.5786,0.689
-ALL,horizon,month_18.0,18,8988,0.5685,0.6976
-ALL,horizon,month_19.0,19,8985,0.5526,0.6837
-ALL,family,Brake & Safety Systems,-1,23603,0.6942,0.7367
-ALL,family,Chassis & Structural,-1,24740,0.658,0.7358
-ALL,family,Electrical Assemblies,-1,24207,0.6698,0.7659
-ALL,family,Hydraulic Systems,-1,25812,0.6432,0.7302
-ALL,family,Powertrain Components,-1,24177,0.6737,0.7434
-ALL,family,Precision Machined Parts,-1,24353,0.6575,0.6952
-ALL,family,Thermal Management,-1,22337,0.6772,0.7139
+ALL,overall,ALL,all,169229,0.6655,0.7297
+2023-10,origin,2023-10,-1,55724,0.6037,0.6037
+2024-10,origin,2024-10,-1,56643,0.7023,0.7763
+2025-03,origin,2025-03,-1,56862,0.6893,0.8068
+ALL,horizon,month_1.0,1,8797,0.8027,0.8123
+ALL,horizon,month_2.0,2,8825,0.7915,0.8009
+ALL,horizon,month_3.0,3,8854,0.7541,0.7837
+ALL,horizon,month_4.0,4,8856,0.7313,0.7625
+ALL,horizon,month_5.0,5,8883,0.7091,0.7441
+ALL,horizon,month_6.0,6,8911,0.7076,0.7564
+ALL,horizon,month_7.0,7,8868,0.689,0.7336
+ALL,horizon,month_8.0,8,8885,0.6813,0.7279
+ALL,horizon,month_9.0,9,8894,0.6815,0.7216
+ALL,horizon,month_10.0,10,8915,0.6813,0.7343
+ALL,horizon,month_11.0,11,8925,0.6564,0.7197
+ALL,horizon,month_12.0,12,8915,0.6442,0.716
+ALL,horizon,month_13.0,13,8900,0.6191,0.7104
+ALL,horizon,month_14.0,14,8937,0.6175,0.7002
+ALL,horizon,month_15.0,15,8960,0.5915,0.6912
+ALL,horizon,month_16.0,16,8954,0.6068,0.6978
+ALL,horizon,month_17.0,17,8977,0.5726,0.6837
+ALL,horizon,month_18.0,18,8988,0.5659,0.6905
+ALL,horizon,month_19.0,19,8985,0.5481,0.6816
+ALL,family,Brake & Safety Systems,-1,23603,0.6931,0.7321
+ALL,family,Chassis & Structural,-1,24740,0.6535,0.7313
+ALL,family,Electrical Assemblies,-1,24207,0.6671,0.7647
+ALL,family,Hydraulic Systems,-1,25812,0.6465,0.7292
+ALL,family,Powertrain Components,-1,24177,0.6733,0.7451
+ALL,family,Precision Machined Parts,-1,24353,0.6604,0.6964
+ALL,family,Thermal Management,-1,22337,0.6667,0.7078

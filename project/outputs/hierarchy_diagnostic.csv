@@ -1,20 +1,20 @@
 Level,Group,Forecast_Units,Trend_Units,Gap_Pct
-Total,ALL,3016755,3104378,-2.82
+Total,ALL,3004640,3104378,-3.21
 Product_Family,Brake & Safety Systems,580555,586880,-1.08
 Product_Family,Chassis & Structural,469648,471097,-0.31
-Product_Family,Electrical Assemblies,278940,313493,-11.02
+Product_Family,Electrical Assemblies,277167,313493,-11.59
 Product_Family,Hydraulic Systems,386209,367601,5.06
 Product_Family,Powertrain Components,418604,418623,-0.0
-Product_Family,Precision Machined Parts,441995,472248,-6.41
-Product_Family,Thermal Management,440804,475192,-7.24
-Region,Asia Pacific,552964,565428,-2.2
-Region,Europe,590969,603114,-2.01
-Region,India,551080,585677,-5.91
-Region,Latin America,482972,494693,-2.37
-Region,Middle East & Africa,260404,265263,-1.83
-Region,North America,578366,582335,-0.68
-Business_Unit,Advanced Manufacturing,911643,943092,-3.33
-Business_Unit,Electronics & Controls,278940,313493,-11.02
-Business_Unit,Fluid Control Group,827013,842784,-1.87
+Product_Family,Precision Machined Parts,434644,472248,-7.96
+Product_Family,Thermal Management,437813,475192,-7.87
+Region,Asia Pacific,551663,565428,-2.43
+Region,Europe,587442,603114,-2.6
+Region,India,549192,585677,-6.23
+Region,Latin America,481585,494693,-2.65
+Region,Middle East & Africa,258292,265263,-2.63
+Region,North America,576466,582335,-1.01
+Business_Unit,Advanced Manufacturing,904292,943092,-4.11
+Business_Unit,Electronics & Controls,277167,313493,-11.59
+Business_Unit,Fluid Control Group,824022,842784,-2.23
 Business_Unit,Power & Drive Systems,418604,418623,-0.0
 Business_Unit,Safety & Compliance,580555,586880,-1.08

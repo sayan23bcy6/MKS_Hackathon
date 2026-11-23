@@ -42,8 +42,17 @@ def load_clean_train():
 def load_forecast():
     sub_path = OUTPUTS_DIR / "forecast_submission.csv"
     int_path = OUTPUTS_DIR / "forecast_intervals.csv"
-    sub = pd.read_csv(sub_path) if sub_path.exists() else pd.DataFrame()
-    intervals = pd.read_csv(int_path) if int_path.exists() else pd.DataFrame()
+    sub = pd.read_csv(sub_path, dtype={'Date': str}) if sub_path.exists() else pd.DataFrame()
+    intervals = pd.read_csv(int_path, dtype={'Date': str}) if int_path.exists() else pd.DataFrame()
+    sku_path = OUTPUTS_DIR / "sku_master.csv"
+    if sku_path.exists():
+        sku = pd.read_csv(sku_path, usecols=['SKU_ID', 'Product_Family'])
+        if not sub.empty and 'Product_Family' not in sub.columns:
+            sub = sub.merge(sku, on='SKU_ID', how='left')
+            sub['Product_Family'] = sub['Product_Family'].fillna('Unknown')
+        if not intervals.empty and 'Product_Family' not in intervals.columns:
+            intervals = intervals.merge(sku, on='SKU_ID', how='left')
+            intervals['Product_Family'] = intervals['Product_Family'].fillna('Unknown')
     return sub, intervals
 
 
@@ -147,8 +156,14 @@ def sidebar_filters(df_train: pd.DataFrame, df_forecast: pd.DataFrame) -> dict:
     sel_regions = st.sidebar.multiselect("Region", all_regions, default=all_regions, key='region')
 
     # Filter available SKUs and customers by selected families and regions
-    df_filtered_meta = df_train[df_train['Product_Family'].isin(sel_families or all_families) &
-                                df_train['Region'].isin(sel_regions or all_regions)]
+    meta_cols = ['Product_Family', 'Region', 'SKU_ID', 'Customer_Name']
+    meta_source = pd.concat(
+        [df_train[[c for c in meta_cols if c in df_train.columns]],
+         df_forecast[[c for c in meta_cols if c in df_forecast.columns]]],
+        ignore_index=True,
+    )
+    df_filtered_meta = meta_source[meta_source['Product_Family'].isin(sel_families or all_families) &
+                                   meta_source['Region'].isin(sel_regions or all_regions)]
     filtered_skus = sorted(df_filtered_meta['SKU_ID'].dropna().unique()) if not df_filtered_meta.empty else all_skus
     filtered_customers = sorted(df_filtered_meta['Customer_Name'].dropna().unique()) if not df_filtered_meta.empty else all_customers
 
@@ -163,6 +178,17 @@ def sidebar_filters(df_train: pd.DataFrame, df_forecast: pd.DataFrame) -> dict:
         'channels': sel_channels or all_channels,
         'customers': sel_customers or all_customers,
     }
+
+
+def band_frame(intervals: pd.DataFrame) -> pd.DataFrame:
+    """
+    Rows selected as a baseline have no P10 or P90. Their band is the point forecast, so the
+    summed band always contains the summed P50 line."""
+    d = intervals.copy()
+    for c in ['p10', 'p90']:
+        col = f'Units_Sold_Forecast_{c}'
+        d[col] = d[col].fillna(d['Units_Sold_Forecast_p50'])
+    return d
 
 
 def apply_filters(df: pd.DataFrame, filters: dict) -> pd.DataFrame:
@@ -192,11 +218,16 @@ def view_executive_overview(df_train, df_forecast, df_intervals, filters):
     df_t = apply_filters(df_train, filters)
     df_f = apply_filters(df_forecast, filters)
     unfiltered_forecast_total = int(df_forecast['Units_Sold_Forecast'].sum()) if not df_forecast.empty else 0
+    def _universe(col):
+        values = set(df_train[col].dropna().unique()) if col in df_train.columns else set()
+        if col in df_forecast.columns:
+            values |= set(df_forecast[col].dropna().unique())
+        return values
     all_filters = (
-        set(filters.get('families', [])) == set(df_train['Product_Family'].dropna().unique())
-        and set(filters.get('regions', [])) == set(df_train['Region'].dropna().unique())
-        and set(filters.get('skus', [])) == set(df_train['SKU_ID'].dropna().unique())
-    ) if not df_train.empty else True
+        set(filters.get('families', [])) == _universe('Product_Family')
+        and set(filters.get('regions', [])) == _universe('Region')
+        and set(filters.get('skus', [])) == _universe('SKU_ID')
+    )
     headline_label = "All data" if all_filters else "Filtered"
     st.caption(f"{headline_label} forecast total: {int(df_f['Units_Sold_Forecast'].sum()) if not df_f.empty else 0:,} units")
     if not all_filters:
@@ -254,7 +285,7 @@ def view_executive_overview(df_train, df_forecast, df_intervals, filters):
     ))
 
     if metric_mode == "Units Sold" and not df_intervals.empty:
-        df_int_filtered = df_intervals[df_intervals['Region'].isin(filters['regions'])]
+        df_int_filtered = apply_filters(band_frame(df_intervals), filters)
         if not df_int_filtered.empty:
             int_monthly = df_int_filtered.groupby('Date').agg(
                 p10=('Units_Sold_Forecast_p10', 'sum'),
@@ -268,7 +299,7 @@ def view_executive_overview(df_train, df_forecast, df_intervals, filters):
                 name='Forecast Interval (P10-P90)'
             ))
     elif metric_mode == "Revenue (USD)" and not df_intervals.empty:
-        df_int_filtered = df_intervals[df_intervals['Region'].isin(filters['regions'])].copy()
+        df_int_filtered = apply_filters(band_frame(df_intervals), filters).copy()
         if not df_int_filtered.empty:
             df_int_filtered['Est_P10_Price'] = df_int_filtered['SKU_ID'].map(sku_price_map).fillna(100.0)
             df_int_filtered['Est_P90_Price'] = df_int_filtered['Est_P10_Price']
@@ -623,7 +654,7 @@ def view_stockouts(stockouts_df, unconstrained_df, filters):
 
 
 # 8. What-If Macro Scenario (Opt 3)
-def view_scenario(scenario_df, df_forecast):
+def view_scenario(scenario_df, df_forecast, filters=None):
     st.header("Opt 3: Macroeconomic What-If Scenario Generator")
     st.caption("Source: outputs/whatif_scenarios.csv")
     st.caption("Interactive sensitivity analysis: simulate macroeconomic shocks and observe family-level demand shifts from model reruns. Only families forecast by LightGBM respond to the shock; baseline families stay fixed")
@@ -641,14 +672,18 @@ def view_scenario(scenario_df, df_forecast):
         st.warning("No data found for selected scenario delta.")
         return
 
-    tot_row = match_scen[match_scen['Level'] == 'Total']
-    if not tot_row.empty:
-        delta_units = tot_row['Shift_Units'].iloc[0]
-        pct_impact = tot_row['Shift_Pct'].iloc[0]
-        st.metric("Net Projected Impact on 19-Month Volume", f"{int(delta_units):+,} units ({pct_impact:+.2f}%)")
-        st.caption("Net unconstrained volume impact across the 19-month horizon (2026-11 to 2028-05) from rerunning the forecasting model with shifted ISM Manufacturing PMI trajectory.")
-
     fam_rows = match_scen[match_scen['Level'] == 'Product_Family'].copy()
+    fam_filter = (filters or {}).get('families')
+    all_families_selected = fam_filter is None or set(fam_filter) >= set(fam_rows['Group'].unique())
+    if fam_filter is not None and not all_families_selected:
+        fam_rows = fam_rows[fam_rows['Group'].isin(fam_filter)].copy()
+    if not fam_rows.empty:
+        delta_units = int(fam_rows['Shift_Units'].sum())
+        base_units = int(fam_rows['Baseline_Units'].sum())
+        pct_impact = round(delta_units / max(base_units, 1) * 100, 2)
+        st.metric("Net Projected Impact on 19-Month Volume", f"{delta_units:+,} units ({pct_impact:+.2f}%)")
+        st.caption("Net unconstrained volume impact across the 19-month horizon (2026-11 to 2028-05) from rerunning the forecasting model with shifted ISM Manufacturing PMI trajectory. The scenario is by product family, so only the family filter applies here.")
+
     if not fam_rows.empty:
         st.subheader(f"Family-Level Demand Shifts for {pmi_shift:+.1f} PMI Shock")
         fig_fam = px.bar(
@@ -813,7 +848,7 @@ def main():
     with tabs[6]:
         view_stockouts(stockouts_df, unconstrained_df, filters)
     with tabs[7]:
-        view_scenario(scenario_df, df_forecast)
+        view_scenario(scenario_df, df_forecast, filters)
     with tabs[8]:
         view_powertrain_lifecycle(ev_df)
 

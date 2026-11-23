@@ -1,3 +1,4 @@
+import pathlib
 """Tests for per-family model selection and the assembled forecast."""
 
 import numpy as np
@@ -108,3 +109,46 @@ def test_submission_rows_match_test_rows():
     assert len(sub) == len(test_df)
     assert not sub.duplicated(keys).any()
     assert (sub['Units_Sold_Forecast'] >= 0).all()
+
+
+def test_dashboard_band_contains_p50_under_filters():
+    """The summed P10-P90 band in the Executive Overview must contain the summed P50 line."""
+    import base64
+    import json
+    import numpy as np
+    from streamlit.testing.v1 import AppTest
+
+    def decode(v):
+        if isinstance(v, dict) and 'bdata' in v:
+            return np.frombuffer(base64.b64decode(v['bdata']), dtype=np.dtype(v['dtype'])).astype(float)
+        return np.asarray(v, float)
+
+    def bands_ok(app):
+        checked = 0
+        for el in app.get('plotly_chart'):
+            try:
+                fig = json.loads(el.proto.spec)
+            except Exception:
+                continue
+            data = fig.get('data', [])
+            p50 = [t for t in data if 'P50' in t.get('name', '')]
+            band = [t for t in data if 'Interval' in t.get('name', '')]
+            if not p50 or not band:
+                continue
+            y50 = decode(p50[0]['y'])
+            yb = decode(band[0]['y'])
+            n = len(y50)
+            upper, lower = yb[:n], yb[n:][::-1]
+            assert np.all((lower - 1e-6 <= y50) & (y50 <= upper + 1e-6))
+            checked += 1
+        return checked
+
+    dash = str(pathlib.Path(__file__).resolve().parent.parent / 'app' / 'dashboard.py')
+    app = AppTest.from_file(dash, default_timeout=200).run()
+    assert len(app.exception) == 0
+    assert bands_ok(app) >= 1
+    app = AppTest.from_file(dash, default_timeout=200).run()
+    app.sidebar.multiselect[0].set_value(['Electrical Assemblies'])
+    app.run()
+    assert len(app.exception) == 0
+    assert bands_ok(app) >= 1

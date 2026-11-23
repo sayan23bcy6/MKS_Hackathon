@@ -221,9 +221,9 @@
       "Corporate": 2,
       "System": 2,
       "Marketing": 2,
-      "Supply Constraint": 1,
-      "Market Entry": 1,
       "Announcement": 1,
+      "Market Entry": 1,
+      "Supply Constraint": 1,
       "Logistics": 1
     },
     "E_R7_dup_event_ids": 0
