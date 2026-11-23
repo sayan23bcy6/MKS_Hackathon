@@ -1,0 +1,602 @@
+SKU_ID,Product_Family,Business_Unit,SKU_Description,Size_Class,Powertrain_Application,Launch_Date,EOL_Date,Replaces_SKU,Lifecycle_Status
+BSS-001,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Disc Brake Caliper Assembly,Industrial 100,Universal,2018-05,,,Active
+BSS-002,Brake & Safety Systems,Safety & Compliance,Compact 12 mm ABS Actuator Module,Compact 12,Universal,2017-01,,,Active
+BSS-003,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Brake Pad Set,Standard 25,Universal,2014-03,,,Active
+BSS-004,Brake & Safety Systems,Safety & Compliance,Large 45 mm Electronic Stability Sensor,Large 45,Universal,2009-11,,,Active
+BSS-005,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Parking Brake Actuator,Heavy-Duty 70,Universal,2018-12,,,Active
+BSS-006,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Brake Pressure Valve,Industrial 100,Universal,2014-07,,,Active
+BSS-007,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Wheel-Speed Sensor,Compact 12,Universal,2010-10,,,Active
+BSS-008,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Safety Restraint Module,Standard 25,Universal,2017-12,,,Active
+BSS-009,Brake & Safety Systems,Safety & Compliance,Large 45 mm Disc Brake Caliper Assembly,Large 45,Universal,2012-03,,,Active
+BSS-010,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm ABS Actuator Module,Heavy-Duty 70,Universal,2011-06,,,Active
+BSS-011,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Brake Pad Set,Industrial 100,Universal,2011-06,,,Active
+BSS-012,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Brake-by-Wire Actuator,Standard 25,Universal,2026-07,,,Active
+BSS-013,Brake & Safety Systems,Safety & Compliance,Standard 25 mm ABS Actuator Module,Standard 25,Universal,2017-03,,,Active
+BSS-014,Brake & Safety Systems,Safety & Compliance,Large 45 mm ABS Actuator Module,Large 45,Universal,2012-03,,,Active
+BSS-015,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm ABS Actuator Module,Industrial 100,Universal,2017-04,,,Active
+BSS-016,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Brake Pad Set,Compact 12,Universal,2012-10,,,Active
+BSS-017,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Brake Pad Set,Heavy-Duty 70,Universal,2010-08,,,Active
+BSS-018,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Brake Pressure Valve,Compact 12,Universal,2025-06,,,Active
+BSS-019,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Brake Pressure Valve,Standard 25,Universal,2021-06,,,Active
+BSS-020,Brake & Safety Systems,Safety & Compliance,Large 45 mm Brake Pressure Valve,Large 45,Universal,2014-08,,,Active
+BSS-021,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Disc Brake Caliper Assembly,Compact 12,Universal,2021-07,,,Active
+BSS-022,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Disc Brake Caliper Assembly,Standard 25,Universal,2010-03,,,Active
+BSS-023,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Disc Brake Caliper Assembly,Heavy-Duty 70,Universal,2010-12,,,Active
+BSS-024,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Electronic Stability Sensor,Compact 12,Universal,2018-09,,,Active
+BSS-025,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Electronic Stability Sensor,Standard 25,Universal,2021-12,,,Active
+BSS-026,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Electronic Stability Sensor,Heavy-Duty 70,Universal,2016-01,,,Active
+BSS-027,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Electronic Stability Sensor,Industrial 100,Universal,2016-01,,,Active
+BSS-028,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Parking Brake Actuator,Compact 12,Universal,2013-12,,,Active
+BSS-029,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Parking Brake Actuator,Standard 25,Universal,2016-08,,,Active
+BSS-030,Brake & Safety Systems,Safety & Compliance,Large 45 mm Parking Brake Actuator,Large 45,Universal,2015-09,,,Active
+BSS-031,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Parking Brake Actuator,Industrial 100,Universal,2020-10,,,Active
+BSS-032,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Safety Restraint Module,Compact 12,Universal,2017-01,,,Active
+BSS-033,Brake & Safety Systems,Safety & Compliance,Large 45 mm Safety Restraint Module,Large 45,Universal,2015-09,,,Active
+BSS-034,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Safety Restraint Module,Heavy-Duty 70,Universal,2011-02,,,Active
+BSS-035,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Safety Restraint Module,Industrial 100,Universal,2017-10,,,Active
+BSS-036,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Wheel-Speed Sensor,Standard 25,Universal,2015-10,,,Active
+BSS-037,Brake & Safety Systems,Safety & Compliance,Large 45 mm Wheel-Speed Sensor,Large 45,Universal,2025-02,,,Active
+BSS-038,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Wheel-Speed Sensor,Heavy-Duty 70,Universal,2011-10,,,Active
+BSS-039,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Wheel-Speed Sensor,Industrial 100,Universal,2015-02,,,Active
+BSS-040,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Brake Master Cylinder,Compact 12,Universal,2009-10,,,Active
+BSS-041,Brake & Safety Systems,Safety & Compliance,Large 45 mm Brake Master Cylinder,Large 45,Universal,2017-03,,,Active
+BSS-042,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Brake Master Cylinder,Heavy-Duty 70,Universal,2016-09,,,Active
+BSS-043,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Brake Master Cylinder,Industrial 100,Universal,2023-01,,,Active
+BSS-044,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Brake Booster Unit,Compact 12,Universal,2016-11,,,Active
+BSS-045,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Brake Booster Unit,Standard 25,Universal,2012-04,,,Active
+BSS-046,Brake & Safety Systems,Safety & Compliance,Large 45 mm Brake Booster Unit,Large 45,Universal,2010-06,,,Active
+BSS-047,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Brake Booster Unit,Heavy-Duty 70,Universal,2011-07,,,Active
+BSS-048,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Brake Booster Unit,Industrial 100,Universal,2017-01,,,Active
+BSS-049,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Drum Brake Shoe Kit,Compact 12,Universal,2018-07,,,Active
+BSS-050,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Drum Brake Shoe Kit,Standard 25,Universal,2010-10,,,Active
+BSS-051,Brake & Safety Systems,Safety & Compliance,Large 45 mm Drum Brake Shoe Kit,Large 45,Universal,2009-08,,,Active
+BSS-052,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Drum Brake Shoe Kit,Heavy-Duty 70,Universal,2016-05,,,Active
+BSS-053,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Drum Brake Shoe Kit,Industrial 100,Universal,2010-08,,,Active
+BSS-054,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Brake Hose Assembly,Compact 12,Universal,2021-08,,,Active
+BSS-055,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Brake Hose Assembly,Standard 25,Universal,2021-06,,,Active
+BSS-056,Brake & Safety Systems,Safety & Compliance,Large 45 mm Brake Hose Assembly,Large 45,Universal,2011-02,,,Active
+BSS-057,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Brake Hose Assembly,Heavy-Duty 70,Universal,2015-10,,,Active
+BSS-058,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Brake Hose Assembly,Industrial 100,Universal,2009-11,,,Active
+BSS-059,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Airbag Inflator Housing,Compact 12,Universal,2012-05,,,Active
+BSS-060,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Airbag Inflator Housing,Standard 25,Universal,2023-09,,,Active
+BSS-061,Brake & Safety Systems,Safety & Compliance,Large 45 mm Airbag Inflator Housing,Large 45,Universal,2018-06,,,Active
+BSS-062,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Airbag Inflator Housing,Heavy-Duty 70,Universal,2020-01,,,Active
+BSS-063,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Airbag Inflator Housing,Industrial 100,Universal,2021-08,,,Active
+BSS-064,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Seatbelt Pretensioner,Standard 25,Universal,2017-01,,,Active
+BSS-065,Brake & Safety Systems,Safety & Compliance,Large 45 mm Seatbelt Pretensioner,Large 45,Universal,2017-08,,,Active
+BSS-066,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Seatbelt Pretensioner,Heavy-Duty 70,Universal,2011-02,,,Active
+BSS-067,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Seatbelt Pretensioner,Industrial 100,Universal,2013-01,,,Active
+BSS-068,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Regenerative Brake Controller,Compact 12,EV,2021-04,,,Active
+BSS-069,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Regenerative Brake Controller,Standard 25,EV,2020-05,,,Active
+BSS-070,Brake & Safety Systems,Safety & Compliance,Large 45 mm Regenerative Brake Controller,Large 45,EV,2020-07,,,Active
+BSS-071,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Regenerative Brake Controller,Heavy-Duty 70,EV,2023-02,,,Active
+BSS-072,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Brake Fluid Reservoir,Compact 12,Universal,2010-11,,,Active
+BSS-073,Brake & Safety Systems,Safety & Compliance,Large 45 mm Brake Fluid Reservoir,Large 45,Universal,2015-07,,,Active
+BSS-074,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Brake Fluid Reservoir,Heavy-Duty 70,Universal,2011-07,,,Active
+BSS-075,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Brake Fluid Reservoir,Industrial 100,Universal,2013-03,,,Active
+BSS-076,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Brake Rotor Disc,Compact 12,Universal,2017-03,,,Active
+BSS-077,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Brake Rotor Disc,Standard 25,Universal,2013-11,,,Active
+BSS-078,Brake & Safety Systems,Safety & Compliance,Large 45 mm Brake Rotor Disc,Large 45,Universal,2014-03,,,Active
+BSS-079,Brake & Safety Systems,Safety & Compliance,Heavy-Duty 70 mm Brake Rotor Disc,Heavy-Duty 70,Universal,2013-07,,,Active
+BSS-080,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Brake Rotor Disc,Industrial 100,Universal,2015-06,,,Active
+BSS-081,Brake & Safety Systems,Safety & Compliance,Compact 12 mm Tyre Pressure Sensor,Compact 12,Universal,2017-03,,,Active
+BSS-082,Brake & Safety Systems,Safety & Compliance,Standard 25 mm Tyre Pressure Sensor,Standard 25,Universal,2018-05,,,Active
+BSS-083,Brake & Safety Systems,Safety & Compliance,Large 45 mm Tyre Pressure Sensor,Large 45,Universal,2015-03,,,Active
+BSS-084,Brake & Safety Systems,Safety & Compliance,Industrial 100 mm Tyre Pressure Sensor,Industrial 100,Universal,2010-02,,,Active
+CSS-001,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Frame Cross-Member Assembly,Compact 12,Universal,2011-02,,,Active
+CSS-002,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Suspension Control Arm,Standard 25,Universal,2010-09,,,Active
+CSS-003,Chassis & Structural,Advanced Manufacturing,Large 45 mm Structural Mounting Bracket,Large 45,Universal,2012-03,,,Active
+CSS-004,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Reinforced Subframe Rail,Heavy-Duty 70,Universal,2015-02,,,Active
+CSS-005,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Steering Knuckle Casting,Industrial 100,Universal,2014-04,,,Active
+CSS-006,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Chassis Support Plate,Compact 12,Universal,2016-10,,,Active
+CSS-007,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Suspension Link Assembly,Standard 25,Universal,2014-07,,,Active
+CSS-008,Chassis & Structural,Advanced Manufacturing,Large 45 mm Battery Tray Structure,Large 45,EV,2020-05,,,Active
+CSS-009,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Frame Cross-Member Assembly,Heavy-Duty 70,Universal,2015-05,,,Active
+CSS-010,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Battery Enclosure Frame,Heavy-Duty 70,EV,2025-04,,,Active
+CSS-011,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Battery Tray Structure,Compact 12,EV,2020-09,,,Active
+CSS-012,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Battery Tray Structure,Standard 25,EV,2022-03,,,Active
+CSS-013,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Battery Tray Structure,Heavy-Duty 70,EV,2020-06,,,Active
+CSS-014,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Battery Tray Structure,Industrial 100,EV,2021-12,,,Active
+CSS-015,Chassis & Structural,Advanced Manufacturing,Large 45 mm Chassis Support Plate,Large 45,Universal,2018-10,,,Active
+CSS-016,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Chassis Support Plate,Heavy-Duty 70,Universal,2010-08,,,Active
+CSS-017,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Chassis Support Plate,Industrial 100,Universal,2017-09,,,Active
+CSS-018,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Frame Cross-Member Assembly,Standard 25,Universal,2013-03,,,Active
+CSS-019,Chassis & Structural,Advanced Manufacturing,Large 45 mm Frame Cross-Member Assembly,Large 45,Universal,2017-08,,,Active
+CSS-020,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Frame Cross-Member Assembly,Industrial 100,Universal,2009-10,,,Active
+CSS-021,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Reinforced Subframe Rail,Compact 12,Universal,2017-01,,,Active
+CSS-022,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Reinforced Subframe Rail,Standard 25,Universal,2014-02,,,Active
+CSS-023,Chassis & Structural,Advanced Manufacturing,Large 45 mm Reinforced Subframe Rail,Large 45,Universal,2017-05,,,Active
+CSS-024,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Reinforced Subframe Rail,Industrial 100,Universal,2024-05,,,Active
+CSS-025,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Steering Knuckle Casting,Compact 12,Universal,2014-03,,,Active
+CSS-026,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Steering Knuckle Casting,Standard 25,Universal,2012-09,,,Active
+CSS-027,Chassis & Structural,Advanced Manufacturing,Large 45 mm Steering Knuckle Casting,Large 45,Universal,2020-12,,,Active
+CSS-028,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Steering Knuckle Casting,Heavy-Duty 70,Universal,2013-05,,,Active
+CSS-029,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Structural Mounting Bracket,Compact 12,Universal,2024-03,,,Active
+CSS-030,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Structural Mounting Bracket,Standard 25,Universal,2013-05,,,Active
+CSS-031,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Structural Mounting Bracket,Industrial 100,Universal,2011-08,,,Active
+CSS-032,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Suspension Control Arm,Compact 12,Universal,2021-04,,,Active
+CSS-033,Chassis & Structural,Advanced Manufacturing,Large 45 mm Suspension Control Arm,Large 45,Universal,2023-11,,,Active
+CSS-034,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Suspension Control Arm,Industrial 100,Universal,2016-06,,,Active
+CSS-035,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Suspension Link Assembly,Compact 12,Universal,2011-12,,,Active
+CSS-036,Chassis & Structural,Advanced Manufacturing,Large 45 mm Suspension Link Assembly,Large 45,Universal,2018-02,,,Active
+CSS-037,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Suspension Link Assembly,Heavy-Duty 70,Universal,2025-01,,,Active
+CSS-038,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Suspension Link Assembly,Industrial 100,Universal,2020-12,,,Active
+CSS-039,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Crash Management Beam,Compact 12,Universal,2014-06,,,Active
+CSS-040,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Crash Management Beam,Standard 25,Universal,2012-05,,,Active
+CSS-041,Chassis & Structural,Advanced Manufacturing,Large 45 mm Crash Management Beam,Large 45,Universal,2017-09,,,Active
+CSS-042,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Crash Management Beam,Heavy-Duty 70,Universal,2021-12,,,Active
+CSS-043,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Crash Management Beam,Industrial 100,Universal,2014-03,,,Active
+CSS-044,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Engine Cradle Assembly,Compact 12,ICE,2009-09,,,Active
+CSS-045,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Engine Cradle Assembly,Standard 25,ICE,2015-10,,,Active
+CSS-046,Chassis & Structural,Advanced Manufacturing,Large 45 mm Engine Cradle Assembly,Large 45,ICE,2014-08,,,Active
+CSS-047,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Engine Cradle Assembly,Heavy-Duty 70,ICE,2013-06,,,Active
+CSS-048,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Engine Cradle Assembly,Industrial 100,ICE,2011-11,,,Active
+CSS-049,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Rear Axle Beam,Compact 12,Universal,2018-01,,,Active
+CSS-050,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Rear Axle Beam,Standard 25,Universal,2011-01,,,Active
+CSS-051,Chassis & Structural,Advanced Manufacturing,Large 45 mm Rear Axle Beam,Large 45,Universal,2014-04,,,Active
+CSS-052,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Rear Axle Beam,Heavy-Duty 70,Universal,2014-03,,,Active
+CSS-053,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Rear Axle Beam,Industrial 100,Universal,2014-08,,,Active
+CSS-054,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Shock Tower Casting,Compact 12,Universal,2024-11,,,Active
+CSS-055,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Shock Tower Casting,Standard 25,Universal,2011-09,,,Active
+CSS-056,Chassis & Structural,Advanced Manufacturing,Large 45 mm Shock Tower Casting,Large 45,Universal,2012-07,,,Active
+CSS-057,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Shock Tower Casting,Heavy-Duty 70,Universal,2025-02,,,Active
+CSS-058,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Shock Tower Casting,Industrial 100,Universal,2014-11,,,Active
+CSS-059,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Anti-Roll Bar Link,Compact 12,Universal,2011-02,,,Active
+CSS-060,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Anti-Roll Bar Link,Standard 25,Universal,2020-07,,,Active
+CSS-061,Chassis & Structural,Advanced Manufacturing,Large 45 mm Anti-Roll Bar Link,Large 45,Universal,2009-07,,,Active
+CSS-062,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Anti-Roll Bar Link,Heavy-Duty 70,Universal,2014-01,,,Active
+CSS-063,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Anti-Roll Bar Link,Industrial 100,Universal,2010-12,,,Active
+CSS-064,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Skid Plate Assembly,Compact 12,Universal,2017-04,,,Active
+CSS-065,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Skid Plate Assembly,Standard 25,Universal,2010-06,,,Active
+CSS-066,Chassis & Structural,Advanced Manufacturing,Large 45 mm Skid Plate Assembly,Large 45,Universal,2012-05,,,Active
+CSS-067,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Skid Plate Assembly,Heavy-Duty 70,Universal,2015-07,,,Active
+CSS-068,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Skid Plate Assembly,Industrial 100,Universal,2012-09,,,Active
+CSS-069,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Motor Mount Bracket,Compact 12,EV,2021-12,,,Active
+CSS-070,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Motor Mount Bracket,Standard 25,EV,2021-01,,,Active
+CSS-071,Chassis & Structural,Advanced Manufacturing,Large 45 mm Motor Mount Bracket,Large 45,EV,2021-11,,,Active
+CSS-072,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Motor Mount Bracket,Heavy-Duty 70,EV,2020-12,,,Active
+CSS-073,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Motor Mount Bracket,Industrial 100,EV,2023-06,,,Active
+CSS-074,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Tow Hitch Receiver,Compact 12,Universal,2018-12,,,Active
+CSS-075,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Tow Hitch Receiver,Standard 25,Universal,2011-05,,,Active
+CSS-076,Chassis & Structural,Advanced Manufacturing,Large 45 mm Tow Hitch Receiver,Large 45,Universal,2017-08,,,Active
+CSS-077,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Tow Hitch Receiver,Heavy-Duty 70,Universal,2024-08,,,Active
+CSS-078,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Tow Hitch Receiver,Industrial 100,Universal,2017-01,,,Active
+CSS-079,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Door Hinge Assembly,Compact 12,Universal,2017-08,,,Active
+CSS-080,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Door Hinge Assembly,Standard 25,Universal,2015-12,,,Active
+CSS-081,Chassis & Structural,Advanced Manufacturing,Large 45 mm Door Hinge Assembly,Large 45,Universal,2016-01,,,Active
+CSS-082,Chassis & Structural,Advanced Manufacturing,Heavy-Duty 70 mm Door Hinge Assembly,Heavy-Duty 70,Universal,2013-02,,,Active
+CSS-083,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Door Hinge Assembly,Industrial 100,Universal,2017-12,,,Active
+CSS-084,Chassis & Structural,Advanced Manufacturing,Compact 12 mm Roof Rail Bracket,Compact 12,Universal,2011-03,,,Active
+CSS-085,Chassis & Structural,Advanced Manufacturing,Standard 25 mm Roof Rail Bracket,Standard 25,Universal,2012-06,,,Active
+CSS-086,Chassis & Structural,Advanced Manufacturing,Large 45 mm Roof Rail Bracket,Large 45,Universal,2015-06,,,Active
+CSS-087,Chassis & Structural,Advanced Manufacturing,Industrial 100 mm Roof Rail Bracket,Industrial 100,Universal,2012-02,,,Active
+ELA-001,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm Engine Control Module,Heavy-Duty 70,ICE,2012-08,,,Active
+ELA-002,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Wiring Harness Assembly,Industrial 100,Universal,2013-04,,,Active
+ELA-003,Electrical Assemblies,Electronics & Controls,Compact 12 mm Sensor Array Unit,Compact 12,Universal,2013-12,,,Active
+ELA-004,Electrical Assemblies,Electronics & Controls,Standard 25 mm Power Distribution Module,Standard 25,Universal,2014-07,,,Active
+ELA-005,Electrical Assemblies,Electronics & Controls,Large 45 mm Motor Control Board,Large 45,EV,2021-07,,,Active
+ELA-006,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm Position Sensor Assembly,Heavy-Duty 70,Universal,2018-02,,,Active
+ELA-007,Electrical Assemblies,Electronics & Controls,Industrial 100 mm High-Voltage Connector,Industrial 100,EV,2019-10,,,Active
+ELA-008,Electrical Assemblies,Electronics & Controls,Compact 12 mm Control Relay Pack,Compact 12,Universal,2018-10,,,Active
+ELA-009,Electrical Assemblies,Electronics & Controls,Standard 25 mm Engine Control Module,Standard 25,ICE,2011-12,,,Active
+ELA-010,Electrical Assemblies,Electronics & Controls,Large 45 mm Wiring Harness Assembly,Large 45,Universal,2011-11,,,Active
+ELA-011,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm Sensor Array Unit,Heavy-Duty 70,Universal,2016-02,,,Active
+ELA-012,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Power Distribution Module,Industrial 100,Universal,2009-11,,,Active
+ELA-013,Electrical Assemblies,Electronics & Controls,Compact 12 mm Motor Control Board,Compact 12,EV,2020-09,,,Active
+ELA-014,Electrical Assemblies,Electronics & Controls,Compact 12 mm Ignition Coil Pack,Compact 12,ICE,2010-04,2023-06,,Discontinued
+ELA-015,Electrical Assemblies,Electronics & Controls,Compact 12 mm Battery Management Module,Compact 12,EV,2023-03,,ELA-014,Active
+ELA-016,Electrical Assemblies,Electronics & Controls,Standard 25 mm DC-DC Converter Unit,Standard 25,EV,2024-02,,,Active
+ELA-017,Electrical Assemblies,Electronics & Controls,Large 45 mm On-Board Charger Assembly,Large 45,EV,2026-04,,,Active
+ELA-018,Electrical Assemblies,Electronics & Controls,Standard 25 mm Control Relay Pack,Standard 25,Universal,2011-12,,,Active
+ELA-019,Electrical Assemblies,Electronics & Controls,Large 45 mm Control Relay Pack,Large 45,Universal,2011-11,,,Active
+ELA-020,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm Control Relay Pack,Heavy-Duty 70,Universal,2014-07,,,Active
+ELA-021,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Control Relay Pack,Industrial 100,Universal,2013-01,,,Active
+ELA-022,Electrical Assemblies,Electronics & Controls,Compact 12 mm Engine Control Module,Compact 12,ICE,2012-11,,,Active
+ELA-023,Electrical Assemblies,Electronics & Controls,Large 45 mm Engine Control Module,Large 45,ICE,2012-10,,,Active
+ELA-024,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Engine Control Module,Industrial 100,ICE,2015-01,,,Active
+ELA-025,Electrical Assemblies,Electronics & Controls,Compact 12 mm High-Voltage Connector,Compact 12,EV,2023-09,,,Active
+ELA-026,Electrical Assemblies,Electronics & Controls,Standard 25 mm High-Voltage Connector,Standard 25,EV,2021-02,,,Active
+ELA-027,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm High-Voltage Connector,Heavy-Duty 70,EV,2020-10,,,Active
+ELA-028,Electrical Assemblies,Electronics & Controls,Standard 25 mm Motor Control Board,Standard 25,EV,2023-10,,,Active
+ELA-029,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm Motor Control Board,Heavy-Duty 70,EV,2022-09,,,Active
+ELA-030,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Motor Control Board,Industrial 100,EV,2022-12,,,Active
+ELA-031,Electrical Assemblies,Electronics & Controls,Compact 12 mm Position Sensor Assembly,Compact 12,Universal,2013-05,,,Active
+ELA-032,Electrical Assemblies,Electronics & Controls,Standard 25 mm Position Sensor Assembly,Standard 25,Universal,2014-02,,,Active
+ELA-033,Electrical Assemblies,Electronics & Controls,Large 45 mm Position Sensor Assembly,Large 45,Universal,2015-01,,,Active
+ELA-034,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Position Sensor Assembly,Industrial 100,Universal,2014-11,,,Active
+ELA-035,Electrical Assemblies,Electronics & Controls,Compact 12 mm Power Distribution Module,Compact 12,Universal,2010-11,,,Active
+ELA-036,Electrical Assemblies,Electronics & Controls,Large 45 mm Power Distribution Module,Large 45,Universal,2015-02,,,Active
+ELA-037,Electrical Assemblies,Electronics & Controls,Standard 25 mm Sensor Array Unit,Standard 25,Universal,2016-12,,,Active
+ELA-038,Electrical Assemblies,Electronics & Controls,Large 45 mm Sensor Array Unit,Large 45,Universal,2015-10,,,Active
+ELA-039,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Sensor Array Unit,Industrial 100,Universal,2016-12,,,Active
+ELA-040,Electrical Assemblies,Electronics & Controls,Compact 12 mm Wiring Harness Assembly,Compact 12,Universal,2014-01,,,Active
+ELA-041,Electrical Assemblies,Electronics & Controls,Standard 25 mm Wiring Harness Assembly,Standard 25,Universal,2012-02,,,Active
+ELA-042,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm Wiring Harness Assembly,Heavy-Duty 70,Universal,2015-04,,,Active
+ELA-043,Electrical Assemblies,Electronics & Controls,Compact 12 mm Alternator Regulator,Compact 12,ICE,2022-11,,,Active
+ELA-044,Electrical Assemblies,Electronics & Controls,Standard 25 mm Alternator Regulator,Standard 25,ICE,2015-04,,,Active
+ELA-045,Electrical Assemblies,Electronics & Controls,Large 45 mm Alternator Regulator,Large 45,ICE,2010-12,,,Active
+ELA-046,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Alternator Regulator,Industrial 100,ICE,2009-06,,,Active
+ELA-047,Electrical Assemblies,Electronics & Controls,Compact 12 mm Starter Solenoid Assembly,Compact 12,ICE,2018-02,,,Active
+ELA-048,Electrical Assemblies,Electronics & Controls,Standard 25 mm Starter Solenoid Assembly,Standard 25,ICE,2020-05,,,Active
+ELA-049,Electrical Assemblies,Electronics & Controls,Large 45 mm Starter Solenoid Assembly,Large 45,ICE,2012-02,,,Active
+ELA-050,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm Starter Solenoid Assembly,Heavy-Duty 70,ICE,2023-12,,,Active
+ELA-051,Electrical Assemblies,Electronics & Controls,Compact 12 mm Body Control Module,Compact 12,Universal,2014-05,,,Active
+ELA-052,Electrical Assemblies,Electronics & Controls,Standard 25 mm Body Control Module,Standard 25,Universal,2010-01,,,Active
+ELA-053,Electrical Assemblies,Electronics & Controls,Large 45 mm Body Control Module,Large 45,Universal,2020-12,,,Active
+ELA-054,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm Body Control Module,Heavy-Duty 70,Universal,2012-05,,,Active
+ELA-055,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Body Control Module,Industrial 100,Universal,2017-02,,,Active
+ELA-056,Electrical Assemblies,Electronics & Controls,Compact 12 mm LED Lamp Driver,Compact 12,Universal,2010-03,,,Active
+ELA-057,Electrical Assemblies,Electronics & Controls,Standard 25 mm LED Lamp Driver,Standard 25,Universal,2021-12,,,Active
+ELA-058,Electrical Assemblies,Electronics & Controls,Large 45 mm LED Lamp Driver,Large 45,Universal,2010-04,,,Active
+ELA-059,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm LED Lamp Driver,Heavy-Duty 70,Universal,2016-04,,,Active
+ELA-060,Electrical Assemblies,Electronics & Controls,Industrial 100 mm LED Lamp Driver,Industrial 100,Universal,2012-04,,,Active
+ELA-061,Electrical Assemblies,Electronics & Controls,Compact 12 mm Fuse Box Assembly,Compact 12,Universal,2025-06,,,Active
+ELA-062,Electrical Assemblies,Electronics & Controls,Standard 25 mm Fuse Box Assembly,Standard 25,Universal,2016-11,,,Active
+ELA-063,Electrical Assemblies,Electronics & Controls,Large 45 mm Fuse Box Assembly,Large 45,Universal,2021-04,,,Active
+ELA-064,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm Fuse Box Assembly,Heavy-Duty 70,Universal,2014-03,,,Active
+ELA-065,Electrical Assemblies,Electronics & Controls,Compact 12 mm Inverter Gate Driver,Compact 12,EV,2022-06,,,Active
+ELA-066,Electrical Assemblies,Electronics & Controls,Standard 25 mm Inverter Gate Driver,Standard 25,EV,2020-10,,,Active
+ELA-067,Electrical Assemblies,Electronics & Controls,Large 45 mm Inverter Gate Driver,Large 45,EV,2021-03,,,Active
+ELA-068,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm Inverter Gate Driver,Heavy-Duty 70,EV,2020-12,,,Active
+ELA-069,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Inverter Gate Driver,Industrial 100,EV,2020-02,,,Active
+ELA-070,Electrical Assemblies,Electronics & Controls,Compact 12 mm Charging Port Module,Compact 12,EV,2023-03,,,Active
+ELA-071,Electrical Assemblies,Electronics & Controls,Standard 25 mm Charging Port Module,Standard 25,EV,2022-01,,,Active
+ELA-072,Electrical Assemblies,Electronics & Controls,Large 45 mm Charging Port Module,Large 45,EV,2020-12,,,Active
+ELA-073,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm Charging Port Module,Heavy-Duty 70,EV,2023-08,,,Active
+ELA-074,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Charging Port Module,Industrial 100,EV,2023-12,,,Active
+ELA-075,Electrical Assemblies,Electronics & Controls,Compact 12 mm Glow Plug Controller,Compact 12,ICE,2020-03,,,Active
+ELA-076,Electrical Assemblies,Electronics & Controls,Standard 25 mm Glow Plug Controller,Standard 25,ICE,2018-06,,,Active
+ELA-077,Electrical Assemblies,Electronics & Controls,Large 45 mm Glow Plug Controller,Large 45,ICE,2015-09,,,Active
+ELA-078,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Glow Plug Controller,Industrial 100,ICE,2010-12,,,Active
+ELA-079,Electrical Assemblies,Electronics & Controls,Compact 12 mm Window Motor Assembly,Compact 12,Universal,2013-11,,,Active
+ELA-080,Electrical Assemblies,Electronics & Controls,Large 45 mm Window Motor Assembly,Large 45,Universal,2022-10,,,Active
+ELA-081,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm Window Motor Assembly,Heavy-Duty 70,Universal,2012-09,,,Active
+ELA-082,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Window Motor Assembly,Industrial 100,Universal,2011-12,,,Active
+ELA-083,Electrical Assemblies,Electronics & Controls,Compact 12 mm Radar Sensor Module,Compact 12,Universal,2021-01,,,Active
+ELA-084,Electrical Assemblies,Electronics & Controls,Standard 25 mm Radar Sensor Module,Standard 25,Universal,2012-01,,,Active
+ELA-085,Electrical Assemblies,Electronics & Controls,Large 45 mm Radar Sensor Module,Large 45,Universal,2016-09,,,Active
+ELA-086,Electrical Assemblies,Electronics & Controls,Heavy-Duty 70 mm Radar Sensor Module,Heavy-Duty 70,Universal,2009-12,,,Active
+ELA-087,Electrical Assemblies,Electronics & Controls,Industrial 100 mm Radar Sensor Module,Industrial 100,Universal,2017-11,,,Active
+HYD-001,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Hydraulic Pump Module,Heavy-Duty 70,Universal,2017-12,,,Active
+HYD-002,Hydraulic Systems,Fluid Control Group,Large 45 mm Pressure Control Valve,Large 45,Universal,2016-02,,,Active
+HYD-003,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Hydraulic Cylinder Assembly,Heavy-Duty 70,Universal,2010-09,,,Active
+HYD-004,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Servo Valve Block,Industrial 100,Universal,2018-04,,,Active
+HYD-005,Hydraulic Systems,Fluid Control Group,Compact 12 mm Accumulator Housing,Compact 12,Universal,2017-05,,,Active
+HYD-006,Hydraulic Systems,Fluid Control Group,Standard 25 mm Flow Regulator Unit,Standard 25,Universal,2015-04,,,Active
+HYD-007,Hydraulic Systems,Fluid Control Group,Large 45 mm Hydraulic Manifold,Large 45,Universal,2018-08,,,Active
+HYD-008,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Actuator Piston Assembly,Heavy-Duty 70,Universal,2010-12,,,Active
+HYD-009,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Hydraulic Pump Module,Industrial 100,Universal,2016-10,,,Active
+HYD-010,Hydraulic Systems,Fluid Control Group,Compact 12 mm Pressure Control Valve,Compact 12,Universal,2013-11,,,Active
+HYD-011,Hydraulic Systems,Fluid Control Group,Standard 25 mm Hydraulic Cylinder Assembly,Standard 25,Universal,2011-10,,,Active
+HYD-012,Hydraulic Systems,Fluid Control Group,Large 45 mm Servo Valve Block,Large 45,Universal,2010-03,,,Active
+HYD-013,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Accumulator Housing,Heavy-Duty 70,Universal,2012-08,,,Active
+HYD-014,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Flow Regulator Unit,Industrial 100,Universal,2014-03,,,Active
+HYD-015,Hydraulic Systems,Fluid Control Group,Compact 12 mm Hydraulic Manifold,Compact 12,Universal,2015-04,,,Active
+HYD-016,Hydraulic Systems,Fluid Control Group,Standard 25 mm Actuator Piston Assembly,Standard 25,Universal,2017-03,,,Active
+HYD-017,Hydraulic Systems,Fluid Control Group,Large 45 mm Hydraulic Pump Module,Large 45,Universal,2016-09,,,Active
+HYD-018,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Pressure Control Valve,Heavy-Duty 70,Universal,2018-12,,,Active
+HYD-019,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Hydraulic Cylinder Assembly,Industrial 100,Universal,2014-07,,,Active
+HYD-020,Hydraulic Systems,Fluid Control Group,Large 45 mm Power Steering Pump Module,Large 45,ICE,2009-04,2024-09,,Discontinued
+HYD-021,Hydraulic Systems,Fluid Control Group,Large 45 mm Electro-Hydraulic Steering Pump,Large 45,Universal,2024-06,,HYD-020,Active
+HYD-022,Hydraulic Systems,Fluid Control Group,Standard 25 mm Accumulator Housing,Standard 25,Universal,2009-03,,,Active
+HYD-023,Hydraulic Systems,Fluid Control Group,Large 45 mm Accumulator Housing,Large 45,Universal,2024-12,,,Active
+HYD-024,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Accumulator Housing,Industrial 100,Universal,2016-12,,,Active
+HYD-025,Hydraulic Systems,Fluid Control Group,Compact 12 mm Actuator Piston Assembly,Compact 12,Universal,2018-08,,,Active
+HYD-026,Hydraulic Systems,Fluid Control Group,Large 45 mm Actuator Piston Assembly,Large 45,Universal,2014-12,,,Active
+HYD-027,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Actuator Piston Assembly,Industrial 100,Universal,2010-08,,,Active
+HYD-028,Hydraulic Systems,Fluid Control Group,Compact 12 mm Flow Regulator Unit,Compact 12,Universal,2009-05,,,Active
+HYD-029,Hydraulic Systems,Fluid Control Group,Large 45 mm Flow Regulator Unit,Large 45,Universal,2014-01,,,Active
+HYD-030,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Flow Regulator Unit,Heavy-Duty 70,Universal,2021-12,,,Active
+HYD-031,Hydraulic Systems,Fluid Control Group,Compact 12 mm Hydraulic Cylinder Assembly,Compact 12,Universal,2024-04,,,Active
+HYD-032,Hydraulic Systems,Fluid Control Group,Large 45 mm Hydraulic Cylinder Assembly,Large 45,Universal,2015-12,,,Active
+HYD-033,Hydraulic Systems,Fluid Control Group,Standard 25 mm Hydraulic Manifold,Standard 25,Universal,2012-06,,,Active
+HYD-034,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Hydraulic Manifold,Heavy-Duty 70,Universal,2023-05,,,Active
+HYD-035,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Hydraulic Manifold,Industrial 100,Universal,2016-07,,,Active
+HYD-036,Hydraulic Systems,Fluid Control Group,Compact 12 mm Hydraulic Pump Module,Compact 12,Universal,2017-04,,,Active
+HYD-037,Hydraulic Systems,Fluid Control Group,Standard 25 mm Hydraulic Pump Module,Standard 25,Universal,2012-07,,,Active
+HYD-038,Hydraulic Systems,Fluid Control Group,Standard 25 mm Pressure Control Valve,Standard 25,Universal,2016-08,,,Active
+HYD-039,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Pressure Control Valve,Industrial 100,Universal,2010-08,,,Active
+HYD-040,Hydraulic Systems,Fluid Control Group,Compact 12 mm Servo Valve Block,Compact 12,Universal,2017-11,,,Active
+HYD-041,Hydraulic Systems,Fluid Control Group,Standard 25 mm Servo Valve Block,Standard 25,Universal,2013-03,,,Active
+HYD-042,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Servo Valve Block,Heavy-Duty 70,Universal,2015-01,,,Active
+HYD-043,Hydraulic Systems,Fluid Control Group,Compact 12 mm Hydraulic Return Filter,Compact 12,Universal,2014-06,,,Active
+HYD-044,Hydraulic Systems,Fluid Control Group,Standard 25 mm Hydraulic Return Filter,Standard 25,Universal,2010-04,,,Active
+HYD-045,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Hydraulic Return Filter,Heavy-Duty 70,Universal,2011-12,,,Active
+HYD-046,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Hydraulic Return Filter,Industrial 100,Universal,2014-11,,,Active
+HYD-047,Hydraulic Systems,Fluid Control Group,Compact 12 mm Proportional Valve Assembly,Compact 12,Universal,2018-01,,,Active
+HYD-048,Hydraulic Systems,Fluid Control Group,Standard 25 mm Proportional Valve Assembly,Standard 25,Universal,2020-09,,,Active
+HYD-049,Hydraulic Systems,Fluid Control Group,Large 45 mm Proportional Valve Assembly,Large 45,Universal,2017-11,,,Active
+HYD-050,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Proportional Valve Assembly,Heavy-Duty 70,Universal,2024-09,,,Active
+HYD-051,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Proportional Valve Assembly,Industrial 100,Universal,2012-07,,,Active
+HYD-052,Hydraulic Systems,Fluid Control Group,Compact 12 mm Hydraulic Motor Unit,Compact 12,Universal,2022-04,,,Active
+HYD-053,Hydraulic Systems,Fluid Control Group,Standard 25 mm Hydraulic Motor Unit,Standard 25,Universal,2014-01,,,Active
+HYD-054,Hydraulic Systems,Fluid Control Group,Large 45 mm Hydraulic Motor Unit,Large 45,Universal,2015-05,,,Active
+HYD-055,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Hydraulic Motor Unit,Heavy-Duty 70,Universal,2014-05,,,Active
+HYD-056,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Hydraulic Motor Unit,Industrial 100,Universal,2012-09,,,Active
+HYD-057,Hydraulic Systems,Fluid Control Group,Compact 12 mm Pressure Relief Valve,Compact 12,Universal,2011-10,,,Active
+HYD-058,Hydraulic Systems,Fluid Control Group,Standard 25 mm Pressure Relief Valve,Standard 25,Universal,2016-10,,,Active
+HYD-059,Hydraulic Systems,Fluid Control Group,Large 45 mm Pressure Relief Valve,Large 45,Universal,2017-12,,,Active
+HYD-060,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Pressure Relief Valve,Industrial 100,Universal,2009-01,,,Active
+HYD-061,Hydraulic Systems,Fluid Control Group,Compact 12 mm Gear Pump Assembly,Compact 12,Universal,2010-07,,,Active
+HYD-062,Hydraulic Systems,Fluid Control Group,Standard 25 mm Gear Pump Assembly,Standard 25,Universal,2023-08,,,Active
+HYD-063,Hydraulic Systems,Fluid Control Group,Large 45 mm Gear Pump Assembly,Large 45,Universal,2025-03,,,Active
+HYD-064,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Gear Pump Assembly,Heavy-Duty 70,Universal,2016-09,,,Active
+HYD-065,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Gear Pump Assembly,Industrial 100,Universal,2010-03,,,Active
+HYD-066,Hydraulic Systems,Fluid Control Group,Compact 12 mm Hydraulic Hose Coupling,Compact 12,Universal,2023-11,,,Active
+HYD-067,Hydraulic Systems,Fluid Control Group,Standard 25 mm Hydraulic Hose Coupling,Standard 25,Universal,2020-08,,,Active
+HYD-068,Hydraulic Systems,Fluid Control Group,Large 45 mm Hydraulic Hose Coupling,Large 45,Universal,2013-08,,,Active
+HYD-069,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Hydraulic Hose Coupling,Heavy-Duty 70,Universal,2017-04,,,Active
+HYD-070,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Hydraulic Hose Coupling,Industrial 100,Universal,2023-10,,,Active
+HYD-071,Hydraulic Systems,Fluid Control Group,Compact 12 mm Directional Control Valve,Compact 12,Universal,2009-12,,,Active
+HYD-072,Hydraulic Systems,Fluid Control Group,Standard 25 mm Directional Control Valve,Standard 25,Universal,2017-02,,,Active
+HYD-073,Hydraulic Systems,Fluid Control Group,Large 45 mm Directional Control Valve,Large 45,Universal,2017-02,,,Active
+HYD-074,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Directional Control Valve,Heavy-Duty 70,Universal,2015-04,,,Active
+HYD-075,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Directional Control Valve,Industrial 100,Universal,2009-03,,,Active
+HYD-076,Hydraulic Systems,Fluid Control Group,Compact 12 mm Hydraulic Reservoir Tank,Compact 12,Universal,2018-04,,,Active
+HYD-077,Hydraulic Systems,Fluid Control Group,Standard 25 mm Hydraulic Reservoir Tank,Standard 25,Universal,2018-12,,,Active
+HYD-078,Hydraulic Systems,Fluid Control Group,Large 45 mm Hydraulic Reservoir Tank,Large 45,Universal,2017-01,,,Active
+HYD-079,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Hydraulic Reservoir Tank,Heavy-Duty 70,Universal,2020-08,,,Active
+HYD-080,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Hydraulic Reservoir Tank,Industrial 100,Universal,2011-10,,,Active
+HYD-081,Hydraulic Systems,Fluid Control Group,Compact 12 mm Hydraulic Lift Cylinder,Compact 12,Universal,2018-08,,,Active
+HYD-082,Hydraulic Systems,Fluid Control Group,Standard 25 mm Hydraulic Lift Cylinder,Standard 25,Universal,2013-09,,,Active
+HYD-083,Hydraulic Systems,Fluid Control Group,Large 45 mm Hydraulic Lift Cylinder,Large 45,Universal,2014-11,,,Active
+HYD-084,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Hydraulic Lift Cylinder,Industrial 100,Universal,2017-10,,,Active
+HYD-085,Hydraulic Systems,Fluid Control Group,Compact 12 mm Check Valve Cartridge,Compact 12,Universal,2016-02,,,Active
+HYD-086,Hydraulic Systems,Fluid Control Group,Standard 25 mm Check Valve Cartridge,Standard 25,Universal,2024-12,,,Active
+HYD-087,Hydraulic Systems,Fluid Control Group,Large 45 mm Check Valve Cartridge,Large 45,Universal,2017-07,,,Active
+HYD-088,Hydraulic Systems,Fluid Control Group,Heavy-Duty 70 mm Check Valve Cartridge,Heavy-Duty 70,Universal,2017-03,,,Active
+HYD-089,Hydraulic Systems,Fluid Control Group,Industrial 100 mm Check Valve Cartridge,Industrial 100,Universal,2024-12,,,Active
+PMP-001,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Precision Bearing Housing,Heavy-Duty 70,Universal,2012-01,,,Active
+PMP-002,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Crankshaft Precision Sleeve,Heavy-Duty 70,ICE,2010-01,,,Active
+PMP-003,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Camshaft Lobe Set,Industrial 100,ICE,2018-12,2027-08,,EOL Announced
+PMP-004,Precision Machined Parts,Power & Drive Systems,Compact 12 mm Ground Drive Spindle,Compact 12,Universal,2018-08,,,Active
+PMP-005,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Machined Valve Body,Standard 25,Universal,2017-06,,,Active
+PMP-006,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Precision Rotor Shaft,Large 45,EV,2020-03,,,Active
+PMP-007,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Gear Carrier Housing,Heavy-Duty 70,Universal,2012-03,,,Active
+PMP-008,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Hardened Pin Assembly,Industrial 100,Universal,2016-11,,,Active
+PMP-009,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Precision Bearing Housing,Compact 12,Universal,2013-07,,,Active
+PMP-010,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Crankshaft Precision Sleeve,Standard 25,ICE,2014-12,,,Active
+PMP-011,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Camshaft Lobe Set,Large 45,ICE,2012-07,,,Active
+PMP-012,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Ground Drive Spindle,Heavy-Duty 70,Universal,2017-05,,,Active
+PMP-013,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Machined Valve Body,Industrial 100,Universal,2013-10,,,Active
+PMP-014,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Precision Rotor Shaft,Compact 12,EV,2021-03,,,Active
+PMP-015,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Gear Carrier Housing,Standard 25,Universal,2009-04,,,Active
+PMP-016,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Hardened Pin Assembly,Large 45,Universal,2011-11,,,Active
+PMP-017,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Fuel Injector Body,Large 45,ICE,2017-11,2022-03,,Discontinued
+PMP-018,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Fuel Injector Body Gen-2,Large 45,ICE,2022-01,,PMP-017,Active
+PMP-019,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Precision Stator Housing,Industrial 100,EV,2026-08,,,Active
+PMP-020,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Precision Rotor Shaft Gen-2,Industrial 100,EV,2027-06,,PMP-003,Planned Launch
+PMP-021,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Crankshaft Precision Sleeve,Compact 12,ICE,2018-11,,,Active
+PMP-022,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Crankshaft Precision Sleeve,Large 45,ICE,2013-09,,,Active
+PMP-023,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Crankshaft Precision Sleeve,Industrial 100,ICE,2012-10,,,Active
+PMP-024,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Gear Carrier Housing,Compact 12,Universal,2016-10,,,Active
+PMP-025,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Gear Carrier Housing,Large 45,Universal,2012-03,,,Active
+PMP-026,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Ground Drive Spindle,Standard 25,Universal,2022-04,,,Active
+PMP-027,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Ground Drive Spindle,Large 45,Universal,2013-07,,,Active
+PMP-028,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Ground Drive Spindle,Industrial 100,Universal,2014-04,,,Active
+PMP-029,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Hardened Pin Assembly,Compact 12,Universal,2022-10,,,Active
+PMP-030,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Hardened Pin Assembly,Standard 25,Universal,2011-05,,,Active
+PMP-031,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Hardened Pin Assembly,Heavy-Duty 70,Universal,2022-10,,,Active
+PMP-032,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Machined Valve Body,Compact 12,Universal,2010-05,,,Active
+PMP-033,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Machined Valve Body,Large 45,Universal,2018-05,,,Active
+PMP-034,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Machined Valve Body,Heavy-Duty 70,Universal,2015-01,,,Active
+PMP-035,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Precision Bearing Housing,Standard 25,Universal,2009-07,,,Active
+PMP-036,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Precision Bearing Housing,Large 45,Universal,2017-09,,,Active
+PMP-037,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Precision Bearing Housing,Industrial 100,Universal,2010-08,,,Active
+PMP-038,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Precision Rotor Shaft,Standard 25,EV,2020-06,,,Active
+PMP-039,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Precision Rotor Shaft,Heavy-Duty 70,EV,2022-02,,,Active
+PMP-040,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Cylinder Liner Sleeve,Compact 12,ICE,2010-10,,,Active
+PMP-041,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Cylinder Liner Sleeve,Standard 25,ICE,2015-04,,,Active
+PMP-042,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Cylinder Liner Sleeve,Large 45,ICE,2009-06,,,Active
+PMP-043,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Cylinder Liner Sleeve,Heavy-Duty 70,ICE,2021-07,,,Active
+PMP-044,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Cylinder Liner Sleeve,Industrial 100,ICE,2017-04,,,Active
+PMP-045,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Piston Pin Set,Compact 12,ICE,2017-11,,,Active
+PMP-046,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Piston Pin Set,Large 45,ICE,2014-12,,,Active
+PMP-047,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Piston Pin Set,Heavy-Duty 70,ICE,2009-10,,,Active
+PMP-048,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Piston Pin Set,Industrial 100,ICE,2017-11,,,Active
+PMP-049,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Turbine Shaft Blank,Compact 12,ICE,2014-11,,,Active
+PMP-050,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Turbine Shaft Blank,Standard 25,ICE,2009-05,,,Active
+PMP-051,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Turbine Shaft Blank,Large 45,ICE,2010-10,,,Active
+PMP-052,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Turbine Shaft Blank,Heavy-Duty 70,ICE,2013-05,,,Active
+PMP-053,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Turbine Shaft Blank,Industrial 100,ICE,2011-03,,,Active
+PMP-054,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Precision Bushing Set,Compact 12,Universal,2013-12,,,Active
+PMP-055,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Precision Bushing Set,Standard 25,Universal,2017-12,,,Active
+PMP-056,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Precision Bushing Set,Large 45,Universal,2010-06,,,Active
+PMP-057,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Precision Bushing Set,Heavy-Duty 70,Universal,2017-07,,,Active
+PMP-058,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Precision Bushing Set,Industrial 100,Universal,2011-04,,,Active
+PMP-059,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Splined Coupling Shaft,Compact 12,Universal,2016-10,,,Active
+PMP-060,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Splined Coupling Shaft,Standard 25,Universal,2016-10,,,Active
+PMP-061,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Splined Coupling Shaft,Large 45,Universal,2014-02,,,Active
+PMP-062,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Splined Coupling Shaft,Heavy-Duty 70,Universal,2021-07,,,Active
+PMP-063,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Splined Coupling Shaft,Industrial 100,Universal,2011-08,,,Active
+PMP-064,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Machined Flange Adapter,Compact 12,Universal,2016-03,,,Active
+PMP-065,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Machined Flange Adapter,Standard 25,Universal,2010-11,,,Active
+PMP-066,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Machined Flange Adapter,Large 45,Universal,2016-04,,,Active
+PMP-067,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Machined Flange Adapter,Heavy-Duty 70,Universal,2011-06,,,Active
+PMP-068,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Machined Flange Adapter,Industrial 100,Universal,2014-02,,,Active
+PMP-069,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Motor Housing End Cap,Compact 12,EV,2019-12,,,Active
+PMP-070,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Motor Housing End Cap,Standard 25,EV,2022-07,,,Active
+PMP-071,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Motor Housing End Cap,Large 45,EV,2021-07,,,Active
+PMP-072,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Motor Housing End Cap,Heavy-Duty 70,EV,2022-07,,,Active
+PMP-073,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Motor Housing End Cap,Industrial 100,EV,2023-12,,,Active
+PMP-074,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Threaded Insert Kit,Compact 12,Universal,2017-07,,,Active
+PMP-075,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Threaded Insert Kit,Standard 25,Universal,2009-08,,,Active
+PMP-076,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Threaded Insert Kit,Large 45,Universal,2017-02,,,Active
+PMP-077,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Threaded Insert Kit,Heavy-Duty 70,Universal,2012-08,,,Active
+PMP-078,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Threaded Insert Kit,Industrial 100,Universal,2011-01,,,Active
+PMP-079,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Precision Spacer Ring,Compact 12,Universal,2015-08,,,Active
+PMP-080,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Precision Spacer Ring,Standard 25,Universal,2018-12,,,Active
+PMP-081,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Precision Spacer Ring,Large 45,Universal,2018-05,,,Active
+PMP-082,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Precision Spacer Ring,Industrial 100,Universal,2013-08,,,Active
+PMP-083,Precision Machined Parts,Advanced Manufacturing,Compact 12 mm Machined Pump Rotor,Compact 12,Universal,2013-08,,,Active
+PMP-084,Precision Machined Parts,Advanced Manufacturing,Standard 25 mm Machined Pump Rotor,Standard 25,Universal,2014-12,,,Active
+PMP-085,Precision Machined Parts,Advanced Manufacturing,Large 45 mm Machined Pump Rotor,Large 45,Universal,2018-09,,,Active
+PMP-086,Precision Machined Parts,Advanced Manufacturing,Heavy-Duty 70 mm Machined Pump Rotor,Heavy-Duty 70,Universal,2023-06,,,Active
+PMP-087,Precision Machined Parts,Advanced Manufacturing,Industrial 100 mm Machined Pump Rotor,Industrial 100,Universal,2016-08,,,Active
+PTC-001,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Transmission Gear Assembly,Heavy-Duty 70,ICE,2016-09,,,Active
+PTC-002,Powertrain Components,Power & Drive Systems,Standard 25 mm Drivetrain Coupling Unit,Standard 25,Universal,2018-09,,,Active
+PTC-003,Powertrain Components,Power & Drive Systems,Large 45 mm High-Torque Output Shaft,Large 45,Universal,2009-10,,,Active
+PTC-004,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Differential Pinion Set,Heavy-Duty 70,Universal,2009-11,,,Active
+PTC-005,Powertrain Components,Power & Drive Systems,Industrial 100 mm Torque Converter Hub,Industrial 100,ICE,2014-04,2027-05,,EOL Announced
+PTC-006,Powertrain Components,Power & Drive Systems,Compact 12 mm Axle Gear Module,Compact 12,Universal,2010-05,,,Active
+PTC-007,Powertrain Components,Power & Drive Systems,Standard 25 mm Clutch Carrier Assembly,Standard 25,ICE,2010-01,,,Active
+PTC-008,Powertrain Components,Power & Drive Systems,Large 45 mm Transfer Case Gearset,Large 45,Universal,2018-12,,,Active
+PTC-009,Powertrain Components,Power & Drive Systems,Industrial 100 mm Transmission Gear Assembly,Industrial 100,ICE,2011-09,,,Active
+PTC-010,Powertrain Components,Power & Drive Systems,Industrial 100 mm Drivetrain Coupling Unit,Industrial 100,Universal,2010-06,,,Active
+PTC-011,Powertrain Components,Power & Drive Systems,Compact 12 mm High-Torque Output Shaft,Compact 12,Universal,2013-08,,,Active
+PTC-012,Powertrain Components,Power & Drive Systems,Standard 25 mm Differential Pinion Set,Standard 25,Universal,2011-09,,,Active
+PTC-013,Powertrain Components,Power & Drive Systems,Large 45 mm Torque Converter Hub,Large 45,ICE,2009-11,,,Active
+PTC-014,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Axle Gear Module,Heavy-Duty 70,Universal,2010-06,,,Active
+PTC-015,Powertrain Components,Power & Drive Systems,Industrial 100 mm Clutch Carrier Assembly,Industrial 100,ICE,2011-12,,,Active
+PTC-016,Powertrain Components,Power & Drive Systems,Compact 12 mm Transfer Case Gearset,Compact 12,Universal,2012-07,,,Active
+PTC-017,Powertrain Components,Power & Drive Systems,Standard 25 mm Transmission Gear Assembly,Standard 25,ICE,2013-09,,,Active
+PTC-018,Powertrain Components,Power & Drive Systems,Large 45 mm Drivetrain Coupling Unit,Large 45,Universal,2014-04,,,Active
+PTC-019,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm High-Torque Output Shaft,Heavy-Duty 70,Universal,2012-10,,,Active
+PTC-020,Powertrain Components,Power & Drive Systems,Industrial 100 mm Differential Pinion Set,Industrial 100,Universal,2016-11,,,Active
+PTC-021,Powertrain Components,Power & Drive Systems,Compact 12 mm Torque Converter Hub,Compact 12,ICE,2017-07,,,Active
+PTC-022,Powertrain Components,Power & Drive Systems,Standard 25 mm Axle Gear Module,Standard 25,Universal,2011-10,,,Active
+PTC-023,Powertrain Components,Power & Drive Systems,Large 45 mm Clutch Carrier Assembly,Large 45,ICE,2009-09,,,Active
+PTC-024,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Transfer Case Gearset,Heavy-Duty 70,Universal,2009-04,,,Active
+PTC-025,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Manual Gearbox Synchro Set,Heavy-Duty 70,ICE,2009-09,2021-06,,Discontinued
+PTC-026,Powertrain Components,Power & Drive Systems,Industrial 100 mm Torque Converter Stator,Industrial 100,ICE,2015-02,2024-03,,Discontinued
+PTC-027,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm E-Axle Reduction Gear,Heavy-Duty 70,EV,2021-03,,PTC-025,Active
+PTC-028,Powertrain Components,Power & Drive Systems,Industrial 100 mm Hybrid Drive Coupling,Industrial 100,Universal,2023-12,,PTC-026,Active
+PTC-029,Powertrain Components,Power & Drive Systems,Industrial 100 mm E-Drive Output Gear,Industrial 100,EV,2027-03,,PTC-005,Planned Launch
+PTC-030,Powertrain Components,Power & Drive Systems,Large 45 mm Axle Gear Module,Large 45,Universal,2014-12,,,Active
+PTC-031,Powertrain Components,Power & Drive Systems,Industrial 100 mm Axle Gear Module,Industrial 100,Universal,2014-04,,,Active
+PTC-032,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Clutch Carrier Assembly,Heavy-Duty 70,ICE,2016-08,,,Active
+PTC-033,Powertrain Components,Power & Drive Systems,Compact 12 mm Differential Pinion Set,Compact 12,Universal,2015-11,,,Active
+PTC-034,Powertrain Components,Power & Drive Systems,Large 45 mm Differential Pinion Set,Large 45,Universal,2020-04,,,Active
+PTC-035,Powertrain Components,Power & Drive Systems,Compact 12 mm Drivetrain Coupling Unit,Compact 12,Universal,2018-08,,,Active
+PTC-036,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Drivetrain Coupling Unit,Heavy-Duty 70,Universal,2017-01,,,Active
+PTC-037,Powertrain Components,Power & Drive Systems,Standard 25 mm High-Torque Output Shaft,Standard 25,Universal,2012-07,,,Active
+PTC-038,Powertrain Components,Power & Drive Systems,Industrial 100 mm High-Torque Output Shaft,Industrial 100,Universal,2016-06,,,Active
+PTC-039,Powertrain Components,Power & Drive Systems,Standard 25 mm Transfer Case Gearset,Standard 25,Universal,2016-06,,,Active
+PTC-040,Powertrain Components,Power & Drive Systems,Industrial 100 mm Transfer Case Gearset,Industrial 100,Universal,2012-02,,,Active
+PTC-041,Powertrain Components,Power & Drive Systems,Compact 12 mm Transmission Gear Assembly,Compact 12,ICE,2009-10,,,Active
+PTC-042,Powertrain Components,Power & Drive Systems,Large 45 mm Transmission Gear Assembly,Large 45,ICE,2024-01,,,Active
+PTC-043,Powertrain Components,Power & Drive Systems,Compact 12 mm Flywheel Assembly,Compact 12,ICE,2014-08,,,Active
+PTC-044,Powertrain Components,Power & Drive Systems,Large 45 mm Flywheel Assembly,Large 45,ICE,2013-04,,,Active
+PTC-045,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Flywheel Assembly,Heavy-Duty 70,ICE,2016-10,,,Active
+PTC-046,Powertrain Components,Power & Drive Systems,Compact 12 mm Driveshaft Assembly,Compact 12,Universal,2014-01,,,Active
+PTC-047,Powertrain Components,Power & Drive Systems,Standard 25 mm Driveshaft Assembly,Standard 25,Universal,2016-12,,,Active
+PTC-048,Powertrain Components,Power & Drive Systems,Large 45 mm Driveshaft Assembly,Large 45,Universal,2021-11,,,Active
+PTC-049,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Driveshaft Assembly,Heavy-Duty 70,Universal,2012-11,,,Active
+PTC-050,Powertrain Components,Power & Drive Systems,Industrial 100 mm Driveshaft Assembly,Industrial 100,Universal,2015-02,,,Active
+PTC-051,Powertrain Components,Power & Drive Systems,Compact 12 mm CV Joint Kit,Compact 12,Universal,2009-08,,,Active
+PTC-052,Powertrain Components,Power & Drive Systems,Standard 25 mm CV Joint Kit,Standard 25,Universal,2011-10,,,Active
+PTC-053,Powertrain Components,Power & Drive Systems,Large 45 mm CV Joint Kit,Large 45,Universal,2014-02,,,Active
+PTC-054,Powertrain Components,Power & Drive Systems,Industrial 100 mm CV Joint Kit,Industrial 100,Universal,2012-02,,,Active
+PTC-055,Powertrain Components,Power & Drive Systems,Compact 12 mm Ring and Pinion Set,Compact 12,Universal,2013-09,,,Active
+PTC-056,Powertrain Components,Power & Drive Systems,Standard 25 mm Ring and Pinion Set,Standard 25,Universal,2011-04,,,Active
+PTC-057,Powertrain Components,Power & Drive Systems,Large 45 mm Ring and Pinion Set,Large 45,Universal,2013-11,,,Active
+PTC-058,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Ring and Pinion Set,Heavy-Duty 70,Universal,2015-05,,,Active
+PTC-059,Powertrain Components,Power & Drive Systems,Compact 12 mm Planetary Gear Carrier,Compact 12,Universal,2012-09,,,Active
+PTC-060,Powertrain Components,Power & Drive Systems,Standard 25 mm Planetary Gear Carrier,Standard 25,Universal,2012-08,,,Active
+PTC-061,Powertrain Components,Power & Drive Systems,Large 45 mm Planetary Gear Carrier,Large 45,Universal,2010-05,,,Active
+PTC-062,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Planetary Gear Carrier,Heavy-Duty 70,Universal,2014-08,,,Active
+PTC-063,Powertrain Components,Power & Drive Systems,Industrial 100 mm Planetary Gear Carrier,Industrial 100,Universal,2014-03,,,Active
+PTC-064,Powertrain Components,Power & Drive Systems,Compact 12 mm Timing Chain Kit,Compact 12,ICE,2016-07,,,Active
+PTC-065,Powertrain Components,Power & Drive Systems,Standard 25 mm Timing Chain Kit,Standard 25,ICE,2014-01,,,Active
+PTC-066,Powertrain Components,Power & Drive Systems,Large 45 mm Timing Chain Kit,Large 45,ICE,2015-08,,,Active
+PTC-067,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Timing Chain Kit,Heavy-Duty 70,ICE,2011-05,,,Active
+PTC-068,Powertrain Components,Power & Drive Systems,Industrial 100 mm Timing Chain Kit,Industrial 100,ICE,2013-09,,,Active
+PTC-069,Powertrain Components,Power & Drive Systems,Compact 12 mm E-Motor Output Shaft,Compact 12,EV,2023-08,,,Active
+PTC-070,Powertrain Components,Power & Drive Systems,Standard 25 mm E-Motor Output Shaft,Standard 25,EV,2023-07,,,Active
+PTC-071,Powertrain Components,Power & Drive Systems,Large 45 mm E-Motor Output Shaft,Large 45,EV,2020-10,,,Active
+PTC-072,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm E-Motor Output Shaft,Heavy-Duty 70,EV,2021-06,,,Active
+PTC-073,Powertrain Components,Power & Drive Systems,Industrial 100 mm E-Motor Output Shaft,Industrial 100,EV,2022-08,,,Active
+PTC-074,Powertrain Components,Power & Drive Systems,Compact 12 mm Turbocharger Bearing Housing,Compact 12,ICE,2015-07,,,Active
+PTC-075,Powertrain Components,Power & Drive Systems,Standard 25 mm Turbocharger Bearing Housing,Standard 25,ICE,2018-05,,,Active
+PTC-076,Powertrain Components,Power & Drive Systems,Large 45 mm Turbocharger Bearing Housing,Large 45,ICE,2011-04,,,Active
+PTC-077,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Turbocharger Bearing Housing,Heavy-Duty 70,ICE,2017-03,,,Active
+PTC-078,Powertrain Components,Power & Drive Systems,Industrial 100 mm Turbocharger Bearing Housing,Industrial 100,ICE,2013-03,,,Active
+PTC-079,Powertrain Components,Power & Drive Systems,Standard 25 mm Propeller Shaft Joint,Standard 25,Universal,2016-10,,,Active
+PTC-080,Powertrain Components,Power & Drive Systems,Large 45 mm Propeller Shaft Joint,Large 45,Universal,2011-12,,,Active
+PTC-081,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Propeller Shaft Joint,Heavy-Duty 70,Universal,2023-07,,,Active
+PTC-082,Powertrain Components,Power & Drive Systems,Industrial 100 mm Propeller Shaft Joint,Industrial 100,Universal,2010-07,,,Active
+PTC-083,Powertrain Components,Power & Drive Systems,Compact 12 mm Final Drive Gearset,Compact 12,Universal,2022-07,,,Active
+PTC-084,Powertrain Components,Power & Drive Systems,Standard 25 mm Final Drive Gearset,Standard 25,Universal,2016-09,,,Active
+PTC-085,Powertrain Components,Power & Drive Systems,Large 45 mm Final Drive Gearset,Large 45,Universal,2014-03,,,Active
+PTC-086,Powertrain Components,Power & Drive Systems,Heavy-Duty 70 mm Final Drive Gearset,Heavy-Duty 70,Universal,2012-04,,,Active
+PTC-087,Powertrain Components,Power & Drive Systems,Industrial 100 mm Final Drive Gearset,Industrial 100,Universal,2023-12,,,Active
+THM-001,Thermal Management,Fluid Control Group,Standard 25 mm Engine Coolant Heat Exchanger,Standard 25,ICE,2015-08,2027-12,,EOL Announced
+THM-002,Thermal Management,Fluid Control Group,Large 45 mm Transmission Oil Cooler,Large 45,ICE,2017-03,,,Active
+THM-003,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Thermal Bypass Valve,Heavy-Duty 70,Universal,2009-10,,,Active
+THM-004,Thermal Management,Fluid Control Group,Industrial 100 mm Coolant Pump Assembly,Industrial 100,Universal,2017-03,,,Active
+THM-005,Thermal Management,Fluid Control Group,Compact 12 mm Cabin Heater Core,Compact 12,Universal,2015-11,,,Active
+THM-006,Thermal Management,Fluid Control Group,Standard 25 mm Oil Temperature Regulator,Standard 25,ICE,2011-12,,,Active
+THM-007,Thermal Management,Fluid Control Group,Large 45 mm Radiator Fan Module,Large 45,Universal,2010-07,,,Active
+THM-008,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Thermal Control Housing,Heavy-Duty 70,Universal,2014-12,,,Active
+THM-009,Thermal Management,Fluid Control Group,Standard 25 mm Exhaust Gas Recirculation Cooler,Standard 25,ICE,2015-10,2022-12,,Discontinued
+THM-010,Thermal Management,Fluid Control Group,Standard 25 mm Battery Cooling Plate,Standard 25,EV,2022-09,,THM-009,Active
+THM-011,Thermal Management,Fluid Control Group,Compact 12 mm Heat Pump Valve Module,Compact 12,EV,2026-05,,,Active
+THM-012,Thermal Management,Fluid Control Group,Standard 25 mm Integrated Thermal Module,Standard 25,Universal,2027-10,,THM-001,Planned Launch
+THM-013,Thermal Management,Fluid Control Group,Standard 25 mm Cabin Heater Core,Standard 25,Universal,2024-09,,,Active
+THM-014,Thermal Management,Fluid Control Group,Large 45 mm Cabin Heater Core,Large 45,Universal,2015-06,,,Active
+THM-015,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Cabin Heater Core,Heavy-Duty 70,Universal,2009-07,,,Active
+THM-016,Thermal Management,Fluid Control Group,Industrial 100 mm Cabin Heater Core,Industrial 100,Universal,2020-05,,,Active
+THM-017,Thermal Management,Fluid Control Group,Compact 12 mm Coolant Pump Assembly,Compact 12,Universal,2010-01,,,Active
+THM-018,Thermal Management,Fluid Control Group,Standard 25 mm Coolant Pump Assembly,Standard 25,Universal,2020-10,,,Active
+THM-019,Thermal Management,Fluid Control Group,Large 45 mm Coolant Pump Assembly,Large 45,Universal,2011-07,,,Active
+THM-020,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Coolant Pump Assembly,Heavy-Duty 70,Universal,2014-09,,,Active
+THM-021,Thermal Management,Fluid Control Group,Compact 12 mm Oil Temperature Regulator,Compact 12,ICE,2010-02,,,Active
+THM-022,Thermal Management,Fluid Control Group,Large 45 mm Oil Temperature Regulator,Large 45,ICE,2017-12,,,Active
+THM-023,Thermal Management,Fluid Control Group,Compact 12 mm Radiator Fan Module,Compact 12,Universal,2011-01,,,Active
+THM-024,Thermal Management,Fluid Control Group,Standard 25 mm Radiator Fan Module,Standard 25,Universal,2011-12,,,Active
+THM-025,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Radiator Fan Module,Heavy-Duty 70,Universal,2011-08,,,Active
+THM-026,Thermal Management,Fluid Control Group,Industrial 100 mm Radiator Fan Module,Industrial 100,Universal,2016-07,,,Active
+THM-027,Thermal Management,Fluid Control Group,Compact 12 mm Thermal Bypass Valve,Compact 12,Universal,2016-05,,,Active
+THM-028,Thermal Management,Fluid Control Group,Standard 25 mm Thermal Bypass Valve,Standard 25,Universal,2014-01,,,Active
+THM-029,Thermal Management,Fluid Control Group,Large 45 mm Thermal Bypass Valve,Large 45,Universal,2013-06,,,Active
+THM-030,Thermal Management,Fluid Control Group,Industrial 100 mm Thermal Bypass Valve,Industrial 100,Universal,2016-09,,,Active
+THM-031,Thermal Management,Fluid Control Group,Compact 12 mm Thermal Control Housing,Compact 12,Universal,2018-03,,,Active
+THM-032,Thermal Management,Fluid Control Group,Standard 25 mm Thermal Control Housing,Standard 25,Universal,2013-10,,,Active
+THM-033,Thermal Management,Fluid Control Group,Large 45 mm Thermal Control Housing,Large 45,Universal,2014-05,,,Active
+THM-034,Thermal Management,Fluid Control Group,Industrial 100 mm Thermal Control Housing,Industrial 100,Universal,2012-08,,,Active
+THM-035,Thermal Management,Fluid Control Group,Compact 12 mm Transmission Oil Cooler,Compact 12,ICE,2016-06,,,Active
+THM-036,Thermal Management,Fluid Control Group,Standard 25 mm Transmission Oil Cooler,Standard 25,ICE,2013-03,,,Active
+THM-037,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Transmission Oil Cooler,Heavy-Duty 70,ICE,2010-07,,,Active
+THM-038,Thermal Management,Fluid Control Group,Industrial 100 mm Transmission Oil Cooler,Industrial 100,ICE,2012-02,,,Active
+THM-039,Thermal Management,Fluid Control Group,Compact 12 mm Intercooler Core,Compact 12,ICE,2015-12,,,Active
+THM-040,Thermal Management,Fluid Control Group,Standard 25 mm Intercooler Core,Standard 25,ICE,2018-08,,,Active
+THM-041,Thermal Management,Fluid Control Group,Large 45 mm Intercooler Core,Large 45,ICE,2016-12,,,Active
+THM-042,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Intercooler Core,Heavy-Duty 70,ICE,2014-04,,,Active
+THM-043,Thermal Management,Fluid Control Group,Industrial 100 mm Intercooler Core,Industrial 100,ICE,2016-06,,,Active
+THM-044,Thermal Management,Fluid Control Group,Standard 25 mm Thermostat Housing,Standard 25,ICE,2013-09,,,Active
+THM-045,Thermal Management,Fluid Control Group,Large 45 mm Thermostat Housing,Large 45,ICE,2017-11,,,Active
+THM-046,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Thermostat Housing,Heavy-Duty 70,ICE,2017-04,,,Active
+THM-047,Thermal Management,Fluid Control Group,Industrial 100 mm Thermostat Housing,Industrial 100,ICE,2012-08,,,Active
+THM-048,Thermal Management,Fluid Control Group,Compact 12 mm Condenser Assembly,Compact 12,Universal,2015-11,,,Active
+THM-049,Thermal Management,Fluid Control Group,Standard 25 mm Condenser Assembly,Standard 25,Universal,2017-04,,,Active
+THM-050,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Condenser Assembly,Heavy-Duty 70,Universal,2009-09,,,Active
+THM-051,Thermal Management,Fluid Control Group,Industrial 100 mm Condenser Assembly,Industrial 100,Universal,2011-09,,,Active
+THM-052,Thermal Management,Fluid Control Group,Compact 12 mm Expansion Tank,Compact 12,Universal,2016-05,,,Active
+THM-053,Thermal Management,Fluid Control Group,Standard 25 mm Expansion Tank,Standard 25,Universal,2015-10,,,Active
+THM-054,Thermal Management,Fluid Control Group,Large 45 mm Expansion Tank,Large 45,Universal,2009-05,,,Active
+THM-055,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Expansion Tank,Heavy-Duty 70,Universal,2024-09,,,Active
+THM-056,Thermal Management,Fluid Control Group,Industrial 100 mm Expansion Tank,Industrial 100,Universal,2012-08,,,Active
+THM-057,Thermal Management,Fluid Control Group,Compact 12 mm Electric Coolant Pump,Compact 12,EV,2022-11,,,Active
+THM-058,Thermal Management,Fluid Control Group,Standard 25 mm Electric Coolant Pump,Standard 25,EV,2020-12,,,Active
+THM-059,Thermal Management,Fluid Control Group,Large 45 mm Electric Coolant Pump,Large 45,EV,2021-02,,,Active
+THM-060,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Electric Coolant Pump,Heavy-Duty 70,EV,2022-12,,,Active
+THM-061,Thermal Management,Fluid Control Group,Industrial 100 mm Electric Coolant Pump,Industrial 100,EV,2021-06,,,Active
+THM-062,Thermal Management,Fluid Control Group,Standard 25 mm Chiller Unit,Standard 25,EV,2022-10,,,Active
+THM-063,Thermal Management,Fluid Control Group,Large 45 mm Chiller Unit,Large 45,EV,2022-10,,,Active
+THM-064,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Chiller Unit,Heavy-Duty 70,EV,2020-06,,,Active
+THM-065,Thermal Management,Fluid Control Group,Compact 12 mm Coolant Hose Manifold,Compact 12,Universal,2010-06,,,Active
+THM-066,Thermal Management,Fluid Control Group,Standard 25 mm Coolant Hose Manifold,Standard 25,Universal,2020-07,,,Active
+THM-067,Thermal Management,Fluid Control Group,Large 45 mm Coolant Hose Manifold,Large 45,Universal,2010-05,,,Active
+THM-068,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Coolant Hose Manifold,Heavy-Duty 70,Universal,2014-04,,,Active
+THM-069,Thermal Management,Fluid Control Group,Compact 12 mm Heat Shield Panel,Compact 12,Universal,2020-03,,,Active
+THM-070,Thermal Management,Fluid Control Group,Standard 25 mm Heat Shield Panel,Standard 25,Universal,2010-11,,,Active
+THM-071,Thermal Management,Fluid Control Group,Large 45 mm Heat Shield Panel,Large 45,Universal,2015-03,,,Active
+THM-072,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Heat Shield Panel,Heavy-Duty 70,Universal,2016-06,,,Active
+THM-073,Thermal Management,Fluid Control Group,Compact 12 mm Oil Cooler Bracket,Compact 12,Universal,2023-07,,,Active
+THM-074,Thermal Management,Fluid Control Group,Standard 25 mm Oil Cooler Bracket,Standard 25,Universal,2009-03,,,Active
+THM-075,Thermal Management,Fluid Control Group,Large 45 mm Oil Cooler Bracket,Large 45,Universal,2016-10,,,Active
+THM-076,Thermal Management,Fluid Control Group,Heavy-Duty 70 mm Oil Cooler Bracket,Heavy-Duty 70,Universal,2016-09,,,Active
+THM-077,Thermal Management,Fluid Control Group,Industrial 100 mm Oil Cooler Bracket,Industrial 100,Universal,2009-12,,,Active
+THM-078,Thermal Management,Fluid Control Group,Compact 12 mm PTC Cabin Heater,Compact 12,EV,2023-05,,,Active
+THM-079,Thermal Management,Fluid Control Group,Standard 25 mm PTC Cabin Heater,Standard 25,EV,2019-12,,,Active
+THM-080,Thermal Management,Fluid Control Group,Large 45 mm PTC Cabin Heater,Large 45,EV,2022-08,,,Active

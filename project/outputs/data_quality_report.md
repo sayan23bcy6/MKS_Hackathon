@@ -19,8 +19,8 @@ Total anomalies registered: 1605
 | T8 | SKU_ID format variations normalized to standard PREFIX-NNN | 3683 malformed | 3683 normalized to PREFIX-NNN |
 | T9 | Missing SKU descriptions populated from sku_master reference | 982 blank | 982 populated from sku_master |
 | T10 | Customer name casing and whitespace variants unified | - | 2455 normalized |
-| T11 | Units_Sold formatting and negatives | 44 comma, 497 negative | Converted to numeric and absolute value applied |
-| T12 | Unit_Price_USD scale errors & zero prices | 0 zero rows | Annual SKU median reference price applied |
+| T11 | Units_Sold formatting and negatives | 44 comma, 491 negative | Converted to numeric and absolute value applied |
+| T12 | Unit_Price_USD scale errors & zero prices | 36352 zero or missing rows, 999 out of band | Annual SKU median reference price applied |
 | T13 | Revenue_USD recalculation | 18531 discrepant | Recalculated as Units_Sold * Unit_Price_USD |
 | R5 | Sales outside launch/EOL lifecycle | - | Zeroed out 0 EOL and 15 pre-launch records |
 | T4b | Duplicate customer series records across differing channels | 244488 | 244321 (167 duplicates removed; clean dataset = 244,321 rows) |
@@ -36,7 +36,7 @@ Total anomalies registered: 1605
 
 - **M1** Duplicate 2022-06 month: 1 duplicates resolved via nearest linear neighbor interpolation.
 - **M2** Auto Production YoY fraction-to-percentage: 12 rows in 2019 scaled x100.
-- **M3** PMI decimal point correction: 1 rows corrected (4.79 to 47.9).
+- **M3** PMI decimal point correction: 1 rows corrected (see decision text).
 - **M4** Missing indicators: Linear time interpolation applied with Macro_Imputed indicator flag.
 - **M5** COVID period structural break: Is_COVID_Period flag active for 2020-03 through 2021-06.
 
@@ -50,7 +50,7 @@ Total anomalies registered: 1605
 ### price_out_of_band_scaling
 - **Rule ID:** T12
 - **Affected Records:** 37351
-- **Decision:** Replaced 37,351 T12 price rows: 518 100x-scale entries, 73 85x-scale entries and 369 entries in the 5-20x band.
+- **Decision:** Repaired 37,351 unit prices: 36,352 zero or missing prices and 999 prices outside 0.5x to 2.0x the SKU-year reference (581 near 100x, 33 near 85x, 385 in the 5x to 20x band).
 - **Reason:** Corrects cent-scale entry errors, currency conversion disparities, and manual data-entry slips while maintaining intra-year price stability.
 
 ### blank_region_categorization
@@ -74,8 +74,8 @@ Total anomalies registered: 1605
 ### macro_2023_05_pmi_decimal
 - **Rule ID:** M3
 - **Affected Records:** 1
-- **Decision:** Corrected 4.79 to 47.9 via decimal point shift.
-- **Reason:** April 2023 was 47.2 and June 2023 was 46.1; value of 4.79 was a typographical single-decimal slip.
+- **Decision:** Corrected 4.79 to 47.9 via decimal point shift (2023-05).
+- **Reason:** Neighbours: 2023-04 = 47.2, 2023-06 = 46.1; the corrected value fits the neighbour average.
 
 ### sku_bu_conflict_resolution
 - **Rule ID:** S1

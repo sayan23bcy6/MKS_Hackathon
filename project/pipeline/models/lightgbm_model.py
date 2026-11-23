@@ -89,6 +89,7 @@ def train_single_quantile(train_df: pd.DataFrame,
         'n_jobs': -1,
         'random_state': 42,
         'deterministic': True,
+        'num_threads': 1,
         'force_row_wise': True,
     }
 

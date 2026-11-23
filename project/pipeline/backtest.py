@@ -82,7 +82,7 @@ def run_honest_backtest(clean_train: pd.DataFrame,
                         horizon: int = 19,
                         save_outputs: bool = True) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
-    Run honest out-of-sample rolling-origin backtests.
+    Run out-of-sample rolling-origin backtests.
     Ensures zero forward data leakage: models, cycle features, intermittency, and lags
     are computed strictly per origin.
     Primary target: Units_Sold_Unconstrained.
@@ -96,7 +96,7 @@ def run_honest_backtest(clean_train: pd.DataFrame,
     residuals_with_date = []
 
     for origin in origins:
-        print(f"\n  Evaluating honest backtest origin: {origin}...")
+        print(f"\n  Evaluating backtest origin: {origin}...")
         origin_idx = all_dates.index(origin) if origin in all_dates else -1
         if origin_idx == -1:
             continue
@@ -415,6 +415,9 @@ def run_honest_backtest(clean_train: pd.DataFrame,
 
     metrics_df = pd.DataFrame(all_metrics)
     preds_df = pd.concat(all_preds, ignore_index=True) if all_preds else pd.DataFrame()
+    if len(preds_df):
+        sku_family = dict(zip(sku_master['SKU_ID'], sku_master['Product_Family']))
+        preds_df['Product_Family'] = preds_df['SKU_ID'].map(sku_family).fillna('Unknown')
     if save_outputs:
         metrics_df.to_csv(OUT_BACKTEST, index=False)
         print(f"\n  Backtest metrics saved to {OUT_BACKTEST} ({len(metrics_df)} slices)")
