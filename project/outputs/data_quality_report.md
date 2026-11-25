@@ -29,7 +29,7 @@ Total anomalies registered: 1605
 
 - **Stockout Records:** Documented inventory shortage periods from inventory_stockouts.csv.
 - **Stockout Keys Matched to Transactions:** 84 blank Units_Sold values filled from stockout records.
-- **Customer Account Allocation:** 84 blank fills use allocation across customers; 14 Date-SKU-Region keys had more than one customer.
+- **Customer Account Allocation:** 84 blank fills use allocation across customers; 14 transaction rows were allocated across more than one customer.
 - **Unconstrained Demand:** Requested_Units is used as unconstrained demand for listed stockout months. Unlisted suspected stockouts are estimated from the SKU-region median of normal months.
 
 ## Macroeconomic Indicators
@@ -91,5 +91,5 @@ Total anomalies registered: 1605
 ### stockout_account_allocation
 - **Rule ID:** A2
 - **Affected Records:** 14
-- **Decision:** Allocated stockout units across more than one customer for 14 Date-SKU-Region keys, in proportion to each customer's volume in that month.
+- **Decision:** Allocated stockout units across more than one customer for 14 transaction rows, in proportion to each customer's volume in that month.
 - **Reason:** Preserves individual customer demand history while conserving the reported stockout units exactly.

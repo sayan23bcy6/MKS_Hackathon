@@ -267,7 +267,7 @@
     "stockout_account_allocation": {
       "rule_id": "A2",
       "count": 14,
-      "decision": "Allocated stockout units across more than one customer for 14 Date-SKU-Region keys, in proportion to each customer's volume in that month.",
+      "decision": "Allocated stockout units across more than one customer for 14 transaction rows, in proportion to each customer's volume in that month.",
       "reason": "Preserves individual customer demand history while conserving the reported stockout units exactly."
     }
   },
