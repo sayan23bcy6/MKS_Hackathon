@@ -236,7 +236,7 @@ def generate_dq_report(dq_train: dict,
                 "rule_id": "A2",
                 "count": a2_count,
                 "decision": (
-                    f"Allocated stockout units across more than one customer for {a2_count:,} Date-SKU-Region keys, "
+                    f"Allocated stockout units across more than one customer for {a2_count:,} transaction rows, "
                     "in proportion to each customer's volume in that month."
                 ),
                 "reason": "Preserves individual customer demand history while conserving the reported stockout units exactly.",
@@ -333,7 +333,7 @@ def _write_dq_markdown(report: dict):
         "",
         f"- **Stockout Records:** Documented inventory shortage periods from inventory_stockouts.csv.",
         f"- **Stockout Keys Matched to Transactions:** {ti['T11_units_sold'].get('null_from_stockout', 0):,} blank Units_Sold values filled from stockout records.",
-        f"- **Customer Account Allocation:** {ti['T11_units_sold'].get('null_from_stockout', 0):,} blank fills use allocation across customers; {report['decision_rules_applied']['stockout_account_allocation']['count']:,} Date-SKU-Region keys had more than one customer.",
+        f"- **Customer Account Allocation:** {ti['T11_units_sold'].get('null_from_stockout', 0):,} blank fills use allocation across customers; {report['decision_rules_applied']['stockout_account_allocation']['count']:,} transaction rows were allocated across more than one customer.",
         f"- **Unconstrained Demand:** Requested_Units is used as unconstrained demand for listed stockout months. Unlisted suspected stockouts are estimated from the SKU-region median of normal months.",
         "",
         "## Macroeconomic Indicators",

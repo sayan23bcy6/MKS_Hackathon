@@ -126,13 +126,6 @@
       "before_count": 18531,
       "after_count": 0
     },
-    "T14_real_market_shocks": {
-      "description": "Real market shocks preserved without artificial outlier clipping",
-      "count": 0,
-      "rule": "T14",
-      "before_count": 0,
-      "after_count": 0
-    },
     "T15_zero_demand_vs_missing": {
       "description": "Zero demand distinguished from missing panel observations",
       "zero_demand_rows": 35403,
@@ -151,11 +144,11 @@
     },
     "T4b_date_sku_region": {
       "description": "Deduplication of duplicate load records across differing sales channels",
-      "rows_before": 244488,
+      "rows_before": 244565,
       "channels_differed": 167,
       "rows_after": 244321,
       "rule": "T4b",
-      "before_count": 244488,
+      "before_count": 244565,
       "after_count": 244321
     }
   },
@@ -267,15 +260,15 @@
     },
     "customer_series_deduplication": {
       "rule_id": "T4b",
-      "count": 167,
-      "decision": "Deduplicated series strictly on Date, SKU_ID, Region, Customer_Name by retaining latest Load_Timestamp.",
-      "reason": "Resolves multiple records loaded across differing sales channels for the same customer account; establishes authoritative 244,321 cleaned transaction rows."
+      "count": 244,
+      "decision": "Removed 244 duplicate rows on Date, SKU_ID, Region, Customer_Name, keeping the latest Load_Timestamp. 167 of the removed rows had a different Sales_Channel from the kept row. Clean dataset: 244,321 rows.",
+      "reason": "Resolves multiple loads of the same customer line recorded under differing sales channels."
     },
     "stockout_account_allocation": {
       "rule_id": "A2",
-      "count": 0,
-      "decision": "Allocated inventory stockouts defined at Date-SKU-Region proportionally across active customer accounts by non-negative volume, with remainder to largest customer.",
-      "reason": "Preserves individual customer demand history while ensuring exact conservation of reported stockout units."
+      "count": 14,
+      "decision": "Allocated stockout units across more than one customer for 14 Date-SKU-Region keys, in proportion to each customer's volume in that month.",
+      "reason": "Preserves individual customer demand history while conserving the reported stockout units exactly."
     }
   },
   "rules": {

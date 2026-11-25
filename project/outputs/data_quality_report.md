@@ -14,23 +14,23 @@ Total anomalies registered: 1605
 | T3 | Impossible future dates (e.g. 2062 transposed to 2026) | 30 found | 30 corrected |
 | T4 | Duplicate Record_IDs resolved by keeping latest Load_Timestamp | 248248 | 244566 (3682 duplicates removed) |
 | T5 | Region labels normalized and unresolvable blanks assigned to 'Unassigned' | 942 blank | 697 set to Unassigned |
-| T6 | Sales channel label variants normalized to standard set | - | 3524 normalized |
+| T6 | Sales channel label variants normalized to standard set | 3524 | 3524 normalized |
 | T7 | Missing product family inferred deterministically from SKU prefix | 1228 blank | 1228 filled from SKU prefix |
 | T8 | SKU_ID format variations normalized to standard PREFIX-NNN | 3683 malformed | 3683 normalized to PREFIX-NNN |
 | T9 | Missing SKU descriptions populated from sku_master reference | 982 blank | 982 populated from sku_master |
-| T10 | Customer name casing and whitespace variants unified | - | 2455 normalized |
+| T10 | Customer name casing and whitespace variants unified | 2455 | 2455 normalized |
 | T11 | Units_Sold formatting and negatives | 44 comma, 491 negative | Converted to numeric and absolute value applied |
 | T12 | Unit_Price_USD scale errors & zero prices | 36352 zero or missing rows, 999 out of band | Annual SKU median reference price applied |
 | T13 | Revenue_USD recalculation | 18531 discrepant | Recalculated as Units_Sold * Unit_Price_USD |
 | R5 | Sales outside launch/EOL lifecycle | - | Zeroed out 0 EOL and 15 pre-launch records |
-| T4b | Duplicate customer series records across differing channels | 244488 | 244321 (167 duplicates removed; clean dataset = 244,321 rows) |
+| T4b | Duplicate customer series records | 244,565 | 244,321 (244 duplicates removed, 167 with a differing channel) |
 
 ## Stockout Reconciliation and Unconstrained Demand (Rule A2 / T11)
 
 - **Stockout Records:** Documented inventory shortage periods from inventory_stockouts.csv.
-- **Transaction Match Rate:** 84 shortage occurrences aligned with sales transactions.
-- **Customer Account Allocation:** Allocated stockouts proportionally across active customer accounts by non-negative sales volume, assigning remainder units to largest account.
-- **Unconstrained Reconstruction:** Reconstructed actual demand using Fill_Rate adjustment to eliminate artificial supply-constrained dips before model training.
+- **Stockout Keys Matched to Transactions:** 84 blank Units_Sold values filled from stockout records.
+- **Customer Account Allocation:** 84 blank fills use allocation across customers; 14 Date-SKU-Region keys had more than one customer.
+- **Unconstrained Demand:** Requested_Units is used as unconstrained demand for listed stockout months. Unlisted suspected stockouts are estimated from the SKU-region median of normal months.
 
 ## Macroeconomic Indicators
 
@@ -38,7 +38,6 @@ Total anomalies registered: 1605
 - **M2** Auto Production YoY fraction-to-percentage: 12 rows in 2019 scaled x100.
 - **M3** PMI decimal point correction: 1 rows corrected (see decision text).
 - **M4** Missing indicators: Linear time interpolation applied with Macro_Imputed indicator flag.
-- **M5** COVID period structural break: Is_COVID_Period flag active for 2020-03 through 2021-06.
 
 ## SKU Master & Events Calendar
 
@@ -85,12 +84,12 @@ Total anomalies registered: 1605
 
 ### customer_series_deduplication
 - **Rule ID:** T4b
-- **Affected Records:** 167
-- **Decision:** Deduplicated series strictly on Date, SKU_ID, Region, Customer_Name by retaining latest Load_Timestamp.
-- **Reason:** Resolves multiple records loaded across differing sales channels for the same customer account; establishes authoritative 244,321 cleaned transaction rows.
+- **Affected Records:** 244
+- **Decision:** Removed 244 duplicate rows on Date, SKU_ID, Region, Customer_Name, keeping the latest Load_Timestamp. 167 of the removed rows had a different Sales_Channel from the kept row. Clean dataset: 244,321 rows.
+- **Reason:** Resolves multiple loads of the same customer line recorded under differing sales channels.
 
 ### stockout_account_allocation
 - **Rule ID:** A2
-- **Affected Records:** 0
-- **Decision:** Allocated inventory stockouts defined at Date-SKU-Region proportionally across active customer accounts by non-negative volume, with remainder to largest customer.
-- **Reason:** Preserves individual customer demand history while ensuring exact conservation of reported stockout units.
+- **Affected Records:** 14
+- **Decision:** Allocated stockout units across more than one customer for 14 Date-SKU-Region keys, in proportion to each customer's volume in that month.
+- **Reason:** Preserves individual customer demand history while conserving the reported stockout units exactly.
