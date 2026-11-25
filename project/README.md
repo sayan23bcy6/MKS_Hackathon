@@ -13,7 +13,7 @@ The system cleans commercial sales transactions, reconstructs unconstrained dema
 The project runs on Python 3.10+ with lightgbm, pandas, pyarrow, scikit-learn, plotly, streamlit, and pytest:
 
 ```bash
-pip install -r project/requirements.txt
+pip install -r project/app/requirements.txt
 ```
 
 ### 2. Set Up the Input Files
