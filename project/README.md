@@ -57,7 +57,7 @@ streamlit run project/app/dashboard.py
 The application runs locally at `http://localhost:8501`.
 
 ### Dashboard
-Public dashboard: [link to be added after deployment]
+Public dashboard: `https://mkshackathon.streamlit.app/`
 
 ---
 
