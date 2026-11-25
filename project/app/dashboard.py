@@ -589,7 +589,10 @@ def view_macro_lag_heatmap(macro_lag_df):
     analysis_type = st.radio("Correlation view", ["Levels", "Changes"], horizontal=True)
     if analysis_type not in ("Levels", "Changes"):
         analysis_type = "Changes"
-    st.caption("Levels correlations can be high because both series trend over time. Use the Changes view for a like-for-like comparison.")
+    if analysis_type == "Levels":
+        st.caption("Levels correlations can be high because both series trend over time. Use the Changes view for a like-for-like comparison.")
+    else:
+        st.caption("First differences remove the shared trend, so this view compares month-to-month movements.")
     if 'Analysis_Type' in macro_lag_df.columns:
         filtered_lag = macro_lag_df[macro_lag_df['Analysis_Type'] == analysis_type]
         if not filtered_lag.empty:
@@ -797,7 +800,9 @@ def view_powertrain_lifecycle(ev_df):
         st.subheader("First-difference EV adoption and ICE volume")
         diff_columns = [c for c in ['Metric_Type', 'Coefficient', 'P_Value', 'Lag_Months', 'Observations', 'Significant_At_5Pct'] if c in diff.columns]
         st.dataframe(diff[diff_columns], use_container_width=True, hide_index=True)
-        st.caption("No lag is significant at 5% in the first-difference table.")
+        if 'Significant_At_5Pct' in diff.columns:
+            n_sig = int(diff['Significant_At_5Pct'].astype(str).str.lower().isin(['true', '1', 'yes']).sum())
+            st.caption(f"{n_sig} of {len(diff)} lags are significant at 5% in the first-difference table.")
 
 
 # Main Entry Point

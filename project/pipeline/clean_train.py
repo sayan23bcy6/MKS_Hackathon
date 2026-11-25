@@ -24,7 +24,6 @@ from pipeline.unconstrained import allocate_stockout_metric
 DQ = {}  # data-quality counts, populated as we clean
 
 
-
 def _parse_date_to_yyyymm(raw: str) -> str | None:
     """Parse any known date format to YYYY-MM string. Returns None if unparseable."""
     s = str(raw).strip()
@@ -81,7 +80,6 @@ def apply_t1_date_parsing(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-
 def apply_t3_typo_year(df: pd.DataFrame) -> pd.DataFrame:
     """T3: Correct 2062-xx typos to 2026-xx when Year col agrees."""
     df = df.copy()
@@ -104,7 +102,6 @@ def apply_t3_typo_year(df: pd.DataFrame) -> pd.DataFrame:
     if still_bad.any():
         raise RuntimeError(f"T3: {still_bad.sum()} rows with Date > {TRAIN_DATE_MAX} remain after correction. Manual review needed.")
     return df
-
 
 
 def apply_t2_year_month(df: pd.DataFrame) -> pd.DataFrame:
@@ -140,7 +137,6 @@ def apply_t2_year_month(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-
 def apply_t4_dedup_record_id(df: pd.DataFrame) -> pd.DataFrame:
     """T4: Keep the row with the latest Load_Timestamp per Record_ID (R2)."""
     df = df.copy()
@@ -172,7 +168,6 @@ def apply_t4_dedup_record_id(df: pd.DataFrame) -> pd.DataFrame:
     dsr_dups = df_valid.duplicated(['Date', 'SKU_ID', 'Region'], keep=False)
     DQ['T4_date_sku_region_dups_after_dedup'] = int(dsr_dups.sum())
     return df
-
 
 
 def _normalise_region(raw) -> str | None:
@@ -268,7 +263,6 @@ def apply_t5_region(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-
 def _normalise_channel(raw) -> str | None:
     if pd.isna(raw):
         return None
@@ -308,8 +302,8 @@ def apply_t6_channel(df: pd.DataFrame) -> pd.DataFrame:
         df.at[idx, 'Sales_Channel'] = mapped
 
     DQ['T6_normalised'] = changed
+    DQ['T6_before_count'] = changed
     return df
-
 
 
 def apply_t7_product_family(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
@@ -353,7 +347,6 @@ def apply_t7_product_family(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.Da
         df.at[idx, 'Business_Unit'] = expected_bu
 
     return df
-
 
 
 def _normalise_sku(raw: str, canonical_set: set) -> str | None:
@@ -404,7 +397,6 @@ def apply_t8_sku_id(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-
 def apply_t9_sku_description(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
     """T9: Fill blank SKU_Description from sku_master."""
     df = df.copy()
@@ -423,10 +415,10 @@ def apply_t9_sku_description(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.D
     return df
 
 
-
 import difflib
 
 CANON_COMPACT_MAP = {re.sub(r'[^a-z0-9]', '', c.lower()): c for c in CANONICAL_CUSTOMERS}
+
 
 def _normalise_customer(raw) -> str | None:
     if pd.isna(raw):
@@ -486,8 +478,8 @@ def apply_t10_customer(df: pd.DataFrame) -> pd.DataFrame:
         changed += 1
 
     DQ['T10_normalised'] = changed
+    DQ['T10_before_count'] = changed
     return df
-
 
 
 def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFrame:
@@ -505,6 +497,7 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
     null_from_so = 0
     reversals_dropped = 0
     stockout_mismatches_fixed = 0
+    a2_record_ids = set()  # rows whose stockout allocation used more than one customer
 
     new_us = []
     for idx, raw in zip(df.index, us):
@@ -523,6 +516,8 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
                           if n_cust > 1 else "Blank Units_Sold filled from inventory_stockouts Shipped_Units")
                 audit.log("train.csv", rid, "Units_Sold",
                           "(blank)", int(so_val), rule_id, reason)
+                if n_cust > 1:
+                    a2_record_ids.add(rid)
                 new_us.append(float(so_val))
                 null_from_so += 1
             else:
@@ -613,6 +608,8 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
                       current_us, int(so_shipped), rule_id, reason)
             df.at[idx, 'Units_Sold'] = so_shipped
             stockout_mismatches_fixed += 1
+            if n_cust > 1:
+                a2_record_ids.add(df.at[idx, 'Record_ID'])
 
     df = df.drop(columns=['_us_temp'], errors='ignore')
 
@@ -627,9 +624,9 @@ def apply_t11_units_sold(df: pd.DataFrame, stockouts: pd.DataFrame) -> pd.DataFr
     DQ['T11_stockout_mismatches_fixed'] = stockout_mismatches_fixed
     DQ['T11_stockout_matched_rows'] = matched_so
     DQ['T11_large_values'] = int((df['Units_Sold'] > UNITS_LARGE_THRESHOLD).sum())
+    DQ['A2_allocated_stockouts'] = len(a2_record_ids)
 
     return df
-
 
 
 def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
@@ -744,7 +741,6 @@ def apply_t12_prices(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-
 def apply_t13_revenue(df: pd.DataFrame) -> pd.DataFrame:
     """T13: Recompute Revenue_USD = Units_Sold x Unit_Price_USD."""
     df = df.copy()
@@ -778,7 +774,6 @@ def apply_t13_revenue(df: pd.DataFrame) -> pd.DataFrame:
     remaining = (df.loc[has_both, 'Revenue_USD'] - expected_rev).abs() > 1.0
     DQ['T13_after_count'] = int(remaining.sum())
     return df
-
 
 
 def apply_t15_zero_demand_flag(df: pd.DataFrame) -> pd.DataFrame:
@@ -837,7 +832,6 @@ def apply_a3_high_volume_replacements(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-
 def apply_r5_lifecycle(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFrame:
     """R5: Flag (not remove) sales after EOL_Date or before Launch_Date."""
     df = df.copy()
@@ -875,7 +869,6 @@ def apply_r5_lifecycle(df: pd.DataFrame, sku_master: pd.DataFrame) -> pd.DataFra
     return df
 
 
-
 def apply_t4b_dsr_dedup(df: pd.DataFrame) -> pd.DataFrame:
     """
     T4b/R9: One clean row per Date-SKU-Region-Customer.
@@ -886,12 +879,15 @@ def apply_t4b_dsr_dedup(df: pd.DataFrame) -> pd.DataFrame:
     """
     df = df.copy()
     before = len(df)
+    DQ['T4b_before'] = before
     df['_load_ts'] = pd.to_datetime(df['Load_Timestamp'], format='%Y-%m-%d %H:%M:%S', errors='coerce')
     key_cols = ['Date', 'SKU_ID', 'Region', 'Customer_Name']
 
     # Sort descending by load timestamp, then Record_ID descending for determinism
     df = df.sort_values(['_load_ts', 'Record_ID'], ascending=[False, False])
     dup_mask = df.duplicated(key_cols, keep=False)
+
+    DQ['T4b_channels_differed'] = 0
 
     if dup_mask.any():
         dup_df = df[dup_mask]
@@ -906,6 +902,8 @@ def apply_t4b_dsr_dedup(df: pd.DataFrame) -> pd.DataFrame:
                 dropped_rid = dropped_row['Record_ID']
                 dropped_chan = dropped_row.get('Sales_Channel', '')
                 channels_differed = (dropped_chan != kept_chan)
+                if channels_differed:
+                    DQ['T4b_channels_differed'] += 1
                 reason = (f"Duplicate load for Date-SKU-Region-Customer (T4b/R9) - "
                           f"dropped {dropped_rid}, kept {kept_rid} (channels differed: {channels_differed})")
                 audit.log("train.csv", dropped_rid, "Date-SKU-Region-Customer",
@@ -918,7 +916,6 @@ def apply_t4b_dsr_dedup(df: pd.DataFrame) -> pd.DataFrame:
     df = df.drop(columns=['_load_ts']).sort_index()
     DQ['T4b_after'] = len(df)
     return df
-
 
 
 def clean_train(raw: pd.DataFrame, sku_master: pd.DataFrame,
